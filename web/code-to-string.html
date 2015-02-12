@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code To String</title>
+    <link type="text/css" rel="stylesheet" href="./code-mirror/codemirror.css" />
+    <style type="text/css">
+      .CodeMirror {
+        border: 1px solid black;
+        width: 49%;
+        height: 600px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <p>This is a small utility to help me in creating strings to use for code examples in the style guide.</p>
+    <span id="code-mirror"></span>
+    <textarea id="string" style="height: 600px; width: 49%; display: inline-block;" readonly></textarea>
+    <script type="text/javascript" src="./code-mirror/codemirror.js"></script>
+    <script type="text/javascript">
+    var stringInput = document.getElementById('string');
+    var myCodeMirror = CodeMirror(document.getElementById('code-mirror'), {
+      tabSize: 2
+    });
+
+    myCodeMirror.on('blur', function () {
+      console.log('test')
+      stringInput.value = myCodeMirror.doc.getValue().replace(/\n/g, '\\n').replace(/\t/g, '\\t').replace(/\s{2}/g, '\\t').replace(/'/g, "\\'");
+    });
+
+    stringInput.addEventListener('click', function() {
+      stringInput.select();
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+$component-identifier: '.progress-bar';
+
+#{$component-identifier} {
+  border: $border-progress-bar;
+  position: relative;
+  display: inline-block;
+  height: $height-progress-bar;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: $border-radius-progress-bar;
+
+  &__indicator {
+    position: absolute;
+    display: block;
+    height: $height-progress-bar;
+    background-color: $background-color-indicator-progress-bar;
+  }
+
+  &.m-safe {
+    border-color: $color-safe;
+
+    #{$component-identifier}__indicator {
+      background-color: $color-safe;
+    }
+  }
+
+  &.m-notice {
+    border-color: $color-notice;
+
+    #{$component-identifier}__indicator {
+      background-color: $color-notice;
+    }
+  }
+
+  &.m-warning {
+    border-color: $color-warning;
+
+    #{$component-identifier}__indicator {
+      background-color: $color-warning;
+    }
+  }
+
+  &.m-danger {
+    border-color: $color-danger;
+
+    #{$component-identifier}__indicator {
+      background-color: $color-danger;
+    }
+  }
+}
+
+$component-identifier: '';

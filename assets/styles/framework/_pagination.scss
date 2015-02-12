@@ -1,0 +1,31 @@
+$component_identifier: '.pagination';
+
+#{$component_identifier} {
+  @include user-select(none);
+
+  &__navigation,
+  &__ellipse {
+    display: inline-block;
+    padding: $padding-item-pagination;
+  }
+
+  &__navigation {
+    cursor: pointer;
+
+    &.is-active {
+      color: $color-navigation-active-pagination;
+    }
+  }
+
+  &__previous .svg-icon,
+  &__next .svg-icon {
+    width: $icon-size-pagination;
+    height: $icon-size-pagination;
+  }
+
+  &__pages {
+    display: inline-block;
+  }
+}
+
+$component_identifier: '';

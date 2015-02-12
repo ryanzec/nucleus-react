@@ -1,0 +1,110 @@
+@mixin button-size($size: normal) {
+  @if $size == small {
+    font-size: $font-size-small-button;
+    padding: $padding-small-button;
+    margin: 5px;
+  }
+  @if $size == normal {
+    font-size: $font-size-button;
+    padding: $padding-button;
+    margin: 5px;
+  }
+  @if $size == large {
+    font-size: $font-size-large-button;
+    padding: $padding-large-button;
+    margin: 10px;
+  }
+  @if $size == largest {
+    font-size: $font-size-largest-button;
+    padding: $padding-largest-button;
+    margin: 10px;
+  }
+}
+
+@mixin button-color($button-main-color, $button-text-color) {
+  &.quiet {
+    color: $color-text;
+    background: none;
+  }
+
+  &:not(.quiet) {
+    color: $button-text-color;
+    background-color: $button-main-color;
+  }
+
+  &.border {
+    border: 1px solid darken($button-main-color, 30%);
+  }
+
+  &:not(.solid-color) {
+    &:hover {
+
+      &.quiet {
+        color: $button-text-color;
+      }
+
+      &:not([disabled]) {
+        background-color: darken($button-main-color, 10%);
+      }
+    }
+
+    &:active, &.is-active {
+      &:not([disabled]) {
+        background-color: darken($button-main-color, 10%);
+      }
+    }
+  }
+}
+
+button {
+  @include button-size(normal);
+  @include button-color($background-color-button-default, $color-default-button);
+
+  border-radius: $border-radius-button;
+  position: relative;
+  border: none;
+  font-weight: $font-weight-button;
+  cursor: pointer;
+  vertical-align: middle;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.m-small {
+    @include button-size(small);
+  }
+
+  &.m-large {
+    @include button-size(large);
+  }
+
+  &.m-largest {
+    @include button-size(largest);
+  }
+
+  &.m-safe {
+    @include button-color($background-color-safe-button, $color-safe-button);
+  }
+
+  &.m-notice {
+    @include button-color($background-color-notice-button, $color-notice-button);
+  }
+
+  &.m-warning {
+    @include button-color($background-color-warning-button, $color-warning-button);
+  }
+
+  &.m-danger {
+    @include button-color($background-color-danger-button, $color-danger-button);
+  }
+
+  &[disabled] {
+    opacity: $opacity-disabled-button;
+    cursor: not-allowed;
+  }
+
+  &.m-square {
+    border-radius: 0;
+  }
+}

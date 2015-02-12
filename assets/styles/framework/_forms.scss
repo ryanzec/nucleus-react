@@ -1,0 +1,561 @@
+/**
+ * @section Forms
+ *
+ * Form are styled by wrapping input elements in an element with the class `input-element`.
+ *
+ * ```html
+ * <form>
+ *   <div class="input-element valid plain">
+ *     <label for="first-name">
+ *       First Name
+ *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+ *     </label>
+ *     <input id="first-name" name="firstName" type="text" />
+ *   </div>
+ *   <div class="input-element invalid plain">
+ *     <label for="middle-name">
+ *       Middle Name
+ *       <div class="tooltip">
+ *         <div class="handle">
+ *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+ *         </div>
+ *         <div class="content">Invalid</div>
+ *       </div>
+ *     </label>
+ *     <input id="middle-name" name="middleName" type="text" />
+ *   </div>
+ *   <div class="input-element invalid">
+ *     <label for="last-name">
+ *       Last Name
+ *       <div class="tooltip">
+ *         <div class="handle">
+ *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+ *         </div>
+ *         <div class="content">Invalid</div>
+ *       </div>
+ *     </label>
+ *     <input id="last-name" name="lastName" type="text" />
+ *   </div>
+ *   <div class="input-element">
+ *     <label>
+ *       Static Data
+ *     </label>
+ *     <div class="static-data">Sometimes you need to static data that is with-in a form</div>
+ *   </div>
+ *   <div class="input-element invalid">
+ *     <label>
+ *       Inline Checkboxes
+ *       <div class="tooltip">
+ *         <div class="handle">
+ *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+ *         </div>
+ *         <div class="content">Invalid</div>
+ *       </div>
+ *     </label>
+ *     <input id="checkbox1" name="checkbox1" type="checkbox" /><label for="checkbox1"> Checkbox 1</label>
+ *     <input id="checkbox2" name="checkbox2" type="checkbox" /><label for="checkbox2"> Checkbox 2</label>
+ *   </div>
+ *   <div class="input-element valid">
+ *     <label for="country">
+ *       Select Country
+ *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+ *     </label>
+ *     <select id="country">
+ *       <option>USA</option>
+ *       <option>Other</option>
+ *     </select>
+ *   </div>
+ *   <div class="input-element valid">
+ *     <label for="bio">
+ *       Bio
+ *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+ *     </label>
+ *     <textarea></textarea>
+ *   </div>
+ *   <div class="input-element valid">
+ *     <label>
+ *       Inline Radio
+ *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+ *     </label>
+ *     <input id="radio-yes" name="radio" type="radio" /><label for="radio-yes"> Yes</label>
+ *     <input id="radio-no" name="radio" type="radio" /><label for="radio-no"> No</label>
+ *   </div>
+ *   <div class="input-element invalid">
+ *     <label>
+ *       Stacked Checkboxes
+ *       <div class="tooltip">
+ *         <div class="handle">
+ *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+ *         </div>
+ *         <div class="content">Invalid</div>
+ *       </div>
+ *     </label>
+ *     <label for="is-active"><input id="is-active" name="stackedCheckbox1" type="checkbox" /> Checkbox 1</label>
+ *     <label for="is-active"><input id="is-active" name="stackedCheckbox2" type="checkbox" /> Checkbox 2</label>
+ *   </div>
+ *   <div class="input-element valid">
+ *     <label>
+ *       Stacked Radio Boxes
+ *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+ *     </label>
+ *     <label for="stacked-radio-yes" /><input id="stacked-radio-yes" name="stackedRadio" type="radio"> Yes</label>
+ *     <label for="stacked-radio-no"><input id="stacked-radio-no" name="stackedRadio" type="radio" /> No</label>
+ *   </div>
+ * </form>
+ * ```
+ */
+label {
+  display: block;
+  margin: $margin-label;
+}
+
+input,
+select {
+  background-color: $background-color-input;
+}
+
+/**
+ * @section Forms
+ * @subsection Radio/Checkboxes
+ *
+ * When the label wraps the input for a radio/checkbox, the input will stack (unless in an inline input element).
+ *
+ * ```html
+ *   <div class="input-element">
+ *     <label>Stacked Radio Boxes</label>
+ *     <label for="stacked-radio-yes" /><input id="stacked-radio-yes" name="stackedRadio" type="radio"> Yes</label>
+ *     <label for="stacked-radio-no"><input id="stacked-radio-no" name="stackedRadio" type="radio" /> No</label>
+ *   </div>
+ * ```
+ *
+ * If you want them to stack but don't want to use in inline input element, just have the label after in the input without wrapping it.
+ *
+ * ```html
+ * <form>
+ *   <div class="input-element">
+ *     <label>Inline Checkboxes</label>
+ *     <input id="checkbox1" name="checkbox1" type="checkbox" /><label for="checkbox1"> Checkbox 1</label>
+ *     <input id="checkbox2" name="checkbox2" type="checkbox" /><label for="checkbox2"> Checkbox 2</label>
+ *   </div>
+ * </form>
+ * ```
+ */
+input[type="radio"],
+input[type="checkbox"] {
+  margin: $margin-radio-checkbox;
+  vertical-align: middle;
+}
+
+input ~ label {
+  display: inline-block;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  border-radius: $border-radius-input;
+  border: $border-input;
+  padding: $padding-input;
+  outline: none;
+  width: $width-text-input;
+
+  &:focus {
+    border-color: $color-dark-notice;
+    box-shadow: $box-shadow-focused-input;
+  }
+}
+
+
+/**
+ * @section Forms
+ * @subsection Disabled
+ *
+ * All form element will have an opacity if they are disabled.
+ *
+ * ```html
+ * <form >
+ *   <div class="input-element">
+ *     <label for="first-name">
+ *       First Name
+ *     </label>
+ *     <input id="first-name" name="firstName" type="text" value="First Name" disabled />
+ *   </div>
+ *   <div class="input-element ">
+ *     <label for="country">
+ *       Select Country
+ *     </label>
+ *     <select id="country" disabled>
+ *       <option>USA</option>
+ *       <option>Other</option>
+ *     </select>
+ *   </div>
+ *   <div class="input-element">
+ *     <label for="bio">
+ *       Bio
+ *     </label>
+ *     <textarea disabled>Bio</textarea>
+ *   </div>
+ *   <div class="input-element">
+ *     <label>
+ *       Inline Radio
+ *     </label>
+ *     <input id="radio-yes" name="radio" type="radio" disabled /><label for="radio-yes"> Yes</label>
+ *     <input id="radio-no" name="radio" type="radio" disabled /><label for="radio-no"> No</label>
+ *   </div>
+ *   <div class="input-element ">
+ *     <label>
+ *       Stacked Checkboxes
+ *     </label>
+ *     <label for="is-active"><input id="is-active" name="stackedCheckbox1" type="checkbox" disabled /> Checkbox 1</label>
+ *     <label for="is-active"><input id="is-active" name="stackedCheckbox2" type="checkbox" disabled /> Checkbox 2</label>
+ *   </div>
+ * </form>
+ * ```
+ */
+input[disabled],
+select[disabled],
+textarea[disabled] {
+  opacity: $opacity-disabled-input;
+  cursor: not-allowed;
+}
+
+select {
+  border: 0;
+  border-radius: $border-radius-input;
+  height: $height-select;
+  outline: none;
+  border: $border-input;
+  width: $width-text-input;
+}
+
+select,
+input:not([type="checkbox"]):not([type="radio"]) {
+  &.inline {
+    width: auto;
+    margin: 0 3px;
+  }
+}
+
+.input-element {
+  position: relative;
+  padding: $padding-input-element;
+
+  .static-data {
+    display: block;
+    width: $width-text-input;
+  }
+
+  /**
+   * @section Forms
+   * @subsection Inline Elements
+   *
+   * If you wish for a label and input of an `input-element` to be inline, add the `inline` class to the `input-element` element.
+   *
+   * <div class="message notice">
+   *   <div class="content">
+   *     When doing an inline form, if you wish for the label to line up, you must give them a specific width.
+   *   </div>
+   * </div>
+   *
+   * <style type="text/css">
+   * #inline-form .input-element > label:first-child {
+   *   width: 200px;
+   * }
+   * #inline-form .input-element input:not([type="checkbox"]):not([type="radio"]),
+   * #inline-form .input-element textarea,
+   * #inline-form .input-element select {
+   *   width: 400px;
+   * }
+   * </style>
+   * ```html
+   * <form id="inline-form">
+   *   <div class="input-element inline valid">
+   *     <label for="first-name">
+   *       First Name
+   *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+   *     </label>
+   *     <input id="first-name" name="firstName" type="text" />
+   *   </div>
+   *   <div class="input-element inline">
+   *     <label for="last-name">
+   *       Last Name
+   *       <div class="tooltip u-hide">
+   *         <div class="handle">
+   *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+   *         </div>
+   *         <div class="content">Invalid</div>
+   *       </div>
+   *     </label>
+   *     <input id="last-name" name="lastName" type="text" />
+   *   </div>
+   *   <div class="input-element inline">
+   *     <label>
+   *       Static Data
+   *     </label>
+   *     <div class="static-data">Sometimes you need to static data that is with-in a form</div>
+   *   </div>
+   *   <div class="input-element inline valid">
+   *     <label>
+   *       Inline Checkboxes
+   *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+   *     </label>
+   *     <input id="checkbox1" name="checkbox1" type="checkbox" /><label for="checkbox1"> Checkbox 1</label>
+   *     <input id="checkbox2" name="checkbox2" type="checkbox" /><label for="checkbox2"> Checkbox 2</label>
+   *   </div>
+   *   <div class="input-element inline valid">
+   *     <label for="country">
+   *       Select Country
+   *       <div class="tooltip">
+   *         <div class="handle">
+   *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+   *         </div>
+   *         <div class="content">Invalid</div>
+   *       </div>
+   *     </label>
+   *     <select id="country">
+   *       <option>USA</option>
+   *       <option>Other</option>
+   *     </select>
+   *   </div>
+   *   <div class="input-element inline">
+   *     <label for="bio">
+   *       Bio
+   *       <div class="tooltip u-hide">
+   *         <div class="handle">
+   *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+   *         </div>
+   *         <div class="content">Invalid</div>
+   *       </div>
+   *     </label>
+   *     <textarea></textarea>
+   *   </div>
+   *   <div class="input-element inline invalid">
+   *     <label>
+   *       Inline Radio
+   *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+   *     </label>
+   *     <input id="radio-yes" name="radio" type="radio" /><label for="radio-yes"> Yes</label>
+   *     <input id="radio-no" name="radio" type="radio" /><label for="radio-no"> No</label>
+   *   </div>
+   *   <div class="input-element inline valid">
+   *     <label>
+   *       Stacked Checkboxes
+   *       <img class="icon svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/check.svg" />
+   *     </label>
+   *     <label for="is-active"><input id="is-active" name="stackedCheckbox1" type="checkbox" /> Checkbox 1</label>
+   *     <label for="is-active"><input id="is-active" name="stackedCheckbox2" type="checkbox" /> Checkbox 2</label>
+   *   </div>
+   *   <div class="input-element inline invalid">
+   *     <label>
+   *       Stacked Radio Boxes
+   *       <div class="tooltip">
+   *         <div class="handle">
+   *           <img class="svg-icon" src="http://cdn.jsdelivr.net/open-iconic/1.1.0/svg/x.svg" />
+   *         </div>
+   *         <div class="content">Invalid</div>
+   *       </div>
+   *     </label>
+   *     <label for="stacked-radio-yes" /><input id="stacked-radio-yes" name="stackedRadio" type="radio"> Yes</label>
+   *     <label for="stacked-radio-no"><input id="stacked-radio-no" name="stackedRadio" type="radio" /> No</label>
+   *   </div>
+   * </form>
+   * ```
+   */
+  &.inline {
+    label {
+      text-align: $text-align-compact-label;
+      padding: $padding-compact-label;
+    }
+
+    label,
+    input,
+    select,
+    textarea,
+    .static-data {
+      display: inline-block;
+
+      //having this property set can make it harder to override width (which is going to be a common use case) so leaving it out and just required it be
+      //manually set any time an inline input element is used (in order to not require a overly specific selector to override)
+      //width: auto;
+    }
+  }
+
+  .tooltip,
+  .icon {
+    position: $position-label-validator-input-element;
+    top: $top-label-validitor-input-element;
+    display: inline-block;
+    margin-left: $margin-label-validator-input-element;
+  }
+
+  /**
+   * @section Forms
+   * @subsection Message
+   *
+   * You can use a message to display errors.
+   *
+   * ```html
+   *   <div class="input-element">
+   *     <label>Stacked Radio Boxes</label>
+   *     <label for="stacked-radio-yes" /><input id="stacked-radio-yes" name="stackedRadio" type="radio"> Yes</label>
+   *     <label for="stacked-radio-no"><input id="stacked-radio-no" name="stackedRadio" type="radio" /> No</label>
+   *     <div class="message danger">
+   *       <header>Required</header>
+   *     </div>
+   *   </div>
+   * ```
+   */
+  .message {
+    display: block;
+    margin-top: $margin-message-input-element;
+  }
+
+  &:not(.plain) {
+  //   &.invalid {
+  //     input:not([type="checkbox"]):not([type="radio"]),
+  //     textarea,
+  //     select {
+  //       border-color: $color-dark-danger;
+  //       background-color: $color-light-danger;
+
+  //       &:focus {
+  //         box-shadow: $box-shadow-invalid-input-element;
+  //       }
+  //     }
+  //   }
+
+  //   &.valid {
+  //     input:not([type="checkbox"]):not([type="radio"]),
+  //     textarea,
+  //     select {
+  //       border-color: $color-dark-safe;
+  //       background-color: $color-light-safe;
+
+  //       &:focus {
+  //         box-shadow: $box-shadow-valid-input-element;
+  //       }
+  //     }
+  //   }
+  }
+
+  &.invalid {
+    .icon,
+    .tooltip .handle {
+      fill: $color-danger;
+    }
+
+    .tooltip .content {
+      color: $color-danger;
+    }
+  }
+
+  &.valid {
+    .icon,
+    .tooltip .handle {
+      fill: $color-safe;
+    }
+
+    .tooltip .content {
+      color: $color-safe;
+    }
+  }
+}
+
+/**
+ * @section Forms
+ * @subsection Input Groups
+ *
+ * If you wish to group input element togther inline, group them in an element with the `input-group` class.
+ *
+ * ```html
+ * <form>
+ *   <div class="input-group">
+ *     <div class="input-element">
+ *       <label>
+ *         Phone Number
+ *       </label>
+ *       <input text="text" style="width: 100px;"/>
+ *     </div>
+ *     <div class="input-element">
+ *       <label>
+ *         Ext
+ *       </label>
+ *       <input text="text" style="width: 30px;" />
+ *     </div>
+ *   </div>
+ * </form>
+ * ```
+ *
+ * This also work with inline input elements
+ *
+ * ```html
+ * <form>
+ *   <div class="input-group">
+ *     <div class="input-element inline">
+ *       <label style="width: 125px;">
+ *         Phone Number
+ *       </label>
+ *       <input text="text" style="width: 100px;"/>
+ *     </div>
+ *     <div class="input-element inline">
+ *       <label style="width: 50px;">
+ *         Ext
+ *       </label>
+ *       <input text="text" style="width: 30px;" />
+ *     </div>
+ *   </div>
+ * </form>
+
+ * ```
+ */
+.input-group .input-element {
+  display: inline-block;
+}
+
+
+.invalid:not(.plain) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    border-color: $color-dark-danger;
+    background-color: $color-light-danger;
+
+    &:focus {
+      box-shadow: $box-shadow-invalid-input-element;
+    }
+  }
+}
+
+.valid:not(.plain) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    border-color: $color-dark-safe;
+    background-color: $color-light-safe;
+
+    &:focus {
+      box-shadow: $box-shadow-valid-input-element;
+    }
+  }
+}
+
+.invalid {
+  .icon,
+  .tooltip .handle {
+    fill: $color-danger;
+  }
+
+  .tooltip .content {
+    color: $color-danger;
+  }
+}
+
+.valid {
+  .icon,
+  .tooltip .handle {
+    fill: $color-safe;
+  }
+
+  .tooltip .content {
+    color: $color-safe;
+  }
+}

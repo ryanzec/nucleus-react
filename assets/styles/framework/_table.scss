@@ -1,0 +1,39 @@
+table {
+  th,
+  td {
+    padding: 5px;
+    margin: 5px;
+    border-bottom: 1px solid black;
+    vertical-align: top;
+  }
+
+  .collapsed-header {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: $phone-media-break) {
+  table {
+    thead {
+      display: none;
+    }
+
+    td {
+      display: block;
+    }
+
+    th,
+    td {
+      border: none;
+    }
+
+    tr {
+      border-bottom: 1px solid black;
+    }
+
+    .collapsed-header {
+      display: block;
+      font-weight: 600;
+    }
+  }
+}

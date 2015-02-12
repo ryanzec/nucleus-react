@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.sass-cache/*
+npm-debug.log
+/web/components/*
+/node_modules/*
+/web/build/*
+/gulp/build-meta-data/*
+/coverage/*

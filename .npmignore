@@ -1,0 +1,13 @@
+gulp
+test
+web
+.bowerrc
+.editorconfig
+.git
+.gitignore
+.jshintrc
+.npmignore
+bower.json
+gulpfile.js
+mocha-all
+npm.debug.log

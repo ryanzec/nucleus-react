@@ -1,0 +1,20 @@
+.svg-icon {
+  width: $width-svg-icon;
+  height: $height-svg-icon;
+
+  &.m-safe {
+    fill: $color-safe;
+  }
+
+  &.m-notice {
+    fill: $color-notice;
+  }
+
+  &.m-warning {
+    fill: $color-warning;
+  }
+
+  &.m-danger {
+    fill: $color-danger;
+  }
+}

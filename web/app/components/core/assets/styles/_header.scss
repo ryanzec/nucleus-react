@@ -1,0 +1,47 @@
+.application header.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 49px;
+  z-index: 999;
+}
+
+.application-header {
+  @include display(flex);
+  @include align-items(center);
+
+  height: 49px;
+  background-color: $color-primary1;
+  color: $color-light-text;
+  fill: $color-light-text;
+  font-size: 1.4rem;
+
+  a {
+    color: $color-white;
+
+    &:hover,
+    &:active {
+      color: $color-white;
+      text-decoration: none;
+    }
+  }
+
+  ul {
+    margin: 0 25px;
+    list-style: none;
+  }
+
+  li {
+    padding: 0 6px;
+    display: inline-block;
+  }
+}
+
+@media only screen and (max-width: $phone-media-break) {
+  .application-header {
+    ul {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+$component-identifier: '.modal';
+
+#{$component-identifier} {
+  //TODO: add documentation for this case to test it
+  //useful for want to have a revealing panel within an element in the page instead of on the page itself
+  &.m-absolute {
+    #{$component-identifier}__content {
+      position: absolute;
+    }
+  }
+
+  &.m-center {
+    #{$component-identifier}__content {
+      //90% match the javascript * .9, this value needs to be kept in sync with the javascript code
+      max-height: 90%;
+      max-width: 90%;
+
+      //javascript handles add negative margins
+      top: 50%;
+      left: 50%;
+
+      border-radius: $border-radius-center-modal;
+      display: none;
+      border: $border-modal;
+    }
+  }
+
+  #{$component-identifier}__content {
+    position: fixed;
+    z-index: $z-index-content-modal;
+    background-color: $background-color-content-modal;
+    overflow: auto;
+    display: none;
+    padding: $padding-content-modal;
+  }
+
+  &.is-active {
+    #{$component-identifier}__content {
+      display: block;
+    }
+  }
+}
+
+$component-identifier: '';
