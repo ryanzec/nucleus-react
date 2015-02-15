@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var storeLocations = {
-  Application: '../web/app/components/core/application.store',
-  Menu: '../assets/modules/single-panel/single-panel.store'
+  Application: '../web/app/components/core/application.store'
 };
 var initialStoreValues = {};
 var Router = require('react-router');

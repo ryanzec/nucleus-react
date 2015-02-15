@@ -10,6 +10,6 @@ module.exports = {
   pagination: require('./modules/pagination/module'),
   progressBar: require('./modules/progress-bar/module'),
   tooltip: require('./modules/tooltip/module'),
-  singlePanel: require('./modules/single-panel/module'),
+  singlePanelManager: require('./modules/single-panel-manager/module'),
   svg: require('./modules/svg/module')
 };

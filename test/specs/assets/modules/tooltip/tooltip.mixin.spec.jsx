@@ -6,8 +6,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var tooltipMixin = require('../../../../../assets/modules/tooltip/tooltip.mixin.jsx');
-var singlePanelActions = require('fluxe').getActions(require('../../../../../assets/modules/single-panel/single-panel.store.js').storeName);
-var singlePanelStore = require('fluxe').getStore(require('../../../../../assets/modules/single-panel/single-panel.store.js').storeName);
+var singlePanelManager = require('../../../../../assets/modules/single-panel-manager/single-panel-manager');
 var testHelper = require('../../../../test-helper');
 var Fiber = require('fibers');
 
@@ -85,7 +84,7 @@ describe('tooltip mixin', function() {
     it('should register the component with the single panel store', function() {
       testGlobals.component = React.render(<SimpleTooltip />, div);
 
-      expect(singlePanelStore._internalData.registeredComponents[0]).to.deep.equal(testGlobals.component);
+      expect(singlePanelManager._internalData.registeredComponents[0]).to.deep.equal(testGlobals.component);
     });
 
     it('should append tooltip content to the body', function() {
@@ -98,7 +97,7 @@ describe('tooltip mixin', function() {
       testGlobals.component = React.render(<SimpleTooltip />, div);
       testHelper.unmountComponent(testGlobals.component);
 
-      expect(singlePanelStore._internalData.registeredComponents.length).to.equal(0);
+      expect(singlePanelManager._internalData.registeredComponents.length).to.equal(0);
     });
 
     it('should remove the appended content when unmounting the component', function() {
@@ -430,13 +429,13 @@ describe('tooltip mixin', function() {
           action: 'click'
         }));
 
-        singlePanelActions.registerGlobalEventHandler();
+        singlePanelManager.registerGlobalEventHandler();
 
         document.dispatchEvent(testHelper.createNativeKeyboardEvent({
           which: 27
         }));
 
-        singlePanelActions.unregisterGlobalEventHandler();
+        singlePanelManager.unregisterGlobalEventHandler();
 
         expect(testGlobals.component.state.tooltipActive).to.be.true;
         expect(testGlobals.component.state.tooltipStickyActive).to.be.false;
@@ -460,14 +459,14 @@ describe('tooltip mixin', function() {
           action: 'click'
         }));
 
-        singlePanelActions.registerGlobalEventHandler();
+        singlePanelManager.registerGlobalEventHandler();
 
         document.dispatchEvent(testHelper.createNativeClickEvent({
           eventType: 'HTMLEvents',
           action: 'click'
         }));
 
-        singlePanelActions.unregisterGlobalEventHandler();
+        singlePanelManager.unregisterGlobalEventHandler();
 
         expect(testGlobals.component.state.tooltipActive).to.be.true;
         expect(testGlobals.component.state.tooltipStickyActive).to.be.false;

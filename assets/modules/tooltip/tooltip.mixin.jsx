@@ -4,7 +4,7 @@
 var React = require('react/addons');
 var appendBodyMixin = require('../append-body/append-body.mixin.jsx');
 var _ = require('lodash');
-var singlePanelActions = require('fluxe').getActions(require('../single-panel/single-panel.store').storeName);
+var singlePanelManager = require('../single-panel-manager/single-panel-manager');
 var domUtitlities = require('dom-utilities');
 
 var tooltipMixin = {};
@@ -60,7 +60,7 @@ tooltipMixin.componentDidMount = function() {
     handle.addEventListener('click', this._tooltipClick);
   }
 
-  singlePanelActions.registerComponent({
+  singlePanelManager.registerComponent({
     component: this
   });
 };
@@ -83,7 +83,7 @@ tooltipMixin.componentWillUnmount = function() {
 
   this.removeAppendElement();
 
-  singlePanelActions.unregisterComponent({
+  singlePanelManager.unregisterComponent({
     component: this
   });
 };
@@ -216,7 +216,7 @@ tooltipMixin._tooltipClick = function(event) {
 };
 
 tooltipMixin._tooltipContentClick = function(event) {
-  singlePanelActions.setClickedComponent({
+  singlePanelManager.setClickedComponent({
     component: this
   });
 };

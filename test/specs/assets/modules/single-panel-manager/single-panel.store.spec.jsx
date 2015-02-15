@@ -1,10 +1,6 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
-
-var ProgressBar = require('../../../../../assets/modules/single-panel/single-panel.store');
-
-var singlePanelActions = require('fluxe').getActions(require('../../../../../assets/modules/single-panel/single-panel.store.js').storeName);
-var singlePanelStore = require('fluxe').getStore(require('../../../../../assets/modules/single-panel/single-panel.store.js').storeName);
+var singlePanelManager = require('../../../../../assets/modules/single-panel-manager/single-panel-manager');
 var testHelper = require('../../../../test-helper');
 
 var SinglePanelComponent1 = React.createClass({
@@ -15,13 +11,13 @@ var SinglePanelComponent1 = React.createClass({
   },
 
   componentDidMount: function() {
-    singlePanelActions.registerComponent({
+    singlePanelManager.registerComponent({
       component: this
     });
   },
 
   componentWillUnmount: function() {
-    singlePanelActions.unregisterComponent({
+    singlePanelManager.unregisterComponent({
       component: this
     });
   },
@@ -47,7 +43,7 @@ var SinglePanelComponent1 = React.createClass({
 
 describe('single panel store', function() {
   beforeEach(function() {
-    singlePanelActions.registerGlobalEventHandler();
+    singlePanelManager.registerGlobalEventHandler();
   });
 
   afterEach(function() {
@@ -56,20 +52,20 @@ describe('single panel store', function() {
 
     //make sure there are no linger elements on the body
     expect(document.body.querySelectorAll('*').length).to.equal(0);
-    singlePanelActions.unregisterGlobalEventHandler();
+    singlePanelManager.unregisterGlobalEventHandler();
   });
 
   it('should be able to register component', function() {
     this.component = React.render(<SinglePanelComponent1 />, document.body);
 
-    expect(singlePanelStore._internalData.registeredComponents.indexOf(this.component)).to.equal(0);
+    expect(singlePanelManager._internalData.registeredComponents.indexOf(this.component)).to.equal(0);
   });
 
   it('should be able to unregister component', function() {
     this.component = React.render(<SinglePanelComponent1 />, document.body);
     testHelper.unmountComponent(this.component);
 
-    expect(singlePanelStore._internalData.registeredComponents.indexOf(this.component)).to.equal(-1);
+    expect(singlePanelManager._internalData.registeredComponents.indexOf(this.component)).to.equal(-1);
   });
 
   it('should respond to click event', function() {
@@ -112,7 +108,7 @@ describe('single panel store', function() {
     this.component = React.render(<SinglePanelComponent1 />, document.body);
     React.addons.TestUtils.Simulate.click(this.component.getDOMNode());
 
-    singlePanelActions.setClickedComponent({
+    singlePanelManager.setClickedComponent({
       component: this.component
     });
 
@@ -128,7 +124,7 @@ describe('single panel store', function() {
     this.component = React.render(<SinglePanelComponent1 />, document.body);
     React.addons.TestUtils.Simulate.click(this.component.getDOMNode());
 
-    singlePanelActions.setClickedComponent({
+    singlePanelManager.setClickedComponent({
       component: this.component
     });
 

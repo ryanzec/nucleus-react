@@ -1,3 +1,3 @@
-var singlePanelActions = require('fluxe').getActions(require('../../assets/modules/single-panel/single-panel.store').storeName);
+var nucleusReact = require('../../assets/index');
 
-singlePanelActions.registerGlobalEventHandler();
+nucleusReact.singlePanelManager.registerGlobalEventHandler();

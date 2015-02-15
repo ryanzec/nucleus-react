@@ -45,6 +45,7 @@ var gulpConfig = {
         'web/components',
         'web/app/components'
       ],
+      manualGlobs: [],
       manualAssets: {
         'web/app/misc/svg-4-everybody.js': 'web/build/app/misc/svg-4-everybody.js',
         'assets/modules/code/assets/javascript/prism.js': 'web/build/components/nucleus-react/modules/code/assets/javascript/prism.js',
@@ -61,8 +62,6 @@ var gulpConfig = {
         name: 'react/lib/merge'
       }, {
         name: 'lodash'
-      }, {
-        name: 'fluxe'
       }, {
         name: 'superagent'
       }, {

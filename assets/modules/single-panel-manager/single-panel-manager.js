@@ -1,61 +1,51 @@
-var singlePanelStore = {
-  storeName: 'SinglePanel',
-
-  _dispatcherEvents: {
-    'registerComponent': '_onRegisterComponent',
-    'unregisterComponent': '_onUnregisterComponent',
-    'registerGlobalEventHandler': '_onRegisterGlobalEventHandler',
-    'unregisterGlobalEventHandler': '_onUnregisterGlobalEventHandler',
-    'setClickedComponent': '_onSetClickedComponent'
-  },
-
+var singlePanelManager = {
   _internalData: {
     registeredComponents: [],
     clickedComponent: null
   },
 
   _globalClickHandler: function(event) {
-    singlePanelStore._internalData.registeredComponents.forEach(function(singlePanel) {
+    singlePanelManager._internalData.registeredComponents.forEach(function(singlePanel) {
       //we need to make sure not to close a single panel if it was just clicked on
       if(this._internalData.clickedComponent !== singlePanel) {
         singlePanel.hideSinglePanel();
       }
-    }.bind(singlePanelStore));
+    }.bind(singlePanelManager));
 
-    singlePanelStore._internalData.clickedComponent = null;
+    singlePanelManager._internalData.clickedComponent = null;
   },
 
   _globalKeyUpHandler: function(event) {
     if(event.which === 27) {
-      singlePanelStore._internalData.registeredComponents.forEach(function(singlePanel) {
+      singlePanelManager._internalData.registeredComponents.forEach(function(singlePanel) {
         singlePanel.hideSinglePanel();
       });
     }
   },
 
-  _onRegisterComponent: function(options) {
+  registerComponent: function(options) {
     this._internalData.registeredComponents.push(options.component);
   },
 
-  _onUnregisterComponent: function(options) {
+  unregisterComponent: function(options) {
     this._internalData.registeredComponents = this._internalData.registeredComponents.filter(function(singlePanel) {
       return singlePanel !== options.component;
     });
   },
 
-  _onRegisterGlobalEventHandler: function() {
+  registerGlobalEventHandler: function() {
     document.addEventListener('click', this._globalClickHandler);
     document.addEventListener('keyup', this._globalKeyUpHandler);
   },
 
-  _onUnregisterGlobalEventHandler: function() {
+  unregisterGlobalEventHandler: function() {
     document.removeEventListener('click', this._globalClickHandler);
     document.removeEventListener('keyup', this._globalKeyUpHandler);
   },
 
-  _onSetClickedComponent: function(options) {
+  setClickedComponent: function(options) {
     this._internalData.clickedComponent = options.component;
   }
 };
 
-module.exports = singlePanelStore;
+module.exports = singlePanelManager;

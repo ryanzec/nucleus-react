@@ -65,7 +65,7 @@ modalClassConfiguration._setTrueDimensions = function() {
     display: modalContentElement.style.display,
     top: modalContentElement.style.top,
     left: modalContentElement.style.left
-  }
+  };
 
   setStylesToGetTrueDimensions(modalContentElement);
   setTrueDimensions(modalContentElement);
@@ -84,8 +84,8 @@ modalClassConfiguration._resizeEvent = function() {
 /* istanbul ignore next */
 modalClassConfiguration._setMaxDimensions = function() {
   //.9 match the scss max-height: 90%, this value needs to be kept in sync with the sass code
-  this.getDOMNode().querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * .9) + 'px';
-  this.getDOMNode().querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * .9) + 'px';
+  this.getDOMNode().querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * 0.9) + 'px';
+  this.getDOMNode().querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * 0.9) + 'px';
 };
 
 /* istanbul ignore next */

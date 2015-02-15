@@ -36,6 +36,7 @@ var Overlay = React.createClass({
   render: function() {
     var topContent = null;
 
+    /* jshint ignore:start */
     if(this.props.topContent) {
       topContent = (
         <div className="overlay__content">
@@ -44,7 +45,6 @@ var Overlay = React.createClass({
       );
     }
 
-    /* jshint ignore:start */
     return (
       <div className={this.getCssClasses().join(' ')}>
         {topContent}
