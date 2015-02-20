@@ -5,6 +5,7 @@ var StyleGuideAppendBody = require('../style-guide/append-body.component.jsx');
 var StyleGuideBadge = require('../style-guide/badge.component.jsx');
 var StyleGuideButton = require('../style-guide/button.component.jsx');
 var StyleGuideCode = require('../style-guide/code.component.jsx');
+var StyleGuideCharacterCounter = require('../style-guide/character-counter.component.jsx');
 var StyleGuideDebounce = require('../style-guide/debounce.component.jsx');
 var StyleGuideDomEventManager = require('../style-guide/dom-event-manager.component.jsx');
 var StyleGuideExtendText = require('../style-guide/extend-text.component.jsx');
@@ -30,6 +31,7 @@ module.exports = (
     <Route name="badge" path="badge" handler={StyleGuideBadge} />
     <Route name="button" path="button" handler={StyleGuideButton} />
     <Route name="code" path="code" handler={StyleGuideCode} />
+    <Route name="character-counter" path="character-counter" handler={StyleGuideCharacterCounter} />
     <Route name="debounce" path="debounce" handler={StyleGuideDebounce} />
     <Route name="dom-event-manager" path="dom-event-manager" handler={StyleGuideDomEventManager} />
     <Route name="extend-text" path="extend-text" handler={StyleGuideExtendText} />

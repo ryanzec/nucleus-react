@@ -45,7 +45,9 @@ var gulpConfig = {
         'web/components',
         'web/app/components'
       ],
-      manualGlobs: [],
+      manualGlobs: [
+        'web/locale/**/i18n.js'
+      ],
       manualAssets: {
         'web/app/misc/svg-4-everybody.js': 'web/build/app/misc/svg-4-everybody.js',
         'assets/modules/code/assets/javascript/prism.js': 'web/build/components/nucleus-react/modules/code/assets/javascript/prism.js',
@@ -75,7 +77,11 @@ var gulpConfig = {
     bowerClean: [
       'bourbon/*.*',
       'bourbon/.*'
-    ]
+    ],
+    i18n: {
+      languages: ['en'],
+      nodeLanguage: 'en'
+    }
   }
 };
 

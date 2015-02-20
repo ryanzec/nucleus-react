@@ -103,7 +103,7 @@ describe('extend text component', function() {
       testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
       var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-      TestUtils.Simulate.input(input, {
+      TestUtils.Simulate.change(input, {
         target: {
           value: 'f'
         }
@@ -126,7 +126,7 @@ describe('extend text component', function() {
       testGlobals.component = React.render(<PageTest />, div);
       var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-      TestUtils.Simulate.input(input, {
+      TestUtils.Simulate.change(input, {
         target: {
           value: 'f'
         }
@@ -328,7 +328,7 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'test 2'
           }
@@ -350,7 +350,7 @@ describe('extend text component', function() {
 
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'f'
           }
@@ -373,7 +373,7 @@ describe('extend text component', function() {
 
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'test 3'
           }
@@ -392,7 +392,7 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'f'
           }
@@ -411,7 +411,7 @@ describe('extend text component', function() {
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.focus(input);
-          TestUtils.Simulate.input(input, {
+          TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -436,7 +436,7 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'f'
           }
@@ -453,7 +453,7 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'f'
           }
@@ -474,7 +474,7 @@ describe('extend text component', function() {
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.focus(input);
-          TestUtils.Simulate.input(input, {
+          TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -498,7 +498,7 @@ describe('extend text component', function() {
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.focus(input);
-          TestUtils.Simulate.input(input, {
+          TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -559,14 +559,14 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'test 2'
           }
         });
         TestUtils.Simulate.blur(input);
         TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: ''
           }
@@ -834,7 +834,7 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
         var autoCompleteContainerElement = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-container');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'te'
           }
@@ -846,7 +846,7 @@ describe('extend text component', function() {
         expect(testGlobals.component.state.autoCompleteItems.length).to.equal(0);
         expect(autoCompleteContainerElement.props.className).to.equal('extend-text__auto-complete-container u-hide');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -866,7 +866,7 @@ describe('extend text component', function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} characterThreshold={3} allowFreeForm={true} />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -896,7 +896,7 @@ describe('extend text component', function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} characterThreshold={3} debounce={20} />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.input(input, {
+        TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }

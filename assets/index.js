@@ -2,6 +2,7 @@ module.exports = {
   appendBody: require('./modules/append-body/module'),
   badge: require('./modules/badge/module'),
   code: require('./modules/code/module'),
+  characterCounter: require('./modules/character-counter/module'),
   debounce: require('./modules/debounce/module'),
   domEventManager: require('./modules/dom-event-manager/module'),
   extendText: require('./modules/extend-text/module'),

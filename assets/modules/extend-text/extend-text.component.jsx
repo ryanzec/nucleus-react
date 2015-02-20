@@ -172,7 +172,7 @@ var ExtendText = React.createClass({
     this.setState(updatedState);
   },
 
-  onInput: function(event) {
+  onChange: function(event) {
     this.updateValue(event.target.value);
 
     /* istanbul ignore else */
@@ -372,7 +372,7 @@ var ExtendText = React.createClass({
     /* jshint ignore:start */
     return (
       <div className={this.getCssClasses().join(' ')}>
-        <textarea className="extend-text__display-input" onFocus={this.onFocus} onInput={this.onInput} defaultValue={this.state.value} onBlur={this.onBlur} onKeyDown={this.onKeyDown}></textarea>
+        <textarea className="extend-text__display-input" onFocus={this.onFocus} onChange={this.onChange} defaultValue={this.state.value} onBlur={this.onBlur} onKeyDown={this.onKeyDown}></textarea>
         {this.renderAutoComplete()}
       </div>
     );
