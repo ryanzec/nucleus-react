@@ -2,6 +2,7 @@
 
 ## master
 
+- made gulp i18n task use local messageformat instead of relying on globally installed one
 - added ability to render centered content on top of overlay (#1)
 - added style property support for all relevant components (#2)
 - boolean type properties now auto set valid values to true and false (#3)
