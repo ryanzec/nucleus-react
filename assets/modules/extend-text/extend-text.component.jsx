@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 var equals = require('deep-equal');
-var domUtitlities = require('dom-utilities');
+var domUtilities = require('dom-utilities');
 
 var ExtendText = React.createClass({
   componentDidMount: function() {
@@ -11,36 +11,43 @@ var ExtendText = React.createClass({
 
     /* istanbul ignore else */
     if(this.props.autoHeightResize === true) {
-      domUtitlities.autoSetHeight(this.getDOMNode().querySelector('.extend-text__display-input'));
+      this.autoSetHeight();
     }
 
     this.setAutoCompletePosition();
     this.getData = _.debounce(function(value) {
       if(this.props.loadingIndicatorEnabled === true) {
-        this.setState({
-          isLoading: true,
-          isActive: true
-        });
+        if(this._lifeCycleState !== 'UNMOUNTED') {
+          this.setState({
+            isLoading: true
+          });
+        }
       }
 
       this.props.getData.apply(this, [value]).then(function(items) {
-        this.setState({
+        var newState = {
           autoCompleteItems: items,
-          isActive: true,
           isLoading: false
-        });
+        };
+
+        if(this._lifeCycleState !== 'UNMOUNTED') {
+          this.setState(newState);
+        }
       }.bind(this), function(error) {
         throw new Error('ExtendText could not retrieve data, error: ' + error);
       }.bind(this));
     }.bind(this), this.props.debounce);
 
-    if(this.props.characterThreshold <= 0) {
+    if(this.props.preloadData === true) {
       this.getData(this.state.value);
     }
   },
 
   componentDidUpdate: function(previousProps, previousState) {
-    if(equals(this.state.value, previousState.value) !== true) {
+    if(
+      equals(this.state.value, previousState.value) !== true
+      || (previousState.isActive === false && this.state.isActive === true)
+    ) {
       this.setState({
         lastAutoCompleteItems: this.state.autoCompleteItems
       });
@@ -76,7 +83,8 @@ var ExtendText = React.createClass({
     loadingIndicator: React.PropTypes.node,
     characterThreshold: React.PropTypes.number,
     debounce: React.PropTypes.number,
-    loadingIndicatorEnabled: React.PropTypes.bool
+    loadingIndicatorEnabled: React.PropTypes.bool,
+    preloadData: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -98,7 +106,8 @@ var ExtendText = React.createClass({
       ),
       characterThreshold: 0,
       debounce: 0,
-      loadingIndicatorEnabled: true
+      loadingIndicatorEnabled: true,
+      preloadData: false
     };
     /* jshint ignore:end */
   },
@@ -125,19 +134,63 @@ var ExtendText = React.createClass({
     return cssClasses;
   },
 
+  autoSetHeight: function() {
+    var inputElement = this.getInputElement();
+    var dimensions = domUtilities.getDimensions(inputElement);
+
+    var hiddenDiv = document.createElement('textarea');
+    hiddenDiv.className = '';
+    hiddenDiv.style.position = 'absolute';
+    hiddenDiv.style.display = 'inline-block';
+    hiddenDiv.style.top = '0px';
+    hiddenDiv.style.left = '-9999px';
+    hiddenDiv.style.width = dimensions.width + 'px';
+
+    //set height to 1px to allow the below calculation to automatically set the height properly
+    hiddenDiv.style.height = '1px';
+
+    hiddenDiv.value = inputElement.value;
+
+    document.body.appendChild(hiddenDiv);
+
+    var hiddenDivDimensions = domUtilities.getDimensions(hiddenDiv);
+
+    hiddenDiv.style.height = hiddenDiv.scrollHeight + hiddenDivDimensions.borders.top + hiddenDivDimensions.borders.bottom + 'px';
+
+    hiddenDivDimensions = domUtilities.getDimensions(hiddenDiv);
+
+    inputElement.style.height = hiddenDivDimensions.height + 'px'; //inputElement.scrollHeight + dimensions.borders.top + dimensions.borders.bottom + 'px';
+
+    document.body.removeChild(hiddenDiv);
+  },
+
   getInputElement: function() {
     return this.getDOMNode().querySelector('.extend-text__display-input');
   },
 
-  isAutoCompleteDisplayValue: function(value) {
+  isAutoCompleteDisplayValue: function(displayValue) {
     var matchCurrent = this.state.autoCompleteItems.filter(function(autoCompleteItem) {
-      return _.isObject(value) ? equals(autoCompleteItem, value) : autoCompleteItem[this.props.displayProperty] === value;
+      return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
     }.bind(this)).length;
     var matchLast = this.state.lastAutoCompleteItems.filter(function(autoCompleteItem) {
-      return _.isObject(value) ? equals(autoCompleteItem, value) : autoCompleteItem[this.props.displayProperty] === value;
+      return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
     }.bind(this)).length;
 
     return matchCurrent === 1 || matchLast === 1;
+  },
+
+  getAutoCompleteIndex: function(displayValue) {
+    var index = -1;
+    var test = displayValue;
+
+    for(var x = 0; x < this.state.autoCompleteItems.length; x += 1) {
+      if(this.state.autoCompleteItems[x].display === displayValue) {
+        index = x;
+        break;
+      }
+    }
+
+    return index;
   },
 
   updateValue: function(newValue) {
@@ -177,7 +230,7 @@ var ExtendText = React.createClass({
 
     /* istanbul ignore else */
     if(this.props.autoHeightResize === true) {
-      domUtitlities.autoSetHeight(this.getDOMNode().querySelector('.extend-text__display-input'));
+      this.autoSetHeight();
     }
 
     this.setAutoCompletePosition();
@@ -188,7 +241,7 @@ var ExtendText = React.createClass({
 
     /* istanbul ignore else */
     if(autoCompleteElement) {
-      var inputDimensions = domUtitlities.getDimensions(this.getInputElement());
+      var inputDimensions = domUtilities.getDimensions(this.getInputElement());
 
       autoCompleteElement.style.top = inputDimensions.height + 'px';
     }
@@ -206,11 +259,14 @@ var ExtendText = React.createClass({
 
   onBlur: function() {
     var inputElement = this.getInputElement();
+    var fullMatchAutoCompleteItem = this.getAutoCompleteIndex(inputElement.value);
 
     if(this.state.focusedAutoCompleteItem !== null) {
       this.updateValue(this.state.focusedAutoCompleteItem);
     } else if(this.state.autoCompleteItems.length === 1 && this.state.autoCompleteItems[0][this.props.displayProperty] === inputElement.value) {
       this.updateValue(0);
+    } else if(fullMatchAutoCompleteItem > -1) {
+      this.updateValue(fullMatchAutoCompleteItem);
     } else if(this.props.allowFreeForm !== true) {
       this.updateValue('');
     }
@@ -323,7 +379,7 @@ var ExtendText = React.createClass({
 
       /* jshint ignore:start */
       autoCompleteDom = (
-        <ul className="extend-text__auto-complete-options">
+        <ul className="extend-text__auto-complete-options plain-list">
           {items}
         </ul>
       );

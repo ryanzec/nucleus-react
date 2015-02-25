@@ -5,7 +5,7 @@ var StyleGuideProperty = React.createClass({
     type: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     description: React.PropTypes.any.isRequired,
-    defaultValue: React.PropTypes.string.isRequired
+    defaultValue: React.PropTypes.any.isRequired
   },
 
   getDefaultProps: function() {

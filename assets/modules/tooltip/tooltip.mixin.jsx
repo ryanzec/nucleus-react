@@ -5,7 +5,7 @@ var React = require('react/addons');
 var appendBodyMixin = require('../append-body/append-body.mixin.jsx');
 var _ = require('lodash');
 var singlePanelManager = require('../single-panel-manager/single-panel-manager');
-var domUtitlities = require('dom-utilities');
+var domUtilities = require('dom-utilities');
 
 var tooltipMixin = {};
 
@@ -90,7 +90,7 @@ tooltipMixin.componentWillUnmount = function() {
 
 /* istanbul ignore next */
 tooltipMixin._getTooltipTopPositions = function(tooltipHandleNode, tooltipNode) {
-  var handleDimensions = domUtitlities.getDimensions(tooltipHandleNode);
+  var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
 
   var tops = {
@@ -110,9 +110,9 @@ tooltipMixin._getTooltipTopPositions = function(tooltipHandleNode, tooltipNode) 
 
 /* istanbul ignore next */
 tooltipMixin._getTooltipLeftPositions = function(tooltipHandleNode, tooltipNode) {
-  var handleDimensions = domUtitlities.getDimensions(tooltipHandleNode);
+  var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
-  var tooltipDimensions = domUtitlities.getDimensions(tooltipNode);
+  var tooltipDimensions = domUtilities.getDimensions(tooltipNode);
 
   var lefts = {
     left: Math.round(handleDimensions.left - tooltipClientRect.width - this.props.tooltipSpacing),

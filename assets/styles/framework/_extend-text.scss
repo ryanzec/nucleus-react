@@ -19,14 +19,6 @@
     }
   }
 
-  input {
-    width: 100%;
-  }
-
-  textarea {
-    resize: none;
-  }
-
   li {
     cursor: pointer;
   }
@@ -60,8 +52,12 @@
    * ```
    */
   .extend-text__tag-container {
+    display: inline-block;
     position: absolute;
     z-index: $z-index-container-tagging;
+    margin: 5px;
+    top: 0;
+    left: 0;
   }
 
   .extend-text__tag {
@@ -141,8 +137,9 @@
   .extend-text__display-input {
     z-index: $z-index-extend-text;
     overflow: hidden;
-    height: inherit;
     margin: 0;
+    resize: none;
+    width: 100%;
   }
 
   /**

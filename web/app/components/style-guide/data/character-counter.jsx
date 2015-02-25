@@ -20,7 +20,6 @@ var Example = React.createClass({
     this.setState({
       isDisabled: true
     });
-    console.log('test');
   },
 
   onUnderLimit: function() {

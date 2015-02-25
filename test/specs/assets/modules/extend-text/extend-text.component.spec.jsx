@@ -53,6 +53,12 @@ var getData = function(value) {
   return defer.promise;
 };
 
+var getDataNoFilter = function() {
+  var defer = bluebird.defer();
+  defer.resolve(testAutoCompleteItems);
+  return defer.promise;
+}
+
 var getDataEmpty = function() {
   var defer = bluebird.defer();
 
@@ -98,18 +104,28 @@ describe('extend text component', function() {
     div = document.createElement('div');
   });
 
+  afterEach(function() {
+    testHelper.unmountComponent(testGlobals.component);
+    testGlobals.component = null;
+  });
+
   describe('basic functionality', function() {
-    it('should update state internal display value', function() {
-      testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-      var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+    it('should update state internal display value', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-      TestUtils.Simulate.change(input, {
-        target: {
-          value: 'f'
-        }
-      });
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'f'
+          }
+        });
 
-      expect(testGlobals.component.state.value).to.equal('f');
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.state.value).to.equal('f');
+        done();
+      }).run();
     });
 
     it('should be able to set initial value', function() {
@@ -122,28 +138,38 @@ describe('extend text component', function() {
       expect(extendTextComponent.state.value).to.equal('initial');
     });
 
-    it('should be able to pass onChange property', function() {
-      testGlobals.component = React.render(<PageTest />, div);
-      var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+    it('should be able to pass onChange property', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<PageTest />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-      TestUtils.Simulate.change(input, {
-        target: {
-          value: 'f'
-        }
-      });
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'f'
+          }
+        });
 
-      expect(testGlobals.component.state.extendTextValue).to.equal('f');
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.state.extendTextValue).to.equal('f');
+        done();
+      }).run();
     });
 
-    it('should add css class when activating', function() {
-      testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-      var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text');
+    it('should add css class when activating', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text');
 
-      testGlobals.component.setState({
-        isActive: true
-      });
+        testGlobals.component.setState({
+          isActive: true
+        });
 
-      expect(renderedComponent.props.className).to.equal('extend-text is-active');
+        testHelper.sleep(5);
+
+        expect(renderedComponent.props.className).to.equal('extend-text is-active');
+        done();
+      }).run();
     });
 
     it('should not have active class if loading is active', function() {
@@ -165,46 +191,58 @@ describe('extend text component', function() {
       expect(testGlobals.component.state.value).to.equal('test');
     });
 
-    it('should be able to update value with object', function() {
-      testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-      testGlobals.component.updateValue({
-        id: 123,
-        display: 'test display',
-        value: 'test value'
-      });
+    it('should be able to update value with object', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        testGlobals.component.updateValue({
+          id: 123,
+          display: 'test display',
+          value: 'test value'
+        });
 
-      expect(testGlobals.component.state.value).to.deep.equal({
-        id: 123,
-        display: 'test display',
-        value: 'test value'
-      });
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.state.value).to.deep.equal({
+          id: 123,
+          display: 'test display',
+          value: 'test value'
+        });
+        done();
+      }).run();
     });
   });
 
   describe('events', function() {
-    it('should be set to inactive when bluring input', function() {
-      testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-      var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+    it('should be set to inactive when bluring input', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-      TestUtils.Simulate.focus(input);
-      TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.focus(input);
+        TestUtils.Simulate.blur(input);
 
-      expect(testGlobals.component.state.isActive).to.be.false;
+        expect(testGlobals.component.state.isActive).to.be.false;
+        done();
+      }).run();
     });
 
     it('should unfocus all auto complete items when bluring input', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
 
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
         testHelper.sleep(5);
 
         testGlobals.component.setState({
           focusedAutoCompleteItem: 1
         });
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
         TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
 
         expect(testGlobals.component.state.focusedAutoCompleteItem).to.be.null;
         done();
@@ -217,18 +255,20 @@ describe('extend text component', function() {
       it('should decrease focused item when pressing the up arrow', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-          testHelper.sleep(5);
-
           testGlobals.component.setState({
             focusedAutoCompleteItem: 1,
             isActive: true
           });
+
+          testHelper.sleep(5);
+
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.UP
           });
+
+          testHelper.sleep(5);
 
           expect(testGlobals.component.state.focusedAutoCompleteItem).to.equal(0);
           done();
@@ -238,18 +278,20 @@ describe('extend text component', function() {
       it('should increase focused item when pressing the down arrow', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-          testHelper.sleep(5);
-
           testGlobals.component.setState({
             focusedAutoCompleteItem: 1,
             isActive: true
           });
+
+          testHelper.sleep(5);
+
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.DOWN
           });
+
+          testHelper.sleep(5);
 
           expect(testGlobals.component.state.focusedAutoCompleteItem).to.equal(2);
           done();
@@ -259,18 +301,20 @@ describe('extend text component', function() {
       it('should select the focused item when pressing the enter key', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-          testHelper.sleep(5);
-
           testGlobals.component.setState({
             focusedAutoCompleteItem: 2,
             isActive: true
           });
+
+          testHelper.sleep(5);
+
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
+
+          testHelper.sleep(5);
 
           expect(testGlobals.component.state.value).to.deep.equal({
             display: 'test 3',
@@ -284,17 +328,20 @@ describe('extend text component', function() {
       it('should set to active on keypress for any key without special functionality (like enter, up arrow, etc...)', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-          testHelper.sleep(5);
-
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
           testGlobals.component.setState({
             focusedAutoCompleteItem: 2
           });
-          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
 
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.SHIFT
           });
+
+          testHelper.sleep(5);
 
           expect(testGlobals.component.state.isActive).to.be.true;
           done();
@@ -304,102 +351,150 @@ describe('extend text component', function() {
       it('should select focused item when bluring input', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-          testHelper.sleep(5);
-
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
           testGlobals.component.setState({
             focusedAutoCompleteItem: 1
           });
           TestUtils.Simulate.blur(input);
 
+          testHelper.sleep(5);
+
           expect(testGlobals.component.state.value).to.deep.equal({
             display: 'test 2',
             value: 2
           });
+          expect(testGlobals.component.state.isActive).to.be.false;
           done();
         }).run();
       });
 
-      it('should show items on focus', function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+      it('should show items on focus', function(done) {
+        Fiber(function() {
+          testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'test 2'
-          }
-        });
-        TestUtils.Simulate.blur(input);
-        TestUtils.Simulate.focus(input);
+          TestUtils.Simulate.focus(input);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-container');
+          testHelper.sleep(5);
 
-        expect(autoCompleteContainer.props.className).to.equal('extend-text__auto-complete-container');
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'test 2'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-container');
+
+          expect(autoCompleteContainer.props.className).to.equal('extend-text__auto-complete-container');
+          done();
+        }).run();
       });
 
-      it('should de-focus all items and blur input when pressing escape', function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        testGlobals.component.setState({
-          focusedAutoCompleteItem: 2,
-          isActive: true
-        });
+      it('should de-focus all items and blur input when pressing escape', function(done) {
+        Fiber(function() {
+          testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+          testGlobals.component.setState({
+            focusedAutoCompleteItem: 2,
+            isActive: true
+          });
 
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+          testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'f'
-          }
-        });
-        TestUtils.Simulate.keyDown(input, {
-          which: testHelper.keyCodes.ESCAPE
-        });
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        expect(testGlobals.component.state.isActive).to.be.false;
-        expect(testGlobals.component.state.value).to.equal('');
-        expect(input.getDOMNode().value).to.equal('');
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'f'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ESCAPE
+          });
+
+          testHelper.sleep(5);
+
+          expect(testGlobals.component.state.isActive).to.be.false;
+          expect(testGlobals.component.state.value).to.equal('');
+          expect(input.getDOMNode().value).to.equal('');
+          done();
+        }).run();
       });
 
-      it('should blur auto complete and clear input when pressing escape when having no items available', function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        testGlobals.component.setState({
-          focusedAutoCompleteItem: 2,
-          isActive: true
-        });
+      it('should blur auto complete and clear input when pressing escape when having no items available', function(done) {
+        Fiber(function() {
+          testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+          testGlobals.component.setState({
+            focusedAutoCompleteItem: 2,
+            isActive: true
+          });
 
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+          testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'test 3'
-          }
-        });
-        TestUtils.Simulate.keyDown(input, {
-          which: testHelper.keyCodes.ESCAPE
-        });
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        expect(testGlobals.component.state.isActive).to.be.false;
-        expect(testGlobals.component.state.value).to.equal('');
-        expect(input.getDOMNode().value).to.equal('');
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'test 3'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ESCAPE
+          });
+
+          testHelper.sleep(5);
+
+          expect(testGlobals.component.state.isActive).to.be.false;
+          expect(testGlobals.component.state.value).to.equal('');
+          expect(input.getDOMNode().value).to.equal('');
+          done();
+        }).run();
       });
 
-      it('should clear value when bluring input if value is not from one of the items', function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+      it('should clear value when bluring input if value is not from one of the items', function(done) {
+        Fiber(function() {
+          testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'f'
-          }
-        });
-        TestUtils.Simulate.blur(input);
+          TestUtils.Simulate.focus(input);
 
-        expect(testGlobals.component.state.value).to.equal('');
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'f'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          expect(testGlobals.component.state.value).to.equal('');
+          done();
+        }).run();
       });
 
       it('should select item when bluring input if value matches only one item but was not specifically selected', function(done) {
@@ -411,6 +506,9 @@ describe('extend text component', function() {
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
           TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
@@ -420,6 +518,8 @@ describe('extend text component', function() {
           testHelper.sleep(5);
 
           TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
 
           expect(testGlobals.component.state.value).to.deep.equal({
             display: 'test 2',
@@ -468,19 +568,19 @@ describe('extend text component', function() {
       it('should not show if allow free form is active but value matches an auto complete item', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
-
-          testHelper.sleep(5);
-
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
           TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
           });
 
+          testHelper.sleep(5);
+
           TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
 
           var newIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testGlobals.component, 'extend-text__new-indicator');
 
@@ -492,19 +592,19 @@ describe('extend text component', function() {
       it('should not show if allow free form is active but value matches an auto complete item', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
-
-          testHelper.sleep(5);
-
           var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
           TestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
           });
 
+          testHelper.sleep(5);
+
           TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
 
           var newIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testGlobals.component, 'extend-text__new-indicator');
 
@@ -513,26 +613,32 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it('should not show if allow free form is active and you select an auto complete item', function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
-        testGlobals.component.setState({
-          focusedAutoCompleteItem: 2,
-          isActive: true
-        });
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+      it('should not show if allow free form is active and you select an auto complete item', function(done) {
+        Fiber(function() {
+          testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
+          testGlobals.component.setState({
+            focusedAutoCompleteItem: 2,
+            isActive: true
+          });
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.keyDown(input, {
-          which: testHelper.keyCodes.ENTER
-        });
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
 
-        var newIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testGlobals.component, 'extend-text__new-indicator');
+          var newIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testGlobals.component, 'extend-text__new-indicator');
 
-        expect(newIndicator.length).to.equal(0);
+          expect(newIndicator.length).to.equal(0);
+          done();
+        }).run();
       });
 
       it('should not show if allow free form is active and you select an auto complete item and blur the input', function(done) {
         Fiber(function() {
           testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -540,7 +646,6 @@ describe('extend text component', function() {
             focusedAutoCompleteItem: 2,
             isActive: true
           });
-          var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
@@ -579,6 +684,17 @@ describe('extend text component', function() {
       });
     });
 
+    it('should be able to preload data', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} preloadData={true} />, div);
+
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.state.autoCompleteItems).to.deep.equal(testAutoCompleteItems);
+        done();
+      }).run();
+    });
+
     it('should show loading indicator when not items are found', function() {
       testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
       testGlobals.component.setState({
@@ -606,16 +722,17 @@ describe('extend text component', function() {
     it('should trigger loading indicator if it is enabled', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} loadingIndicator={customLoadingIndicator} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(15);
 
         expect(testGlobals.component.state.isLoading).to.be.true;
-        expect(testGlobals.component.state.isActive).to.be.true;
 
         testHelper.sleep(10);
 
         expect(testGlobals.component.state.isLoading).to.be.false;
-        expect(testGlobals.component.state.isActive).to.be.true;
         done();
       }).run();
     });
@@ -623,16 +740,17 @@ describe('extend text component', function() {
     it('should not trigger loading indicator if it is not enabled', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} loadingIndicator={customLoadingIndicator} loadingIndicatorEnabled={false} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(15);
 
         expect(testGlobals.component.state.isLoading).to.be.false;
-        expect(testGlobals.component.state.isActive).to.be.false;
 
         testHelper.sleep(10);
 
         expect(testGlobals.component.state.isLoading).to.be.false;
-        expect(testGlobals.component.state.isActive).to.be.true;
         done();
       }).run();
     });
@@ -640,12 +758,12 @@ describe('extend text component', function() {
     it('should set items based on pass getData property', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-        testHelper.sleep(5);
-
         testGlobals.component.setState({
           isActive: true
         });
+
+        testHelper.sleep(5);
+
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
@@ -664,13 +782,12 @@ describe('extend text component', function() {
     it('should add is focused class when focused item is set', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-
-        testHelper.sleep(5);
-
         testGlobals.component.setState({
           focusedAutoCompleteItem: 1,
           isActive: true
         });
+
+        testHelper.sleep(5);
 
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
@@ -696,12 +813,16 @@ describe('extend text component', function() {
     it('should focus next item when increasing and already focused on one', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
         testGlobals.component.setState({
           focusedAutoCompleteItem: 0
         });
+
+        testHelper.sleep(5);
 
         testGlobals.component.increaseFocusedAutoCompleteItem();
 
@@ -724,12 +845,16 @@ describe('extend text component', function() {
     it('should focus last item when decreasing and none is already focused', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
         testGlobals.component.setState({
           focusedAutoCompleteItem: null
         });
+
+        testHelper.sleep(5);
 
         testGlobals.component.decreaseFocusedAutoCompleteItem();
 
@@ -752,12 +877,16 @@ describe('extend text component', function() {
     it('should focus last item when decreasing and already focused on the first', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
         testGlobals.component.setState({
           focusedAutoCompleteItem: 0
         });
+
+        testHelper.sleep(5);
 
         testGlobals.component.decreaseFocusedAutoCompleteItem();
 
@@ -769,17 +898,18 @@ describe('extend text component', function() {
     it('should be able to set value in component that is using extend text', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<PageTest />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
         var extendTextComponent = TestUtils.findRenderedComponentWithType(testGlobals.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
-
-        TestUtils.Simulate.focus(input);
         extendTextComponent.setState({
           focusedAutoCompleteItem: 2
         });
         TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
 
         expect(testGlobals.component.state.extendTextValue).to.deep.equal({
           display: 'test 3',
@@ -806,6 +936,8 @@ describe('extend text component', function() {
     it('should be able to match on simple value', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -817,6 +949,8 @@ describe('extend text component', function() {
     it('should be able to match with full object', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -834,6 +968,8 @@ describe('extend text component', function() {
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
         var autoCompleteContainerElement = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__auto-complete-container');
 
+        TestUtils.Simulate.focus(input);
+
         TestUtils.Simulate.change(input, {
           target: {
             value: 'te'
@@ -846,11 +982,19 @@ describe('extend text component', function() {
         expect(testGlobals.component.state.autoCompleteItems.length).to.equal(0);
         expect(autoCompleteContainerElement.props.className).to.equal('extend-text__auto-complete-container u-hide');
 
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
         TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
         });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -861,56 +1005,73 @@ describe('extend text component', function() {
       }).run();
     });
 
-    it('should not activate until character threshold is meet', function(done) {
-      Fiber(function() {
-        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} characterThreshold={3} allowFreeForm={true} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
-
-        TestUtils.Simulate.change(input, {
-          target: {
-            value: 'tes'
-          }
-        });
-
-        testHelper.sleep(5);
-
-        expect(testGlobals.component.state.isActive).to.be.true;
-        expect(testGlobals.component.state.autoCompleteItems.length).to.equal(3);
-
-        TestUtils.Simulate.blur(input);
-
-        expect(testGlobals.component.state.isActive).to.be.false;
-
-        TestUtils.Simulate.focus(input);
-
-        testHelper.sleep(5);
-
-        expect(testGlobals.component.state.isActive).to.be.true;
-        expect(testGlobals.component.state.autoCompleteItems.length).to.equal(3);
-        done();
-      }).run();
-    });
-
     it('should be able to set custom debounce wait for data pulling', function(done) {
       Fiber(function() {
         testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} characterThreshold={3} debounce={20} />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
 
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
         TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
         });
 
+        TestUtils.Simulate.focus(input);
+
         testHelper.sleep(15);
 
-        expect(testGlobals.component.state.isActive).to.be.false;
         expect(testGlobals.component.state.autoCompleteItems.length).to.equal(0);
 
         testHelper.sleep(10);
 
-        expect(testGlobals.component.state.isActive).to.be.true;
         expect(testGlobals.component.state.autoCompleteItems.length).to.equal(3);
+        done();
+      }).run();
+    });
+
+    it('should not clear value if the value match an auto complete when blurring input', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getDataNoFilter} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        testGlobals.component.setState({
+          focusedAutoCompleteItem: 2
+        });
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.state.value).to.deep.equal({
+          display: 'test 3',
+          value: 3
+        });
+        done();
+      }).run();
+    });
+
+    it('should be able to get auto complete index from display value', function(done) {
+      Fiber(function() {
+        testGlobals.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} preloadData={true} />, div);
+
+        testHelper.sleep(5);
+
+        expect(testGlobals.component.getAutoCompleteIndex('test 3')).to.equal(2);
         done();
       }).run();
     });

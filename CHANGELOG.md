@@ -3,6 +3,9 @@
 ## master
 
 - made gulp i18n task use local messageformat instead of relying on globally installed one
+- fixed bug with extend text clearing value even if the value was in the auto complete list
+- fixed issue with properly setting the height of textarea
+- refactored single panel store to not use fluxe
 - added ability to render centered content on top of overlay (#1)
 - added style property support for all relevant components (#2)
 - boolean type properties now auto set valid values to true and false (#3)
