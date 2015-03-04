@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var CharacterCounter = nucleusReact.characterCounter.components.CharacterCounter;
+var CharacterCounter = nucleusReact.components.CharacterCounter;
 
 var Example = React.createClass({
   getInitialState: function() {

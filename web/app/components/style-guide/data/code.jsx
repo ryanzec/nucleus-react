@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Code = nucleusReact.code.components.Code;
+var Code = nucleusReact.components.Code;
 var codeContent = 'p {\n\tcolor: red;\n}';
 
 module.exports = {

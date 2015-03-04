@@ -12,7 +12,7 @@ var gulpConfig = {
   jsHintFiles: [
     'assets/**/*.js',
     'assets/**/*.jsx',
-    '!assets/modules/code/assets/javascript/prism.js'
+    '!assets/javascript/prism.js'
   ],
   sassFiles: [
     'assets/**/*.scss',
@@ -50,8 +50,8 @@ var gulpConfig = {
       ],
       manualAssets: {
         'web/app/misc/svg-4-everybody.js': 'web/build/app/misc/svg-4-everybody.js',
-        'assets/modules/code/assets/javascript/prism.js': 'web/build/components/nucleus-react/modules/code/assets/javascript/prism.js',
-        'assets/modules/code/assets/styles/prism.css': 'web/build/components/nucleus-react/modules/code/assets/styles/prism.css'
+        'assets/javascript/prism.js': 'web/build/components/nucleus-react/assets/javascript/prism.js',
+        'assets/styles/prism.css': 'web/build/components/nucleus-react/assets/styles/prism.css'
       }
     },
     browserify: {

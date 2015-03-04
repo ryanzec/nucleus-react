@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Badge = nucleusReact.badge.components.Badge;
+var Badge = nucleusReact.components.Badge;
 
 module.exports = {
   name: 'Badge',

@@ -5,7 +5,7 @@ var options = {
     process.cwd() + '/assets/**/*.jsx'
   ],
   excludeFileForCoverageReportsGlobs: [
-    process.cwd() + '/assets/modules/code/assets/javascript/prism.js'
+    process.cwd() + '/assets/javascript/prism.js'
   ],
   htmlDirectory: process.cwd() + '/coverage',
   testFileGlobs: [

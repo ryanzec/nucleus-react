@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var tooltipMixin = nucleusReact.tooltip.mixins.tooltip;
+var tooltipMixin = nucleusReact.mixins.tooltip;
 
 var HoverTooltip = React.createClass({
   mixins: [

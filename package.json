@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "deep-equal": "0.2.1",
-    "dom-utilities": "0.2.0",
+    "dom-utilities": "0.3.0",
     "immutable": "3.6.2",
-    "lodash": "2.4.1"
+    "lodash": "3.3.1"
   },
   "devDependencies": {
     "async": "0.9.0",
@@ -32,6 +32,7 @@
     "chai-as-promised": "4.1.1",
     "cli-table": "0.3.1",
     "colors": "1.0.3",
+    "data-validation": "0.5.6",
     "del": "1.0.0",
     "escomplex-js": "1.0.0",
     "fibers": "1.0.5",
@@ -41,12 +42,12 @@
     "gulp-complexity": "0.3.0",
     "gulp-help": "1.3.1",
     "gulp-htmlmin": "0.2.0",
-    "gulp-jshint": "1.9.0",
     "gulp-streamify": "0.0.5",
     "gulp-uglifyjs": "0.5.0",
     "gulp-util": "3.0.1",
     "istanbul": "git://github.com/gotwarlost/istanbul.git#c6f8fc8b102cfa4e4455d6a165485b38cb58160c",
     "jsdom": "1.5.0",
+    "jshint": "2.6.3",
     "jshint-stylish": "1.0.0",
     "messageformat": "0.2.1",
     "mkdirp": "0.5.0",

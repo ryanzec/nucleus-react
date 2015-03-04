@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Pagination = nucleusReact.pagination.components.Pagination;
-var paginationMixin = nucleusReact.pagination.mixins.pagination;
+var Pagination = nucleusReact.components.Pagination;
+var paginationMixin = nucleusReact.mixins.pagination;
 var _ = require('lodash');
 
 var Example = React.createClass({

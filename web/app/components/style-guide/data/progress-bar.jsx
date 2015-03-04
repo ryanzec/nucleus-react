@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var ProgressBar = nucleusReact.progressBar.components.ProgressBar;
+var ProgressBar = nucleusReact.components.ProgressBar;
 
 module.exports = {
   name: 'Progress Bar',

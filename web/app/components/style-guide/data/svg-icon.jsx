@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var SvgIcon = nucleusReact.svg.components.Icon;
+var SvgIcon = nucleusReact.components.SvgIcon;
 
 module.exports = {
   name: 'SVG Icon',

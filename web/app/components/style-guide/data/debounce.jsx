@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Code = nucleusReact.code.components.Code;
+var Code = nucleusReact.components.Code;
 var codeExample = 'var TestComponent = React.createClass({\n\tmixins: [\n\t\tdebounceMixin\n\t],\n\n\tdebounceMethods: [{\n\t\tname: \'increase\',\n\t\tfunc: function() {\n\t\t\t//...\n\t\t},\n\t\tdelay: 500\n\t}, {\n\t\tname: \'decrease\',\n\t\tfunc: function() {\n\t\t\t//...\n\t\t},\n\t\tdelay: 1q500\n\t}],\n\t//...\n});';
 
 module.exports = {

@@ -2,6 +2,23 @@
 
 ## master
 
+- refactored code structure
+- added tagging support to extend text
+- added input auto sizer component
+- integrated input auto sizer components with extend text component
+- added form styling
+- added form input mixin
+- added text box (with password and textarea support) component
+- added checkbox component
+- added radio component
+- added select component
+- added form input mixin
+- added for on change mixin
+- refactored jshint to work better with JSX with a bunch of ignore statements
+- integrated input auto sizer components with extend text component
+- added input auto sizer component
+- refactored code structure
+- added tagging feature to extend text component
 - made gulp i18n task use local messageformat instead of relying on globally installed one
 - fixed bug with extend text clearing value even if the value was in the auto complete list
 - fixed issue with properly setting the height of textarea

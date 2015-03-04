@@ -5,7 +5,9 @@ var data = require('./data/extend-text.jsx');
 var ExtendTextPage = React.createClass({
   render: function() {
     return (
-      <StyleGuideTemplate data={data} />
+      <div className="p-extend-text-documentation">
+        <StyleGuideTemplate data={data} />
+      </div>
     );
   }
 });

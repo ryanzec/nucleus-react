@@ -1,4 +1,37 @@
 var React = require('react/addons');
+var nucleusReact = require('../../../../../assets/index');
+var SvgIcon = nucleusReact.components.SvgIcon;
+var ExtendText = nucleusReact.components.ExtendText;
+var bluebird = require('bluebird');
+
+var data = [{
+  display: 'test 1',
+  value: 'test1'
+}, {
+  display: 'test 2',
+  value: 'test2'
+}, {
+  display: 'test 3',
+  value: 'test3'
+}];
+var noop = function(){};
+var getData = function() {
+  var defer = bluebird.defer();
+
+  defer.resolve(data);
+
+  return defer.promise;
+};
+
+var getDeleyData = function() {
+  var defer = bluebird.defer();
+
+  setTimeout(function() {
+    defer.resolve(data);
+  }, 2000);
+
+  return defer.promise;
+};
 
 module.exports = {
   name: 'Extend Text',
@@ -15,7 +48,7 @@ module.exports = {
     description: 'A callback to execute when the value changes.'
   }, {
     type: 'string',
-    name: 'initialValue',
+    name: 'defaultValue',
     defaultValue: 'null',
     description: 'The initial value to use.'
   }, {
@@ -62,6 +95,44 @@ module.exports = {
     type: 'boolean',
     name: 'loadingIndicatorEnabled',
     defaultValue: 'true',
-    description: 'Whether or not to display the loading indicator when wait fro data.'
-  }]
+    description: 'Whether or not to display the loading indicator when wait for data.'
+  }, {
+    type: 'boolean',
+    name: 'preloadData',
+    defaultValue: 'false',
+    description: 'Whether or not to preload with data.'
+  }, {
+    type: 'boolean',
+    name: 'taggingEnabled',
+    defaultValue: 'false',
+    description: 'Whether or not to enable tagging.'
+  }],
+  examples: [{
+    description: 'Standard',
+    example: (
+      <ExtendText onChange={noop} getData={getData} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'free form allowed',
+    example: (
+      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'Tagging',
+    example: (
+      <ExtendText onChange={noop} getData={getData} taggingEnabled={true} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'Tagging free form (with debounce set)',
+    example: (
+      <ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }],
+  notes: [(
+    <span>The getData property must return a promise (may I recommend the bluebird library)</span>
+  )]
 };

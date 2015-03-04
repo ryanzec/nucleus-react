@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Modal = nucleusReact.modal.components.Modal;
-var domEventManagerMixin = nucleusReact.domEventManager.mixins.domEventManager;
+var Modal = nucleusReact.components.Modal;
+var domEventManagerMixin = nucleusReact.mixins.domEventManager;
 
 var ModalExample = React.createClass({
   mixins: [

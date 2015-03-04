@@ -1,8 +1,8 @@
 var React = require('react/addons');
 var Link = require('react-router').Link;
 var nucleusReact = require('../../../../../../assets/index');
-var Badge = nucleusReact.badge.components.Badge;
-var Modal = nucleusReact.modal.components.Modal;
+var Badge = nucleusReact.components.Badge;
+var Modal = nucleusReact.components.Modal;
 
 var StyleGuideMenu = React.createClass({
   getInitialState: function() {
@@ -36,6 +36,8 @@ var StyleGuideMenu = React.createClass({
             <li><Link to="debounce">Debounce <Badge>mixin</Badge></Link></li>
             <li><Link to="dom-event-manager">DOM Event Manager <Badge>mixin</Badge></Link></li>
             <li><Link to="extend-text">Extend Text <Badge>component</Badge></Link></li>
+            <li><Link to="form">Form <Badge>component</Badge></Link></li>
+            <li><Link to="input-auto-sizer">Input Auto Sizer <Badge>component</Badge></Link></li>
             <li><Link to="modal">Modal <Badge>component</Badge></Link></li>
             <li><Link to="overlay">Overlay <Badge>component</Badge></Link></li>
             <li><Link to="pagination">Pagination <Badge>component</Badge></Link></li>
@@ -59,6 +61,8 @@ var StyleGuideMenu = React.createClass({
               <li><Link to="debounce"><Badge>m</Badge> Debounce</Link></li>
               <li><Link to="dom-event-manager"><Badge>m</Badge> DOM Event Manager</Link></li>
               <li><Link to="extend-text"><Badge>c</Badge> Extend Text</Link></li>
+              <li><Link to="form"><Badge>c</Badge> Form</Link></li>
+              <li><Link to="input-auto-sizer"><Badge>c</Badge> Input Auto Sizer</Link></li>
               <li><Link to="modal"><Badge>c</Badge> Modal</Link></li>
               <li><Link to="overlay"><Badge>c</Badge> Overlay</Link></li>
               <li><Link to="pagination"><Badge>c</Badge> Pagination</Link></li>

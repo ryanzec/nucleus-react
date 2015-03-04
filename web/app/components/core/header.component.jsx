@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../assets/index');
-var Svg = nucleusReact.svg.components.Svg;
 var Link = require('react-router').Link;
 
 var Header = React.createClass({

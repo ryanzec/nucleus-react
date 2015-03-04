@@ -52,8 +52,8 @@ $color-light-danger: lighten($color-danger, 38%) !default;
 $color-dark-danger: darken($color-danger, 15%) !default;
 
 //z-indexes
-$z-index-extend-text: 1 !default;
-$z-index-container-tagging: 2 !default;
+$z-index-container-tagging: 1 !default;
+$z-index-extend-text: 2 !default;
 $z-index-content-tooltip: 3 !default;
 $z-index-absolute-overlay: 1600 !default;
 $z-index-overlay: 1700 !default;
@@ -75,7 +75,7 @@ $font-size-body: 1.3em !default;
 $text-align-compact-label: right !default;
 $padding-compact-label: 0 10px 0 0 !default;
 $border-radius-input: 5px !default;
-$border-input: 1px solid shade($color-gray4, 30%) !default;
+$border-input: 1px solid $color-primary1 !default;
 $padding-input: 4px !default;
 $opacity-disabled-input: .7 !default;
 $margin-label: 0 0 3px 0 !default;
@@ -102,7 +102,6 @@ $background-color-options-auto-complete: $color-white !default;
 $max-height-options-auto-complete: 300px !default;
 $padding-option-auto-complete: 3px 6px !default;
 $background-color-option-is-focused-auto-complete: transparentize($color-secondary2, .5) !default;
-$box-shadow-options-auto-complete: $box-shadow-focused-input !default;
 $box-shadow-options-valid-auto-complete: $box-shadow-valid-input-element !default;
 $box-shadow-options-invalid-auto-complete: $box-shadow-invalid-input-element !default;
 
@@ -112,14 +111,14 @@ $background-color-overlay: transparentize($color-black, .5);
 //extend text
 $border-radius-extend-text: 5px !default;
 $top-new-indicator-extend-text: 6px !default;
-$right-new-indicator-extend-text: 8px !default;
+$right-new-indicator-extend-text: -24px !default;
 
 //tagging
-$margin-tag-tagging: 0 6px 0 0 !default;
+$margin-tag-tagging: 2px 0 0 2px !default;
 $background-color-tag-tagging: rgb(184, 215, 235) !default;
 $border-tag-tagging: 1px solid rgb(95, 134, 142) !default;
 $border-radius-tag-tagging: 2px !default;
-$padding-tag-tagging: 0 2px !default;
+$padding-tag-tagging: 2px 4px !default;
 $border-color-selected-tag-tagging: rgb(255, 0, 0) !default;
 $width-tag-remove-icon-tagging: 10px !default;
 $height-tag-remove-icon-tagging: 10px !default;

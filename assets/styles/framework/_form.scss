@@ -1,0 +1,121 @@
+//TODO: label should not have color unless they are tied to a checkbox of radio input
+
+$component-identifier: '.form-element';
+
+#{$component-identifier} {
+  label {
+    @include flex(24);
+
+    display: inline-block;
+  }
+
+  &__input.m-text,
+  &__input.m-select,
+  &__input.m-textarea {
+    width: 100%;
+    margin: 5px 0;
+    border: 1px solid $color-gray2;
+    border-radius: 5px;
+    padding: 4px 6px;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary1;
+    }
+  }
+
+  &__input.m-select {
+    background-color: $color-white;
+  }
+
+  &__input.m-checkbox,
+  &__input.m-radio {
+    &.m-left {
+      margin: 5px 0 5px 5px;
+    }
+
+    &.m-right {
+      margin: 5px 5px 5px 0;
+    }
+  }
+
+  &__radio-group {
+    @include display(flex);
+    @include flex-wrap(wrap);
+
+    label {
+      @include flex-basis(100%);
+    }
+  }
+
+  &__field-container {
+    @include display(flex);
+    @include align-items(center);
+
+    #{$component-identifier}__input-container {
+      @include flex(24);
+    }
+
+    #{$component-identifier}__validation-icon {
+      @include flex(0 0 20px);
+      margin: 0 5px;
+      height: 20px;
+    }
+  }
+
+  &__input-group {
+    @include display(flex);
+    @include justify-content(space-between);
+  }
+
+  &.m-valid {
+    #{$component-identifier}__input.m-text,
+    #{$component-identifier}__input.m-select,
+    #{$component-identifier}__input.m-textarea {
+      border-color: $color-safe;
+      background-color: transparentize($color-safe, 0.97);
+    }
+
+    label {
+      color: $color-safe;
+    }
+
+    #{$component-identifier}__validation-icon {
+      fill: $color-safe;
+    }
+  }
+
+  &.m-invalid {
+    #{$component-identifier}__input.m-text,
+    #{$component-identifier}__input.m-select,
+    #{$component-identifier}__input.m-textarea {
+      border-color: $color-danger;
+      background-color: transparentize($color-danger, 0.97);
+    }
+
+    label {
+      color: $color-danger;
+    }
+
+    #{$component-identifier}__validation-icon {
+      fill: $color-danger;
+    }
+  }
+}
+
+form.m-inline {
+  #{$component-identifier} {
+    @include display(flex);
+    @include align-items(center);
+
+    &__field-container {
+      @include flex(24);
+    }
+  }
+
+  label:not(.m-toggle) {
+    width: auto;
+  }
+}
+
+$component-identifier: '';

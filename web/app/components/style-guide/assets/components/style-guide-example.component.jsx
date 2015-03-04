@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Code = require('../../../../../../assets/index').code.components.Code;
+var Code = require('../../../../../../assets/index').components.Code;
 var _ = require('lodash');
 
 var StyleGuideExample = React.createClass({

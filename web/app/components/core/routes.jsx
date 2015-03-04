@@ -9,6 +9,8 @@ var StyleGuideCharacterCounter = require('../style-guide/character-counter.compo
 var StyleGuideDebounce = require('../style-guide/debounce.component.jsx');
 var StyleGuideDomEventManager = require('../style-guide/dom-event-manager.component.jsx');
 var StyleGuideExtendText = require('../style-guide/extend-text.component.jsx');
+var StyleGuideForm = require('../style-guide/form.component.jsx');
+var StyleGuideInputAutoSizer = require('../style-guide/input-auto-sizer.component.jsx');
 var StyleGuideModal = require('../style-guide/modal.component.jsx');
 var StyleGuideOverlay = require('../style-guide/overlay.component.jsx');
 var StyleGuideOverview = require('../style-guide/overview.component.jsx');
@@ -35,6 +37,8 @@ module.exports = (
     <Route name="debounce" path="debounce" handler={StyleGuideDebounce} />
     <Route name="dom-event-manager" path="dom-event-manager" handler={StyleGuideDomEventManager} />
     <Route name="extend-text" path="extend-text" handler={StyleGuideExtendText} />
+    <Route name="form" path="form" handler={StyleGuideForm} />
+    <Route name="input-auto-sizer" path="input-auto-sizer" handler={StyleGuideInputAutoSizer} />
     <Route name="modal" path="modal" handler={StyleGuideModal} />
     <Route name="overlay" path="overlay" handler={StyleGuideOverlay} />
     <Route name="pagination" path="pagination" handler={StyleGuidePagination} />

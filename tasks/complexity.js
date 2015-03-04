@@ -4,7 +4,7 @@ var options = {
     process.cwd() + '/assets/**/*.jsx'
   ],
   excludeFileGlobs: [
-    process.cwd() + '/assets/modules/code/assets/javascript/prism.js'
+    process.cwd() + '/assets/javascript/prism.js'
   ],
   maintainabilityWarningThreshold: 50,
   maintainabilityDangerThreshold: 20

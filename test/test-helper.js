@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var storeLocations = {
-  Application: '../web/app/components/core/application.store'
+  Application: '../web/app/components/core/application.store',
+  SinglePanelManager: '../assets/stores/single-panel-manager.store'
 };
 var initialStoreValues = {};
 var Router = require('react-router');
@@ -48,7 +49,8 @@ module.exports = {
   },
 
   unmountComponent: function(component) {
-    if(component && component.isMounted()) {
+    //TODO: investigate: is this going to mask any issue that the code might have?
+    if(component.isMounted()) {
       React.unmountComponentAtNode(component.getDOMNode().parentNode);
     }
   },

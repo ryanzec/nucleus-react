@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var nucleusReact = require('../../../../../assets/index');
-var Overlay = nucleusReact.overlay.components.Overlay;
+var Overlay = nucleusReact.components.Overlay;
 
 var FullPageOverlay = React.createClass({
   getInitialState: function() {

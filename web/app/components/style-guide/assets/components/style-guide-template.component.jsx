@@ -8,7 +8,7 @@ var StyleGuideExamples = require('./style-guide-examples.component.jsx');
 var StyleGuideNotes = require('./style-guide-notes.component.jsx');
 var StyleGuideKnownIssues = require('./style-guide-known-issues.component.jsx');
 var nucleusReact = require('../../../../../../assets/index');
-var Badge = nucleusReact.badge.components.Badge;
+var Badge = nucleusReact.components.Badge;
 
 var StyleGuideTemplate = React.createClass({
   render: function() {
