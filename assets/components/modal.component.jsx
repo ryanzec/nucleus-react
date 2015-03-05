@@ -1,21 +1,20 @@
+/* NOTE: number of methods are ignored from istanbul because it deals with positioning which can not be tested with jsdom */
 var React = require('react/addons');
 var Overlay = require('./overlay.component.jsx');
+var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var domUtilities = require('dom-utilities');
 
 var modalClassConfiguration = {};
 
 modalClassConfiguration.mixins = [
-  React.addons.PureRenderMixin
+  React.addons.PureRenderMixin,
+  domEventManagerMixin
 ];
 
 /* istanbul ignore next */
 modalClassConfiguration.componentDidMount = function() {
-  window.addEventListener('resize', this._resizeEvent);
-};
-
-/* istanbul ignore next */
-modalClassConfiguration.componentWillUnmount = function() {
-  window.removeEventListener('resize', this._resizeEvent);
+  this.addDomEvent(window, 'resize', this._reposition);
+  this.addDomEvent(window, 'orientationchange', this._reposition);
 };
 
 /* istanbul ignore next */
@@ -73,7 +72,7 @@ modalClassConfiguration._setTrueDimensions = function() {
 };
 
 /* istanbul ignore next */
-modalClassConfiguration._resizeEvent = function() {
+modalClassConfiguration._reposition = function() {
   if(this.props.isActive) {
     this._setTrueDimensions();
     this._setMaxDimensions();

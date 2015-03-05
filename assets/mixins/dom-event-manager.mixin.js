@@ -1,7 +1,9 @@
-/* NOTE: need to ignore until we figure out how to test dom event in jsdom if it is possible */
+/* NOTE: need to ignore this entire file until we figure out how to properly test events uisng jsdom */
 /* istanbul ignore next */
 module.exports = {
-  _managedDomEvents: [],
+  componentWillMount: function() {
+    this._managedDomEvents = [];
+  },
 
   componentWillUnmount: function() {
     if(this._managedDomEvents.length > 0) {

@@ -1,5 +1,3 @@
-//TODO: be able to control validation on initial render
-
 var React = require('react/addons');
 var SvgIcon = require('../components/svg-icon.component.jsx');
 var svgPath ='/components/nucleus-icons/svg/svg-sprite.svg';
@@ -13,7 +11,9 @@ module.exports = {
     renderValidationOnLoad: React.PropTypes.bool
   },
 
-  _initialRenderDone: false,
+  componentWillMount: function() {
+    this._initialRenderDone = false;
+  },
 
   getDefaultProps: function() {
     return {

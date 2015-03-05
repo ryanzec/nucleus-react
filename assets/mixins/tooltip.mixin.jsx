@@ -50,6 +50,7 @@ tooltipMixin.componentDidMount = function() {
   var handle = node.getElementsByClassName('tooltip__handle')[0];
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
 
+  //NOTE: not using domEventManagerMixin because I need to make sure to add/remove the events in correct order
   handle.addEventListener('mouseenter', this._tooltipMouseEnter);
   handle.addEventListener('mouseleave', this._tooltipMouseLeave);
   tooltipContent.addEventListener('mouseenter', this._tooltipMouseEnter);
@@ -71,6 +72,7 @@ tooltipMixin.componentWillUnmount = function() {
   var appendBody = this.getAppendElement();
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
 
+  //NOTE: not using domEventManagerMixin because I need to make sure to add/remove the events in correct order
   handle.removeEventListener('mouseenter', this._tooltipMouseEnter);
   handle.removeEventListener('mouseleave', this._tooltipMouseLeave);
   tooltipContent.removeEventListener('mouseenter', this._tooltipMouseEnter);

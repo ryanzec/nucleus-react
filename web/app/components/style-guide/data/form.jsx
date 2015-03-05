@@ -48,7 +48,7 @@ var FormExmplePlaceholders = React.createClass({
   },
 
   validate: function(value) {
-    return false;
+    return value === 'true' ? true : false;
   },
 
   validateLiveIn: function(value) {
@@ -62,6 +62,9 @@ var FormExmplePlaceholders = React.createClass({
     }, {
       value: 'm',
       display: 'Male'
+    }, {
+      value: 'true',
+      display: 'True'
     }];
   },
 
@@ -91,7 +94,7 @@ var FormExmplePlaceholders = React.createClass({
             <TextboxInput className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onTestPasswordChange} renderValidation="both" validate={this.validate} />
             <TextboxInput className="confirm-password" placeholder="Confirm Password" />
           </InputGroup>
-          <SelectInput emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onTestGenderChange} />
+          <SelectInput emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onTestGenderChange} renderValidation={true}  validate={this.validate} />
           <TextboxInput placeholder="Enter in breif bio..." multiLined={true} onChange={this.onTestBioChange} />
           <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onTestReceiveNewlettersChange} />
           <CheckboxInput label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onTestOver21Change} />
