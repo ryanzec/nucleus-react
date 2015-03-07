@@ -9,14 +9,10 @@
 }
 
 .application-header {
-  @include display(flex);
-  @include align-items(center);
-
+  min-width: 1024px;
+  max-width: 1600px;
   margin: 0 auto;
   height: 49px;
-  color: $color-light-text;
-  fill: $color-light-text;
-  font-size: 1.4rem;
 
   a {
     color: $color-white;
@@ -39,15 +35,10 @@
   }
 }
 
-@media all and (min-width: 1024px) and (max-width: 2400px) {
-  .application-header {
-    min-width: 1024px;
-    max-width: 1600px;
-  }
-}
-
 @media #{$small-screen-media-query} {
   .application-header {
+    width: 100%;
+
     ul {
       display: none;
     }

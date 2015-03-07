@@ -1,8 +1,4 @@
 .p-form {
-  // form {
-  //   width: 500px;
-  // }
-
   form.m-inline {
     label:not(.m-toggle) {
       @include flex(0 0 100px);
@@ -12,8 +8,4 @@
       margin-left: 100px;
     }
   }
-
-  // .form-element__input-group-item {
-  //   @include flex(12);
-  // }
 }
