@@ -9,12 +9,14 @@ flexRow.mixins = [
 ];
 
 flexRow.propTypes = {
-  alignItems: React.PropTypes.oneOf(['top', 'center', 'bottom'])
+  alignItems: React.PropTypes.oneOf(['top', 'center', 'bottom']),
+  className: React.PropTypes.string
 };
 
 flexRow.getDefaultProps = function() {
   return {
-    alignItems: null
+    alignItems: null,
+    className: null
   };
 };
 
@@ -23,6 +25,10 @@ flexRow.getCssClasses = function() {
 
   if(this.props.alignItems) {
     cssClasses.push('m-align-' + this.props.alignItems);
+  }
+
+  if(this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;

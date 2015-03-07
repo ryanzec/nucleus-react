@@ -2,6 +2,7 @@
 
 ## master
 
+- added suport for className property for flex row and cells
 - removed deprecated jshint options (prep for adding JSCS)
 - refactored structure of components/mixins
 - removed input group component (flex row/column provide a generic solution)

@@ -2,7 +2,6 @@ $component-identifier: '.flex-row';
 
 #{$component-identifier} {
   @include display(flex);
-  @include flex-wrap(wrap);
   @include justify-content(space-between);
 
   margin-left: ($grid-gutter * -1);
@@ -58,6 +57,8 @@ $component-identifier: '.flex-row';
 
 @media #{$small-screen-media-query} {
   #{$component-identifier} {
+    @include flex-wrap(wrap);
+
     &__cell {
       @include flex(0 0 100%);
 
@@ -84,15 +85,6 @@ $component-identifier: '.flex-row';
 @media #{$medium-screen-media-query} {
   #{$component-identifier} {
     &__cell {
-      //@include flex(0 0 100%);
-
-      // @for $i from 1 through $grid-medium-columns {
-      //   &.m-medium-columns#{$i} {
-      //     @include flex(0 0 100%);
-      //     max-width: 100%;
-      //   }
-      // }
-
       @for $i from 1 through $grid-medium-columns {
         &.m-small-columns#{$i} {
           @include flex(0 0 ($i / $grid-medium-columns * 100%));
@@ -109,15 +101,6 @@ $component-identifier: '.flex-row';
 @media #{$large-screen-media-query} {
   #{$component-identifier} {
     &__cell {
-      // @include flex(0 0 100%);
-
-      // @for $i from 1 through $grid-large-columns {
-      //   &.m-columns#{$i} {
-      //     @include flex(0 0 100%);
-      //     max-width: 100%;
-      //   }
-      // }
-
       @for $i from 1 through $grid-large-columns {
         &.m-small-columns#{$i} {
           @include flex(0 0 ($i / $grid-large-columns * 100%));

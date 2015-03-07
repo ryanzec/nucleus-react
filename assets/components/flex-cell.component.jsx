@@ -18,7 +18,8 @@ flexCell.propTypes = {
   mediumColumns: React.PropTypes.number,
   columns: React.PropTypes.number,
   largeColumns: React.PropTypes.number,
-  flex: React.PropTypes.bool
+  flex: React.PropTypes.bool,
+  className: React.PropTypes.string
 };
 
 flexCell.getDefaultProps = function() {
@@ -28,7 +29,8 @@ flexCell.getDefaultProps = function() {
     mediumColumns: null,
     columns: null,
     largeColumns: null,
-    flex: false
+    flex: false,
+    className: null
   };
 };
 
@@ -73,6 +75,10 @@ flexCell.getCssClasses = function() {
 
   if(this.props.align) {
     cssClasses.push('m-align-' + this.props.align);
+  }
+
+  if(this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;

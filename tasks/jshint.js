@@ -23,7 +23,6 @@ delete config.globals;
 var collectErrors = function(filePath) {
   if(jshint.errors.length > 0) {
     errors[filePath] = jshint.errors.map(function(errorObject) {
-      console.log(errorObject);
       return {
         line: errorObject.line,
         column: errorObject.character,

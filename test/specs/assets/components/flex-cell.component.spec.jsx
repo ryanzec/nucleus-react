@@ -3,7 +3,7 @@ var reactTestUtils = React.addons.TestUtils;
 var FlexCell = require('../../../../assets/components/flex-cell.component.jsx');
 var testHelper = require('../../../test-helper');
 
-describe.only('flex cell component', function() {
+describe('flex cell component', function() {
   var div;
 
   beforeEach(function() {
@@ -52,5 +52,11 @@ describe.only('flex cell component', function() {
     this.component = React.render(<FlexCell flex={true}>1</FlexCell>, div);
 
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-flex');
+  });
+
+  it('should be able to add css classes', function() {
+    this.component = React.render(<FlexCell className="m-safe">1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-safe');
   });
 });
