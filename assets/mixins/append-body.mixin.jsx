@@ -1,41 +1,43 @@
 var React = require('react/addons');
 
-module.exports = {
-  componentDidUpdate: function() {
-    this._updateAppendElement();
-  },
+var appendBodyMixin = {};
 
-  createAppendElement: function(options) {
-    options = options || {};
-    var tag = options.tag || 'div';
-    var className = options.className || 'append-body-wrapper';
+appendBodyMixin.componentDidUpdate = function() {
+  this._updateAppendElement();
+};
 
-    if(this._bodyAppendContent) {
-      throw new Error('Component has already append an element to the body');
-    }
+appendBodyMixin.createAppendElement = function(options) {
+  options = options || {};
+  var tag = options.tag || 'div';
+  var className = options.className || 'append-body-wrapper';
 
-    this._bodyAppendContent = document.createElement(tag);
-    this._bodyAppendContent.className = className;
-    document.body.appendChild(this._bodyAppendContent);
-    this._updateAppendElement();
-  },
+  if(this._bodyAppendContent) {
+    throw new Error('Component has already append an element to the body');
+  }
 
-  getAppendElement: function() {
-    return this._bodyAppendContent;
-  },
+  this._bodyAppendContent = document.createElement(tag);
+  this._bodyAppendContent.className = className;
+  document.body.appendChild(this._bodyAppendContent);
+  this._updateAppendElement();
+};
 
-  removeAppendElement: function() {
-    document.body.removeChild(this._bodyAppendContent);
-    this._bodyAppendContent = null;
-  },
+appendBodyMixin.getAppendElement = function() {
+  return this._bodyAppendContent;
+};
 
-  _updateAppendElement: function() {
-    var appendContent = this.getAppendBodyContent();
+appendBodyMixin.removeAppendElement = function() {
+  document.body.removeChild(this._bodyAppendContent);
+  this._bodyAppendContent = null;
+};
 
-    if (appendContent) {
-      React.render(appendContent, this._bodyAppendContent);
-    } else {
-      React.render(<noscript />, this._bodyAppendContent);
-    }
+appendBodyMixin._updateAppendElement = function() {
+  var appendContent = this.getAppendBodyContent();
+
+  if (appendContent) {
+    React.render(appendContent, this._bodyAppendContent);
+  } else {
+    React.render(<noscript />, this._bodyAppendContent);
   }
 };
+
+module.exports = appendBodyMixin;

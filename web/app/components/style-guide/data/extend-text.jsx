@@ -116,7 +116,9 @@ module.exports = {
   }, {
     description: 'free form allowed',
     example: (
-      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
+      <span>
+        <ExtendText onChange={noop} getData={getData} allowFreeForm={true} /><ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
+      </span>
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
@@ -128,7 +130,9 @@ module.exports = {
   }, {
     description: 'Tagging free form (with debounce set)',
     example: (
-      <ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} />
+      <span>
+        <ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} /><ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} />
+      </span>
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],

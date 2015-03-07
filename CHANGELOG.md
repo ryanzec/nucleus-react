@@ -2,6 +2,11 @@
 
 ## master
 
+- removed deprecated jshint options (prep for adding JSCS)
+- refactored structure of components/mixins
+- removed input group component (flex row/column provide a generic solution)
+- added flexbox based grid system (with associated components)
+- cleaned up break point/media query variables
 - refactored code structure
 - added tagging support to extend text
 - added input auto sizer component

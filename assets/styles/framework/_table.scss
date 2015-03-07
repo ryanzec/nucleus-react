@@ -12,7 +12,7 @@ table {
   }
 }
 
-@media only screen and (max-width: $phone-media-break) {
+@media #{$small-screen-media-query} {
   table {
     thead {
       display: none;

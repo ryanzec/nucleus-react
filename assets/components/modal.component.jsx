@@ -4,39 +4,41 @@ var Overlay = require('./overlay.component.jsx');
 var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var domUtilities = require('dom-utilities');
 
-var modalClassConfiguration = {};
+var modal = {};
 
-modalClassConfiguration.mixins = [
+modal.displayName = 'Modal';
+
+modal.mixins = [
   React.addons.PureRenderMixin,
   domEventManagerMixin
 ];
 
 /* istanbul ignore next */
-modalClassConfiguration.componentDidMount = function() {
+modal.componentDidMount = function() {
   this.addDomEvent(window, 'resize', this._reposition);
   this.addDomEvent(window, 'orientationchange', this._reposition);
 };
 
 /* istanbul ignore next */
-modalClassConfiguration.componentDidUpdate = function() {
+modal.componentDidUpdate = function() {
   if(this.props.isActive) {
     this._setTrueDimensions();
     this._centerPosition();
   }
 };
 
-modalClassConfiguration.propTypes = {
+modal.propTypes = {
   className: React.PropTypes.string
 };
 
-modalClassConfiguration.getDefaultProps = function() {
+modal.getDefaultProps = function() {
   return {
     className: null
   };
 };
 
 /* istanbul ignore next */
-modalClassConfiguration._setTrueDimensions = function() {
+modal._setTrueDimensions = function() {
   var setStylesToGetTrueDimensions = function(modalContentElement) {
     modalContentElement.style.visibility = 'hidden';
     modalContentElement.style.display = 'block';
@@ -72,7 +74,7 @@ modalClassConfiguration._setTrueDimensions = function() {
 };
 
 /* istanbul ignore next */
-modalClassConfiguration._reposition = function() {
+modal._reposition = function() {
   if(this.props.isActive) {
     this._setTrueDimensions();
     this._setMaxDimensions();
@@ -81,14 +83,14 @@ modalClassConfiguration._reposition = function() {
 };
 
 /* istanbul ignore next */
-modalClassConfiguration._setMaxDimensions = function() {
+modal._setMaxDimensions = function() {
   //.9 match the scss max-height: 90%, this value needs to be kept in sync with the sass code
   this.getDOMNode().querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * 0.9) + 'px';
   this.getDOMNode().querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * 0.9) + 'px';
 };
 
 /* istanbul ignore next */
-modalClassConfiguration._centerPosition = function() {
+modal._centerPosition = function() {
   var modalContent = this.getDOMNode().querySelector('.modal__content');
   var dimensions = domUtilities.getDimensions(modalContent);
 
@@ -96,7 +98,7 @@ modalClassConfiguration._centerPosition = function() {
   modalContent.style.marginLeft = Math.floor(dimensions.width / 2) * -1 + 'px';
 };
 
-modalClassConfiguration.getCssClasses = function() {
+modal.getCssClasses = function() {
   var cssClasses = ['modal'];
   cssClasses.push('m-center');
 
@@ -111,7 +113,7 @@ modalClassConfiguration.getCssClasses = function() {
   return cssClasses;
 };
 
-modalClassConfiguration.render = function() {
+modal.render = function() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="modal__content">{this.props.children}</div>
@@ -120,6 +122,4 @@ modalClassConfiguration.render = function() {
   );
 };
 
-var Modal = React.createClass(modalClassConfiguration);
-
-module.exports = Modal;
+module.exports = React.createClass(modal);

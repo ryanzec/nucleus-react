@@ -5,14 +5,15 @@
   right: 0;
   height: 49px;
   z-index: 999;
+  background-color: $color-primary1;
 }
 
 .application-header {
   @include display(flex);
   @include align-items(center);
 
+  margin: 0 auto;
   height: 49px;
-  background-color: $color-primary1;
   color: $color-light-text;
   fill: $color-light-text;
   font-size: 1.4rem;
@@ -38,7 +39,14 @@
   }
 }
 
-@media only screen and (max-width: $phone-media-break) {
+@media all and (min-width: 1024px) and (max-width: 2400px) {
+  .application-header {
+    min-width: 1024px;
+    max-width: 1600px;
+  }
+}
+
+@media #{$small-screen-media-query} {
   .application-header {
     ul {
       display: none;

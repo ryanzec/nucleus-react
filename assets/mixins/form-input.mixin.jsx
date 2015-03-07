@@ -5,69 +5,78 @@ var svgPath ='/components/nucleus-icons/svg/svg-sprite.svg';
 var validIconFragment = 'checkmark';
 var invalidIconFragment = 'x';
 
-module.exports = {
-  propTypes: {
-    renderValidation: React.PropTypes.oneOf([false, 'valid', 'invalid', 'both']),
-    renderValidationOnLoad: React.PropTypes.bool
-  },
+var formInputMixin = {};
 
-  componentWillMount: function() {
-    this._initialRenderDone = false;
-  },
+formInputMixin.propTypes = {
+  renderValidation: React.PropTypes.oneOf([false, 'valid', 'invalid', 'both']),
+  renderValidationOnLoad: React.PropTypes.bool
+},
 
-  getDefaultProps: function() {
-    return {
-      renderValidation: false,
-      renderValidationOnLoad: false
-    };
-  },
+formInputMixin.componentWillMount = function() {
+  this.initialValue = this.props.value;
+  this.isValueDirty = false;
+},
 
-  shouldRenderValidation: function() {
-    return (
-      this.props.renderValidation
-      && (this.props.renderValidationOnLoad || this._initialRenderDone)
-      && (
-        (this.state.valid && this.props.renderValidation !== 'invalid')
-        || (!this.state.valid && this.props.renderValidation !== 'valid')
-      )
+formInputMixin.getDefaultProps = function() {
+  return {
+    renderValidation: false,
+    renderValidationOnLoad: false
+  };
+},
+
+formInputMixin.shouldRenderValidation = function() {
+  return (
+    this.props.renderValidation
+    && (this.props.renderValidationOnLoad || this.isValueDirty)
+    && (
+      (this.state.valid && this.props.renderValidation !== 'invalid')
+      || (!this.state.valid && this.props.renderValidation !== 'valid')
+    )
+  );
+},
+
+formInputMixin.renderValidationIcon = function() {
+  var validationIcon = null;
+
+  if(this.shouldRenderValidation()) {
+    validationIcon = (
+      <SvgIcon
+        className="form-element__validation-icon"
+        svgPath={svgPath}
+        fragment={this.state.valid ? validIconFragment : invalidIconFragment} />
     );
-  },
-
-  renderValidationIcon: function() {
-    var validationIcon = null;
-
-    if(this.shouldRenderValidation()) {
-      validationIcon = (
-        <SvgIcon
-          className="form-element__validation-icon"
-          svgPath={svgPath}
-          fragment={this.state.valid ? validIconFragment : invalidIconFragment} />
-      );
-    }
-
-    return validationIcon;
-  },
-
-  onChange: function(event) {
-    var value;
-
-    this._initialRenderDone = true;
-
-    if(this.constructor.displayName === 'CheckboxInput') {
-      value = event.target.checked;
-    } else {
-      value = event.target.value;
-    }
-
-    if(this.props.validate) {
-      this.state.valid = this.setState({
-        valid: this.props.validate(value)
-      });
-    }
-
-    if(this.props.onChange) {
-      this.props.onChange(value, event);
-    }
-
   }
-};
+
+  return validationIcon;
+},
+
+formInputMixin.onChange = function(event) {
+  var value;
+
+  if(this.constructor.displayName === 'CheckboxInput') {
+    value = event.target.checked;
+  } else {
+    value = event.target.value;
+  }
+
+  if(
+    !this.isValueDirty
+    && this.initialValue != value
+    //IE 10+ triggers change on focus so this logic below prevents that from triggering validation on on focus
+    && (this.initialValue == null && value != '')
+  ) {
+    this.isValueDirty = true;
+  }
+
+  if(this.props.validate) {
+    this.state.valid = this.setState({
+      valid: this.props.validate(value)
+    });
+  }
+
+  if(this.props.onChange) {
+    this.props.onChange(value, event);
+  }
+}
+
+module.exports =formInputMixin;

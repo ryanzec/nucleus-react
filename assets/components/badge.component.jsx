@@ -1,35 +1,37 @@
 var React = require('react/addons');
 
-var Badge = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
+var badge = {};
 
-  propTypes: {
-    className: React.PropTypes.string
-  },
+badge.displayName = 'Badge';
 
-  getDefaultProps: function() {
-    return {
-      className: null
-    };
-  },
+badge.mixins = [
+  React.addons.PureRenderMixin
+];
 
-  getCssClasses: function() {
-    var cssClasses = ['badge'];
+badge.propTypes = {
+  className: React.PropTypes.string
+};
 
-    if(this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
+badge.getDefaultProps = function() {
+  return {
+    className: null
+  };
+};
 
-    return cssClasses;
-  },
+badge.getCssClasses = function() {
+  var cssClasses = ['badge'];
 
-  render: function() {
-    return (
-      <span className={this.getCssClasses().join(' ')}>{this.props.children}</span>
-    );
+  if(this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
-});
 
-module.exports = Badge;
+  return cssClasses;
+};
+
+badge.render = function() {
+  return (
+    <span className={this.getCssClasses().join(' ')}>{this.props.children}</span>
+  );
+};
+
+module.exports = React.createClass(badge);

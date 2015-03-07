@@ -1,45 +1,47 @@
 var React = require('react/addons');
 
-var ProgressBar = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
+var progressBar = {};
 
-  propTypes: {
-    className: React.PropTypes.string,
-    percentageDone: React.PropTypes.number,
-    style: React.PropTypes.object,
-  },
+progressBar.displayName = 'ProgressBar';
 
-  getDefaultProps: function() {
-    return {
-      className: null,
-      percentageDone: 0,
-      style: {}
-    };
-  },
+progressBar.mixins = [
+  React.addons.PureRenderMixin
+];
 
-  getCssClasses: function() {
-    var cssClasses = ['progress-bar'];
+progressBar.propTypes = {
+  className: React.PropTypes.string,
+  percentageDone: React.PropTypes.number,
+  style: React.PropTypes.object,
+};
 
-    if(this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
+progressBar.getDefaultProps = function() {
+  return {
+    className: null,
+    percentageDone: 0,
+    style: {}
+  };
+};
 
-    return cssClasses;
-  },
+progressBar.getCssClasses = function() {
+  var cssClasses = ['progress-bar'];
 
-  render: function() {
-    return (
-      <span
-        style={this.props.style}
-        className={this.getCssClasses().join(' ')}>
-        <span
-          className="progress-bar__indicator"
-          style={{width: this.props.percentageDone + '%'}} />
-      </span>
-    );
+  if(this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
-});
 
-module.exports = ProgressBar;
+  return cssClasses;
+};
+
+progressBar.render = function() {
+  return (
+    <span
+      style={this.props.style}
+      className={this.getCssClasses().join(' ')}>
+      <span
+        className="progress-bar__indicator"
+        style={{width: this.props.percentageDone + '%'}} />
+    </span>
+  );
+};
+
+module.exports = React.createClass(progressBar);

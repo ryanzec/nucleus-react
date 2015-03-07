@@ -1,5 +1,3 @@
-//TODO: label should not have color unless they are tied to a checkbox of radio input
-
 $component-identifier: '.form-element';
 
 #{$component-identifier} {
@@ -63,21 +61,12 @@ $component-identifier: '.form-element';
     }
   }
 
-  &__input-group {
-    @include display(flex);
-    @include justify-content(space-between);
-  }
-
   &.m-valid {
     #{$component-identifier}__input.m-text,
     #{$component-identifier}__input.m-select,
     #{$component-identifier}__input.m-textarea {
       border-color: $color-safe;
       background-color: transparentize($color-safe, 0.97);
-    }
-
-    label {
-      color: $color-safe;
     }
 
     #{$component-identifier}__validation-icon {
@@ -91,10 +80,6 @@ $component-identifier: '.form-element';
     #{$component-identifier}__input.m-textarea {
       border-color: $color-danger;
       background-color: transparentize($color-danger, 0.97);
-    }
-
-    label {
-      color: $color-danger;
     }
 
     #{$component-identifier}__validation-icon {
@@ -115,6 +100,8 @@ form.m-inline {
 
   label:not(.m-toggle) {
     width: auto;
+    text-align: right;
+    padding-right: 10px;
   }
 }
 

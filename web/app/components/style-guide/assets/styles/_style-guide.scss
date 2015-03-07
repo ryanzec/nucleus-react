@@ -10,9 +10,7 @@
 
     &.m-expanded {
       width: 300px;
-      border-right: 1px solid $color-black;
       padding: 20px;
-      min-height: calc(100vh - 49px);
     }
 
     &.m-minified {
@@ -23,6 +21,8 @@
   &__content {
     @include flex(24);
     padding: 0 20px 20px 20px;
+    min-height: calc(100% - 49px);
+    border-left: 1px solid $color-black;
   }
 
   &__section-header {
@@ -68,7 +68,7 @@
   }
 }
 
-@media only screen and (max-width: $phone-media-break) {
+@media #{$small-screen-media-query} {
   .style-guide {
     &__menu {
       &.m-expanded {

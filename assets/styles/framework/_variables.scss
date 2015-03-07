@@ -1,21 +1,21 @@
 //gray palette
-$color-gray1: hsla(0.0, 0.0%, 96.1%, 1.0);
-$color-gray2: hsla(0.0, 0.0%, 87.8%, 1.0);
-$color-gray3: hsla(0.0, 0.0%, 74.1%, 1.0);
-$color-gray4: hsla(0.0, 0.0%, 62.0%, 1.0);
-$color-gray5: hsla(0.0, 0.0%, 38.0%, 1.0);
-$color-gray6: hsla(0.0, 0.0%, 25.9%, 1.0);
+$color-gray1: hsla(0.0, 0.0%, 96.1%, 1.0) !default;
+$color-gray2: hsla(0.0, 0.0%, 87.8%, 1.0) !default;
+$color-gray3: hsla(0.0, 0.0%, 74.1%, 1.0) !default;
+$color-gray4: hsla(0.0, 0.0%, 62.0%, 1.0) !default;
+$color-gray5: hsla(0.0, 0.0%, 38.0%, 1.0) !default;
+$color-gray6: hsla(0.0, 0.0%, 25.9%, 1.0) !default;
 
 //primary palette
-$color-primary1: hsla(186.5, 100.0%, 37.8%, 1.0);
-$color-primary2: hsla(122.4, 39.4%, 49.2%, 1.0);
-$color-primary3: hsla(65.5, 70.0%, 54.3%, 1.0);
+$color-primary1: hsla(186.5, 100.0%, 37.8%, 1.0) !default;
+$color-primary2: hsla(122.4, 39.4%, 49.2%, 1.0) !default;
+$color-primary3: hsla(65.5, 70.0%, 54.3%, 1.0) !default;
 
 //secondary palette
-$color-secondary1: hsla(122.4, 39.4%, 45.2%, 1.0);
-$color-secondary2: hsla(206.6, 89.7%, 51.1%, 1.0);
-$color-secondary3: hsla(35.8, 100.0%, 47.0%, 1.0);
-$color-secondary4: hsla(4.1, 89.6%, 55.4%, 1.0);
+$color-secondary1: hsla(122.4, 39.4%, 45.2%, 1.0) !default;
+$color-secondary2: hsla(206.6, 89.7%, 51.1%, 1.0) !default;
+$color-secondary3: hsla(35.8, 100.0%, 47.0%, 1.0) !default;
+$color-secondary4: hsla(4.1, 89.6%, 55.4%, 1.0) !default;
 
 //general colors
 $color-white: hsla(0, 0%, 100%, 1) !default;
@@ -61,9 +61,6 @@ $z-index-notify: 1800 !default;
 $z-index-non-blocking-site-loader: 1899 !default;
 $z-index-site-loader: 1900 !default;
 $z-index-content-modal: 2000 !default;
-
-//media break points
-$phone-media-break: 600px;
 
 //font
 $font-size: 1.3rem !default;
@@ -172,13 +169,32 @@ $border-radius-progress-bar: $height-progress-bar / 2 !default;
 $background-color-indicator-progress-bar: $color-neutral !default;
 
 //modal
-$top-content-center-modal: 75px;
-$border-radius-center-modal: 5px;
-$border-modal: 1px solid $color-black;
-$background-color-content-modal: $color-white;
-$padding-content-modal: 10px;
+$top-content-center-modal: 75px !default;
+$border-radius-center-modal: 5px !default;
+$border-modal: 1px solid $color-black !default;
+$background-color-content-modal: $color-white !default;
+$padding-content-modal: 10px !default;
 
 //pagination
-$color-navigation-active-pagination: $color-notice;
-$icon-size-pagination: 12px;
-$padding-item-pagination: 6px 12px;
+$color-navigation-active-pagination: $color-notice !default;
+$icon-size-pagination: 12px !default;
+$padding-item-pagination: 6px 12px !default;
+
+//break points
+$small-break-point: 640px !default;
+$medium-break-point: 1024px !default;
+$default-break-point: 1920px !default;
+$large-break-point: 2560px !default;
+
+//media queries
+$small-screen-media-query: "only screen and (min-width: 1px) and (max-width: #{$small-break-point})" !default;
+$medium-screen-media-query: "only screen and (min-width: #{$small-break-point + 1}) and (max-width: #{$medium-break-point})" !default;
+$default-screen-media-query: "only screen and (min-width: #{$medium-break-point + 1}) and (max-width: #{$default-break-point})" !default;
+$large-screen-media-query: "only screen and (min-width: #{$default-break-point + 1})" !default;
+
+//grid
+$grid-small-columns: 12 !default;
+$grid-medium-columns: 12 !default;
+$grid-columns: 12 !default;
+$grid-large-columns: 12 !default;
+$grid-gutter: 24px !default;

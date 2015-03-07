@@ -1,60 +1,62 @@
 var React = require('react/addons');
 
-var Icon = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
+var svgIcon = {};
 
-  propTypes: {
-    svgPath: React.PropTypes.string.isRequired,
-    fragment: React.PropTypes.string,
-    size: React.PropTypes.string,
-    className: React.PropTypes.string
-  },
+svgIcon.displayName = 'SvgIcon';
 
-  getDefaultProps: function() {
-    return {
-      svgPath: null,
-      fragment: null,
-      size: 'small',
-      className: null
-    };
-  },
+svgIcon.mixins = [
+  React.addons.PureRenderMixin
+];
 
-  getFullSvgPath: function() {
-    var path = this.props.svgPath;
+svgIcon.propTypes = {
+  svgPath: React.PropTypes.string.isRequired,
+  fragment: React.PropTypes.string,
+  size: React.PropTypes.string,
+  className: React.PropTypes.string
+};
 
-    if(this.props.fragment) {
-      path += '#' + this.props.fragment + '-' + this.props.size;
-    }
+svgIcon.getDefaultProps = function() {
+  return {
+    svgPath: null,
+    fragment: null,
+    size: 'small',
+    className: null
+  };
+};
 
-    return path;
-  },
+svgIcon.getFullSvgPath = function() {
+  var path = this.props.svgPath;
 
-  getCssClasses: function() {
-    var cssClasses = ['svg-icon'];
-
-    if(this.props.fragment) {
-      cssClasses.push(this.props.fragment + '-' + this.props.size);
-      cssClasses.push('icon-' + this.props.size);
-    }
-
-    if(this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    return cssClasses;
-  },
-
-  render: function() {
-    var useTag = '<use xlink:href="' + this.getFullSvgPath() + '" />';
-
-    return (
-      <svg
-        className={this.getCssClasses().join(' ')}
-        dangerouslySetInnerHTML={{__html: useTag }} />
-    );
+  if(this.props.fragment) {
+    path += '#' + this.props.fragment + '-' + this.props.size;
   }
-});
 
-module.exports = Icon;
+  return path;
+};
+
+svgIcon.getCssClasses = function() {
+  var cssClasses = ['svg-icon'];
+
+  if(this.props.fragment) {
+    cssClasses.push(this.props.fragment + '-' + this.props.size);
+    cssClasses.push('icon-' + this.props.size);
+  }
+
+  if(this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
+  }
+
+  return cssClasses;
+};
+
+svgIcon.render = function() {
+  var useTag = '<use xlink:href="' + this.getFullSvgPath() + '" />';
+
+  return (
+    <svg
+      className={this.getCssClasses().join(' ')}
+      dangerouslySetInnerHTML={{__html: useTag }} />
+  );
+};
+
+module.exports = React.createClass(svgIcon);

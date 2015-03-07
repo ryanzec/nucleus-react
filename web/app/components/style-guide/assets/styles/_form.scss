@@ -1,13 +1,11 @@
 .p-form {
-  form {
-    width: 500px;
-  }
+  // form {
+  //   width: 500px;
+  // }
 
   form.m-inline {
     label:not(.m-toggle) {
       @include flex(0 0 100px);
-      text-align: right;
-      padding-right: 10px;
     }
 
     label.m-toggle {
@@ -15,7 +13,7 @@
     }
   }
 
-  .form-element__input-group-item {
-    @include flex(12);
-  }
+  // .form-element__input-group-item {
+  //   @include flex(12);
+  // }
 }
