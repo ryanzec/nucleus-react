@@ -4,7 +4,7 @@ var runSequence = require('run-sequence');
 gulp.task('build', 'Builds the code along with running quality checks (tests, hints, etc...)', function(done) {
   runSequence(
     'i18n',
-    'jshint',
+    'eslint',
     'code-coverage',
     ['sass', 'html-minify', 'browserify-production', 'copy-static-assets'],
     //'static-rewrite',

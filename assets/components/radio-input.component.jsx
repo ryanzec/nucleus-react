@@ -19,7 +19,7 @@ radioInput.propTypes = {
   name: React.PropTypes.string.isRequired
 };
 
-radioInput.getDefaultProps = function() {
+radioInput.getDefaultProps = function radioInputGetDefaultProps() {
   return {
     className: null,
     label: null,
@@ -29,30 +29,30 @@ radioInput.getDefaultProps = function() {
   };
 };
 
-radioInput.getInitialState = function() {
+radioInput.getInitialState = function radioInputGetInitialState() {
   return {
     valid: true
   };
 };
 
-radioInput.getCssClasses = function() {
+radioInput.getCssClasses = function radioInputGetCssClasses() {
   var cssClasses = ['form-element'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if(this.shouldRenderValidation()) {
+  if (this.shouldRenderValidation()) {
     cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
 };
 
-radioInput.renderLabel = function() {
+radioInput.renderLabel = function radioInputRenderLabel() {
   var label = null;
 
-  if(this.props.label) {
+  if (this.props.label) {
     label = (
       <label>{this.props.label}</label>
     );
@@ -61,11 +61,11 @@ radioInput.renderLabel = function() {
   return label;
 };
 
-radioInput.renderInput = function() {
-  var options = _.map(this.props.options, function(option) {
+radioInput.renderInput = function radioInputRenderInput() {
+  var options = _.map(this.props.options, function radioInputPropsOptionsMap(option) {
     var checked = this.props.value === option.value;
 
-    if(option.displayPosition === 'left') {
+    if (option.displayPosition === 'left') {
       return (
         <label className="m-toggle" key={option.value}>
           {option.display}<input
@@ -77,20 +77,20 @@ radioInput.renderInput = function() {
                             onChange={this.onChange} />
         </label>
       );
-    } else {
-      return (
-        <label className="m-toggle" key={option.value}>
-          <input
-            className="form-element__input m-radio m-right"
-            type="radio"
-            value={option.value}
-            checked={checked}
-            name={this.props.name}
-            onChange={this.onChange} />
-            {option.display}
-        </label>
-      );
     }
+
+    return (
+      <label className="m-toggle" key={option.value}>
+        <input
+          className="form-element__input m-radio m-right"
+          type="radio"
+          value={option.value}
+          checked={checked}
+          name={this.props.name}
+          onChange={this.onChange} />
+          {option.display}
+      </label>
+    );
   }.bind(this));
 
   return (
@@ -100,7 +100,7 @@ radioInput.renderInput = function() {
   );
 };
 
-radioInput.render = function() {
+radioInput.render = function radioInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}

@@ -19,7 +19,7 @@ selectInput.propTypes = {
   options: React.PropTypes.array
 };
 
-selectInput.getDefaultProps = function() {
+selectInput.getDefaultProps = function selectInputGetDefaultProps() {
   return {
     className: null,
     label: null,
@@ -29,27 +29,27 @@ selectInput.getDefaultProps = function() {
   };
 };
 
-selectInput.getInitialState = function() {
+selectInput.getInitialState = function selectInputGetInitialState() {
   return {
     valid: true
   };
 };
 
-selectInput.getCssClasses = function() {
+selectInput.getCssClasses = function selectInputGetCssClasses() {
   var cssClasses = ['form-element'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if(this.shouldRenderValidation()) {
+  if (this.shouldRenderValidation()) {
     cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
 };
 
-selectInput.getInputPassThroughProps = function() {
+selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughProps() {
   var props = _.clone(this.props, true);
 
   delete props.className;
@@ -66,10 +66,10 @@ selectInput.getInputPassThroughProps = function() {
   return props;
 };
 
-selectInput.renderLabel = function() {
+selectInput.renderLabel = function selectInputRenderLabel() {
   var label = null;
 
-  if(this.props.label) {
+  if (this.props.label) {
     label = (
       <label>{this.props.label}</label>
     );
@@ -78,8 +78,8 @@ selectInput.renderLabel = function() {
   return label;
 };
 
-selectInput.renderInput = function() {
-  var selectOptions = _.map(this.props.options, function(option) {
+selectInput.renderInput = function selectInputRenderInput() {
+  var selectOptions = _.map(this.props.options, function selectInputPropsOptionsMap(option) {
     return (
       <option value={option.value} key={option.value}>{option.display}</option>
     );
@@ -99,7 +99,7 @@ selectInput.renderInput = function() {
   );
 };
 
-selectInput.render = function() {
+selectInput.render = function selectInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}

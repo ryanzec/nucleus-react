@@ -13,28 +13,28 @@ flexRow.propTypes = {
   className: React.PropTypes.string
 };
 
-flexRow.getDefaultProps = function() {
+flexRow.getDefaultProps = function flexRowGetDefaultProps() {
   return {
     alignItems: null,
     className: null
   };
 };
 
-flexRow.getCssClasses = function() {
+flexRow.getCssClasses = function flexRowGetCssClasses() {
   var cssClasses = ['flex-row'];
 
-  if(this.props.alignItems) {
+  if (this.props.alignItems) {
     cssClasses.push('m-align-' + this.props.alignItems);
   }
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
 };
 
-flexRow.render = function() {
+flexRow.render = function flexRowRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.props.children}

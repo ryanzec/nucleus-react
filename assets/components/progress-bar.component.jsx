@@ -11,10 +11,10 @@ progressBar.mixins = [
 progressBar.propTypes = {
   className: React.PropTypes.string,
   percentageDone: React.PropTypes.number,
-  style: React.PropTypes.object,
+  style: React.PropTypes.object
 };
 
-progressBar.getDefaultProps = function() {
+progressBar.getDefaultProps = function progressBarGetDefaultProps() {
   return {
     className: null,
     percentageDone: 0,
@@ -22,24 +22,26 @@ progressBar.getDefaultProps = function() {
   };
 };
 
-progressBar.getCssClasses = function() {
+progressBar.getCssClasses = function progressBarGetCssClasses() {
   var cssClasses = ['progress-bar'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
 };
 
-progressBar.render = function() {
+progressBar.render = function progressBarRender() {
   return (
     <span
       style={this.props.style}
       className={this.getCssClasses().join(' ')}>
       <span
         className="progress-bar__indicator"
-        style={{width: this.props.percentageDone + '%'}} />
+        style={{
+          width: this.props.percentageDone + '%'
+        }} />
     </span>
   );
 };

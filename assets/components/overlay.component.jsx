@@ -14,7 +14,7 @@ overlay.propTypes = {
   topContent: React.PropTypes.node
 };
 
-overlay.getDefaultProps = function() {
+overlay.getDefaultProps = function overlayGetDefaultProps() {
   return {
     absolutePositioned: false,
     isActive: false,
@@ -22,24 +22,24 @@ overlay.getDefaultProps = function() {
   };
 };
 
-overlay.getCssClasses = function() {
+overlay.getCssClasses = function overlayGetCssClasses() {
   var cssClasses = ['overlay'];
 
-  if(this.props.absolutePositioned === true) {
+  if (this.props.absolutePositioned === true) {
     cssClasses.push('m-absolute');
   }
 
-  if(this.props.isActive !== true) {
+  if (this.props.isActive !== true) {
     cssClasses.push('u-hide');
   }
 
   return cssClasses;
 };
 
-overlay.render = function() {
+overlay.render = function overlayRender() {
   var topContent = null;
 
-  if(this.props.topContent) {
+  if (this.props.topContent) {
     topContent = (
       <div className="overlay__content">
         {this.props.topContent}

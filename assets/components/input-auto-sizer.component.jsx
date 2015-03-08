@@ -15,32 +15,32 @@ inputAutoSizer.propTypes = {
   inputClassName: React.PropTypes.string
 };
 
-inputAutoSizer.getDefaultProps = function() {
+inputAutoSizer.getDefaultProps = function inputAutoSizerGetDefaultProps() {
   return {
     maxWidth: '100%',
     inputClassName: null
   };
 };
 
-inputAutoSizer.getInitialState = function() {
+inputAutoSizer.getInitialState = function inputAutoSizerGetInitialState() {
   return {
     width: '0px'
   };
 };
 
-inputAutoSizer.componentDidMount = function() {
+inputAutoSizer.componentDidMount = function inputAutoSizerComponentDidMount() {
   this.setState({
     width: this.getNewWidth()
   });
 };
 
-inputAutoSizer.componentDidUpdate = function(previousProps, previousState) {
+inputAutoSizer.componentDidUpdate = function inputAutoSizerComponentDidUpdate(previousProps, previousState) {
   this.setState({
     width: this.getNewWidth()
   });
 };
 
-inputAutoSizer.getNewWidth = function() {
+inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
   var dimensions = domUtilities.getDimensions(this.refs.input.getDOMNode());
 
   return (
@@ -53,17 +53,17 @@ inputAutoSizer.getNewWidth = function() {
   );
 };
 
-inputAutoSizer.getInputCssClasses = function() {
+inputAutoSizer.getInputCssClasses = function inputAutoSizerGetInputCssClasses() {
   var cssClasses = ['form-element__input m-text'];
 
-  if(this.props.inputClassName) {
+  if (this.props.inputClassName) {
     cssClasses = cssClasses.concat(this.props.inputClassName.split(' '));
   }
 
   return cssClasses;
 };
 
-inputAutoSizer.renderInputElement = function() {
+inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() {
   var props = _.clone(this.props, true);
 
   delete props.maxWidth;
@@ -71,7 +71,7 @@ inputAutoSizer.renderInputElement = function() {
 
   props.ref = 'input';
 
-  if(props.defaultValue) {
+  if (props.defaultValue) {
     delete props.value;
   } else {
     delete props.defaultValue;
@@ -89,7 +89,7 @@ inputAutoSizer.renderInputElement = function() {
   );
 };
 
-inputAutoSizer.render = function() {
+inputAutoSizer.render = function inputAutoSizerRender() {
   var htmlValue = (this.props.value || '').replace(/ /g, '&nbsp;');
 
   return (
@@ -101,7 +101,9 @@ inputAutoSizer.render = function() {
         style={{
           maxWidth: this.props.maxWidth
         }}
-        dangerouslySetInnerHTML={{ __html: htmlValue }}></div>
+        dangerouslySetInnerHTML={{
+          __html: htmlValue
+        }}></div>
     </span>
   );
 };

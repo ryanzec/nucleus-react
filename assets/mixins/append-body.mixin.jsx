@@ -2,16 +2,16 @@ var React = require('react/addons');
 
 var appendBodyMixin = {};
 
-appendBodyMixin.componentDidUpdate = function() {
+appendBodyMixin.componentDidUpdate = function appendBodyMixinComponentDidUpdate() {
   this._updateAppendElement();
 };
 
-appendBodyMixin.createAppendElement = function(options) {
+appendBodyMixin.createAppendElement = function appendBodyMixinCreateAppendElement(options) {
   options = options || {};
   var tag = options.tag || 'div';
   var className = options.className || 'append-body-wrapper';
 
-  if(this._bodyAppendContent) {
+  if (this._bodyAppendContent) {
     throw new Error('Component has already append an element to the body');
   }
 
@@ -21,16 +21,16 @@ appendBodyMixin.createAppendElement = function(options) {
   this._updateAppendElement();
 };
 
-appendBodyMixin.getAppendElement = function() {
+appendBodyMixin.getAppendElement = function appendBodyMixinGetAppendElement() {
   return this._bodyAppendContent;
 };
 
-appendBodyMixin.removeAppendElement = function() {
+appendBodyMixin.removeAppendElement = function appendBodyMixinRemoveAppendElement() {
   document.body.removeChild(this._bodyAppendContent);
   this._bodyAppendContent = null;
 };
 
-appendBodyMixin._updateAppendElement = function() {
+appendBodyMixin._updateAppendElement = function appendBodyMixinUpdateAppendElement() {
   var appendContent = this.getAppendBodyContent();
 
   if (appendContent) {

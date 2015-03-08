@@ -19,7 +19,7 @@ textboxInput.propTypes = {
   multiLined: React.PropTypes.bool
 };
 
-textboxInput.getDefaultProps = function() {
+textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
   return {
     className: null,
     label: null,
@@ -29,27 +29,27 @@ textboxInput.getDefaultProps = function() {
   };
 };
 
-textboxInput.getInitialState = function() {
+textboxInput.getInitialState = function textboxInputGetInitialState() {
   return {
     valid: true
   };
 };
 
-textboxInput.getCssClasses = function() {
+textboxInput.getCssClasses = function textboxInputGetCssClasses() {
   var cssClasses = ['form-element'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if(this.shouldRenderValidation()) {
+  if (this.shouldRenderValidation()) {
     cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
 };
 
-textboxInput.getInputPassThroughProps = function() {
+textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThroughProps() {
   var props = _.clone(this.props, true);
 
   delete props.className;
@@ -64,10 +64,10 @@ textboxInput.getInputPassThroughProps = function() {
   return props;
 };
 
-textboxInput.renderLabel = function() {
+textboxInput.renderLabel = function textboxInputRenderLabel() {
   var label = null;
 
-  if(this.props.label) {
+  if (this.props.label) {
     label = (
       <label>{this.props.label}</label>
     );
@@ -76,26 +76,26 @@ textboxInput.renderLabel = function() {
   return label;
 };
 
-textboxInput.renderInput = function() {
-  if(this.props.multiLined) {
+textboxInput.renderInput = function textboxInputRenderInput() {
+  if (this.props.multiLined) {
     return (
       <textarea
         className="form-element__input-container form-element__input m-textarea"
         onChange={this.onChange}
         {...this.getInputPassThroughProps()} />
     );
-  } else {
-    return (
-      <input
-        className="form-element__input-container form-element__input m-text"
-        type={this.props.maskValue ? 'password' : 'text'}
-        onChange={this.onChange}
-        {...this.getInputPassThroughProps()} />
-    );
   }
+
+  return (
+    <input
+      className="form-element__input-container form-element__input m-text"
+      type={this.props.maskValue ? 'password' : 'text'}
+      onChange={this.onChange}
+      {...this.getInputPassThroughProps()} />
+  );
 };
 
-textboxInput.render = function() {
+textboxInput.render = function textboxInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}

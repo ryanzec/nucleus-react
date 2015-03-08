@@ -2,6 +2,7 @@
 
 ## master
 
+- removed jshint in favor of eslint
 - added suport for className property for flex row and cells
 - removed deprecated jshint options (prep for adding JSCS)
 - refactored structure of components/mixins

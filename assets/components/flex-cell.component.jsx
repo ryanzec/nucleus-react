@@ -22,7 +22,7 @@ flexCell.propTypes = {
   className: React.PropTypes.string
 };
 
-flexCell.getDefaultProps = function() {
+flexCell.getDefaultProps = function flexCellGetDefaultProps() {
   return {
     align: null,
     smallColumns: null,
@@ -34,57 +34,57 @@ flexCell.getDefaultProps = function() {
   };
 };
 
-flexCell.getSmallColumnCount = function() {
+flexCell.getSmallColumnCount = function flexCellGetSmallColumnCount() {
   return this.props.smallColumns < maxSmallColumns ? this.props.smallColumns : maxSmallColumns;
 };
 
-flexCell.getMediumColumnCount = function() {
+flexCell.getMediumColumnCount = function flexCellGetMediumColumnCount() {
   return this.props.mediumColumns < maxMediumColumns ? this.props.mediumColumns : maxMediumColumns;
 };
 
-flexCell.getColumnCount = function() {
+flexCell.getColumnCount = function flexCellGetColumnCount() {
   return this.props.columns < maxColumns ? this.props.columns : maxColumns;
 };
 
-flexCell.getLargeColumnCount = function() {
+flexCell.getLargeColumnCount = function flexCellGetLargeColumnCount() {
   return this.props.largeColumns < maxLargeColumns ? this.props.largeColumns : maxLargeColumns;
 };
 
-flexCell.getCssClasses = function() {
+flexCell.getCssClasses = function flexCellGetCssClasses() {
   var cssClasses = ['flex-row__cell'];
 
-  if(this.props.smallColumns) {
+  if (this.props.smallColumns) {
     cssClasses.push('m-small-columns' + this.getSmallColumnCount());
   }
 
-  if(this.props.mediumColumns) {
+  if (this.props.mediumColumns) {
     cssClasses.push('m-medium-columns' + this.getMediumColumnCount());
   }
 
-  if(this.props.columns) {
+  if (this.props.columns) {
     cssClasses.push('m-columns' + this.getColumnCount());
   }
 
-  if(this.props.largeColumns) {
+  if (this.props.largeColumns) {
     cssClasses.push('m-large-columns' + this.getLargeColumnCount());
   }
 
-  if(this.props.flex === true) {
+  if (this.props.flex === true) {
     cssClasses.push('m-flex');
   }
 
-  if(this.props.align) {
+  if (this.props.align) {
     cssClasses.push('m-align-' + this.props.align);
   }
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
 };
 
-flexCell.render = function() {
+flexCell.render = function flexCellRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="flex-row__cell-data">

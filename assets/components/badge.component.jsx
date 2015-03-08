@@ -12,23 +12,23 @@ badge.propTypes = {
   className: React.PropTypes.string
 };
 
-badge.getDefaultProps = function() {
+badge.getDefaultProps = function badgeGetDefaultProps() {
   return {
     className: null
   };
 };
 
-badge.getCssClasses = function() {
+badge.getCssClasses = function badgeGetCssClasses() {
   var cssClasses = ['badge'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
 };
 
-badge.render = function() {
+badge.render = function badgeRender() {
   return (
     <span className={this.getCssClasses().join(' ')}>{this.props.children}</span>
   );

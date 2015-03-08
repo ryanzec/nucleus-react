@@ -2,21 +2,21 @@
 var domEventManagerMixin = {};
 
 /* istanbul ignore next */
-domEventManagerMixin.componentWillMount = function() {
+domEventManagerMixin.componentWillMount = function domEventManagerMixinComponentWillMount() {
   this._managedDomEvents = [];
 };
 
 /* istanbul ignore next */
-domEventManagerMixin.componentWillUnmount = function() {
-  if(this._managedDomEvents.length > 0) {
-    this._managedDomEvents.forEach(function(event) {
+domEventManagerMixin.componentWillUnmount = function domEventManagerMixinComponentWillUnmount() {
+  if (this._managedDomEvents.length > 0) {
+    this._managedDomEvents.forEach(function domEventManagerMixinComponentWillUnmountManagedDomEventsForEach(event) {
       event.element.removeEventListener(event.type, event.func);
     });
   }
 };
 
 /* istanbul ignore next */
-domEventManagerMixin.addDomEvent = function(element, type, func) {
+domEventManagerMixin.addDomEvent = function domEventManagerMixinAddDomeEvent(element, type, func) {
   element.addEventListener(type, func);
   this._managedDomEvents.push({
     element: element,

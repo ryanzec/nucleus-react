@@ -18,7 +18,7 @@ checkboxInput.propTypes = {
   displayPosition: React.PropTypes.oneOf(['right', 'left'])
 };
 
-checkboxInput.getDefaultProps = function() {
+checkboxInput.getDefaultProps = function checkboxInputGetDefaultProps() {
   return {
     className: null,
     label: null,
@@ -27,27 +27,27 @@ checkboxInput.getDefaultProps = function() {
   };
 };
 
-checkboxInput.getInitialState = function() {
+checkboxInput.getInitialState = function checkboxInputGetInitialState() {
   return {
     valid: true
   };
 };
 
-checkboxInput.getCssClasses = function() {
+checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
   var cssClasses = ['form-element'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if(this.shouldRenderValidation()) {
+  if (this.shouldRenderValidation()) {
     cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
 };
 
-checkboxInput.getInputPassThroughProps = function() {
+checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThroughProps() {
   var props = _.clone(this.props, true);
 
   delete props.className;
@@ -62,8 +62,8 @@ checkboxInput.getInputPassThroughProps = function() {
   return props;
 };
 
-checkboxInput.renderInput = function() {
-  if(this.props.displayPosition === 'right') {
+checkboxInput.renderInput = function checkboxInputRenderInput() {
+  if (this.props.displayPosition === 'right') {
     return (
       <label className="form-element__input-container m-toggle">
         <input
@@ -74,21 +74,21 @@ checkboxInput.renderInput = function() {
         {this.props.label}
       </label>
     );
-  } else {
-    return (
-      <label className="form-element__input-container m-toggle">
-        {this.props.label}
-        <input
-          className="form-element__input m-checkbox m-left"
-          type="checkbox"
-          onChange={this.onChange}
-          {...this.getInputPassThroughProps()} />
-      </label>
-    );
   }
+
+  return (
+    <label className="form-element__input-container m-toggle">
+      {this.props.label}
+      <input
+        className="form-element__input m-checkbox m-left"
+        type="checkbox"
+        onChange={this.onChange}
+        {...this.getInputPassThroughProps()} />
+    </label>
+  );
 };
 
-checkboxInput.render = function() {
+checkboxInput.render = function checkboxInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="form-element__field-container">

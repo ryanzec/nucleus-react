@@ -25,14 +25,14 @@ tooltipMixin.propTypes = {
   tooltipSpacing: React.PropTypes.number
 };
 
-tooltipMixin.getInitialState = function() {
+tooltipMixin.getInitialState = function tooltipMixinGetInitialState() {
   return {
     tooltipActive: false,
     tooltipStickyActive: false
   };
 };
 
-tooltipMixin.getDefaultProps = function() {
+tooltipMixin.getDefaultProps = function tooltipMixinGetDefaultProps() {
   return {
     tooltipVertical: 'bottom',
     tooltipHorizontal: 'right',
@@ -43,7 +43,7 @@ tooltipMixin.getDefaultProps = function() {
   };
 };
 
-tooltipMixin.componentDidMount = function() {
+tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
   this.createAppendElement();
   var appendBody = this.getAppendElement();
   var node = this.getDOMNode();
@@ -56,7 +56,7 @@ tooltipMixin.componentDidMount = function() {
   tooltipContent.addEventListener('mouseenter', this._tooltipMouseEnter);
   tooltipContent.addEventListener('mouseleave', this._tooltipMouseLeave);
 
-  if(_.isFunction(this.getTooltipStickyContent)) {
+  if (_.isFunction(this.getTooltipStickyContent)) {
     tooltipContent.addEventListener('click', this._tooltipContentClick);
     handle.addEventListener('click', this._tooltipClick);
   }
@@ -66,7 +66,7 @@ tooltipMixin.componentDidMount = function() {
   });
 };
 
-tooltipMixin.componentWillUnmount = function() {
+tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() {
   var node = this.getDOMNode();
   var handle = node.getElementsByClassName('tooltip__handle')[0];
   var appendBody = this.getAppendElement();
@@ -78,7 +78,7 @@ tooltipMixin.componentWillUnmount = function() {
   tooltipContent.removeEventListener('mouseenter', this._tooltipMouseEnter);
   tooltipContent.removeEventListener('mouseleave', this._tooltipMouseLeave);
 
-  if(_.isFunction(this.getTooltipStickyContent)) {
+  if (_.isFunction(this.getTooltipStickyContent)) {
     tooltipContent.removeEventListener('click', this._tooltipContentClick);
     handle.removeEventListener('click', this._tooltipClick);
   }
@@ -91,7 +91,7 @@ tooltipMixin.componentWillUnmount = function() {
 };
 
 /* istanbul ignore next */
-tooltipMixin._getTooltipTopPositions = function(tooltipHandleNode, tooltipNode) {
+tooltipMixin._getTooltipTopPositions = function tooltipMixinGetTooltipPositions(tooltipHandleNode, tooltipNode) {
   var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
 
@@ -101,7 +101,7 @@ tooltipMixin._getTooltipTopPositions = function(tooltipHandleNode, tooltipNode) 
     bottom: Math.round(handleDimensions.top + handleDimensions.height + this.props.tooltipSpacing)
   };
 
-  if(this.props.tooltipFixed === false) {
+  if (this.props.tooltipFixed === false) {
     tops.top += window.pageYOffset;
     tops.center += window.pageYOffset;
     tops.bottom += window.pageYOffset;
@@ -111,18 +111,17 @@ tooltipMixin._getTooltipTopPositions = function(tooltipHandleNode, tooltipNode) 
 };
 
 /* istanbul ignore next */
-tooltipMixin._getTooltipLeftPositions = function(tooltipHandleNode, tooltipNode) {
+tooltipMixin._getTooltipLeftPositions = function tooltipMixingetTooltipLeftPosition(tooltipHandleNode, tooltipNode) {
   var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
-  var tooltipDimensions = domUtilities.getDimensions(tooltipNode);
 
   var lefts = {
     left: Math.round(handleDimensions.left - tooltipClientRect.width - this.props.tooltipSpacing),
     center: Math.round(handleDimensions.left - (tooltipClientRect.width / 2) + (handleDimensions.width / 2)),
-    right: Math.round(handleDimensions.left + handleDimensions.width  + this.props.tooltipSpacing)
+    right: Math.round(handleDimensions.left + handleDimensions.width + this.props.tooltipSpacing)
   };
 
-  if(this.props.tooltipFixed === false) {
+  if (this.props.tooltipFixed === false) {
     lefts.left += window.pageXOffset;
     lefts.center += window.pageXOffset;
     lefts.right += window.pageXOffset;
@@ -132,28 +131,28 @@ tooltipMixin._getTooltipLeftPositions = function(tooltipHandleNode, tooltipNode)
 };
 
 /* istanbul ignore next */
-tooltipMixin._fixHiddenTooltip = function(tooltipNode, tops, lefts) {
+tooltipMixin._fixHiddenTooltip = function tooltipMixinFixHiddenTooltip(tooltipNode, tops, lefts) {
   var newlyPositionedtooltipClientRect = tooltipNode.getBoundingClientRect();
 
-  if(newlyPositionedtooltipClientRect.top < 0) {
+  if (newlyPositionedtooltipClientRect.top < 0) {
     tooltipNode.style.top = tops.bottom + 'px';
   }
 
-  if(newlyPositionedtooltipClientRect.right > window.innerWidth) {
+  if (newlyPositionedtooltipClientRect.right > window.innerWidth) {
     tooltipNode.style.left = lefts.left + 'px';
   }
 
-  if(newlyPositionedtooltipClientRect.bottom > window.innerHeight) {
+  if (newlyPositionedtooltipClientRect.bottom > window.innerHeight) {
     tooltipNode.style.top = tops.top + 'px';
   }
 
-  if(newlyPositionedtooltipClientRect.left < 0) {
+  if (newlyPositionedtooltipClientRect.left < 0) {
     tooltipNode.style.left = lefts.right + 'px';
   }
 };
 
 /* istanbul ignore next */
-tooltipMixin._setTooltipPosition = function() {
+tooltipMixin._setTooltipPosition = function tooltipMixinSetTooltipPosition() {
   var tooltipNode = this.getAppendElement().getElementsByClassName('tooltip__content')[0];
   var tooltipHandleNode = this.getDOMNode().getElementsByClassName('tooltip__handle')[0];
   var tooltipCurrentDisplay = tooltipNode.style.display;
@@ -177,14 +176,14 @@ tooltipMixin._setTooltipPosition = function() {
   tooltipNode.style.display = tooltipCurrentDisplay;
 };
 
-tooltipMixin._tooltipMouseEnter = function() {
+tooltipMixin._tooltipMouseEnter = function tooltipMixinTooltipMouseEnter() {
   this._setTooltipPosition();
 
-  if(this._tooltipDisplayTimeoutId) {
+  if (this._tooltipDisplayTimeoutId) {
     clearTimeout(this._tooltipDisplayTimeoutId);
     this._tooltipDisplayTimeoutId = null;
   } else {
-    this._tooltipDisplayTimeoutId = setTimeout(function() {
+    this._tooltipDisplayTimeoutId = setTimeout(function tooltipMixinTooltipMouseEnterDelayActivation() {
       this._tooltipDisplayTimeoutId = null;
       this.setState({
         tooltipActive: true
@@ -193,21 +192,21 @@ tooltipMixin._tooltipMouseEnter = function() {
   }
 };
 
-tooltipMixin._tooltipMouseLeave = function() {
-  if(this._tooltipDisplayTimeoutId) {
+tooltipMixin._tooltipMouseLeave = function tooltipMixinTooltipMouseLeave() {
+  if (this._tooltipDisplayTimeoutId) {
     clearTimeout(this._tooltipDisplayTimeoutId);
     this._tooltipDisplayTimeoutId = null;
   } else {
-    this._tooltipDisplayTimeoutId = setTimeout(function() {
+    this._tooltipDisplayTimeoutId = setTimeout(function tooltipMixinTooltipMouseLeaveDelayDeactivation() {
       this._tooltipDisplayTimeoutId = null;
       this.setState({
-        tooltipActive: false,
+        tooltipActive: false
       });
     }.bind(this), this.props.tooltipHideDelay);
   }
 };
 
-tooltipMixin._tooltipClick = function(event) {
+tooltipMixin._tooltipClick = function tooltipMixinTooltipClick(event) {
   event.stopPropagation();
 
   this.setState({
@@ -217,38 +216,38 @@ tooltipMixin._tooltipClick = function(event) {
   this._setTooltipPosition();
 };
 
-tooltipMixin._tooltipContentClick = function(event) {
+tooltipMixin._tooltipContentClick = function tooltipMixinTooltipContentClick(event) {
   singlePanelManager.setClickedComponent({
     component: this
   });
 };
 
-tooltipMixin._getTooltipCssClasses = function() {
+tooltipMixin._getTooltipCssClasses = function tooltipMixingetTooltipCssClasses() {
   var cssClasses = ['tooltip__content'];
 
-  if(this.state.tooltipActive === true || this.state.tooltipStickyActive === true) {
+  if (this.state.tooltipActive === true || this.state.tooltipStickyActive === true) {
     cssClasses.push('is-active');
   }
 
-  if(this.props.tooltipFixed === true) {
+  if (this.props.tooltipFixed === true) {
     cssClasses.push('m-fixed');
   }
 
   return cssClasses;
 };
 
-tooltipMixin.hideSinglePanel = function() {
+tooltipMixin.hideSinglePanel = function tooltipMixinHideSinglePanel() {
   this.setState({
     tooltipStickyActive: false
   });
 
   /* istanbul ignore else */
-  if(this.state.tooltipStickyActive || this.state.tooltipActive) {
+  if (this.state.tooltipStickyActive || this.state.tooltipActive) {
     this._setTooltipPosition();
   }
 };
 
-tooltipMixin.getAppendBodyContent = function() {
+tooltipMixin.getAppendBodyContent = function tooltipMixinGetAppendBodyContent() {
   var content = this.state.tooltipStickyActive === true
   ? this.getTooltipStickyContent(this._getTooltipCssClasses().join(' '))
   : this.getTooltipContent(this._getTooltipCssClasses().join(' '));

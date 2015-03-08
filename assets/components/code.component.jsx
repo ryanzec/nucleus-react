@@ -11,7 +11,7 @@ code.propTypes = {
   highlightLines: React.PropTypes.string
 };
 
-code.getDefaultProps = function() {
+code.getDefaultProps = function codeGetDefaultProps() {
   return {
     language: null,
     showLineNumbers: true,
@@ -20,34 +20,34 @@ code.getDefaultProps = function() {
   };
 };
 
-code.componentDidMount = function() {
+code.componentDidMount = function codeComponentDidMount() {
   window.Prism.highlightElement(this.getDOMNode().querySelector('code'));
 };
 
-code.componentDidUpdate = function() {
+code.componentDidUpdate = function codeComponentDidUpdate() {
   window.Prism.highlightElement(this.getDOMNode().querySelector('code'));
 };
 
 //TODO: simplify this method
-code.render = function() {
+code.render = function codeRender() {
   var codeCssClasses = ['language-' + this.props.language];
   var preCssClasses = [];
   var codeAttributes = {};
   var preAttributes = {};
 
-  if(this.props.showLineNumbers === true) {
+  if (this.props.showLineNumbers === true) {
     preCssClasses.push('line-numbers');
 
-    if(this.props.lineNumberStart !== null) {
+    if (this.props.lineNumberStart !== null) {
       preAttributes['data-start'] = this.props.lineNumberStart;
     }
   }
 
-  if(this.props.highlightLines) {
+  if (this.props.highlightLines) {
     preAttributes['data-line'] = this.props.highlightLines;
   }
 
-  if(this.props.className) {
+  if (this.props.className) {
     preCssClasses.push(this.props.className);
   }
 
@@ -55,8 +55,8 @@ code.render = function() {
   preAttributes.className = preCssClasses.join(' ');
 
   return (
-    React.createElement("pre", preAttributes,
-      React.createElement("code", codeAttributes, this.props.children)
+    React.createElement('pre', preAttributes,
+      React.createElement('code', codeAttributes, this.props.children)
     )
   );
 };

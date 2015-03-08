@@ -17,7 +17,7 @@ pagination.propTypes = {
   setPage: React.PropTypes.func.isRequired
 };
 
-pagination.getDefaultProps = function() {
+pagination.getDefaultProps = function paginationGetDefaultProps() {
   return {
     className: null,
     currentPage: 0,
@@ -27,44 +27,45 @@ pagination.getDefaultProps = function() {
   };
 };
 
-pagination.clickNavigationCallback = function(newPage) {
-  return function(event) {
+//TODO: refactor to use .bind in the JSX?
+pagination.clickNavigationCallback = function paginationClickNavigationCallback(newPage) {
+  return function paginationClickNavigationCallbackResult(event) {
     this.props.setPage(newPage);
   }.bind(this);
 };
 
-pagination.getCssClasses = function() {
+pagination.getCssClasses = function paginationGetCssClasses() {
   var cssClasses = ['pagination'];
 
-  if(this.props.className) {
+  if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
 };
 
-pagination.renderPages = function() {
+pagination.renderPages = function paginationRenderPages() {
   var startPageNagivation = this.props.currentPage - Math.floor(this.props.pagesToShow / 2);
   var pageNavigation = [];
 
-  if(startPageNagivation <= 0) {
+  if (startPageNagivation <= 0) {
     startPageNagivation = 1;
   }
 
-  if(startPageNagivation > this.props.totalPages - Math.ceil(this.props.pagesToShow / 2)) {
+  if (startPageNagivation > this.props.totalPages - Math.ceil(this.props.pagesToShow / 2)) {
     startPageNagivation = this.props.totalPages - Math.ceil(this.props.pagesToShow / 2);
   }
 
   var lastProcessedPageNumber = startPageNagivation;
 
-  for(var x = 0; x < this.props.pagesToShow; x += 1) {
-    if(startPageNagivation + x === 1 || startPageNagivation + x >= this.props.totalPages) {
+  for (var x = 0; x < this.props.pagesToShow; x += 1) {
+    if (startPageNagivation + x === 1 || startPageNagivation + x >= this.props.totalPages) {
       continue;
     }
 
     var cssClasses = 'pagination__navigation';
 
-    if(startPageNagivation + x === parseInt(this.props.currentPage)) {
+    if (startPageNagivation + x === parseInt(this.props.currentPage, 10)) {
       cssClasses += ' is-active';
     }
 
@@ -82,7 +83,7 @@ pagination.renderPages = function() {
 
   var firstPageCssClasses = 'pagination__navigation';
 
-  if(parseInt(this.props.currentPage) === 1) {
+  if (parseInt(this.props.currentPage, 10) === 1) {
     firstPageCssClasses += ' is-active';
   }
 
@@ -106,7 +107,7 @@ pagination.renderPages = function() {
     </li>
   );
 
-  if(startPageNagivation > 2) {
+  if (startPageNagivation > 2) {
     pages.push(
       <li
         className="pagination__ellipse"
@@ -118,7 +119,7 @@ pagination.renderPages = function() {
 
   pages = pages.concat(pageNavigation);
 
-  if(lastProcessedPageNumber < this.props.totalPages - 1) {
+  if (lastProcessedPageNumber < this.props.totalPages - 1) {
     pages.push(
       <li
         className="pagination__ellipse"
@@ -130,7 +131,7 @@ pagination.renderPages = function() {
 
   var lastPageCssClasses = 'pagination__navigation';
 
-  if(parseInt(this.props.currentPage) === parseInt(this.props.totalPages)) {
+  if (parseInt(this.props.currentPage, 10) === parseInt(this.props.totalPages, 10)) {
     lastPageCssClasses += ' is-active';
   }
 
@@ -160,7 +161,7 @@ pagination.renderPages = function() {
   );
 };
 
-pagination.render = function() {
+pagination.render = function paginationRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderPages()}
