@@ -196,6 +196,7 @@ sub {
 
 img {
   border: 0;
+  display: block //RYAN ZEC: remove extra spacing at the bottom of an image
 }
 
 /**

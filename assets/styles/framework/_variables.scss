@@ -150,17 +150,8 @@ $color-warning-button: $color-white !default;
 $background-color-danger-button: $color-danger !default;
 $color-danger-button: $color-white !default;
 
-$font-size-small-button: 1rem !default;
-$padding-small-button: 3px 9px !default;
-
 $font-size-button: 1.3rem !default;
 $padding-button: 4px 12px !default;
-
-$font-size-large-button: 1.8rem !default;
-$padding-large-button: 5px 15px !default;
-
-$font-size-largest-button: 2.4rem !default;
-$padding-largest-button: 6px 18px !default;
 
 //progress bars
 $border-progress-bar: 1px solid $color-neutral !default;
@@ -182,7 +173,7 @@ $padding-item-pagination: 6px 12px !default;
 
 //break points
 $small-break-point: 640px !default;
-$medium-break-point: 1024px !default;
+$medium-break-point: 1023px !default;
 $default-break-point: 1920px !default;
 
 //media queries

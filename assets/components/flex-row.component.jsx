@@ -9,13 +9,15 @@ flexRow.mixins = [
 ];
 
 flexRow.propTypes = {
-  alignItems: React.PropTypes.oneOf(['top', 'center', 'bottom']),
+  verticalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
+  horizontalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   className: React.PropTypes.string
 };
 
 flexRow.getDefaultProps = function flexRowGetDefaultProps() {
   return {
-    alignItems: null,
+    verticalAlign: null,
+    horizontalAlign: null,
     className: null
   };
 };
@@ -23,8 +25,12 @@ flexRow.getDefaultProps = function flexRowGetDefaultProps() {
 flexRow.getCssClasses = function flexRowGetCssClasses() {
   var cssClasses = ['flex-row'];
 
-  if (this.props.alignItems) {
-    cssClasses.push('m-align-' + this.props.alignItems);
+  if (this.props.verticalAlign) {
+    cssClasses.push('m-vertical-align-' + this.props.verticalAlign);
+  }
+
+  if (this.props.horizontalAlign) {
+    cssClasses.push('m-horizontal-align-' + this.props.horizontalAlign);
   }
 
   if (this.props.className) {

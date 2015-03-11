@@ -90,11 +90,11 @@ module.exports = {
   }, {
     description: (
       <p>
-        By default, a cell will be aligned at the top however you can add the <code>m-align-top</code>, <code>m-align-center</code> or <code>m-align-bottom</code> on the row to specific the alignment on the cells.
+        By default, a cell will be vertically aligned at the top however you can set the verticalAlign property for the flex row to <code>start</code>, <code>center</code>, or <code>end</code>.
       </p>
     ),
     example: (
-      <FlexRow alignItems="center">
+      <FlexRow verticalAlign="center">
         <FlexCell>
           Lorem ipsum dolor sit amet.
         </FlexCell>
@@ -113,24 +113,50 @@ module.exports = {
   }, {
     description: (
       <p>
-        You cna also apply the <code>m-align-top</code>, <code>m-align-center</code> or <code>m-align-bottom</code> classes to the cell to align it specifically.
+        You can also apply the the same value to the flex cell for its verticalAlign property.
       </p>
     ),
     example: (
       <FlexRow>
-        <FlexCell align="top">
+        <FlexCell verticalAlign="start">
           Lorem ipsum dolor sit amet.
         </FlexCell>
         <FlexCell>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla libero congue magna porta suscipit. Morbi consectetur volutpat sapien et semper. Nullam quis nisl hendrerit, eleifend leo eu, vehicula est. Fusce posuere purus quis dapibus tincidunt. Donec quis elit blandit, fermentum urna nec, ullamcorper nulla. Curabitur placerat dolor non dolor viverra finibus. Quisque mattis dolor nec vehicula tincidunt.
         </FlexCell>
-        <FlexCell align="center">
+        <FlexCell verticalAlign="center">
           Lorem ipsum dolor sit amet.
         </FlexCell>
-        <FlexCell align="bottom">
+        <FlexCell verticalAlign="end">
           Lorem ipsum dolor sit amet.
         </FlexCell>
       </FlexRow>
+    ),
+    exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        By default, if a row does not have enough cells to fill the row, the cells start at the left however you can the horizontalAlign property for the flex row to <code>start</code>, <code>center</code>, or <code>end</code>.
+      </p>
+    ),
+    example: (
+      <span>
+        <FlexRow horizontalAlign="start">
+          <FlexCell smallColumns={4} columns={4}>
+            Lorem ipsum dolor sit amet.
+          </FlexCell>
+        </FlexRow>
+        <FlexRow horizontalAlign="center">
+          <FlexCell smallColumns={4} columns={4}>
+            Lorem ipsum dolor sit amet.
+          </FlexCell>
+        </FlexRow>
+        <FlexRow horizontalAlign="end">
+          <FlexCell smallColumns={4} columns={4}>
+            Lorem ipsum dolor sit amet.
+          </FlexCell>
+        </FlexRow>
+      </span>
     ),
     exampleString: '<Badge>Standard</Badge>'
   }, {
@@ -152,7 +178,7 @@ module.exports = {
               <FlexCell>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla libero congue magna porta suscipit. Morbi consectetur volutpat sapien et semper. Nullam quis nisl hendrerit, eleifend leo eu, vehicula est. Fusce posuere purus quis dapibus tincidunt. Donec quis elit blandit, fermentum urna nec, ullamcorper nulla. Curabitur placerat dolor non dolor viverra finibus. Quisque mattis dolor nec vehicula tincidunt.
               </FlexCell>
-              <FlexCell columns={6} align="center">
+              <FlexCell columns={6} verticalAlign="center">
                 Grid3
                 <FlexRow>
                   <FlexCell smallColumns={2}>

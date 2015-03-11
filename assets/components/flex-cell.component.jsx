@@ -13,7 +13,7 @@ flexCell.mixins = [
 ];
 
 flexCell.propTypes = {
-  align: React.PropTypes.oneOf(['top', 'center', 'bottom']),
+  verticalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   smallColumns: React.PropTypes.number,
   mediumColumns: React.PropTypes.number,
   columns: React.PropTypes.number,
@@ -24,7 +24,7 @@ flexCell.propTypes = {
 
 flexCell.getDefaultProps = function flexCellGetDefaultProps() {
   return {
-    align: null,
+    verticalAlign: null,
     smallColumns: null,
     mediumColumns: null,
     columns: null,
@@ -73,8 +73,8 @@ flexCell.getCssClasses = function flexCellGetCssClasses() {
     cssClasses.push('m-flex');
   }
 
-  if (this.props.align) {
-    cssClasses.push('m-align-' + this.props.align);
+  if (this.props.verticalAlign) {
+    cssClasses.push('m-vertical-align-' + this.props.verticalAlign);
   }
 
   if (this.props.className) {

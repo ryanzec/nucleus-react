@@ -1,1 +1,5 @@
-//general purpose mixins
+@mixin flexbox-value-width($width) {
+  @include flex(0 0 $width);
+
+  max-width: $width;
+}

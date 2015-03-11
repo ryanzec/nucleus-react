@@ -66,10 +66,10 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-large-columns12');
   });
 
-  it('should be set alignment', function() {
-    this.component = React.render(<FlexCell align="center">1</FlexCell>, div);
+  it('should be set  vertical alignment', function() {
+    this.component = React.render(<FlexCell verticalAlign="center">1</FlexCell>, div);
 
-    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-align-center');
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-vertical-align-center');
   });
 
   it('should be set flex', function() {

@@ -6,16 +6,33 @@ $component-identifier: '.flex-row';
 
   margin-left: ($grid-gutter * -1);
 
-  &.m-align-top {
-    @include align-items(flex-top);
+  .m-grid {
+    margin-left: ($grid-gutter / 2 * -1);
+    margin-right: ($grid-gutter * -1);
   }
 
-  &.m-align-center {
+  &.m-vertical-align-start {
+    @include align-items(flex-start);
+  }
+
+  &.m-vertical-align-center {
     @include align-items(center);
   }
 
-  &.m-align-bottom {
+  &.m-vertical-align-end {
     @include align-items(flex-end);
+  }
+
+  &.m-horizontal-align-start {
+    @include justify-content(flex-start);
+  }
+
+  &.m-horizontal-align-center {
+    @include justify-content(center);
+  }
+
+  &.m-horizontal-align-end {
+    @include justify-content(flex-end);
   }
 
   &__cell {
@@ -27,25 +44,21 @@ $component-identifier: '.flex-row';
 
     padding-left: $grid-gutter;
 
-    &.m-align-top {
-      @include align-self(flex-top);
+    &.m-vertical-align-start {
+      @include align-self(flex-start);
     }
 
-    &.m-align-center {
+    &.m-vertical-align-center {
       @include align-self(center);
     }
 
-    &.m-align-bottom {
+    &.m-vertical-align-end {
       @include align-self(flex-end);
     }
 
     @for $i from 1 through $grid-columns {
       &.m-columns#{$i} {
-        @include flex(0 0 ($i / $grid-columns * 100%));
-
-        //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting the
-        //HACK: max width too fixes the issue without cause any other issue in IE or other browsers
-        max-width: ($i / $grid-columns * 100%);
+        @include flexbox-value-width($i / $grid-columns * 100%);
       }
     }
 
@@ -64,18 +77,13 @@ $component-identifier: '.flex-row';
 
       @for $i from 1 through $grid-columns {
         &.m-columns#{$i} {
-          @include flex(0 0 100%);
-          max-width: 100%;
+          @include flexbox-value-width(100%);
         }
       }
 
       @for $i from 1 through $grid-small-columns {
         &.m-small-columns#{$i} {
-          @include flex(0 0 ($i / $grid-small-columns * 100%));
-
-          //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting
-          //HACK: the max width too fixes the issue without cause any other issue in IE or other browsers
-          max-width: ($i / $grid-small-columns * 100%);
+          @include flexbox-value-width($i / $grid-small-columns * 100%);
         }
       }
     }
@@ -87,11 +95,7 @@ $component-identifier: '.flex-row';
     &__cell {
       @for $i from 1 through $grid-medium-columns {
         &.m-medium-columns#{$i} {
-          @include flex(0 0 ($i / $grid-medium-columns * 100%));
-
-          //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting
-          //HACK: the max width too fixes the issue without cause any other issue in IE or other browsers
-          max-width: ($i / $grid-medium-columns * 100%);
+          @include flexbox-value-width($i / $grid-medium-columns * 100%);
         }
       }
     }
@@ -103,11 +107,7 @@ $component-identifier: '.flex-row';
     &__cell {
       @for $i from 1 through $grid-large-columns {
         &.m-large-columns#{$i} {
-          @include flex(0 0 ($i / $grid-large-columns * 100%));
-
-          //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting
-          //HACK: the max width too fixes the issue without cause any other issue in IE or other browsers
-          max-width: ($i / $grid-large-columns * 100%);
+          @include flexbox-value-width($i / $grid-large-columns * 100%);
         }
       }
     }
