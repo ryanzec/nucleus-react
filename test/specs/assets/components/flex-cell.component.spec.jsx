@@ -42,18 +42,6 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-medium-columns12');
   });
 
-  it('should be set columns', function() {
-    this.component = React.render(<FlexCell columns={4}>1</FlexCell>, div);
-
-    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-columns4');
-  });
-
-  it('should not be set columns over max limit', function() {
-    this.component = React.render(<FlexCell columns={94}>1</FlexCell>, div);
-
-    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-columns12');
-  });
-
   it('should be able to set large columns', function() {
     this.component = React.render(<FlexCell largeColumns={4}>1</FlexCell>, div);
 
@@ -66,7 +54,19 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-large-columns12');
   });
 
-  it('should be set  vertical alignment', function() {
+  it('should be set extra large columns', function() {
+    this.component = React.render(<FlexCell extraLargeColumns={4}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-extra-large-columns4');
+  });
+
+  it('should not be set extra large columns over max limit', function() {
+    this.component = React.render(<FlexCell extraLargeColumns={94}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-extra-large-columns12');
+  });
+
+  it('should be set vertical alignment', function() {
     this.component = React.render(<FlexCell verticalAlign="center">1</FlexCell>, div);
 
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-vertical-align-center');

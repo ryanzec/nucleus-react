@@ -1,3 +1,27 @@
 .u-hide {
   display: none !important;
 }
+
+@media #{$small-screen-only-media-query} {
+  .u-hide-small {
+    display: none !important;
+  }
+}
+
+@media #{$medium-screen-only-media-query} {
+  .u-hide-medium {
+    display: none !important;
+  }
+}
+
+@media #{$large-screen-only-media-query} {
+  .u-hide-large {
+    display: none !important;
+  }
+}
+
+@media #{$extra-large-screen-media-query} {
+  .u-hide-extra-large {
+    display: none !important;
+  }
+}

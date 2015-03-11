@@ -2,6 +2,8 @@
 
 ## master
 
+- made styling to work in a more small (mobile) first kinda of way
+- added ability to align flex cells horizontally
 - removed jshint in favor of eslint
 - added suport for className property for flex row and cells
 - removed deprecated jshint options (prep for adding JSCS)

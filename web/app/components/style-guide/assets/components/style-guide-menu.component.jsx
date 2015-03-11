@@ -26,7 +26,7 @@ var StyleGuideMenu = React.createClass({
   render: function() {
     return (
       <span>
-        <div className="style-guide__menu m-expanded">
+        <div className="style-guide__menu m-expanded u-hide-small">
           <ul className="plain-list expanded-view">
             <li><Link to="append-body">Append Body <Badge>mixin</Badge></Link></li>
             <li><Link to="badge">Badge <Badge>component</Badge></Link></li>
@@ -49,7 +49,7 @@ var StyleGuideMenu = React.createClass({
             <li><Link to="tooltip">Tooltip <Badge>mixin</Badge></Link></li>
           </ul>
         </div>
-        <div className="style-guide__menu m-minified">
+        <div className="style-guide__menu m-minified u-hide-medium u-hide-large u-hide-extra-large">
           <button onClick={this.showComponentsModal}>Components</button>
           <Modal isActive={this.state.isComponentModalActive}>
             <ul onClick={this.hideComponentsModal} className="plain-list">

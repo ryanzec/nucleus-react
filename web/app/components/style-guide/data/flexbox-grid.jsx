@@ -21,48 +21,48 @@ module.exports = {
     example: (
       <span>
         <FlexRow>
-          <FlexCell columns={1}>1</FlexCell>
-          <FlexCell columns={11}>11</FlexCell>
+          <FlexCell largeColumns={1}>1</FlexCell>
+          <FlexCell largeColumns={11}>11</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={2}>2</FlexCell>
-          <FlexCell columns={10}>10</FlexCell>
+          <FlexCell largeColumns={2}>2</FlexCell>
+          <FlexCell largeColumns={10}>10</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={3}>3</FlexCell>
-          <FlexCell columns={9}>9</FlexCell>
+          <FlexCell largeColumns={3}>3</FlexCell>
+          <FlexCell largeColumns={9}>9</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={4}>4</FlexCell>
-          <FlexCell columns={8}>8</FlexCell>
+          <FlexCell largeColumns={4}>4</FlexCell>
+          <FlexCell largeColumns={8}>8</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={5}>5</FlexCell>
-          <FlexCell columns={7}>7</FlexCell>
+          <FlexCell largeColumns={5}>5</FlexCell>
+          <FlexCell largeColumns={7}>7</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={6}>6</FlexCell>
-          <FlexCell columns={6}>6</FlexCell>
+          <FlexCell largeColumns={6}>6</FlexCell>
+          <FlexCell largeColumns={6}>6</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={7}>7</FlexCell>
-          <FlexCell columns={5}>5</FlexCell>
+          <FlexCell largeColumns={7}>7</FlexCell>
+          <FlexCell largeColumns={5}>5</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={8}>8</FlexCell>
-          <FlexCell columns={4}>4</FlexCell>
+          <FlexCell largeColumns={8}>8</FlexCell>
+          <FlexCell largeColumns={4}>4</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={9}>9</FlexCell>
-          <FlexCell columns={3}>3</FlexCell>
+          <FlexCell largeColumns={9}>9</FlexCell>
+          <FlexCell largeColumns={3}>3</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={10}>10</FlexCell>
-          <FlexCell columns={2}>2</FlexCell>
+          <FlexCell largeColumns={10}>10</FlexCell>
+          <FlexCell largeColumns={2}>2</FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={11}>11</FlexCell>
-          <FlexCell columns={1}>1</FlexCell>
+          <FlexCell largeColumns={11}>11</FlexCell>
+          <FlexCell largeColumns={1}>1</FlexCell>
         </FlexRow>
       </span>
     ),
@@ -142,17 +142,17 @@ module.exports = {
     example: (
       <span>
         <FlexRow horizontalAlign="start">
-          <FlexCell smallColumns={4} columns={4}>
+          <FlexCell smallColumns={4} largeColumns={4}>
             Lorem ipsum dolor sit amet.
           </FlexCell>
         </FlexRow>
         <FlexRow horizontalAlign="center">
-          <FlexCell smallColumns={4} columns={4}>
+          <FlexCell smallColumns={4} largeColumns={4}>
             Lorem ipsum dolor sit amet.
           </FlexCell>
         </FlexRow>
         <FlexRow horizontalAlign="end">
-          <FlexCell smallColumns={4} columns={4}>
+          <FlexCell smallColumns={4} largeColumns={4}>
             Lorem ipsum dolor sit amet.
           </FlexCell>
         </FlexRow>
@@ -169,7 +169,7 @@ module.exports = {
       <div style={{border: '1px solid black'}}>
         Grid1
         <FlexRow>
-          <FlexCell columns={9}>
+          <FlexCell largeColumns={9}>
             Grid2
             <FlexRow>
               <FlexCell>
@@ -178,7 +178,7 @@ module.exports = {
               <FlexCell>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla libero congue magna porta suscipit. Morbi consectetur volutpat sapien et semper. Nullam quis nisl hendrerit, eleifend leo eu, vehicula est. Fusce posuere purus quis dapibus tincidunt. Donec quis elit blandit, fermentum urna nec, ullamcorper nulla. Curabitur placerat dolor non dolor viverra finibus. Quisque mattis dolor nec vehicula tincidunt.
               </FlexCell>
-              <FlexCell columns={6} verticalAlign="center">
+              <FlexCell largeColumns={6} verticalAlign="center">
                 Grid3
                 <FlexRow>
                   <FlexCell smallColumns={2}>
@@ -213,35 +213,35 @@ module.exports = {
     example: (
       <span>
         <FlexRow>
-          <FlexCell columns={6} mediumColumns={4} smallColumns={2}>
+          <FlexCell largeColumns={6} mediumColumns={4} smallColumns={2}>
             6/4/2
           </FlexCell>
-          <FlexCell columns={4} mediumColumns={2} smallColumns={6}>
+          <FlexCell largeColumns={4} mediumColumns={2} smallColumns={6}>
             4/2/6
           </FlexCell>
-          <FlexCell columns={2} mediumColumns={6} smallColumns={4}>
+          <FlexCell largeColumns={2} mediumColumns={6} smallColumns={4}>
             2/6/4
           </FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={2} mediumColumns={4} smallColumns={6}>
+          <FlexCell largeColumns={2} mediumColumns={4} smallColumns={6}>
             2/4/6
           </FlexCell>
-          <FlexCell columns={4} mediumColumns={6} smallColumns={2}>
+          <FlexCell largeColumns={4} mediumColumns={6} smallColumns={2}>
             4/6/2
           </FlexCell>
-          <FlexCell columns={6} mediumColumns={2} smallColumns={4}>
+          <FlexCell largeColumns={6} mediumColumns={2} smallColumns={4}>
             6/2/4
           </FlexCell>
         </FlexRow>
         <FlexRow>
-          <FlexCell columns={6} mediumColumns={4} smallColumns={2}>
+          <FlexCell largeColumns={6} mediumColumns={4} smallColumns={2}>
             6/4/2
           </FlexCell>
-          <FlexCell columns={4} mediumColumns={2} smallColumns={6}>
+          <FlexCell largeColumns={4} mediumColumns={2} smallColumns={6}>
             4/2/6
           </FlexCell>
-          <FlexCell columns={2} mediumColumns={6} smallColumns={4}>
+          <FlexCell largeColumns={2} mediumColumns={6} smallColumns={4}>
             2/6/4
           </FlexCell>
         </FlexRow>

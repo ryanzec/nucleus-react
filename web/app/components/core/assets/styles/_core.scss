@@ -8,7 +8,7 @@
   top: 49px;
 }
 
-@media all and (min-width: 1024px) and (max-width: 2400px) {
+@media #{$large-screen-media-query} {
   .main-application {
     min-width: 1024px;
     max-width: 1600px;

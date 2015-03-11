@@ -9,8 +9,6 @@
 }
 
 .application-header {
-  min-width: 1024px;
-  max-width: 1600px;
   margin: 0 auto;
   height: 49px;
 
@@ -37,10 +35,7 @@
 
 @media #{$small-screen-media-query} {
   .application-header {
-    width: 100%;
-
-    ul {
-      display: none;
-    }
+    min-width: 1024px;
+    max-width: 1600px;
   }
 }

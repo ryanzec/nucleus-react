@@ -14,7 +14,15 @@
     }
 
     &.m-minified {
-      display: none;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10000;
+    }
+
+    button {
+      height: 39px;
     }
   }
 
@@ -64,28 +72,6 @@
       padding-bottom: 5px;
       margin-bottom: 5px;
       border-bottom: 1px solid lightgray;
-    }
-  }
-}
-
-@media #{$small-screen-media-query} {
-  .style-guide {
-    &__menu {
-      &.m-expanded {
-        display: none;
-      }
-
-      &.m-minified {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 10000;
-      }
-
-      button {
-        height: 39px;
-      }
     }
   }
 }

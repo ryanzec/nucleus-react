@@ -10,7 +10,7 @@ var Header = React.createClass({
       <header className="fixed-wrapper">
           <FlexRow className="application-header" alignItems="center">
             <FlexCell>
-              <ul className="plain-list">
+              <ul className="plain-list u-hide-small">
                 <li><a href="https://github.com/ryanzec/coding-standards" target="_blank">Coding Standards</a></li>
                 <li><Link to="home">UI Components</Link></li>
                 <li><a href="https://github.com/ryanzec/nucleus-react" target="_blank">About Nucleus React</a></li>

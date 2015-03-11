@@ -3,16 +3,11 @@ table {
   td {
     padding: 5px;
     margin: 5px;
-    border-bottom: 1px solid black;
     vertical-align: top;
-  }
-
-  .collapsed-header {
-    display: none;
   }
 }
 
-@media #{$small-screen-media-query} {
+@media #{$small-screen-only-media-query} {
   table {
     thead {
       display: none;
@@ -22,11 +17,6 @@ table {
       display: block;
     }
 
-    th,
-    td {
-      border: none;
-    }
-
     tr {
       border-bottom: 1px solid black;
     }
@@ -34,6 +24,19 @@ table {
     .collapsed-header {
       display: block;
       font-weight: 600;
+    }
+  }
+}
+
+@media #{$medium-screen-media-query} {
+  table {
+    th,
+    td {
+      border-bottom: 1px solid black;
+    }
+
+    .collapsed-header {
+      display: none;
     }
   }
 }

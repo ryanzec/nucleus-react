@@ -2,8 +2,8 @@ var React = require('react/addons');
 
 var maxSmallColumns = 12;
 var maxMediumColumns = 12;
-var maxColumns = 12;
 var maxLargeColumns = 12;
+var maxExtraLargeColumns = 12;
 var flexCell = {};
 
 flexCell.displayName = 'FlexCell';
@@ -16,8 +16,8 @@ flexCell.propTypes = {
   verticalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   smallColumns: React.PropTypes.number,
   mediumColumns: React.PropTypes.number,
-  columns: React.PropTypes.number,
   largeColumns: React.PropTypes.number,
+  extraLargeColumns: React.PropTypes.number,
   flex: React.PropTypes.bool,
   className: React.PropTypes.string
 };
@@ -27,8 +27,8 @@ flexCell.getDefaultProps = function flexCellGetDefaultProps() {
     verticalAlign: null,
     smallColumns: null,
     mediumColumns: null,
-    columns: null,
     largeColumns: null,
+    extraLargeColumns: null,
     flex: false,
     className: null
   };
@@ -42,12 +42,12 @@ flexCell.getMediumColumnCount = function flexCellGetMediumColumnCount() {
   return this.props.mediumColumns < maxMediumColumns ? this.props.mediumColumns : maxMediumColumns;
 };
 
-flexCell.getColumnCount = function flexCellGetColumnCount() {
-  return this.props.columns < maxColumns ? this.props.columns : maxColumns;
-};
-
 flexCell.getLargeColumnCount = function flexCellGetLargeColumnCount() {
   return this.props.largeColumns < maxLargeColumns ? this.props.largeColumns : maxLargeColumns;
+};
+
+flexCell.getExtraLargeColumnCount = function getExtraLargeColumnCount() {
+  return this.props.extraLargeColumns < maxExtraLargeColumns ? this.props.extraLargeColumns : maxExtraLargeColumns;
 };
 
 flexCell.getCssClasses = function flexCellGetCssClasses() {
@@ -61,12 +61,12 @@ flexCell.getCssClasses = function flexCellGetCssClasses() {
     cssClasses.push('m-medium-columns' + this.getMediumColumnCount());
   }
 
-  if (this.props.columns) {
-    cssClasses.push('m-columns' + this.getColumnCount());
-  }
-
   if (this.props.largeColumns) {
     cssClasses.push('m-large-columns' + this.getLargeColumnCount());
+  }
+
+  if (this.props.extraLargeColumns) {
+    cssClasses.push('m-extra-large-columns' + this.getExtraLargeColumnCount());
   }
 
   if (this.props.flex === true) {

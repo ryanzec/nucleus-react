@@ -174,17 +174,23 @@ $padding-item-pagination: 6px 12px !default;
 //break points
 $small-break-point: 640px !default;
 $medium-break-point: 1023px !default;
-$default-break-point: 1920px !default;
+$large-break-point: 1920px !default;
 
 //media queries
-$small-screen-media-query: "only screen and (min-width: 1px) and (max-width: #{$small-break-point})" !default;
-$medium-screen-media-query: "only screen and (min-width: #{$small-break-point + 1}) and (max-width: #{$medium-break-point})" !default;
-$default-screen-media-query: "only screen and (min-width: #{$medium-break-point + 1}) and (max-width: #{$default-break-point})" !default;
-$large-screen-media-query: "only screen and (min-width: #{$default-break-point + 1})" !default;
+$small-screen-media-query: "only screen" !default;
+$small-screen-only-media-query: "only screen and (min-width: 1px) and (max-width: #{$small-break-point})" !default;
+$small-screen-max-media-query: "only screen and (max-width: #{$small-break-point})" !default;
+$medium-screen-media-query: "only screen and (min-width: #{$small-break-point + 1})" !default;
+$medium-screen-only-media-query: "only screen and (min-width: #{$small-break-point + 1}) and (max-width: #{$medium-break-point})" !default;
+$medium-screen-max-media-query: "only screen and (max-width: #{$medium-break-point})" !default;
+$large-screen-media-query: "only screen and (min-width: #{$medium-break-point + 1})" !default;
+$large-screen-only-media-query: "only screen and (min-width: #{$medium-break-point + 1}) and (max-width: #{$large-break-point})" !default;
+$large-screen-max-media-query: "only screen and (max-width: #{$large-break-point})" !default;
+$extra-large-screen-media-query: "only screen and (min-width: #{$large-break-point + 1})" !default;
 
 //grid
 $grid-small-columns: 12 !default;
 $grid-medium-columns: 12 !default;
-$grid-columns: 12 !default;
 $grid-large-columns: 12 !default;
+$grid-extra-large-columns: 12 !default;
 $grid-gutter: 24px !default;
