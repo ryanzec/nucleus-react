@@ -3,7 +3,7 @@ var React = require('react/addons');
 var appendBodyMixin = {};
 
 appendBodyMixin.componentDidUpdate = function appendBodyMixinComponentDidUpdate() {
-  this._updateAppendElement();
+  this.updateAppendElement();
 };
 
 appendBodyMixin.createAppendElement = function appendBodyMixinCreateAppendElement(options) {
@@ -18,7 +18,7 @@ appendBodyMixin.createAppendElement = function appendBodyMixinCreateAppendElemen
   this._bodyAppendContent = document.createElement(tag);
   this._bodyAppendContent.className = className;
   document.body.appendChild(this._bodyAppendContent);
-  this._updateAppendElement();
+  this.updateAppendElement();
 };
 
 appendBodyMixin.getAppendElement = function appendBodyMixinGetAppendElement() {
@@ -30,7 +30,7 @@ appendBodyMixin.removeAppendElement = function appendBodyMixinRemoveAppendElemen
   this._bodyAppendContent = null;
 };
 
-appendBodyMixin._updateAppendElement = function appendBodyMixinUpdateAppendElement() {
+appendBodyMixin.updateAppendElement = function appendBodyMixinUpdateAppendElement() {
   var appendContent = this.getAppendBodyContent();
 
   if (appendContent) {

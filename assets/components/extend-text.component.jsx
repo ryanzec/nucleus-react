@@ -78,14 +78,14 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   }
 
   this.setAutoCompletePosition();
-  this.getData = _.debounce(function extendTextGetDataDebounced(value) {
+  this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
     if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
       this.setState({
         isLoading: true
       });
     }
 
-    this.props.getData.apply(this, [value]).then(function extendTextPropsGetDataSuccessCallback(items) {
+    this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
       var newState = {
         lastAutoCompleteItems: this.state.autoCompleteItems,
         autoCompleteItems: items,
@@ -108,7 +108,7 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
 
         this.setState(newState);
       }
-    }.bind(this), function extendTextPropsGetDataErrorCallback(error) {
+    }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
       throw new Error('ExtendText could not retrieve data, error: ' + error);
     });
   }.bind(this), this.props.debounce);
@@ -120,6 +120,92 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
 
 extendText.componentDidUpdate = function extendTextComponentDidUpdate() {
   this.setAutoCompletePosition();
+};
+
+extendText.onChange = function extendTextOnChange(event) {
+  this.updateDisplayValue(event.target.value);
+
+  if (this.isOverCharacterThreshold()) {
+    this.getData(event.target.value);
+  }
+
+  this.setState({
+    displayInputValue: event.target.value
+  });
+};
+
+extendText.onKeyDown = function extendTextOnKeyDown(event) {
+  switch (event.which) {
+    case 27: //escape
+      event.preventDefault();
+      this.setState({
+        focusedAutoCompleteItem: null,
+        isActive: false
+      });
+      this.updateDisplayValue('');
+      this.getInputElement().blur();
+      break;
+
+    case 13: //enter
+      event.preventDefault();
+      this.selectCurrentValue();
+      break;
+
+    case 38: //up arrow
+      event.preventDefault();
+      this.decreaseFocusedAutoCompleteItem();
+      break;
+
+    case 40: //down arrow
+      event.preventDefault();
+      this.increaseFocusedAutoCompleteItem();
+      break;
+
+    case 8: //backspace
+      if (this.props.taggingEnabled === true) {
+        var inputElement = this.getInputElement();
+
+        if (inputElement.value === '' && this.state.value.length > 0) {
+          event.preventDefault();
+          this.removeValue(this.state.value.length - 1);
+        }
+      }
+      break;
+
+    default:
+      //just continue normally
+
+    //TODO: tab key
+  }
+};
+
+extendText.onFocus = function extendTextOnFocus() {
+  var inputElement = this.getInputElement();
+
+  if (this.isOverCharacterThreshold()) {
+    this.getData(inputElement.value);
+    this.setState({
+      isActive: true
+    });
+  }
+};
+
+extendText.onBlur = function extendTextOnBlur() {
+  this.selectCurrentValue();
+};
+
+extendText.onMouseEnterAutoCompleteItem = function extendTextOnMouseEnterAutoCompleteItem(event) {
+  this.setState({
+    focusedAutoCompleteItem: parseInt(event.currentTarget.getAttribute('data-key'), 10)
+  });
+};
+
+extendText.onMouseDownAutoCompleteItem = function extendTextOnMouseDownAutoCompleteItem(event) {
+  this.updateValue(parseInt(event.currentTarget.getAttribute('data-key'), 10));
+};
+
+extendText.onClickInputContainer = function extendTextOnInputContainerClick() {
+  this.refs.input.refs.input.getDOMNode().focus();
 };
 
 extendText.getCssClasses = function extendTextGetCssClasses() {
@@ -141,10 +227,10 @@ extendText.getInputElement = function extendTextGetInputElement() {
 };
 
 extendText.isAutoCompleteDisplayValue = function extendTextIsAutoCompleteDisplayValue(displayValue) {
-  var matchCurrent = this.state.autoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueCurrent(autoCompleteItem) {
+  var matchCurrent = this.state.autoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueCurrentFilter(autoCompleteItem) {
     return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
   }.bind(this)).length;
-  var matchLast = this.state.lastAutoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueLast(autoCompleteItem) {
+  var matchLast = this.state.lastAutoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueLastFilter(autoCompleteItem) {
     return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
   }.bind(this)).length;
 
@@ -232,25 +318,13 @@ extendText.removeValue = function extendTextRemoveValue(valueIndex) {
   });
 };
 
-extendText.onChange = function extendTextOnChange(event) {
-  this.updateDisplayValue(event.target.value);
-
-  if (this.isOverCharacterThreshold()) {
-    this.getData(event.target.value);
-  }
-
-  this.setState({
-    displayInputValue: event.target.value
-  });
-};
-
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
   var autoCompleteElement = this.getDOMNode().querySelector('.extend-text__auto-complete-container');
 
   /* istanbul ignore else */
   if (autoCompleteElement) {
     //this call is wrapped in a timeout of 0 to allow for the input auto sizer to set correct initial size which is needed to position the auto complete items
-    setTimeout(function extendTextTimeoutSetAutoCompletePosition() {
+    setTimeout(function extendTextSetAutoCompletePositionSetTimeout() {
       if (this.isMounted()) {
         var valueContainerDimensions = domUtilities.getDimensions(this.getDOMNode().querySelector('.extend-text__value-container'));
 
@@ -269,17 +343,6 @@ extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshol
   var inputElement = this.getInputElement();
 
   return inputElement.value.length >= this.props.characterThreshold;
-};
-
-extendText.onFocus = function extendTextOnFocus() {
-  var inputElement = this.getInputElement();
-
-  if (this.isOverCharacterThreshold()) {
-    this.getData(inputElement.value);
-    this.setState({
-      isActive: true
-    });
-  }
 };
 
 extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
@@ -308,10 +371,6 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
     isActive: false,
     isNewValue: isNewValue
   });
-};
-
-extendText.onBlur = function extendTextOnBlur() {
-  this.selectCurrentValue();
 };
 
 extendText.increaseFocusedAutoCompleteItem = function extendTextIncreaseFocusedAutoCompleteItem() {
@@ -352,65 +411,6 @@ extendText.decreaseFocusedAutoCompleteItem = function extendTextDecreaseFocusedA
       focusedAutoCompleteItem: newFocusedAutoCompleteItem
     });
   }
-};
-
-extendText.onKeyDown = function extendTextOnKeyDown(event) {
-  switch (event.which) {
-    case 27: //escape
-      event.preventDefault();
-      this.setState({
-        focusedAutoCompleteItem: null,
-        isActive: false
-      });
-      this.updateDisplayValue('');
-      this.getInputElement().blur();
-      break;
-
-    case 13: //enter
-      event.preventDefault();
-      this.selectCurrentValue();
-      break;
-
-    case 38: //up arrow
-      event.preventDefault();
-      this.decreaseFocusedAutoCompleteItem();
-      break;
-
-    case 40: //down arrow
-      event.preventDefault();
-      this.increaseFocusedAutoCompleteItem();
-      break;
-
-    case 8: //backspace
-      if (this.props.taggingEnabled === true) {
-        var inputElement = this.getInputElement();
-
-        if (inputElement.value === '' && this.state.value.length > 0) {
-          event.preventDefault();
-          this.removeValue(this.state.value.length - 1);
-        }
-      }
-      break;
-
-    default:
-      //just continue normally
-
-    //TODO: tab key
-  }
-};
-
-extendText.onMouseEnterAutoCompleteItem = function extendTextOnMouseEnterAutoCompleteItem(event) {
-  this.setState({
-    focusedAutoCompleteItem: parseInt(event.currentTarget.getAttribute('data-key'), 10)
-  });
-};
-
-extendText.onMouseDownAutoCompleteItem = function extendTextOnMouseDownAutoCompleteItem(event) {
-  this.updateValue(parseInt(event.currentTarget.getAttribute('data-key'), 10));
-};
-
-extendText.onInputContainerClick = function extendTextOnInputContainerClick() {
-  this.refs.input.refs.input.getDOMNode().focus();
 };
 
 extendText.renderTags = function extendTextRenderTags() {
@@ -500,7 +500,7 @@ extendText.render = function extendTextRender() {
     <div className={this.getCssClasses().join(' ')}>
       <div
         className="extend-text__value-container"
-        onClick={this.onInputContainerClick}>
+        onClick={this.onClickInputContainer}>
         {this.renderTags()}
         <InputAutoSizer
           ref="input"

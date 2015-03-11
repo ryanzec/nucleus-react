@@ -27,11 +27,8 @@ pagination.getDefaultProps = function paginationGetDefaultProps() {
   };
 };
 
-//TODO: refactor to use .bind in the JSX?
-pagination.clickNavigationCallback = function paginationClickNavigationCallback(newPage) {
-  return function paginationClickNavigationCallbackResult(event) {
-    this.props.setPage(newPage);
-  }.bind(this);
+pagination.onClickNavigation = function paginationOnClickNavigation(newPage) {
+  this.props.setPage(newPage);
 };
 
 pagination.getCssClasses = function paginationGetCssClasses() {
@@ -73,7 +70,7 @@ pagination.renderPages = function paginationRenderPages() {
       <li
         className={cssClasses}
         key={x}
-        onClick={this.clickNavigationCallback(startPageNagivation + x)}>
+        onClick={this.onClickNavigation.bind(this, startPageNagivation + x)}>
         {startPageNagivation + x}
       </li>
     );
@@ -92,7 +89,7 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className="pagination__navigation pagination__previous"
       key="previous"
-      onClick={this.clickNavigationCallback(this.props.currentPage - 1)}>
+      onClick={this.onClickNavigation.bind(this, this.props.currentPage - 1)}>
       <SvgIcon
         svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
         fragment="chevron-left" />
@@ -102,7 +99,7 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className={firstPageCssClasses}
       key="first"
-      onClick={this.clickNavigationCallback(1)}>
+      onClick={this.onClickNavigation.bind(this, 1)}>
       {1}
     </li>
   );
@@ -139,7 +136,7 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className={lastPageCssClasses}
       key="last"
-      onClick={this.clickNavigationCallback(this.props.totalPages)}>
+      onClick={this.onClickNavigation.bind(this, this.props.totalPages)}>
       {this.props.totalPages}
     </li>
   );
@@ -147,7 +144,7 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className="pagination__navigation pagination__next"
       key="next"
-      onClick={this.clickNavigationCallback(this.props.currentPage + 1)}>
+      onClick={this.onClickNavigation.bind(this, this.props.currentPage + 1)}>
       <SvgIcon
         svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
         fragment="chevron-right" />

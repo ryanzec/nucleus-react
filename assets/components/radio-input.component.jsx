@@ -62,7 +62,7 @@ radioInput.renderLabel = function radioInputRenderLabel() {
 };
 
 radioInput.renderInput = function radioInputRenderInput() {
-  var options = _.map(this.props.options, function radioInputPropsOptionsMap(option) {
+  var options = _.map(this.props.options, function radioInputRenderInputOptionsMap(option) {
     var checked = this.props.value === option.value;
 
     if (option.displayPosition === 'left') {

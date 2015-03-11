@@ -1,7 +1,5 @@
 {
   "ecmaFeatures": {
-    //this needs to be set to false to prevent false error based on this bug (https://github.com/eslint/eslint/issues/1969)
-    "globalReturn": false,
     "jsx": true
   },
   "globals": {

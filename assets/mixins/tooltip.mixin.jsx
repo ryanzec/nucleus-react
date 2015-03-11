@@ -9,8 +9,6 @@ var domUtilities = require('dom-utilities');
 
 var tooltipMixin = {};
 
-tooltipMixin._tooltipDisplayTimeoutId = null;
-
 tooltipMixin.mixins = [
   React.addons.PureRenderMixin,
   appendBodyMixin
@@ -25,13 +23,6 @@ tooltipMixin.propTypes = {
   tooltipSpacing: React.PropTypes.number
 };
 
-tooltipMixin.getInitialState = function tooltipMixinGetInitialState() {
-  return {
-    tooltipActive: false,
-    tooltipStickyActive: false
-  };
-};
-
 tooltipMixin.getDefaultProps = function tooltipMixinGetDefaultProps() {
   return {
     tooltipVertical: 'bottom',
@@ -43,6 +34,17 @@ tooltipMixin.getDefaultProps = function tooltipMixinGetDefaultProps() {
   };
 };
 
+tooltipMixin.getInitialState = function tooltipMixinGetInitialState() {
+  return {
+    tooltipActive: false,
+    tooltipStickyActive: false
+  };
+};
+
+tooltipMixin.componentWillMount = function tooltipMixinComponentWillMount() {
+  this.tooltipDisplayTimeout = null;
+};
+
 tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
   this.createAppendElement();
   var appendBody = this.getAppendElement();
@@ -51,14 +53,14 @@ tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
 
   //NOTE: not using domEventManagerMixin because I need to make sure to add/remove the events in correct order
-  handle.addEventListener('mouseenter', this._tooltipMouseEnter);
-  handle.addEventListener('mouseleave', this._tooltipMouseLeave);
-  tooltipContent.addEventListener('mouseenter', this._tooltipMouseEnter);
-  tooltipContent.addEventListener('mouseleave', this._tooltipMouseLeave);
+  handle.addEventListener('mouseenter', this.onMouseEnterTooltip);
+  handle.addEventListener('mouseleave', this.onMouseLeaveTootip);
+  tooltipContent.addEventListener('mouseenter', this.onMouseEnterTooltip);
+  tooltipContent.addEventListener('mouseleave', this.onMouseLeaveTootip);
 
   if (_.isFunction(this.getTooltipStickyContent)) {
-    tooltipContent.addEventListener('click', this._tooltipContentClick);
-    handle.addEventListener('click', this._tooltipClick);
+    tooltipContent.addEventListener('click', this.onClickTooltipContent);
+    handle.addEventListener('click', this.onClickTooltip);
   }
 
   singlePanelManager.registerComponent({
@@ -73,14 +75,14 @@ tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() 
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
 
   //NOTE: not using domEventManagerMixin because I need to make sure to add/remove the events in correct order
-  handle.removeEventListener('mouseenter', this._tooltipMouseEnter);
-  handle.removeEventListener('mouseleave', this._tooltipMouseLeave);
-  tooltipContent.removeEventListener('mouseenter', this._tooltipMouseEnter);
-  tooltipContent.removeEventListener('mouseleave', this._tooltipMouseLeave);
+  handle.removeEventListener('mouseenter', this.onMouseEnterTooltip);
+  handle.removeEventListener('mouseleave', this.onMouseLeaveTootip);
+  tooltipContent.removeEventListener('mouseenter', this.onMouseEnterTooltip);
+  tooltipContent.removeEventListener('mouseleave', this.onMouseLeaveTootip);
 
   if (_.isFunction(this.getTooltipStickyContent)) {
-    tooltipContent.removeEventListener('click', this._tooltipContentClick);
-    handle.removeEventListener('click', this._tooltipClick);
+    tooltipContent.removeEventListener('click', this.onClickTooltipContent);
+    handle.removeEventListener('click', this.onClickTooltip);
   }
 
   this.removeAppendElement();
@@ -91,7 +93,7 @@ tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() 
 };
 
 /* istanbul ignore next */
-tooltipMixin._getTooltipTopPositions = function tooltipMixinGetTooltipPositions(tooltipHandleNode, tooltipNode) {
+tooltipMixin.getTooltipTopPositions = function tooltipMixinGetTooltipPositions(tooltipHandleNode, tooltipNode) {
   var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
 
@@ -111,7 +113,7 @@ tooltipMixin._getTooltipTopPositions = function tooltipMixinGetTooltipPositions(
 };
 
 /* istanbul ignore next */
-tooltipMixin._getTooltipLeftPositions = function tooltipMixingetTooltipLeftPosition(tooltipHandleNode, tooltipNode) {
+tooltipMixin.getTooltipLeftPositions = function tooltipMixingetTooltipLeftPosition(tooltipHandleNode, tooltipNode) {
   var handleDimensions = domUtilities.getDimensions(tooltipHandleNode);
   var tooltipClientRect = tooltipNode.getBoundingClientRect();
 
@@ -131,7 +133,7 @@ tooltipMixin._getTooltipLeftPositions = function tooltipMixingetTooltipLeftPosit
 };
 
 /* istanbul ignore next */
-tooltipMixin._fixHiddenTooltip = function tooltipMixinFixHiddenTooltip(tooltipNode, tops, lefts) {
+tooltipMixin.fixHiddenTooltip = function tooltipMixinFixHiddenTooltip(tooltipNode, tops, lefts) {
   var newlyPositionedtooltipClientRect = tooltipNode.getBoundingClientRect();
 
   if (newlyPositionedtooltipClientRect.top < 0) {
@@ -152,7 +154,7 @@ tooltipMixin._fixHiddenTooltip = function tooltipMixinFixHiddenTooltip(tooltipNo
 };
 
 /* istanbul ignore next */
-tooltipMixin._setTooltipPosition = function tooltipMixinSetTooltipPosition() {
+tooltipMixin.setTooltipPosition = function tooltipMixinSetTooltipPosition() {
   var tooltipNode = this.getAppendElement().getElementsByClassName('tooltip__content')[0];
   var tooltipHandleNode = this.getDOMNode().getElementsByClassName('tooltip__handle')[0];
   var tooltipCurrentDisplay = tooltipNode.style.display;
@@ -163,28 +165,28 @@ tooltipMixin._setTooltipPosition = function tooltipMixinSetTooltipPosition() {
   tooltipNode.style.top = '0px';
   tooltipNode.style.left = '0px';
 
-  var tops = this._getTooltipTopPositions(tooltipHandleNode, tooltipNode);
-  var lefts = this._getTooltipLeftPositions(tooltipHandleNode, tooltipNode);
+  var tops = this.getTooltipTopPositions(tooltipHandleNode, tooltipNode);
+  var lefts = this.getTooltipLeftPositions(tooltipHandleNode, tooltipNode);
 
   tooltipNode.style.top = tops[this.props.tooltipVertical] + 'px';
   tooltipNode.style.left = lefts[this.props.tooltipHorizontal] + 'px';
 
-  this._fixHiddenTooltip(tooltipNode, tops, lefts);
+  this.fixHiddenTooltip(tooltipNode, tops, lefts);
 
   //reset styling that was done in order to get the client rect
   tooltipNode.style.visibility = 'visible';
   tooltipNode.style.display = tooltipCurrentDisplay;
 };
 
-tooltipMixin._tooltipMouseEnter = function tooltipMixinTooltipMouseEnter() {
-  this._setTooltipPosition();
+tooltipMixin.onMouseEnterTooltip = function tooltipMixinTooltipMouseEnter() {
+  this.setTooltipPosition();
 
-  if (this._tooltipDisplayTimeoutId) {
-    clearTimeout(this._tooltipDisplayTimeoutId);
-    this._tooltipDisplayTimeoutId = null;
+  if (this.tooltipDisplayTimeout) {
+    clearTimeout(this.tooltipDisplayTimeout);
+    this.tooltipDisplayTimeout = null;
   } else {
-    this._tooltipDisplayTimeoutId = setTimeout(function tooltipMixinTooltipMouseEnterDelayActivation() {
-      this._tooltipDisplayTimeoutId = null;
+    this.tooltipDisplayTimeout = setTimeout(function tooltipMixinTooltipMouseEnterSetTimeout() {
+      this.tooltipDisplayTimeout = null;
       this.setState({
         tooltipActive: true
       });
@@ -192,13 +194,13 @@ tooltipMixin._tooltipMouseEnter = function tooltipMixinTooltipMouseEnter() {
   }
 };
 
-tooltipMixin._tooltipMouseLeave = function tooltipMixinTooltipMouseLeave() {
-  if (this._tooltipDisplayTimeoutId) {
-    clearTimeout(this._tooltipDisplayTimeoutId);
-    this._tooltipDisplayTimeoutId = null;
+tooltipMixin.onMouseLeaveTootip = function tooltipMixinTooltipMouseLeave() {
+  if (this.tooltipDisplayTimeout) {
+    clearTimeout(this.tooltipDisplayTimeout);
+    this.tooltipDisplayTimeout = null;
   } else {
-    this._tooltipDisplayTimeoutId = setTimeout(function tooltipMixinTooltipMouseLeaveDelayDeactivation() {
-      this._tooltipDisplayTimeoutId = null;
+    this.tooltipDisplayTimeout = setTimeout(function tooltipMixinTooltipMouseLeaveSetTimeout() {
+      this.tooltipDisplayTimeout = null;
       this.setState({
         tooltipActive: false
       });
@@ -206,23 +208,23 @@ tooltipMixin._tooltipMouseLeave = function tooltipMixinTooltipMouseLeave() {
   }
 };
 
-tooltipMixin._tooltipClick = function tooltipMixinTooltipClick(event) {
+tooltipMixin.onClickTooltip = function tooltipMixinTooltipClick(event) {
   event.stopPropagation();
 
   this.setState({
     tooltipStickyActive: !this.state.tooltipStickyActive
   });
 
-  this._setTooltipPosition();
+  this.setTooltipPosition();
 };
 
-tooltipMixin._tooltipContentClick = function tooltipMixinTooltipContentClick(event) {
+tooltipMixin.onClickTooltipContent = function tooltipMixinTooltipContentClick(event) {
   singlePanelManager.setClickedComponent({
     component: this
   });
 };
 
-tooltipMixin._getTooltipCssClasses = function tooltipMixingetTooltipCssClasses() {
+tooltipMixin.getTooltipCssClasses = function tooltipMixingetTooltipCssClasses() {
   var cssClasses = ['tooltip__content'];
 
   if (this.state.tooltipActive === true || this.state.tooltipStickyActive === true) {
@@ -243,14 +245,14 @@ tooltipMixin.hideSinglePanel = function tooltipMixinHideSinglePanel() {
 
   /* istanbul ignore else */
   if (this.state.tooltipStickyActive || this.state.tooltipActive) {
-    this._setTooltipPosition();
+    this.setTooltipPosition();
   }
 };
 
 tooltipMixin.getAppendBodyContent = function tooltipMixinGetAppendBodyContent() {
   var content = this.state.tooltipStickyActive === true
-  ? this.getTooltipStickyContent(this._getTooltipCssClasses().join(' '))
-  : this.getTooltipContent(this._getTooltipCssClasses().join(' '));
+  ? this.getTooltipStickyContent(this.getTooltipCssClasses().join(' '))
+  : this.getTooltipContent(this.getTooltipCssClasses().join(' '));
 
   return content;
 };

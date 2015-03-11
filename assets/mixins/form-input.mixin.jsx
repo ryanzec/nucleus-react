@@ -12,16 +12,16 @@ formInputMixin.propTypes = {
   renderValidationOnLoad: React.PropTypes.bool
 };
 
-formInputMixin.componentWillMount = function formInputMixinComponentWillMount() {
-  this.initialValue = this.props.value || null;
-  this.isValueDirty = false;
-};
-
 formInputMixin.getDefaultProps = function formInputMixinGetDefaultProps() {
   return {
     renderValidation: false,
     renderValidationOnLoad: false
   };
+};
+
+formInputMixin.componentWillMount = function formInputMixinComponentWillMount() {
+  this.initialValue = this.props.value || null;
+  this.isValueDirty = false;
 };
 
 formInputMixin.shouldRenderValidation = function formInputMixinShouldRenderValidation() {

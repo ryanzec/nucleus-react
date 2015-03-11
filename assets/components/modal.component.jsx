@@ -12,20 +12,6 @@ modal.mixins = [
   domEventManagerMixin
 ];
 
-/* istanbul ignore next */
-modal.componentDidMount = function modalComponentDidMount() {
-  this.addDomEvent(window, 'resize', this._reposition);
-  this.addDomEvent(window, 'orientationchange', this._reposition);
-};
-
-/* istanbul ignore next */
-modal.componentDidUpdate = function modalComponentDidUpdate() {
-  if (this.props.isActive) {
-    this._setTrueDimensions();
-    this._centerPosition();
-  }
-};
-
 modal.propTypes = {
   className: React.PropTypes.string
 };
@@ -37,7 +23,21 @@ modal.getDefaultProps = function modalGetDefaultProps() {
 };
 
 /* istanbul ignore next */
-modal._setTrueDimensions = function modalSetTrueDimensions() {
+modal.componentDidMount = function modalComponentDidMount() {
+  this.addDomEvent(window, 'resize', this.reposition);
+  this.addDomEvent(window, 'orientationchange', this.reposition);
+};
+
+/* istanbul ignore next */
+modal.componentDidUpdate = function modalComponentDidUpdate() {
+  if (this.props.isActive) {
+    this.setTrueDimensions();
+    this.centerPosition();
+  }
+};
+
+/* istanbul ignore next */
+modal.setTrueDimensions = function modalSetTrueDimensions() {
   var setStylesToGetTrueDimensions = function modalSetTrueDimensionsSetStylesToGetTrueDimensions(modalContentElement) {
     modalContentElement.style.visibility = 'hidden';
     modalContentElement.style.display = 'block';
@@ -73,23 +73,23 @@ modal._setTrueDimensions = function modalSetTrueDimensions() {
 };
 
 /* istanbul ignore next */
-modal._reposition = function modalReposition() {
+modal.reposition = function modalReposition() {
   if (this.props.isActive) {
-    this._setTrueDimensions();
-    this._setMaxDimensions();
-    this._centerPosition();
+    this.setTrueDimensions();
+    this.setMaxDimensions();
+    this.centerPosition();
   }
 };
 
 /* istanbul ignore next */
-modal._setMaxDimensions = function modalSetMaxDimensions() {
+modal.setMaxDimensions = function modalSetMaxDimensions() {
   //.9 match the scss max-height: 90%, this value needs to be kept in sync with the sass code
   this.getDOMNode().querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * 0.9) + 'px';
   this.getDOMNode().querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * 0.9) + 'px';
 };
 
 /* istanbul ignore next */
-modal._centerPosition = function modalCenterPosition() {
+modal.centerPosition = function modalCenterPosition() {
   var modalContent = this.getDOMNode().querySelector('.modal__content');
   var dimensions = domUtilities.getDimensions(modalContent);
 

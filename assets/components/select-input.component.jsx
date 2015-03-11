@@ -79,7 +79,7 @@ selectInput.renderLabel = function selectInputRenderLabel() {
 };
 
 selectInput.renderInput = function selectInputRenderInput() {
-  var selectOptions = _.map(this.props.options, function selectInputPropsOptionsMap(option) {
+  var selectOptions = _.map(this.props.options, function selectInputRenderInputOptionsMap(option) {
     return (
       <option value={option.value} key={option.value}>{option.display}</option>
     );

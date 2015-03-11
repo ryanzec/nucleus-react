@@ -6,7 +6,7 @@ singlePanelManager._internalData = {
 };
 
 singlePanelManager._globalClickHandler = function singlePanelManagerGlobalClickHandler(event) {
-  singlePanelManager._internalData.registeredComponents.forEach(function singlePanelManagerGlobalClickHandlerRegisteredComponentsForEach(singlePanel) {
+  singlePanelManager._internalData.registeredComponents.forEach(function singlePanelManagerGlobalClickHandlerRegisteredComponentsLoop(singlePanel) {
     //we need to make sure not to close a single panel if it was just clicked on
     if (this._internalData.clickedComponent !== singlePanel) {
       singlePanel.hideSinglePanel();
@@ -18,7 +18,7 @@ singlePanelManager._globalClickHandler = function singlePanelManagerGlobalClickH
 
 singlePanelManager._globalKeyUpHandler = function singlePanelManagerGlobalKeyUpHandler(event) {
   if (event.which === 27) {
-    singlePanelManager._internalData.registeredComponents.forEach(function singlePanelManagerGlobalKeyUpHandlerRegisteredComponentsForEach(singlePanel) {
+    singlePanelManager._internalData.registeredComponents.forEach(function singlePanelManagerGlobalKeyUpHandlerRegisteredComponentsLoop(singlePanel) {
       singlePanel.hideSinglePanel();
     });
   }
@@ -29,11 +29,10 @@ singlePanelManager.registerComponent = function singlePanelManagerRegisterCompon
 };
 
 singlePanelManager.unregisterComponent = function singlePanelManagerUnregisterComponent(options) {
-  /*eslint-disable*/
-  this._internalData.registeredComponents = this._internalData.registeredComponents.filter(function singlePanelManagerUnregisterComponentRegisteredComponentFilter(singlePanel) {
+  var filter = function singlePanelManagerUnregisterComponentRegisteredComponentFilter(singlePanel) {
     return singlePanel !== options.component;
-  });
-  /*eslint-enable*/
+  };
+  this._internalData.registeredComponents = this._internalData.registeredComponents.filter(filter);
 };
 
 singlePanelManager.registerGlobalEventHandler = function singlePanelManagerRegisterGlobalEventHandler() {

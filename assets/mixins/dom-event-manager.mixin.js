@@ -9,7 +9,7 @@ domEventManagerMixin.componentWillMount = function domEventManagerMixinComponent
 /* istanbul ignore next */
 domEventManagerMixin.componentWillUnmount = function domEventManagerMixinComponentWillUnmount() {
   if (this._managedDomEvents.length > 0) {
-    this._managedDomEvents.forEach(function domEventManagerMixinComponentWillUnmountManagedDomEventsForEach(event) {
+    this._managedDomEvents.forEach(function domEventManagerMixinComponentWillUnmountManagedDomEventsLoop(event) {
       event.element.removeEventListener(event.type, event.func);
     });
   }
