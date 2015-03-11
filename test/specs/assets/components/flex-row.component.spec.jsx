@@ -28,4 +28,10 @@ describe('flex row component', function() {
 
     expect(this.component.getDOMNode().className).to.equal('flex-row m-safe');
   });
+
+  it('should be able to add css classes', function() {
+    this.component = React.render(<FlexRow className="m-safe">1</FlexRow>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row m-safe');
+  });
 });

@@ -59,6 +59,8 @@ formInputMixin.onChange = function formInputMixinOnChange(event) {
     value = event.target.value;
   }
 
+  //NOTE: since the else path is only valid for IE 10+, it can not be convered in unit tests
+  /* istanbul ignore else */
   if (
     !this.isValueDirty
     && this.initialValue !== value

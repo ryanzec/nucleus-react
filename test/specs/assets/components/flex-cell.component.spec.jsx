@@ -24,10 +24,22 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-small-columns4');
   });
 
+  it('should not be able to set small columns over max value', function() {
+    this.component = React.render(<FlexCell smallColumns={94}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-small-columns12');
+  });
+
   it('should be able to set medium columns', function() {
     this.component = React.render(<FlexCell mediumColumns={4}>1</FlexCell>, div);
 
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-medium-columns4');
+  });
+
+  it('should not be able to set medium columns over max value', function() {
+    this.component = React.render(<FlexCell mediumColumns={94}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-medium-columns12');
   });
 
   it('should be set columns', function() {
@@ -36,10 +48,22 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-columns4');
   });
 
+  it('should not be set columns over max limit', function() {
+    this.component = React.render(<FlexCell columns={94}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-columns12');
+  });
+
   it('should be able to set large columns', function() {
     this.component = React.render(<FlexCell largeColumns={4}>1</FlexCell>, div);
 
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-large-columns4');
+  });
+
+  it('should not be able to set large columns over max limit', function() {
+    this.component = React.render(<FlexCell largeColumns={94}>1</FlexCell>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-large-columns12');
   });
 
   it('should be set alignment', function() {
