@@ -86,7 +86,7 @@ $component-identifier: '.flex-row';
   #{$component-identifier} {
     &__cell {
       @for $i from 1 through $grid-medium-columns {
-        &.m-small-columns#{$i} {
+        &.m-medium-columns#{$i} {
           @include flex(0 0 ($i / $grid-medium-columns * 100%));
 
           //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting
@@ -102,7 +102,7 @@ $component-identifier: '.flex-row';
   #{$component-identifier} {
     &__cell {
       @for $i from 1 through $grid-large-columns {
-        &.m-small-columns#{$i} {
+        &.m-large-columns#{$i} {
           @include flex(0 0 ($i / $grid-large-columns * 100%));
 
           //HACK: IE 10+: padding does not seem to be accounted in the flexbox width seems to not work well with IE 10+ event border box box sizingbut setting
