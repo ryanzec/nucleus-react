@@ -1,5 +1,6 @@
 module.exports = {
   Badge: require('./badge.component.jsx'),
+  Button: require('./button.component.jsx'),
   CharacterCounter: require('./character-counter.component.jsx'),
   CheckboxInput: require('./checkbox-input.component.jsx'),
   Card: require('./card.component.jsx'),

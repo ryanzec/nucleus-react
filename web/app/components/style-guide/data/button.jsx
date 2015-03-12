@@ -1,4 +1,6 @@
 var React = require('react/addons');
+var nucleusReact = require('../../../../../assets/index');
+var Button = nucleusReact.components.Button;
 
 module.exports = {
   name: 'Button',
@@ -20,7 +22,7 @@ module.exports = {
       </p>
     ),
     example: (
-      <button>Standard</button>
+      <Button>Standard</Button>
     ),
     exampleString: '<Button>Standard</Button>'
   }, {
@@ -31,13 +33,13 @@ module.exports = {
     ),
     example: (
       <span>
-        <button className="m-safe">Safe</button>
-        <button className="m-notice">Notice</button>
-        <button className="m-warning">Warning</button>
-        <button className="m-danger">Danger</button>
+        <Button className="m-safe">Safe</Button>
+        <Button className="m-notice">Notice</Button>
+        <Button className="m-warning">Warning</Button>
+        <Button className="m-danger">Danger</Button>
       </span>
     ),
-    exampleString: '<button className="m-safe">Safe</button>\n<button className="m-notice">Notice</button>\n<button className="m-warning">Warning</button>\n<button className="m-danger">Danger</button>'
+    exampleString: '<Button className="m-safe">Safe</Button>\n<Button className="m-notice">Notice</Button>\n<Button className="m-warning">Warning</Button>\n<Button className="m-danger">Danger</Button>'
   }, {
     description: (
       <p>
@@ -46,21 +48,21 @@ module.exports = {
     ),
     example: (
       <span>
-        <button
+        <Button
           className="m-primary"
-          disabled={true}>Primary</button>
-        <button
+          disabled={true}>Primary</Button>
+        <Button
           className="m-safe"
-          disabled={true}>Safe</button>
-        <button
+          disabled={true}>Safe</Button>
+        <Button
           className="m-warning"
-          disabled={true}>Warning</button>
-        <button
+          disabled={true}>Warning</Button>
+        <Button
           className="m-danger"
-          disabled={true}>Danger</button>
+          disabled={true}>Danger</Button>
       </span>
     ),
-    exampleString: '<button\n\tclassName="m-primary"\n\tdisabled={true}>Primary</button>\n<button\n\tclassName="m-safe"\n\tdisabled={true}>Safe</button>\n<button\n\tclassName="m-warning"\n\tdisabled={true}>Warning</button>\n<button\n\tclassName="m-danger"\n\tdisabled={true}>Danger</button>'
+    exampleString: '<Button\n\tclassName="m-primary"\n\tdisabled={true}>Primary</Button>\n<Button\n\tclassName="m-safe"\n\tdisabled={true}>Safe</Button>\n<Button\n\tclassName="m-warning"\n\tdisabled={true}>Warning</Button>\n<Button\n\tclassName="m-danger"\n\tdisabled={true}>Danger</Button>'
   }, {
     description: (
       <p>
@@ -68,9 +70,9 @@ module.exports = {
       </p>
     ),
     example: (
-      <button className="m-square">Square</button>
+      <Button className="m-square">Square</Button>
     ),
-    exampleString: '<button className="m-square">Square</button>'
+    exampleString: '<Button className="m-square">Square</Button>'
   }, {
     description: (
       <p>
@@ -79,12 +81,12 @@ module.exports = {
     ),
     example: (
       <span>
-        <button className="m-small">Small</button>
-        <button>Standard</button>
-        <button className="m-large">Large</button>
-        <button className="m-largest">Largest</button>
+        <Button className="m-small">Small</Button>
+        <Button>Standard</Button>
+        <Button className="m-large">Large</Button>
+        <Button className="m-largest">Largest</Button>
       </span>
     ),
-    exampleString: '<button className="m-small">Small</button>\n<button>Standard</button>\n<button className="m-large">Large</button>\n<button className="m-largest">Largest</button>'
+    exampleString: '<Button className="m-small">Small</Button>\n<Button>Standard</Button>\n<Button className="m-large">Large</Button>\n<Button className="m-largest">Largest</Button>'
   }]
 };
