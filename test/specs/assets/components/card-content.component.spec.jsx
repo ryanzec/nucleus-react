@@ -13,7 +13,9 @@ describe('card content component', function() {
   it('should render', function() {
     this.component = React.render(<CardContent>content</CardContent>, div);
     var cardContent = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'card__content');
+    var cardContentArrow = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'card__content-arrow');
 
+    expect(cardContentArrow.length).to.equal(0);
     expect(cardContent.props.className).to.equal('card__content');
     expect(cardContent.props.children[1]).to.equal('content');
   });

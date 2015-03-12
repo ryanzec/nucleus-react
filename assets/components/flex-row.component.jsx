@@ -11,14 +11,16 @@ flexRow.mixins = [
 flexRow.propTypes = {
   verticalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   horizontalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  hasMargin: React.PropTypes.bool
 };
 
 flexRow.getDefaultProps = function flexRowGetDefaultProps() {
   return {
     verticalAlign: null,
     horizontalAlign: null,
-    className: null
+    className: null,
+    hasMargin: false
   };
 };
 
@@ -31,6 +33,10 @@ flexRow.getCssClasses = function flexRowGetCssClasses() {
 
   if (this.props.horizontalAlign) {
     cssClasses.push('m-horizontal-align-' + this.props.horizontalAlign);
+  }
+
+  if (this.props.hasMargin === true) {
+    cssClasses.push('m-has-margin');
   }
 
   if (this.props.className) {

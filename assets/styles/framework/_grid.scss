@@ -7,7 +7,7 @@ $component-identifier: '.flex-row';
 
   margin-left: ($grid-gutter * -1);
 
-  .m-grid {
+  .m-has-margin {
     margin-left: ($grid-gutter / 2 * -1);
     margin-right: ($grid-gutter * -1);
   }
