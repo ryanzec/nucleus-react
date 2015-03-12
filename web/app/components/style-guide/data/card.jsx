@@ -39,5 +39,42 @@ module.exports = {
       </Card>
     ),
     exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        Card with header arrow pointing up.
+      </p>
+    ),
+    example: (
+      <Card>
+        <CardHeader renderArrow={true} arrowPosition="top">Header</CardHeader>
+        <CardContent>Content</CardContent>
+      </Card>
+    ),
+    exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        Card with no header.
+      </p>
+    ),
+    example: (
+      <Card>
+        <CardContent>Content</CardContent>
+      </Card>
+    ),
+    exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        Card with no header but an arrow.
+      </p>
+    ),
+    example: (
+      <Card>
+        <CardContent renderArrow={true}>Content</CardContent>
+      </Card>
+    ),
+    exampleString: '<Badge>Standard</Badge>'
   }]
 };

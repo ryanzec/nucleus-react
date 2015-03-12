@@ -15,16 +15,47 @@ $component-identifier: '.card';
     font-weight: 600;
   }
 
-  &__content {
-    padding: 10px;
-  }
-
   &__header-arrow {
-    @include triangle(12px, $color-gray3, down);
-
     position: absolute;
     left: calc(50% - 6px);
-    bottom: -6px;
+
+    &.m-bottom {
+      @include triangle(12px, $color-gray3, down);
+
+      bottom: -6px;
+    }
+
+    &.m-top {
+      @include triangle(12px, $color-gray3, up);
+
+      top: -6px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    padding: 10px;
+    background-color: $color-white;
+  }
+
+  &__content-arrow {
+    position: absolute;
+    left: calc(50% - 6px);
+    top: -6px;
+  }
+
+  &__content-arrow-border {
+    @include triangle(12px, $color-gray3, up);
+
+    position: absolute;
+  }
+
+  &__content-arrow-background {
+    position: absolute;
+    @include triangle(12px, $color-white, up);
+
+    position: absolute;
+    top: 1px;
   }
 }
 

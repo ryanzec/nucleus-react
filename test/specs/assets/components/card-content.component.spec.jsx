@@ -15,7 +15,18 @@ describe('card content component', function() {
     var cardContent = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'card__content');
 
     expect(cardContent.props.className).to.equal('card__content');
-    expect(cardContent.props.children).to.equal('content');
+    expect(cardContent.props.children[1]).to.equal('content');
+  });
+
+  it('should be able to render arrow', function() {
+    this.component = React.render(<CardContent renderArrow={true}>content</CardContent>, div);
+    var cardContent = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'card__content');
+    var cardContentArrow = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'card__content-arrow');
+
+    expect(cardContent.props.className).to.equal('card__content');
+    expect(cardContent.props.children[1]).to.equal('content');
+    expect(cardContentArrow.length).to.equal(1);
+    expect(cardContentArrow[0].props.className).to.equal('card__content-arrow');
   });
 
   it('should be able to add custom classes', function() {
