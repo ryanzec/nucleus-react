@@ -73,20 +73,5 @@ module.exports = {
       <Button className="m-square">Square</Button>
     ),
     exampleString: '<Button className="m-square">Square</Button>'
-  }, {
-    description: (
-      <p>
-        In addition to the standard size, there are 3 other sized button using the <code>m-small</code>, <code>m-large</code>, and <code>m-largest</code> classes.
-      </p>
-    ),
-    example: (
-      <span>
-        <Button className="m-small">Small</Button>
-        <Button>Standard</Button>
-        <Button className="m-large">Large</Button>
-        <Button className="m-largest">Largest</Button>
-      </span>
-    ),
-    exampleString: '<Button className="m-small">Small</Button>\n<Button>Standard</Button>\n<Button className="m-large">Large</Button>\n<Button className="m-largest">Largest</Button>'
   }]
 };
