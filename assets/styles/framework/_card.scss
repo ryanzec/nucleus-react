@@ -1,0 +1,31 @@
+$component-identifier: '.card';
+
+#{$component-identifier} {
+  border: 1px solid $color-gray3;
+  border-radius: 5px;
+
+  &__header {
+    position: relative;
+    background-color: $color-gray3;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  &__content {
+    padding: 10px;
+  }
+
+  &__header-arrow {
+    @include triangle(12px, $color-gray3, down);
+
+    position: absolute;
+    left: calc(50% - 6px);
+    bottom: -6px;
+  }
+}
+
+$component-identifier: '';

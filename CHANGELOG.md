@@ -2,6 +2,7 @@
 
 ## master
 
+- added card component (#15)
 - made styling to work in a more small (mobile) first kinda of way
 - added ability to align flex cells horizontally
 - removed jshint in favor of eslint
