@@ -2,7 +2,7 @@ $component-identifier: '.form-element';
 
 #{$component-identifier} {
   label {
-    @include flex(24);
+    @include flex(1);
 
     display: inline-block;
   }
@@ -51,7 +51,7 @@ $component-identifier: '.form-element';
     @include align-items(center);
 
     #{$component-identifier}__input-container {
-      @include flex(24);
+      @include flex(1);
     }
 
     #{$component-identifier}__validation-icon {
@@ -94,7 +94,7 @@ form.m-inline {
     @include align-items(center);
 
     &__field-container {
-      @include flex(24);
+      @include flex(1);
     }
   }
 
