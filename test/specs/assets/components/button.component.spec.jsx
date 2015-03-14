@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
-var Button = require('../../../../assets/components/Button.component.jsx');
+var Button = require('../../../../assets/components/button.component.jsx');
 var testHelper = require('../../../test-helper');
 
 describe('button component', function() {
