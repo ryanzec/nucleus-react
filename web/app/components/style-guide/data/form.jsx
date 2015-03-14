@@ -9,6 +9,7 @@ var TextboxInput = nucleusReact.components.TextboxInput;
 var SelectInput = nucleusReact.components.SelectInput;
 var RadioInput = nucleusReact.components.RadioInput;
 var CheckboxInput = nucleusReact.components.CheckboxInput;
+var DatePicker = nucleusReact.components.DatePicker;
 var formOnChangeMixin = nucleusReact.mixins.formOnChange;
 
 var FormExmplePlaceholders = React.createClass({
@@ -23,7 +24,8 @@ var FormExmplePlaceholders = React.createClass({
       'receiveNewletters',
       'over21',
       'agreeToTermsAndConditions',
-      'liveIn'
+      'liveIn',
+      'date'
     ]
   },
 
@@ -43,7 +45,8 @@ var FormExmplePlaceholders = React.createClass({
         receiveNewletters: false,
         over21: false,
         agreeToTermsAndConditions: false,
-        liveIn: null
+        liveIn: null,
+        date: null
       }
     };
   },
@@ -80,6 +83,15 @@ var FormExmplePlaceholders = React.createClass({
     }];
   },
 
+  onClickDate: function(value) {
+    var newForm = _.clone(this.state.test);
+    newForm.date = value;
+
+    this.setState({
+      test: newForm
+    });
+  },
+
   render: function() {
     return (
       <span>
@@ -106,6 +118,7 @@ var FormExmplePlaceholders = React.createClass({
           <CheckboxInput label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onTestOver21Change} />
           <CheckboxInput label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onTestAgreeToTermsAndConditionsChange} renderValidation="both" validate={this.validate} />
           <RadioInput name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onTestLiveInChange} renderValidation="both" validate={this.validateLiveIn} />
+          <DatePicker onClickDate={this.onClickDate} selectedDay={this.state.test.date} />
         </form>
       </span>
     );

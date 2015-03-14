@@ -1,0 +1,13 @@
+.date-picker {
+  .form-element__input {
+    cursor: pointer;
+  }
+
+  .calendar {
+    position: absolute;
+    padding: 10px;
+    background-color: $color-white;
+    border: 1px solid $color-gray3;
+    border-radius: 5px;
+  }
+}

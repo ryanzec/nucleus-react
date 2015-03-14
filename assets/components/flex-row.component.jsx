@@ -41,7 +41,7 @@ flexRow.getCssClasses = function flexRowGetCssClasses() {
     cssClasses.push('m-has-margin');
   }
 
-  if(this.props.hasGutter === false) {
+  if (this.props.hasGutter === false) {
     cssClasses.push('m-no-gutter');
   }
 

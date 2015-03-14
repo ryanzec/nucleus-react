@@ -1,0 +1,69 @@
+.calendar {
+  .form-element {
+    display: inline-block;
+  }
+
+  .form-element__field-container {
+    display: inline-block;
+  }
+
+  .form-element__input.m-select {
+    cursor: pointer;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  &__controls,
+  &__week-row,
+  &__days-of-week {
+    @include display(flex);
+    @include justify-content(space-around);
+  }
+
+  &__header {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  &__calendar {
+    border: 1px solid $color-gray3;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  &__day-of-week,
+  &__week-day {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid $color-gray3;
+    border-top: none;
+    border-left: none;
+    border-collapse: collapse;
+  }
+
+  &__week-day {
+    cursor: pointer;
+
+    &.m-next-month,
+    &.m-previous-month {
+      color: $color-neutral;
+    }
+
+    &:hover {
+      background-color: $color-gray3;
+    }
+
+    &.is-selected {
+      background-color: $color-gray2;
+    }
+  }
+}

@@ -2,6 +2,9 @@
 
 ## master
 
+- added calendar commponent
+- added date picker component
+- added single panel mixin
 - added ability to pass false for empty option for select input to have no empty option
 - moved custom class generation to the cell data element for flex cell
 - added ability to configure whether or not to show gutter for flex row
