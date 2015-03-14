@@ -5,11 +5,17 @@ $component-identifier: '.flex-row';
   @include flex-wrap(wrap);
   @include justify-content(space-between);
 
-  margin-left: ($grid-gutter * -1);
+  &:not(.m-no-gutter) {
+    margin-left: ($grid-gutter * -1);
 
-  .m-has-margin {
-    margin-left: ($grid-gutter / 2 * -1);
-    margin-right: ($grid-gutter * -1);
+    .m-has-margin {
+      margin-left: ($grid-gutter / 2 * -1);
+      margin-right: ($grid-gutter * -1);
+    }
+
+    #{$component-identifier}__cell {
+      padding-left: $grid-gutter;
+    }
   }
 
   &.m-vertical-align-start {
@@ -42,8 +48,6 @@ $component-identifier: '.flex-row';
     }
 
     @include flexbox-value-width(100%);
-
-    padding-left: $grid-gutter;
 
     &.m-vertical-align-start {
       @include align-self(flex-start);

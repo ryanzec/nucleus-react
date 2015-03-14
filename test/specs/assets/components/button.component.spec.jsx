@@ -3,7 +3,7 @@ var reactTestUtils = React.addons.TestUtils;
 var Button = require('../../../../assets/components/Button.component.jsx');
 var testHelper = require('../../../test-helper');
 
-describe.only('button component', function() {
+describe('button component', function() {
   var div;
 
   beforeEach(function() {

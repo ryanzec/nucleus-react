@@ -12,7 +12,8 @@ flexRow.propTypes = {
   verticalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   horizontalAlign: React.PropTypes.oneOf(['start', 'center', 'end']),
   className: React.PropTypes.string,
-  hasMargin: React.PropTypes.bool
+  hasMargin: React.PropTypes.bool,
+  hasGutter: React.PropTypes.bool
 };
 
 flexRow.getDefaultProps = function flexRowGetDefaultProps() {
@@ -20,7 +21,8 @@ flexRow.getDefaultProps = function flexRowGetDefaultProps() {
     verticalAlign: null,
     horizontalAlign: null,
     className: null,
-    hasMargin: false
+    hasMargin: false,
+    hasGutter: true
   };
 };
 
@@ -37,6 +39,10 @@ flexRow.getCssClasses = function flexRowGetCssClasses() {
 
   if (this.props.hasMargin === true) {
     cssClasses.push('m-has-margin');
+  }
+
+  if(this.props.hasGutter === false) {
+    cssClasses.push('m-no-gutter');
   }
 
   if (this.props.className) {

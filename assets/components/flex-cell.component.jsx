@@ -50,7 +50,7 @@ flexCell.getExtraLargeColumnCount = function getExtraLargeColumnCount() {
   return this.props.extraLargeColumns < maxExtraLargeColumns ? this.props.extraLargeColumns : maxExtraLargeColumns;
 };
 
-flexCell.getCssClasses = function flexCellGetCssClasses() {
+flexCell.getCellCssClasses = function flexCellCellGetCssClasses() {
   var cssClasses = ['flex-row__cell'];
 
   if (this.props.smallColumns) {
@@ -77,6 +77,12 @@ flexCell.getCssClasses = function flexCellGetCssClasses() {
     cssClasses.push('m-vertical-align-' + this.props.verticalAlign);
   }
 
+  return cssClasses;
+};
+
+flexCell.getDataCssClasses = function flexCellGetDataCssClasses() {
+  var cssClasses = ['flex-row__cell-data'];
+
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
@@ -86,8 +92,8 @@ flexCell.getCssClasses = function flexCellGetCssClasses() {
 
 flexCell.render = function flexCellRender() {
   return (
-    <div className={this.getCssClasses().join(' ')}>
-      <div className="flex-row__cell-data">
+    <div className={this.getCellCssClasses().join(' ')}>
+      <div className={this.getDataCssClasses().join(' ')}>
         {this.props.children}
       </div>
     </div>

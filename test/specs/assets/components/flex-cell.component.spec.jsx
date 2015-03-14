@@ -78,9 +78,11 @@ describe('flex cell component', function() {
     expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-flex');
   });
 
-  it('should be able to add css classes', function() {
+  it('should be able to add css classes to cell data element', function() {
     this.component = React.render(<FlexCell className="m-safe">1</FlexCell>, div);
+    var dataCell = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'flex-row__cell-data');
 
-    expect(this.component.getDOMNode().className).to.equal('flex-row__cell m-safe');
+    expect(this.component.getDOMNode().className).to.equal('flex-row__cell');
+    expect(dataCell.getDOMNode().className).to.equal('flex-row__cell-data m-safe');
   });
 });
