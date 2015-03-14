@@ -2,6 +2,8 @@
 
 ## master
 
+- moved custom class generation to the cell data element for flex cell
+- added ability to configure whether or not to show gutter for flex row
 - added button component
 - added support for having arrow on card content and on the top of the header
 - added card component (#15)
