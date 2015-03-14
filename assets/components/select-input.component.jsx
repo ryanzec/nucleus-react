@@ -15,7 +15,7 @@ selectInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
   validate: React.PropTypes.func,
-  emptyOption: React.PropTypes.string,
+  emptyOption: React.PropTypes.any,
   options: React.PropTypes.array
 };
 
@@ -85,9 +85,11 @@ selectInput.renderInput = function selectInputRenderInput() {
     );
   });
 
-  selectOptions.unshift(
-    <option value="" key="empty">{this.props.emptyOption}</option>
-  );
+  if (this.props.emptyOption !== false) {
+    selectOptions.unshift(
+      <option value="" key="empty">{this.props.emptyOption}</option>
+    );
+  }
 
   return (
     <select
