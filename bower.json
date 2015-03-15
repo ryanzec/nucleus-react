@@ -1,6 +1,6 @@
 {
   "name": "nucleus-react",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "dependencies": {
     "bourbon": "f6fa980e4e9f6628be2d8dee81e7ad106563180b",
     "nucleus-icons": "master"

@@ -1,6 +1,6 @@
 # Change Log
 
-## master
+## 0.4.0
 
 - added calendar commponent
 - added date picker component
