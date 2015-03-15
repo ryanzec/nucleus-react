@@ -40,4 +40,10 @@ describe('flex row component', function() {
 
     expect(this.component.getDOMNode().className).to.equal('flex-row m-has-margin');
   });
+
+  it('should be able to set if it has no gutters', function() {
+    this.component = React.render(<FlexRow hasGutter={false}>1</FlexRow>, div);
+
+    expect(this.component.getDOMNode().className).to.equal('flex-row m-no-gutter');
+  });
 });
