@@ -22,7 +22,7 @@ describe('input auto sizer component', function() {
     });
 
     it('should be able to add custom class to input element', function() {
-      this.component = React.render(<InputAutoSizer inputClassName="m-safe" />, div);
+      this.component = React.render(<InputAutoSizer inputClassName="m-safe" defaultValue="coverage" />, div);
       var inputAutoSizer = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'input-auto-sizer');
 
       expect(inputAutoSizer.props.children[0].props.className).to.equal('form-element__input m-text m-safe');
