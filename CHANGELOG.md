@@ -1,5 +1,9 @@
 # Change Log
 
+## master
+
+- added ability to add static data before/after input that is attached to the input (#21)
+
 ## 0.4.0
 
 - added calendar commponent

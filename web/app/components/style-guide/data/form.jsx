@@ -261,9 +261,9 @@ var FormExmpleInline = React.createClass({
   render: function() {
     return (
       <form className="m-inline">
-        <TextboxInput label="First Name" value={this.state.test.firstName} onChange={this.onFirstNameChange} />
-        <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} />
-        <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} />
+        <TextboxInput label="First Name" value={this.state.test.firstName} onChange={this.onFirstNameChange} prepend="http://" />
+        <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} append=".com" />
+        <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} prepend="http://" append=".com" />
         <FlexRow>
           <FlexCell smallColumns={8}>
             <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />

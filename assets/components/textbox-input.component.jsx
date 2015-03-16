@@ -16,7 +16,9 @@ textboxInput.propTypes = {
   label: React.PropTypes.string,
   maskValue: React.PropTypes.bool,
   validate: React.PropTypes.func,
-  multiLined: React.PropTypes.bool
+  multiLined: React.PropTypes.bool,
+  append: React.PropTypes.node,
+  prepend: React.PropTypes.node
 };
 
 textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
@@ -25,7 +27,9 @@ textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
     label: null,
     maskValue: false,
     validate: null,
-    multiLined: false
+    multiLined: false,
+    append: null,
+    prepend: null
   };
 };
 
@@ -64,6 +68,30 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
   return props;
 };
 
+textboxInput.renderPrepend = function textboxInputRenderPrepend() {
+  var prepend = null;
+
+  if (this.props.prepend) {
+    prepend = (
+      <span className="form-element__input-prepend">{this.props.prepend}</span>
+    );
+  }
+
+  return prepend;
+};
+
+textboxInput.renderAppend = function textboxInputRenderAppend() {
+  var append = null;
+
+  if (this.props.append) {
+    append = (
+      <span className="form-element__input-append">{this.props.append}</span>
+    );
+  }
+
+  return append;
+};
+
 textboxInput.renderLabel = function textboxInputRenderLabel() {
   var label = null;
 
@@ -86,9 +114,19 @@ textboxInput.renderInput = function textboxInputRenderInput() {
     );
   }
 
+  var cssClasses = 'form-element__input-container form-element__input m-text';
+
+  if (this.props.prepend) {
+    cssClasses += ' m-has-prepend';
+  }
+
+  if (this.props.append) {
+    cssClasses += ' m-has-append';
+  }
+
   return (
     <input
-      className="form-element__input-container form-element__input m-text"
+      className={cssClasses}
       type={this.props.maskValue ? 'password' : 'text'}
       onChange={this.onChange}
       {...this.getInputPassThroughProps()} />
@@ -100,7 +138,9 @@ textboxInput.render = function textboxInputRender() {
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
       <div className="form-element__field-container">
+        {this.renderPrepend()}
         {this.renderInput()}
+        {this.renderAppend()}
         {this.renderValidationIcon()}
       </div>
     </div>

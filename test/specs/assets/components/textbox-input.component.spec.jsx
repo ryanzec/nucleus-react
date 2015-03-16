@@ -81,12 +81,16 @@ describe('textbox input component', function() {
     var label = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'label');
     var inputContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__field-container');
     var textarea = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'textarea');
+    var prepend = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input-prepend');
+    var append = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input-append');
 
     expect(mainComponent.length).to.equal(1);
     expect(inputContainer.length).to.equal(1);
     expect(input.length).to.equal(1);
     expect(label.length).to.equal(0);
     expect(textarea.length).to.equal(0);
+    expect(prepend.length).to.equal(0);
+    expect(append.length).to.equal(0);
     expect(input[0].props.type).to.equal('text');
     expect(input[0].getDOMNode().value).to.equal('');
   });
@@ -120,6 +124,22 @@ describe('textbox input component', function() {
     expect(label.length).to.equal(0);
     expect(textarea.length).to.equal(0);
     expect(input[0].props.type).to.equal('password');
+  });
+
+  it('should render prepend', function() {
+    this.component = React.render(<TextboxInput prepend="pre" />, div);
+    var prepend = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input-prepend');
+
+    expect(prepend.length).to.equal(1);
+    expect(prepend[0].props.children).to.equal('pre');
+  });
+
+  it('should render append', function() {
+    this.component = React.render(<TextboxInput append="app" />, div);
+    var append = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input-append');
+
+    expect(append.length).to.equal(1);
+    expect(append[0].props.children).to.equal('app');
   });
 
   it('should be able to set default value', function() {
