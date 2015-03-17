@@ -45,7 +45,7 @@ datePicker.singlePanelClose = function datePickerClose() {
 };
 
 datePicker.getCalendarPassThroughProps = function datePickerGetCalendarPassThoughProps() {
-  var props = _.clone(this.props, true);
+  var props = _.clone(this.props);
 
   delete props.children;
   delete props.placeholder;
@@ -56,7 +56,7 @@ datePicker.getCalendarPassThroughProps = function datePickerGetCalendarPassThoug
   return props;
 };
 
-datePicker.onClickInput = function datePickerOnClickInput() {
+datePicker.onFocusInput = function datePickerOnFocusInput() {
   this.setState({
     isCalendarActive: !this.state.isCalendarActive
   });
@@ -96,7 +96,7 @@ datePicker.render = function datePickerRender() {
             svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
             fragment="calendar" />
         }
-        onClick={this.onClickInput} />
+        onFocus={this.onFocusInput} />
       {this.renderCalendar()}
     </div>
   );

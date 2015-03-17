@@ -2,7 +2,9 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var testHelper = require('../../../test-helper');
+var sinon = require('sinon');
 var _ = require('lodash');
+var Fiber = require('fibers');
 
 var validateTrue = function() {
   return true;
@@ -270,5 +272,29 @@ describe('textbox input component', function() {
 
     expect(formElement.props.className).to.equal('form-element');
     expect(validationIcon.length).to.equal(0);
+  });
+
+  it('should be able to click trigger click event when clicking on prepend element', function() {
+    var spy = testHelper.getSpyForEventHandler(TextboxInput, 'onClickPend');
+    this.component = React.render(<TextboxInput prepend="pre" />, div);
+    var prepend = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element__input-prepend');
+
+    reactTestUtils.Simulate.click(prepend);
+
+    expect(spy).to.have.callCount(1);
+
+    testHelper.restoreEventHandler(TextboxInput, 'onClickPend');
+  });
+
+  it('should be able to click trigger click event when clicking on append element', function() {
+    var spy = testHelper.getSpyForEventHandler(TextboxInput, 'onClickPend');
+    this.component = React.render(<TextboxInput append="app" />, div);
+    var append = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element__input-append');
+
+    reactTestUtils.Simulate.click(append);
+
+    expect(spy).to.have.callCount(1);
+
+    testHelper.restoreEventHandler(TextboxInput, 'onClickPend');
   });
 });

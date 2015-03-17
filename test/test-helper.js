@@ -10,6 +10,7 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TestLocation = require('react-router/modules/locations/TestLocation');
 var Fiber = require('fibers');
+var sinon = require('sinon');
 
 //store the original state of all the stores
 _.forEach(storeLocations, function(path, storeName) {
@@ -110,5 +111,15 @@ module.exports = {
     SHIFT: 16,
     CTRL: 17,
     ALT: 18
+  },
+
+  getSpyForEventHandler: function(component, eventHandlerName) {
+    //using weird syntax here to prevent issue with ReactJS auto binding of events
+    return sinon.spy(component.type.prototype.__reactAutoBindMap, eventHandlerName);
+  },
+
+restoreEventHandler: function(component, eventHandlerName) {
+    //using weird syntax here to prevent issue with ReactJS auto binding of events
+    component.type.prototype.__reactAutoBindMap[eventHandlerName].restore();
   }
 };

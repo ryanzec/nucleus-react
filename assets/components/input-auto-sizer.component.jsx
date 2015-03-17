@@ -64,7 +64,7 @@ inputAutoSizer.getInputCssClasses = function inputAutoSizerGetInputCssClasses() 
 };
 
 inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() {
-  var props = _.clone(this.props, true);
+  var props = _.clone(this.props);
 
   delete props.maxWidth;
   delete props.inputClassName;

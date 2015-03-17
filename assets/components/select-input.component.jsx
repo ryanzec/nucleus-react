@@ -50,7 +50,7 @@ selectInput.getCssClasses = function selectInputGetCssClasses() {
 };
 
 selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughProps() {
-  var props = _.clone(this.props, true);
+  var props = _.clone(this.props);
 
   delete props.className;
   delete props.label;

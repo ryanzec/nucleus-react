@@ -3,7 +3,6 @@ var reactTestUtils = React.addons.TestUtils;
 var CharacterCounter = require('../../../../assets/components/character-counter.component.jsx');
 var testHelper = require('../../../test-helper');
 var sinon = require('sinon');
-var sinonChai = require('sinon-chai');
 
 var maxLimit = 100;
 var input0 = '';

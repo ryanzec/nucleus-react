@@ -54,7 +54,7 @@ textboxInput.getCssClasses = function textboxInputGetCssClasses() {
 };
 
 textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThroughProps() {
-  var props = _.clone(this.props, true);
+  var props = _.clone(this.props);
 
   delete props.className;
   delete props.label;
@@ -68,12 +68,17 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
   return props;
 };
 
+textboxInput.onClickPend = function textboxInputOnClickPend() {
+  console.log('test');
+  this.refs.input.getDOMNode().focus();
+};
+
 textboxInput.renderPrepend = function textboxInputRenderPrepend() {
   var prepend = null;
 
   if (this.props.prepend) {
     prepend = (
-      <span className="form-element__input-prepend">{this.props.prepend}</span>
+      <span className="form-element__input-prepend" onClick={this.onClickPend}>{this.props.prepend}</span>
     );
   }
 
@@ -85,7 +90,7 @@ textboxInput.renderAppend = function textboxInputRenderAppend() {
 
   if (this.props.append) {
     append = (
-      <span className="form-element__input-append">{this.props.append}</span>
+      <span className="form-element__input-append" onClick={this.onClickPend}>{this.props.append}</span>
     );
   }
 
@@ -126,6 +131,7 @@ textboxInput.renderInput = function textboxInputRenderInput() {
 
   return (
     <input
+      ref="input"
       className={cssClasses}
       type={this.props.maskValue ? 'password' : 'text'}
       onChange={this.onChange}

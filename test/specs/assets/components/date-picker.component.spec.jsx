@@ -119,12 +119,26 @@ describe('date picker component', function() {
     expect(input.props.placeholder).to.equal('click me');
   });
 
-  it('should enable calendar when input is clicked on', function() {
+  it('should enable calendar when input is focused', function() {
     this.component = React.render(<DatePicker />, div);
 
     var input = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'm-text');
 
-    reactTestUtils.Simulate.click(input);
+    reactTestUtils.Simulate.focus(input);
+
+    expect(this.component.state.isCalendarActive).to.be.true;
+  });
+
+  it('should not close calendar when the calendar itself is clicked on ', function() {
+    this.component = React.render(<DatePicker />, div);
+
+    var input = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'm-text');
+
+    reactTestUtils.Simulate.focus(input);
+
+    var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
+
+    reactTestUtils.Simulate.click(calendar);
 
     expect(this.component.state.isCalendarActive).to.be.true;
   });

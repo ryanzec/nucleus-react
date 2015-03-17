@@ -2,6 +2,11 @@
 
 ## master
 
+- performance improvements
+- clicking prepend/append elements for textbox now focuses input
+- switched calendar trigger event for date picker from click to focus
+- added test for date picker to improvement code coverage
+- added helper methods for spying on react event handlers
 - date picker now uses an icon in the append of textbox input
 - made the prepend/append elements for the textbox input more flexible
 - added ability to add static data before/after input that is attached to the input (#21)

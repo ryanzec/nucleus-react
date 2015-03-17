@@ -48,7 +48,7 @@ checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
 };
 
 checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThroughProps() {
-  var props = _.clone(this.props, true);
+  var props = _.clone(this.props);
 
   delete props.className;
   delete props.label;
