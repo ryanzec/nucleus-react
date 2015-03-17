@@ -2,6 +2,8 @@
 
 ## master
 
+- date picker now uses an icon in the append of textbox input
+- made the prepend/append elements for the textbox input more flexible
 - added ability to add static data before/after input that is attached to the input (#21)
 
 ## 0.4.0

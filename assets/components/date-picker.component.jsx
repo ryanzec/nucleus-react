@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var TextboxInput = require('./textbox-input.component.jsx');
 var Calendar = require('./calendar.component.jsx');
+var SvgIcon = require('./svg-icon.component.jsx');
 var singlePanelMixin = require('../mixins/single-panel.mixin');
 var _ = require('lodash');
 
@@ -90,6 +91,11 @@ datePicker.render = function datePickerRender() {
         placeholder={this.props.placeholder}
         value={this.props.selectedDay}
         readOnly={true}
+        append={
+          <SvgIcon
+            svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
+            fragment="calendar" />
+        }
         onClick={this.onClickInput} />
       {this.renderCalendar()}
     </div>

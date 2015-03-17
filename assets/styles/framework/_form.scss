@@ -73,8 +73,15 @@ $component-identifier: '.form-element';
 
   &__input-prepend,
   &__input-append {
+    @include align-self(stretch);
+    @include flex(0 1 auto);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(space-around);
+
+    margin: 5px 0;
     background-color: $color-gray2;
-    padding: 5px 6px;
+    padding: 3px 6px;
   }
 
   &__input-prepend {
