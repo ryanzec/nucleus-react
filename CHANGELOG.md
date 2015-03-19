@@ -2,6 +2,13 @@
 
 ## master
 
+- refactored date picker to be more mobile friendly
+- assets rewrite add `/build/` to path with configurable option to add `/static/[SHA]/`
+- added support for copying directory in copy static assets task
+- added support for #... in assets rewrite regex
+- renamed gulp task `static-rewrite` to `assets-rewrite`
+- added ability to use `process.env.NODE_ENV` technique to wrap debug code for application code
+- added `process.env.NODE_ENV` to production build to strip dev code from libraries (like react)
 - performance improvements
 - clicking prepend/append elements for textbox now focuses input
 - switched calendar trigger event for date picker from click to focus

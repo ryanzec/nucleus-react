@@ -2,9 +2,7 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var testHelper = require('../../../test-helper');
-var sinon = require('sinon');
 var _ = require('lodash');
-var Fiber = require('fibers');
 
 var validateTrue = function() {
   return true;

@@ -52,7 +52,7 @@ module.exports = {
   type: 'component',
   overview: (
     <p>
-      Badge component for calling out data.
+      Date picker.
     </p>
   ),
   properties: [],

@@ -14,7 +14,8 @@
   "main": "./assets/index.js",
   "browserify": {
     "transform": [
-      "reactify"
+      "reactify",
+      "envify"
     ]
   },
   "dependencies": {
@@ -35,6 +36,7 @@
     "colors": "1.0.3",
     "data-validation": "0.5.6",
     "del": "1.0.0",
+    "envify": "3.3.0",
     "escomplex-js": "1.0.0",
     "eslint": "0.16.1",
     "fibers": "1.0.5",
@@ -64,7 +66,8 @@
     "string-format": "0.2.1",
     "superagent": "0.21.0",
     "through2": "0.6.3",
-    "vinyl-source-stream": "1.0.0"
+    "vinyl-source-stream": "1.0.0",
+    "wrench": "1.5.8"
   },
   "engines": {
     "node": ">=0.10.33"

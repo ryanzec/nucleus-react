@@ -118,7 +118,7 @@ module.exports = {
     return sinon.spy(component.type.prototype.__reactAutoBindMap, eventHandlerName);
   },
 
-restoreEventHandler: function(component, eventHandlerName) {
+  restoreEventHandler: function(component, eventHandlerName) {
     //using weird syntax here to prevent issue with ReactJS auto binding of events
     component.type.prototype.__reactAutoBindMap[eventHandlerName].restore();
   }

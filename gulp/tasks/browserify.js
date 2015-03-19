@@ -88,6 +88,8 @@ gulp.task('browserify', function(done) {
 });
 
 gulp.task('browserify-production', function(done) {
+  process.env.NODE_ENV = 'production';
+
   runSequence(
     'browserify',
     'browserify-uglify',

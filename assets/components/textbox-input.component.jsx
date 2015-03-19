@@ -18,7 +18,7 @@ textboxInput.propTypes = {
   validate: React.PropTypes.func,
   multiLined: React.PropTypes.bool,
   append: React.PropTypes.node,
-  prepend: React.PropTypes.node
+  prepend: React.PropTypes.node,
 };
 
 textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
@@ -48,6 +48,20 @@ textboxInput.getCssClasses = function textboxInputGetCssClasses() {
 
   if (this.shouldRenderValidation()) {
     cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
+  }
+
+  return cssClasses;
+};
+
+textboxInput.getInputCssClasses = function textboxInputGetInputCssClasses() {
+  var cssClasses = ['form-element__input-container', 'form-element__input', 'm-text'];
+
+  if (this.props.prepend) {
+    cssClasses.push('m-has-prepend');
+  }
+
+  if (this.props.append) {
+    cssClasses.push('m-has-append');
   }
 
   return cssClasses;
@@ -119,20 +133,10 @@ textboxInput.renderInput = function textboxInputRenderInput() {
     );
   }
 
-  var cssClasses = 'form-element__input-container form-element__input m-text';
-
-  if (this.props.prepend) {
-    cssClasses += ' m-has-prepend';
-  }
-
-  if (this.props.append) {
-    cssClasses += ' m-has-append';
-  }
-
   return (
     <input
       ref="input"
-      className={cssClasses}
+      className={this.getInputCssClasses().join(' ')}
       type={this.props.maskValue ? 'password' : 'text'}
       onChange={this.onChange}
       {...this.getInputPassThroughProps()} />

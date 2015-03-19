@@ -3,6 +3,7 @@ var gulpConfig = {
   webPath: 'web',
   appPath: 'web/app',
   buildPath: 'web/build',
+  buildDirectoryName: 'build',
   vendorComponentsPath: 'web/components',
   compileFiles: {
     sass: {
@@ -20,12 +21,17 @@ var gulpConfig = {
     'web/app/components/**/*.html'
   ],
   tasks: {
-    staticRewrite: {
+    assetsRewrite: {
       fileTypesToRewrite: ['svg', 'eot', 'ttf', 'woff', 'png', 'gif', 'jpeg', 'jpg', 'js', 'css', 'map', 'html'],
       fileTypesToProcess: ['html', 'css', 'js'],
       assetPaths: ['app', 'components', 'build'],
       prependSlash: true,
+      addStatic: false,
       domains: [],
+      noBuildVersion: [
+        'components/backend/backend.js',
+        'app/mocked-api.js'
+      ],
       assetPatterns: [
         'web/*.html',
         'web/app/**/*.*',
@@ -43,15 +49,17 @@ var gulpConfig = {
       manualGlobs: [
         'web/locale/**/i18n.js'
       ],
+      manualDirectories: {},
       manualAssets: {
-        'web/app/misc/svg-4-everybody.js': 'web/build/app/misc/svg-4-everybody.js',
-        'assets/javascript/prism.js': 'web/build/components/nucleus-react/assets/javascript/prism.js',
-        'assets/styles/prism.css': 'web/build/components/nucleus-react/assets/styles/prism.css'
+        'web/app/misc/svg-4-everybody.js': 'web/app/misc/svg-4-everybody.js',
+        'assets/javascript/prism.js': 'web/components/nucleus-react/assets/javascript/prism.js',
+        'assets/styles/prism.css': 'web/components/nucleus-react/assets/styles/prism.css'
       }
     },
     browserify: {
       transformers: [
-        'reactify'
+        'reactify',
+        'envify'
       ],
       libraries: [{
         name: 'react/addons'
@@ -71,7 +79,12 @@ var gulpConfig = {
     },
     bowerClean: [
       'bourbon/*.*',
-      'bourbon/.*'
+      'bourbon/.*',
+      'backend/lib',
+      'backend/test',
+      'backend/*.*',
+      'backend/.*',
+      '!backend/backend.js'
     ],
     i18n: {
       languages: ['en'],

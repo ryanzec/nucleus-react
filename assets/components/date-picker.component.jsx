@@ -58,12 +58,11 @@ datePicker.getCalendarPassThroughProps = function datePickerGetCalendarPassThoug
 
 datePicker.onFocusInput = function datePickerOnFocusInput() {
   this.setState({
-    isCalendarActive: !this.state.isCalendarActive
+    isCalendarActive: true
   });
 };
 
 datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
-  //need to manually track whether or not to close component on click since we can't use stopPropagation on native events
   this.dontCloseOnClick = true;
 };
 
