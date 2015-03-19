@@ -125,8 +125,11 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate() {
 extendText.onChange = function extendTextOnChange(event) {
   this.updateDisplayValue(event.target.value);
 
-  if (this.isOverCharacterThreshold()) {
+  if (this.isOverCharacterThreshold(event.target.value)) {
     this.getData(event.target.value);
+    this.setState({
+      isActive: true
+    });
   }
 
   this.setState({
@@ -182,7 +185,7 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
 extendText.onFocus = function extendTextOnFocus() {
   var inputElement = this.getInputElement();
 
-  if (this.isOverCharacterThreshold()) {
+  if (this.isOverCharacterThreshold(inputElement.value)) {
     this.getData(inputElement.value);
     this.setState({
       isActive: true
@@ -263,7 +266,7 @@ extendText.updateDisplayValue = function extendTextUdpateDisplayValue(newValue) 
     displayInputValue: newDisplayValue
   });
 
-  if (!this.isOverCharacterThreshold()) {
+  if (!this.isOverCharacterThreshold(newValue)) {
     this.setState({
       autoCompleteItems: []
     });
@@ -335,14 +338,12 @@ extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition(
   }
 };
 
-extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshold() {
+extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshold(value) {
   if (!this.isMounted()) {
     return false;
   }
 
-  var inputElement = this.getInputElement();
-
-  return inputElement.value.length >= this.props.characterThreshold;
+  return value.length >= this.props.characterThreshold;
 };
 
 extendText.selectCurrentValue = function extendTextSelectCurrentValue() {

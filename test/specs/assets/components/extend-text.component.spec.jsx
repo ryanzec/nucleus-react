@@ -1236,19 +1236,11 @@ describe('extend text component', function() {
         expect(testGlobals.component.state.autoCompleteItems.length).to.equal(0);
         expect(autoCompleteContainerElement.props.className).to.equal('extend-text__auto-complete-container u-hide');
 
-        TestUtils.Simulate.focus(input);
-
-        testHelper.sleep(5);
-
         TestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
         });
-
-        testHelper.sleep(5);
-
-        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
