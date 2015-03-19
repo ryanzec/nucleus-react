@@ -1,7 +1,15 @@
 # Change Log
 
+There are some key used within the changelog which are as following:
+
+[bug] - means a bug fix
+[feature] - means a new feature
+[breaking] - mean there is a change that might break existing code
+[X] - anything else within brackets say what component that change is related to
+
 ## master
 
+- [extend-text] fixed issue where blurring input would cause new indicator to show when it should not
 - refactored date picker to be more mobile friendly
 - assets rewrite add `/build/` to path with configurable option to add `/static/[SHA]/`
 - added support for copying directory in copy static assets task
