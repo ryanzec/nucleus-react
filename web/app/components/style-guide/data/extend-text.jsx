@@ -3,32 +3,28 @@ var nucleusReact = require('../../../../../assets/index');
 var SvgIcon = nucleusReact.components.SvgIcon;
 var ExtendText = nucleusReact.components.ExtendText;
 var bluebird = require('bluebird');
+var request = require('superagent');
 
-var data = [{
-  display: 'test 1',
-  value: 'test1'
-}, {
-  display: 'test 2',
-  value: 'test2'
-}, {
-  display: 'test 3',
-  value: 'test3'
-}];
 var noop = function(){};
-var getData = function() {
+var getData = function(value) {
   var defer = bluebird.defer();
+  var url = '/query';
 
-  defer.resolve(data);
+  if (value) {
+    url += '/' + value;
+  }
 
-  return defer.promise;
-};
+  request.get(url, function desktopComponentOnGetUserRequest(response) {
+    var formattedData = [];
 
-var getDeleyData = function() {
-  var defer = bluebird.defer();
+    if (response.body.data.results.length > 0) {
+      response.body.data.results.forEach(function(item) {
+        formattedData.push(item);
+      });
+    }
 
-  setTimeout(function() {
-    defer.resolve(data);
-  }, 2000);
+    defer.resolve(formattedData);
+  });
 
   return defer.promise;
 };
@@ -110,29 +106,13 @@ module.exports = {
   examples: [{
     description: 'Standard',
     example: (
-      <ExtendText onChange={noop} getData={getData} />
+      <ExtendText onChange={noop} getData={getData} debounce={200} characterThreshold={3} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
-    description: 'free form allowed',
+    description: 'Standard',
     example: (
-      <span>
-        <ExtendText onChange={noop} getData={getData} allowFreeForm={true} /><ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
-      </span>
-    ),
-    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
-  }, {
-    description: 'Tagging',
-    example: (
-      <ExtendText onChange={noop} getData={getData} taggingEnabled={true} />
-    ),
-    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
-  }, {
-    description: 'Tagging free form (with debounce set)',
-    example: (
-      <span>
-        <ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} /><ExtendText onChange={noop} getData={getDeleyData} taggingEnabled={true} allowFreeForm={true} debounce={1000} />
-      </span>
+      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],

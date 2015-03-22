@@ -26,23 +26,41 @@
     .respond(responseHttpStatus, options.response, responseHeaders);
   };
 
-  // mockRequest({
-  //   url: '/api/users/1',
-  //   response: {
-  //     id: 123,
-  //     firstName: 'Test',
-  //     lastName: 'User',
-  //     username: 'test.user'
-  //   }
-  // });
+  var mockExtendTextQueries = function mockExtendTextQueries() {
+    mockRequest({
+      url: '/query',
+      response: {
+        httpCode: 200,
+        data: {
+          results: []
+        }
+      }
+    });
 
-  // mockRequest({
-  //   url: '/api/users/*',
-  //   response: {
-  //     id: 321,
-  //     firstName: 'Test3',
-  //     lastName: 'User2',
-  //     username: 'test3.user2'
-  //   }
-  // });
+    mockRequest({
+      url: '/query/delay',
+      delay: 2000,
+      response: {
+        httpCode: 200,
+        data: {
+          results: [{
+            display: 'delayed',
+            value: 'd'
+          }]
+        }
+      }
+    });
+
+    mockRequest({
+      url: '/query/*',
+      response: {
+        httpCode: 200,
+        data: {
+          results: []
+        }
+      }
+    });
+  };
+
+  mockExtendTextQueries();
 })();
