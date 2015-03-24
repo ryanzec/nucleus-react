@@ -3,36 +3,14 @@ var dataValidation = require('data-validation');
 var _ = require('lodash');
 var nucleusReact = require('../../../../../assets/index');
 var SvgIcon = nucleusReact.components.SvgIcon;
-var FlexRow = nucleusReact.components.FlexRow;
-var FlexCell = nucleusReact.components.FlexCell;
 var TextboxInput = nucleusReact.components.TextboxInput;
 var SelectInput = nucleusReact.components.SelectInput;
 var RadioInput = nucleusReact.components.RadioInput;
 var CheckboxInput = nucleusReact.components.CheckboxInput;
 var DatePicker = nucleusReact.components.DatePicker;
-var formOnChangeMixin = nucleusReact.mixins.formOnChange;
+var InputGroup = nucleusReact.components.InputGroup;
 
 var FormExmplePlaceholders = React.createClass({
-  formData: {
-    test: [
-      'firstName',
-      'lastName',
-      'email',
-      'password',
-      'gender',
-      'bio',
-      'receiveNewletters',
-      'over21',
-      'agreeToTermsAndConditions',
-      'liveIn',
-      'date'
-    ]
-  },
-
-  mixins: [
-    formOnChangeMixin
-  ],
-
   getInitialState: function() {
     return {
       test: {
@@ -92,6 +70,17 @@ var FormExmplePlaceholders = React.createClass({
     });
   },
 
+  onChangeFormInput: function(field) {
+    return function(value, event) {
+      var formData = _.clone(this.state.test);
+      formData[field] = value;
+
+      this.setState({
+        test: formData
+      });
+    }.bind(this);
+  },
+
   render: function() {
     return (
       <span>
@@ -100,24 +89,19 @@ var FormExmplePlaceholders = React.createClass({
           <span dangerouslySetInnerHTML={{__html: JSON.stringify(this.state.test, null, '\t').replace(/\n/g, '<br />')}}></span>
         </div>
         <form>
-          <TextboxInput placeholder="First Name" value={this.state.test.firstName} onChange={this.onTestFirstNameChange} />
-          <TextboxInput placeholder="Last Name" value={this.state.test.lastName} onChange={this.onTestLastNameChange} />
-          <TextboxInput placeholder="Email Address" value={this.state.test.email} onChange={this.onTestEmailChange} renderValidation="invalid" validate={this.validate} />
-          <FlexRow>
-            <FlexCell smallColumns={8}>
-              <TextboxInput className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onTestPasswordChange} renderValidation="both" validate={this.validate} />
-            </FlexCell>
-            <FlexCell smallColumns={4}>
-
+          <TextboxInput placeholder="First Name" value={this.state.test.firstName} onChange={this.onChangeFormInput('firstName')} />
+          <TextboxInput placeholder="Last Name" value={this.state.test.lastName} onChange={this.onChangeFormInput('lastName')} />
+          <TextboxInput placeholder="Email Address" value={this.state.test.email} onChange={this.onChangeFormInput('email')} renderValidation="invalid" validate={this.validate} />
+          <InputGroup>
+            <TextboxInput className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onChangeFormInput('password')} renderValidation="both" validate={this.validate} />
             <TextboxInput className="confirm-password" placeholder="Confirm Password" />
-            </FlexCell>
-          </FlexRow>
-          <SelectInput emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onTestGenderChange} renderValidation="both"  validate={this.validate} />
-          <TextboxInput placeholder="Enter in breif bio..." multiLined={true} onChange={this.onTestBioChange} />
-          <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onTestReceiveNewlettersChange} />
-          <CheckboxInput label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onTestOver21Change} />
-          <CheckboxInput label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onTestAgreeToTermsAndConditionsChange} renderValidation="both" validate={this.validate} />
-          <RadioInput name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onTestLiveInChange} renderValidation="both" validate={this.validateLiveIn} />
+          </InputGroup>
+          <SelectInput emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onChangeFormInput('gender')} renderValidation="both"  validate={this.validate} />
+          <TextboxInput placeholder="Enter in breif bio..." multiLined={true} value={this.state.test.bio} onChange={this.onChangeFormInput('bio')} />
+          <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onChangeFormInput('receiveNewletters')} />
+          <CheckboxInput label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onChangeFormInput('over21')} />
+          <CheckboxInput label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onChangeFormInput('agreeToTermsAndConditions')} renderValidation="both" validate={this.validate} />
+          <RadioInput name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onChangeFormInput('liveIn')} renderValidation="both" validate={this.validateLiveIn} />
           <DatePicker onClickDate={this.onClickDate} selectedDay={this.state.test.date} />
         </form>
       </span>
@@ -185,14 +169,10 @@ var FormExmpleLabels = React.createClass({
         <TextboxInput label="First Name" value={this.state.test.firstName} onChange={this.onFirstNameChange} />
         <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} />
         <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} />
-        <FlexRow>
-          <FlexCell smallColumns={8}>
-            <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
-          </FlexCell>
-          <FlexCell smallColumns={4}>
-            <TextboxInput className="confirm-password" label="Confirm Password" />
-          </FlexCell>
-        </FlexRow>
+        <InputGroup>
+          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
+          <TextboxInput className="confirm-password" label="Confirm Password" />
+        </InputGroup>
         <SelectInput label="Gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onGenderChange} />
         <TextboxInput label="Bio" placeholder="Enter in breif bio..." multiLined={true} onChange={this.onTestBioChange} />
         <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onReceiveNewlettersChange} />
@@ -264,14 +244,10 @@ var FormExmpleInline = React.createClass({
         <TextboxInput label="First Name" value={this.state.test.firstName} onChange={this.onFirstNameChange} prepend="http://" />
         <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} append=".com" />
         <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} prepend="http://" append=".com" />
-        <FlexRow>
-          <FlexCell smallColumns={8}>
-            <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
-          </FlexCell>
-          <FlexCell smallColumns={4}>
-            <TextboxInput className="confirm-password" label="Confirm Password" />
-          </FlexCell>
-        </FlexRow>
+        <InputGroup>
+          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
+          <TextboxInput className="confirm-password" label="Confirm Password" />
+        </InputGroup>
         <SelectInput label="Gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onGenderChange} />
         <TextboxInput label="Bio" placeholder="Enter in breif bio..." multiLined={true} onChange={this.onBioChange} />
         <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onReceiveNewlettersChange} />

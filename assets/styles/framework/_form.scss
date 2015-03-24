@@ -47,6 +47,17 @@ $component-identifier: '.form-element';
     border-bottom-right-radius: 0;
   }
 
+  &__input-group {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
+
+
+    &-item {
+      @include flexbox-value-width(100%);
+    }
+  }
+
   &__radio-group {
     @include display(flex);
     @include flex-wrap(wrap);
@@ -133,6 +144,18 @@ form.m-inline {
     width: auto;
     text-align: right;
     padding-right: 10px;
+  }
+}
+
+@media #{$medium-screen-media-query} {
+  #{$component-identifier} {
+    &__input-group-item {
+      @include flex(1);
+
+      &:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
   }
 }
 

@@ -13,6 +13,7 @@ module.exports = {
   FlexRow: require('./flex-row.component.jsx'),
   FlexCell: require('./flex-cell.component.jsx'),
   InputAutoSizer: require('./input-auto-sizer.component.jsx'),
+  InputGroup: require('./input-group.component.jsx'),
   Modal: require('./modal.component.jsx'),
   Overlay: require('./overlay.component.jsx'),
   Pagination: require('./pagination.component.jsx'),

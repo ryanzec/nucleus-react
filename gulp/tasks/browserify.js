@@ -8,29 +8,40 @@ var runSequence = require('run-sequence');
 var gutil = require('gulp-util');
 
 gulp.task('browserify', function(done) {
-  var count = 2;
+  if (process.env.NODE_ENV === 'production') {
+    runSequence(
+      'browserify-libraries',
+      'browserify-application',
+      done
+    );
+  } else {
+    runSequence(
+      'browserify-libraries',
+      'browserify-application',
+      'browserify-mocks',
+      done
+    );
+  }
+});
+
+gulp.task('browserify-libraries', function(done) {
+  var count = 1;
 
   var libraries = browserify();
-  var application = browserify();
 
   gulpConfig.tasks.browserify.transformers.forEach(function(transform) {
     libraries.transform(transform);
-    application.transform(transform);
   });
 
   gulpConfig.tasks.browserify.libraries.forEach(function(metaData) {
     if(metaData.path) {
-      libraries.require(metaData.path, {
+      libraries.require(process.cwd() + '/' + metaData.path, {
         expose: metaData.name
       });
     } else {
       libraries.require(metaData.name);
     }
-
-    application.external(metaData.name);
   });
-
-  application.add(process.cwd() + '/web/app/application.jsx');
 
   var libraryStream = libraries.bundle()
   .on('error', function(err){
@@ -58,6 +69,22 @@ gulp.task('browserify', function(done) {
 
     cb(null, file);
   }));
+});
+
+gulp.task('browserify-application', function(done) {
+  var count = 1;
+
+  var application = browserify();
+
+  gulpConfig.tasks.browserify.transformers.forEach(function(transform) {
+    application.transform(transform);
+  });
+
+  gulpConfig.tasks.browserify.libraries.forEach(function(metaData) {
+    application.external(metaData.name);
+  });
+
+  application.add(process.cwd() + '/web/app/application.jsx');
 
   var applicationStream = application.bundle()
   .on('error', function(err){
@@ -76,6 +103,40 @@ gulp.task('browserify', function(done) {
   .pipe(source('application.js'));
 
   applicationStream.pipe(gulp.dest(gulpConfig.buildPath))
+  .pipe(through.obj(function(file, encoding, cb) {
+    count -= 1;
+
+    if(count == 0) {
+      done();
+    }
+
+    cb(null, file);
+  }));
+});
+
+gulp.task('browserify-mocks', function(done) {
+  var count = 1;
+  var mocked = browserify();
+
+  mocked.add(process.cwd() + '/web/mocked-api/mocked-api.js');
+
+  var mockedStream = mocked.bundle()
+  .on('error', function(err){
+    var message;
+
+    if(err.description)
+      message = 'browserify error: ' + err.description + ' when parsing ' + err.fileName + ' | Line ' + err.lineNumber + ', Column ' + err.column;
+    else {
+      message = err.message;
+    }
+
+    gutil.log(gutil.colors.red(message));
+
+    this.emit('end');
+  })
+  .pipe(source('mocked.js'));
+
+  mockedStream.pipe(gulp.dest(gulpConfig.buildPath))
   .pipe(through.obj(function(file, encoding, cb) {
     count -= 1;
 

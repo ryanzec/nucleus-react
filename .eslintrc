@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "react"
+  ],
   "ecmaFeatures": {
     "jsx": true
   },
@@ -11,6 +14,25 @@
     "document": true
   },
   "rules": {
+    //react
+    "react/display-name": 2,
+    //TODO: enforcing the double quotes for some reason is not working
+    "react/jsx-quotes": 0,//[
+    //  2,
+    //  "double",
+    //  "avoid-escape"
+    //],
+    "react/jsx-no-undef": 2,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/no-did-mount-set-state": 0,
+    "react/no-did-update-set-state": 0,
+    "react/no-multi-comp":2,
+    "react/prop-types": 2,
+    "react/react-in-jsx-scope": 0,
+    "react/self-closing-comp": 2,
+    "react/wrap-multilines": 2,
+
     //possible errors
     "comma-dangle": [
       2,

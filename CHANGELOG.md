@@ -2,13 +2,18 @@
 
 There are some key used within the changelog which are as following:
 
-[bug] - means a bug fix
-[feature] - means a new feature
-[breaking] - mean there is a change that might break existing code
-[X] - anything else within brackets say what component that change is related to
+- [bug]: means a bug fix
+- [feature]: means a new fea- ture
+- [breaking]: mean there is a change that might break existing code
+- [X]: anything else within brackets say what component that change is related t- o
 
 ## master
 
+- update eslint and add reacts eslint plugin
+- [input-group] added back into input group component
+- [form-on-change][breaking] removed form on change mixing
+- major refactor of mocking solution
+- updated gulp clean build task to remove coverage generated files
 - [extend-text] fixed issue where blurring input would cause new indicator to show when it should not
 - refactored date picker to be more mobile friendly
 - assets rewrite add `/build/` to path with configurable option to add `/static/[SHA]/`

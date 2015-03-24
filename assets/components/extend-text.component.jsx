@@ -97,12 +97,10 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
         var inputElement = this.getInputElement();
 
         if (this.isAutoCompleteDisplayValue(inputElement.value) === false && inputElement.value.length > 0) {
-          console.log('is new: true');
           this.setState({
             isNewValue: true
           });
         } else {
-          console.log('is new: false');
           this.setState({
             isNewValue: false
           });
@@ -355,8 +353,6 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   var inputElement = this.getInputElement();
   var fullMatchAutoCompleteItem = this.getAutoCompleteIndex(inputElement.value);
 
-  console.log(this.state.focusedAutoCompleteItem);
-
   if (this.state.focusedAutoCompleteItem !== null) {
     this.updateValue(this.state.focusedAutoCompleteItem, true);
   } else if (this.state.autoCompleteItems.length === 1 && this.state.autoCompleteItems[0][this.props.displayProperty] === inputElement.value) {
@@ -373,8 +369,6 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   if (this.props.taggingEnabled === true) {
     this.updateDisplayValue('');
   }
-
-  console.log('is new:' + isNewValue);
 
   this.setState({
     isActive: false,

@@ -18,7 +18,7 @@ textboxInput.propTypes = {
   validate: React.PropTypes.func,
   multiLined: React.PropTypes.bool,
   append: React.PropTypes.node,
-  prepend: React.PropTypes.node,
+  prepend: React.PropTypes.node
 };
 
 textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
@@ -83,7 +83,6 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
 };
 
 textboxInput.onClickPend = function textboxInputOnClickPend() {
-  console.log('test');
   this.refs.input.getDOMNode().focus();
 };
 
