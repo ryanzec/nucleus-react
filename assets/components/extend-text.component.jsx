@@ -427,13 +427,7 @@ extendText.renderTags = function extendTextRenderTags() {
           key={key}
         >
           {item.display}
-          <span onClick={this.removeValue.bind(this, key)}>
-            <SvgIcon
-              className="extend-text__tag-remove"
-              svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-              fragment="x"
-            />
-            </span>
+          <SvgIcon onClick={this.removeValue.bind(this, key)} className="extend-text__tag-remove" fragment="x" />
         </div>
       );
     }.bind(this));

@@ -3,7 +3,7 @@ var reactTestUtils = React.addons.TestUtils;
 var Callout = require('../../../../assets/components/callout.component.jsx');
 var testHelper = require('../../../test-helper');
 
-describe.only('callout component', function() {
+describe('callout component', function() {
     var div;
 
     beforeEach(function() {

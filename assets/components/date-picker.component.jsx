@@ -97,10 +97,7 @@ datePicker.render = function datePickerRender() {
         value={this.props.selectedDay}
         readOnly={true}
         append={
-          <SvgIcon
-            svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-            fragment="calendar"
-          />
+          <SvgIcon fragment="calendar" />
         }
         onFocus={this.onFocusInput}
       />

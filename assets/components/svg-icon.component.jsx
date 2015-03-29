@@ -1,4 +1,6 @@
 var React = require('react/addons');
+var iconData = require('nucleus-icons');
+var _ = require('lodash');
 
 var svgIcon = {};
 
@@ -9,7 +11,6 @@ svgIcon.mixins = [
 ];
 
 svgIcon.propTypes = {
-  svgPath: React.PropTypes.string.isRequired,
   fragment: React.PropTypes.string,
   size: React.PropTypes.string,
   className: React.PropTypes.string
@@ -17,30 +18,18 @@ svgIcon.propTypes = {
 
 svgIcon.getDefaultProps = function svgIconGetDefaultProps() {
   return {
-    svgPath: null,
     fragment: null,
     size: 'small',
     className: null
   };
 };
 
-svgIcon.getFullSvgPath = function svgIconGetFullSvgPath() {
-  var path = this.props.svgPath;
-
-  if (this.props.fragment) {
-    path += '#' + this.props.fragment + '-' + this.props.size;
-  }
-
-  return path;
+svgIcon.getSvgHtml = function svgIconGetSvgHtml() {
+  return iconData[this.props.size][this.props.fragment];
 };
 
 svgIcon.getCssClasses = function svgIconGetCssClasses() {
-  var cssClasses = ['svg-icon'];
-
-  if (this.props.fragment) {
-    cssClasses.push(this.props.fragment + '-' + this.props.size);
-    cssClasses.push('icon-' + this.props.size);
-  }
+  var cssClasses = ['svg-icon-container'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -49,16 +38,25 @@ svgIcon.getCssClasses = function svgIconGetCssClasses() {
   return cssClasses;
 };
 
-svgIcon.render = function svgIconRender() {
-  var useTag = '<use xlink:href="' + this.getFullSvgPath() + '" />';
+svgIcon.getInputPassThroughProps = function svgIconGetInputPassThroughProps() {
+  var props = _.clone(this.props);
 
+  delete props.fragment;
+  delete props.size;
+  delete props.className;
+
+  return props;
+};
+
+svgIcon.render = function svgIconRender() {
   return (
-    <svg
+    <span
       className={this.getCssClasses().join(' ')}
+      {...this.getInputPassThroughProps()}
       dangerouslySetInnerHTML={{
-        __html: useTag
+        __html: this.getSvgHtml()
       }}
-    />
+    ></span>
   );
 };
 

@@ -2,6 +2,7 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var SelectInput = require('../../../../assets/components/select-input.component.jsx');
 var testHelper = require('../../../test-helper');
+var iconData = require('nucleus-icons');
 var _ = require('lodash');
 
 var validateTrue = function() {
@@ -147,7 +148,7 @@ describe('select input component', function() {
   it('should not show validation on initial load by default', function() {
     this.component = React.render(<SelectInput options={getOptions()} renderValidation="both" validate={validateTrue}  />, div);
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element');
     expect(validationIcon.length).to.equal(0);
@@ -156,11 +157,11 @@ describe('select input component', function() {
   it('should be able to show validation on initial load', function() {
     this.component = React.render(<SelectInput options={getOptions()} renderValidation="both" renderValidationOnLoad={true} validate={validateTrue} />, div);
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element m-valid');
     expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].props.dangerouslySetInnerHTML.__html).to.equal('<use xlink:href="/components/nucleus-icons/svg/svg-sprite.svg#checkmark-small" />');
+    expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
   });
 
   it('should show valid validation', function() {
@@ -174,11 +175,11 @@ describe('select input component', function() {
     });
 
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element m-valid');
     expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].props.dangerouslySetInnerHTML.__html).to.equal('<use xlink:href="/components/nucleus-icons/svg/svg-sprite.svg#checkmark-small" />');
+    expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
   });
 
   it('should not show valid validation if configued for invalid only', function() {
@@ -192,7 +193,7 @@ describe('select input component', function() {
     });
 
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element');
     expect(validationIcon.length).to.equal(0);
@@ -209,11 +210,11 @@ describe('select input component', function() {
     });
 
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element m-invalid');
     expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].props.dangerouslySetInnerHTML.__html).to.equal('<use xlink:href="/components/nucleus-icons/svg/svg-sprite.svg#x-small" />');
+    expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
   });
 
   it('should not show invalid validation if configured for valid only', function() {
@@ -227,7 +228,7 @@ describe('select input component', function() {
     });
 
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__validation-icon');
+    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
     expect(formElement.props.className).to.equal('form-element');
     expect(validationIcon.length).to.equal(0);

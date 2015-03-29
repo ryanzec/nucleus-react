@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var SvgIcon = require('../components/svg-icon.component.jsx');
-var svgPath = '/components/nucleus-icons/svg/svg-sprite.svg';
 
 var validIconFragment = 'checkmark';
 var invalidIconFragment = 'x';
@@ -42,8 +41,8 @@ formInputMixin.renderValidationIcon = function formInputMixinRenderValidationIco
     validationIcon = (
       <SvgIcon
         className="form-element__validation-icon"
-        svgPath={svgPath}
-        fragment={this.state.valid ? validIconFragment : invalidIconFragment} />
+        fragment={this.state.valid ? validIconFragment : invalidIconFragment}
+      />
     );
   }
 

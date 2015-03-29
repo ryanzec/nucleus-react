@@ -92,10 +92,7 @@ pagination.renderPages = function paginationRenderPages() {
       key="previous"
       onClick={this.onClickNavigation.bind(this, this.props.currentPage - 1)}
     >
-      <SvgIcon
-        svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-        fragment="chevron-left"
-      />
+      <SvgIcon fragment="chevron-left" />
     </li>
   );
   pages.push(
@@ -153,10 +150,7 @@ pagination.renderPages = function paginationRenderPages() {
       key="next"
       onClick={this.onClickNavigation.bind(this, this.props.currentPage + 1)}
     >
-      <SvgIcon
-        svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-        fragment="chevron-right"
-      />
+      <SvgIcon fragment="chevron-right" />
     </li>
   );
 

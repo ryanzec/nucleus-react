@@ -1,3 +1,7 @@
+.svg-icon-container {
+  @include display(inline-flex);
+}
+
 .svg-icon {
   width: $width-svg-icon;
   height: $height-svg-icon;

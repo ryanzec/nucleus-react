@@ -110,9 +110,9 @@ module.exports = {
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
-    description: 'Standard',
+    description: 'Free form',
     example: (
-      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} />
+      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} taggingEnabled={true} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],

@@ -151,7 +151,7 @@ describe('pagination component', function() {
       var navigation = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'pagination__navigation');
 
       expect(navigation.length).to.equal(9);
-      expect(reactTestUtils.scryRenderedDOMComponentsWithClass(navigation[0], 'svg-icon').length).to.equal(1);
+      expect(navigation[0].getDOMNode().querySelectorAll('.svg-icon').length).to.equal(1);
       expect(navigation[1].props.children).to.equal(1);
       expect(navigation[2].props.children).to.equal(3);
       expect(navigation[3].props.children).to.equal(4);
@@ -159,7 +159,7 @@ describe('pagination component', function() {
       expect(navigation[5].props.children).to.equal(6);
       expect(navigation[6].props.children).to.equal(7);
       expect(navigation[7].props.children).to.equal(20);
-      expect(reactTestUtils.scryRenderedDOMComponentsWithClass(navigation[8], 'svg-icon').length).to.equal(1);
+      expect(navigation[8].getDOMNode().querySelectorAll('.svg-icon').length).to.equal(1);
     });
   });
 

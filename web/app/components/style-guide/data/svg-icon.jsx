@@ -39,11 +39,9 @@ module.exports = {
       </p>
     ),
     example: (
-      <SvgIcon
-        svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-        fragment="play" />
+      <SvgIcon fragment="play" />
     ),
-    exampleString: '<SvgIcon\n\tsvgPath="/components/nucleus-icons/svg/svg-sprite.svg"\n\tfragment="play" />'
+    exampleString: '<SvgIcon fragment="play" />'
   }, {
     description: (
       <p>
@@ -52,11 +50,10 @@ module.exports = {
     ),
     example: (
       <SvgIcon
-        svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
         fragment="play"
         size="small" />
     ),
-    exampleString: '<SvgIcon\n\tsvgPath="/components/nucleus-icons/svg/svg-sprite.svg"\n\tfragment="play"\n\tsize="small" />'
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tsize="small" />'
   }, {
     description: (
       <p>
@@ -65,10 +62,9 @@ module.exports = {
     ),
     example: (
       <SvgIcon
-        svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
         fragment="play"
         className="m-safe" />
     ),
-    exampleString: '<SvgIcon\n\tsvgPath="/components/nucleus-icons/svg/svg-sprite.svg"\n\tfragment="play"\n\tclassName="m-safe" />'
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tclassName="m-safe" />'
   }]
 };
