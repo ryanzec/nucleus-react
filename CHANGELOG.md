@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [select-input] added missing empty option related select input tests (#23)
 - [grid] fixed styling issue with flexbox based grid (#22)
 - refactored mocking solution
 - added ability to select dom component by prop value

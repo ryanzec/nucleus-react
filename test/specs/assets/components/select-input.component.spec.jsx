@@ -232,4 +232,18 @@ describe('select input component', function() {
     expect(formElement.props.className).to.equal('form-element');
     expect(validationIcon.length).to.equal(0);
   });
+
+  it('should be able to configure custom empty option text', function() {
+    this.component = React.render(<SelectInput options={getOptions()} emptyOption="empty" />, div);
+    var options = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'option');
+
+    expect(options[0].props.children).to.equal('empty');
+  });
+
+  it('should be able to configure it to not have an empty option', function() {
+    this.component = React.render(<SelectInput options={getOptions()} emptyOption={false} />, div);
+    var options = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'option');
+
+      expect(options.length).to.equal(2);
+  });
 });
