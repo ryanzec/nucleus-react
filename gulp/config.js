@@ -75,6 +75,8 @@ var gulpConfig = {
         name: 'react-router'
       }, {
         name: 'deep-equal'
+      }, {
+        name: 'jsuri'
       }]
     },
     bowerClean: [

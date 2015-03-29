@@ -85,7 +85,8 @@ inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() 
         width: this.state.width,
         maxWidth: '100%'
       }}
-      {...props} />
+      {...props}
+    />
   );
 };
 
@@ -103,7 +104,8 @@ inputAutoSizer.render = function inputAutoSizerRender() {
         }}
         dangerouslySetInnerHTML={{
           __html: htmlValue
-        }}></div>
+        }}
+      ></div>
     </span>
   );
 };

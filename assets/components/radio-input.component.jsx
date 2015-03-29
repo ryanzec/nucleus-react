@@ -67,28 +67,36 @@ radioInput.renderInput = function radioInputRenderInput() {
 
     if (option.displayPosition === 'left') {
       return (
-        <label className="m-toggle" key={option.value}>
+        <label
+          className="m-toggle"
+          key={option.value}
+        >
           {option.display}<input
                             className="form-element__input m-radio m-left"
                             type="radio"
                             checked={checked}
                             value={option.value}
                             name={this.props.name}
-                            onChange={this.onChange} />
+                            onChange={this.onChange}
+                          />
         </label>
       );
     }
 
     return (
-      <label className="m-toggle" key={option.value}>
+      <label
+        className="m-toggle"
+        key={option.value}
+      >
         <input
           className="form-element__input m-radio m-right"
           type="radio"
           value={option.value}
           checked={checked}
           name={this.props.name}
-          onChange={this.onChange} />
-          {option.display}
+          onChange={this.onChange}
+        />
+        {option.display}
       </label>
     );
   }.bind(this));

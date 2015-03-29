@@ -91,7 +91,12 @@ textboxInput.renderPrepend = function textboxInputRenderPrepend() {
 
   if (this.props.prepend) {
     prepend = (
-      <span className="form-element__input-prepend" onClick={this.onClickPend}>{this.props.prepend}</span>
+      <span
+        className="form-element__input-prepend"
+        onClick={this.onClickPend}
+      >
+        {this.props.prepend}
+      </span>
     );
   }
 
@@ -103,7 +108,12 @@ textboxInput.renderAppend = function textboxInputRenderAppend() {
 
   if (this.props.append) {
     append = (
-      <span className="form-element__input-append" onClick={this.onClickPend}>{this.props.append}</span>
+      <span
+        className="form-element__input-append"
+        onClick={this.onClickPend}
+      >
+        {this.props.append}
+      </span>
     );
   }
 
@@ -128,7 +138,8 @@ textboxInput.renderInput = function textboxInputRenderInput() {
       <textarea
         className="form-element__input-container form-element__input m-textarea"
         onChange={this.onChange}
-        {...this.getInputPassThroughProps()} />
+        {...this.getInputPassThroughProps()}
+      />
     );
   }
 
@@ -138,7 +149,8 @@ textboxInput.renderInput = function textboxInputRenderInput() {
       className={this.getInputCssClasses().join(' ')}
       type={this.props.maskValue ? 'password' : 'text'}
       onChange={this.onChange}
-      {...this.getInputPassThroughProps()} />
+      {...this.getInputPassThroughProps()}
+    />
   );
 };
 

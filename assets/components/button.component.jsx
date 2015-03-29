@@ -30,7 +30,9 @@ button.getCssClasses = function buttonGetCssClasses() {
 
 button.render = function buttonRender() {
   return (
-    <button className={this.getCssClasses().join(' ')}>{this.props.children}</button>
+    <button className={this.getCssClasses().join(' ')}>
+      {this.props.children}
+    </button>
   );
 };
 

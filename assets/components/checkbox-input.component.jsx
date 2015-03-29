@@ -70,7 +70,8 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
           className="form-element__input m-checkbox m-right"
           type="checkbox"
           onChange={this.onChange}
-          {...this.getInputPassThroughProps()} />
+          {...this.getInputPassThroughProps()}
+        />
         {this.props.label}
       </label>
     );
@@ -83,7 +84,8 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
         className="form-element__input m-checkbox m-left"
         type="checkbox"
         onChange={this.onChange}
-        {...this.getInputPassThroughProps()} />
+        {...this.getInputPassThroughProps()}
+      />
     </label>
   );
 };

@@ -74,7 +74,8 @@ datePicker.renderCalendar = function datePickerRenderCalendar() {
       <span>
         <Calendar
           showControls={true}
-          {...this.getCalendarPassThroughProps()} />
+          {...this.getCalendarPassThroughProps()}
+        />
       </span>
     );
   }
@@ -84,7 +85,10 @@ datePicker.renderCalendar = function datePickerRenderCalendar() {
 
 datePicker.render = function datePickerRender() {
   return (
-    <div className="date-picker" onClick={this.onClickCalendar}>
+    <div
+      className="date-picker"
+      onClick={this.onClickCalendar}
+    >
       <TextboxInput
         className="date-picker__input"
         placeholder={this.props.placeholder}
@@ -93,9 +97,11 @@ datePicker.render = function datePickerRender() {
         append={
           <SvgIcon
             svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-            fragment="calendar" />
+            fragment="calendar"
+          />
         }
-        onFocus={this.onFocusInput} />
+        onFocus={this.onFocusInput}
+      />
       {this.renderCalendar()}
     </div>
   );

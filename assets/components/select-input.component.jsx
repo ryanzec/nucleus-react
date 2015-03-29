@@ -81,13 +81,23 @@ selectInput.renderLabel = function selectInputRenderLabel() {
 selectInput.renderInput = function selectInputRenderInput() {
   var selectOptions = _.map(this.props.options, function selectInputRenderInputOptionsMap(option) {
     return (
-      <option value={option.value} key={option.value}>{option.display}</option>
+      <option
+        value={option.value}
+        key={option.value}
+      >
+        {option.display}
+      </option>
     );
   });
 
   if (this.props.emptyOption !== false) {
     selectOptions.unshift(
-      <option value="" key="empty">{this.props.emptyOption}</option>
+      <option
+        value=""
+        key="empty"
+      >
+        {this.props.emptyOption}
+      </option>
     );
   }
 
@@ -95,7 +105,8 @@ selectInput.renderInput = function selectInputRenderInput() {
     <select
       className="form-element__input-container form-element__input m-select"
       onChange={this.onChange}
-      {...this.getInputPassThroughProps()}>
+      {...this.getInputPassThroughProps()}
+    >
       {selectOptions}
     </select>
   );

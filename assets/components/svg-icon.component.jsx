@@ -57,7 +57,8 @@ svgIcon.render = function svgIconRender() {
       className={this.getCssClasses().join(' ')}
       dangerouslySetInnerHTML={{
         __html: useTag
-      }} />
+      }}
+    />
   );
 };
 

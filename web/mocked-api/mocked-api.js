@@ -1,5 +1,7 @@
 var backend = require('ryanzec-mocked-backend');
-var mockedData = require('./data/index');
+var mockedRequests = require('./requests/index');
+var _ = require('lodash');
+
 var mockRequest = function mockRequest(options) {
   var extend = function extend(target, source) {
     var newObject = Object.create(target);
@@ -27,37 +29,24 @@ var mockRequest = function mockRequest(options) {
   .respond(responseHttpStatus, options.response, responseHeaders);
 };
 
-var mockExtendTextQueries = function mockExtendTextQueries() {
-  mockRequest({
-    url: '/query',
-    response: {
-      httpCode: 200,
-      data: {
-        results: mockedData.query.default
-      }
-    }
-  });
+_.forEach(mockedRequests, function(resourceRequests, resourceName) {
+  _.forEach(resourceRequests, function(requests, httpVerb) {
+    _.forEach(requests, function(requestMetaData, requestKey) {
+      var mockRequestObject = {
+        method: httpVerb.toUpperCase(),
+        url: requestMetaData.url,
+        response: requestMetaData.response
+      };
 
-  mockRequest({
-    url: '/query/delay',
-    delay: 2000,
-    response: {
-      httpCode: 200,
-      data: {
-        results: mockedData.query.default.delay
+      if (requestMetaData.delay) {
+        mockRequestObject.delay = requestMetaData.delay;
       }
-    }
-  });
 
-  mockRequest({
-    url: '/query/*',
-    response: {
-      httpCode: 200,
-      data: {
-        results: mockedData.query.default
+      if (requestMetaData.requestHeaders) {
+        mockRequestObject.requestHeaders = requestMetaData.requestHeaders;
       }
-    }
-  });
-};
 
-mockExtendTextQueries();
+      mockRequest(mockRequestObject);
+    });
+  });
+});

@@ -36,12 +36,14 @@ progressBar.render = function progressBarRender() {
   return (
     <span
       style={this.props.style}
-      className={this.getCssClasses().join(' ')}>
+      className={this.getCssClasses().join(' ')}
+    >
       <span
         className="progress-bar__indicator"
         style={{
           width: this.props.percentageDone + '%'
-        }} />
+        }}
+      />
     </span>
   );
 };

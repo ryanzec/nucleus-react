@@ -9,6 +9,9 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- refactored mocking solution
+- added ability to select dom component by prop value
+- reformatted jsx code
 - update eslint and add reacts eslint plugin
 - [input-group] added back into input group component
 - [form-on-change][breaking] removed form on change mixing

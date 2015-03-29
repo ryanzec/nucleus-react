@@ -30,7 +30,9 @@ badge.getCssClasses = function badgeGetCssClasses() {
 
 badge.render = function badgeRender() {
   return (
-    <span className={this.getCssClasses().join(' ')}>{this.props.children}</span>
+    <span className={this.getCssClasses().join(' ')}>
+      {this.props.children}
+    </span>
   );
 };
 

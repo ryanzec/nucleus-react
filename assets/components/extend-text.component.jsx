@@ -422,13 +422,17 @@ extendText.renderTags = function extendTextRenderTags() {
   if (this.props.taggingEnabled === true && this.state.value.length > 0) {
     tags = this.state.value.map(function extendTextRenderTagsValueMap(item, key) {
       return (
-        <div className="extend-text__tag" key={key}>
+        <div
+          className="extend-text__tag"
+          key={key}
+        >
           {item.display}
           <span onClick={this.removeValue.bind(this, key)}>
             <SvgIcon
               className="extend-text__tag-remove"
               svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-              fragment="x" />
+              fragment="x"
+            />
             </span>
         </div>
       );
@@ -451,7 +455,8 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
           data-key={key}
           key={key}
           onMouseEnter={this.onMouseEnterAutoCompleteItem}
-          onClick={this.onMouseDownAutoCompleteItem}>
+          onClick={this.onMouseDownAutoCompleteItem}
+        >
           {item.display}
         </li>
       );
@@ -486,7 +491,8 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
         className="extend-text__loading-indicator"
         dangerouslySetInnerHTML={{
           __html: loadingSvg
-        }}></div>
+        }}
+      ></div>
     );
   }
 
@@ -503,7 +509,8 @@ extendText.render = function extendTextRender() {
     <div className={this.getCssClasses().join(' ')}>
       <div
         className="extend-text__value-container"
-        onClick={this.onClickInputContainer}>
+        onClick={this.onClickInputContainer}
+      >
         {this.renderTags()}
         <InputAutoSizer
           ref="input"
@@ -513,7 +520,8 @@ extendText.render = function extendTextRender() {
           onChange={this.onChange}
           value={this.state.displayInputValue}
           onBlur={this.onBlur}
-          onKeyDown={this.onKeyDown} />
+          onKeyDown={this.onKeyDown}
+        />
       </div>
       {this.renderAutoComplete()}
     </div>

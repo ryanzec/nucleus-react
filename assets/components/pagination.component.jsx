@@ -70,7 +70,8 @@ pagination.renderPages = function paginationRenderPages() {
       <li
         className={cssClasses}
         key={x}
-        onClick={this.onClickNavigation.bind(this, startPageNagivation + x)}>
+        onClick={this.onClickNavigation.bind(this, startPageNagivation + x)}
+      >
         {startPageNagivation + x}
       </li>
     );
@@ -89,17 +90,20 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className="pagination__navigation pagination__previous"
       key="previous"
-      onClick={this.onClickNavigation.bind(this, this.props.currentPage - 1)}>
+      onClick={this.onClickNavigation.bind(this, this.props.currentPage - 1)}
+    >
       <SvgIcon
         svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-        fragment="chevron-left" />
+        fragment="chevron-left"
+      />
     </li>
   );
   pages.push(
     <li
       className={firstPageCssClasses}
       key="first"
-      onClick={this.onClickNavigation.bind(this, 1)}>
+      onClick={this.onClickNavigation.bind(this, 1)}
+    >
       {1}
     </li>
   );
@@ -108,7 +112,8 @@ pagination.renderPages = function paginationRenderPages() {
     pages.push(
       <li
         className="pagination__ellipse"
-        key="first-ellipse">
+        key="first-ellipse"
+      >
         ...
       </li>
     );
@@ -120,7 +125,8 @@ pagination.renderPages = function paginationRenderPages() {
     pages.push(
       <li
         className="pagination__ellipse"
-        key="last-ellipse">
+        key="last-ellipse"
+      >
         ...
       </li>
     );
@@ -136,7 +142,8 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className={lastPageCssClasses}
       key="last"
-      onClick={this.onClickNavigation.bind(this, this.props.totalPages)}>
+      onClick={this.onClickNavigation.bind(this, this.props.totalPages)}
+    >
       {this.props.totalPages}
     </li>
   );
@@ -144,10 +151,12 @@ pagination.renderPages = function paginationRenderPages() {
     <li
       className="pagination__navigation pagination__next"
       key="next"
-      onClick={this.onClickNavigation.bind(this, this.props.currentPage + 1)}>
+      onClick={this.onClickNavigation.bind(this, this.props.currentPage + 1)}
+    >
       <SvgIcon
         svgPath="/components/nucleus-icons/svg/svg-sprite.svg"
-        fragment="chevron-right" />
+        fragment="chevron-right"
+      />
     </li>
   );
 

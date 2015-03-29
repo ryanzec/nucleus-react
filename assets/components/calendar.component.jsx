@@ -188,20 +188,22 @@ calendar.renderControls = function calendarRenderControls() {
 
   if (this.props.showControls === true) {
     controls = (
-      <div className="calendar__controls" hasGutter={false}>
+      <div className="calendar__controls">
         <div>
           <SelectInput
             className="calendar__controls-month"
             emptyOption={false}
             options={this.getMonthOptions()}
             value={this.state.month}
-            onChange={this.onChangeMonth} />
+            onChange={this.onChangeMonth}
+          />
           <SelectInput
             className="calendar__controls-year"
             emptyOption={false}
             options={this.getYearOptions()}
             value={this.state.year}
-            onChange={this.onChangeYear} />
+            onChange={this.onChangeYear}
+          />
         </div>
       </div>
     );
@@ -229,7 +231,12 @@ calendar.renderWeeks = function calendarRenderWeeks() {
 
     if (weeks.length === 0 && x < firstDayOfMonth) {
       days.push(
-        <div key={dayKey} className="calendar__week-day m-previous-month">{daysInPreviousMonth - (firstDayOfMonth - x - 1)}</div>
+        <div
+          key={dayKey}
+          className="calendar__week-day m-previous-month"
+        >
+          {daysInPreviousMonth - (firstDayOfMonth - x - 1)}
+        </div>
       );
     } else {
       currentMomentDateObject = this.getMomentCompatibleDate(x + 1 - firstDayOfMonth, this.state.month, this.state.year);
@@ -242,7 +249,8 @@ calendar.renderWeeks = function calendarRenderWeeks() {
           key={dayKey}
           className={'calendar__week-day' + extraCssClass}
           onClick={this.onClickDate}
-          data-date={moment(currentMomentDateObject.date, currentMomentDateObject.format).format(this.props.format)}>
+          data-date={moment(currentMomentDateObject.date, currentMomentDateObject.format).format(this.props.format)}
+        >
           {x + 1 - firstDayOfMonth}
         </div>
       );
@@ -255,7 +263,12 @@ calendar.renderWeeks = function calendarRenderWeeks() {
 
   while (days.length < 7) {
     days.push(
-      <div key={dayKey} className="calendar__week-day m-next-month">{nextMonthDay}</div>
+      <div
+        key={dayKey}
+        className="calendar__week-day m-next-month"
+      >
+        {nextMonthDay}
+      </div>
     );
     nextMonthDay += 1;
     dayKey += 1;
@@ -265,7 +278,10 @@ calendar.renderWeeks = function calendarRenderWeeks() {
 
   return weeks.map(function calendarRenderWeeksWeeksLoop(weekDays, key) {
     return (
-      <div key={key} hasGutter={false} className="calendar__week-row">
+      <div
+        key={key}
+        className="calendar__week-row"
+      >
         {weekDays}
       </div>
     );
@@ -275,7 +291,7 @@ calendar.renderWeeks = function calendarRenderWeeks() {
 calendar.renderCalendar = function calendarRenderCalendar() {
   return (
     <div className="calendar__calendar">
-      <div hasGutter={false} className="calendar__days-of-week">
+      <div className="calendar__days-of-week">
         <div className="calendar__day-of-week">{window.i18n['components/calendar'].sundayFirstLetter()}</div>
         <div className="calendar__day-of-week">{window.i18n['components/calendar'].mondayFirstLetter()}</div>
         <div className="calendar__day-of-week">{window.i18n['components/calendar'].tuesdayFirstLetter()}</div>
@@ -291,7 +307,10 @@ calendar.renderCalendar = function calendarRenderCalendar() {
 
 calendar.render = function calendarRender() {
   return (
-    <div className="calendar" style={{width: '235px'}}>
+    <div
+      className="calendar"
+      style={{width: '235px'}}
+    >
       {this.renderHeader()}
       {this.renderControls()}
       {this.renderCalendar()}
