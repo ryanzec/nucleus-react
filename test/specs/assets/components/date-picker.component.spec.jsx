@@ -45,7 +45,7 @@ var TestCustomFormat = React.createClass({
   }
 });
 
-describe('date picker component', function() {
+describe.only('date picker component', function() {
   var div;
 
   beforeEach(function() {
@@ -141,5 +141,18 @@ describe('date picker component', function() {
     reactTestUtils.Simulate.click(calendar);
 
     expect(this.component.state.isCalendarActive).to.be.true;
+  });
+
+  it('should blur input when single panel close occurs', function() {
+    this.component = React.render(<DatePicker />, div);
+    var append = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element__input-append');
+
+    reactTestUtils.Simulate.click(append);
+
+    document.dispatchEvent(testHelper.createNativeKeyboardEvent({
+      which: 27
+    }));
+
+    expect(document.activeElement).to.not.equal(this.component.refs.input.refs.input.getDOMNode());
   });
 });

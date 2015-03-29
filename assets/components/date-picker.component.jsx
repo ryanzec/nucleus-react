@@ -39,6 +39,7 @@ datePicker.getInitialState = function datePickerGetInitialState() {
 };
 
 datePicker.singlePanelClose = function datePickerClose() {
+  this.refs.input.refs.input.getDOMNode().blur();
   this.setState({
     isCalendarActive: false
   });
@@ -90,6 +91,7 @@ datePicker.render = function datePickerRender() {
       onClick={this.onClickCalendar}
     >
       <TextboxInput
+        ref="input"
         className="date-picker__input"
         placeholder={this.props.placeholder}
         value={this.props.selectedDay}
