@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [grid] fixed styling issue with flexbox based grid (#22)
 - refactored mocking solution
 - added ability to select dom component by prop value
 - reformatted jsx code

@@ -8,14 +8,14 @@ $component-identifier: '.flex-row';
   &:not(.m-no-gutter) {
     margin-left: ($grid-gutter * -1);
 
-    > .m-has-margin {
-      margin-left: ($grid-gutter / 2 * -1);
-      margin-right: ($grid-gutter * -1);
-    }
-
     > #{$component-identifier}__cell {
       padding-left: $grid-gutter;
     }
+  }
+
+  &.m-has-margin {
+    margin-left: ($grid-gutter / 2 * -1);
+    margin-right: ($grid-gutter / 2);
   }
 
   &.m-vertical-align-start {
