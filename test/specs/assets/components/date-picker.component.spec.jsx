@@ -45,7 +45,7 @@ var TestCustomFormat = React.createClass({
   }
 });
 
-describe.only('date picker component', function() {
+describe('date picker component', function() {
   var div;
 
   beforeEach(function() {

@@ -4,6 +4,7 @@ var NotFound = require('./not-found.component.jsx');
 var StyleGuideAppendBody = require('../style-guide/append-body.component.jsx');
 var StyleGuideBadge = require('../style-guide/badge.component.jsx');
 var StyleGuideButton = require('../style-guide/button.component.jsx');
+var StyleGuideCallout = require('../style-guide/callout.component.jsx');
 var StyleGuideCard = require('../style-guide/card.component.jsx');
 var StyleGuideCode = require('../style-guide/code.component.jsx');
 var StyleGuideCharacterCounter = require('../style-guide/character-counter.component.jsx');
@@ -35,6 +36,7 @@ module.exports = (
     <Route name="append-body" path="append-body" handler={StyleGuideAppendBody} />
     <Route name="badge" path="badge" handler={StyleGuideBadge} />
     <Route name="button" path="button" handler={StyleGuideButton} />
+    <Route name="callout" path="callout" handler={StyleGuideCallout} />
     <Route name="card" path="card" handler={StyleGuideCard} />
     <Route name="code" path="code" handler={StyleGuideCode} />
     <Route name="character-counter" path="character-counter" handler={StyleGuideCharacterCounter} />

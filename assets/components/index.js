@@ -4,6 +4,7 @@ module.exports = {
   CharacterCounter: require('./character-counter.component.jsx'),
   CheckboxInput: require('./checkbox-input.component.jsx'),
   Calendar: require('./calendar.component.jsx'),
+  Callout: require('./callout.component.jsx'),
   Card: require('./card.component.jsx'),
   CardContent: require('./card-content.component.jsx'),
   CardHeader: require('./card-header.component.jsx'),

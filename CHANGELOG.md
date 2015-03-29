@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [callout] added callout component (#24)
 - [date-picker] input blurs when single panel close method is called (#27)
 - [select-input] added missing empty option related select input tests (#23)
 - [grid] fixed styling issue with flexbox based grid (#22)

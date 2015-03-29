@@ -1,0 +1,54 @@
+$component-identifier: '.callout';
+
+#{$component-identifier} {
+    border: 1px solid $color-neutral;
+    background-color: transparentize($color-neutral, .85);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+
+    &__header {
+        color: $color-neutral;
+        font-size: 1.8rem;
+        padding-bottom: 5px;
+        font-weight: 600;
+    }
+
+    &.m-safe {
+      border: 1px solid $color-safe;
+      background-color: transparentize($color-safe, .85);
+
+      #{$component-identifier}__header {
+        color: $color-safe;
+      }
+    }
+
+    &.m-notice {
+      border: 1px solid $color-notice;
+      background-color: transparentize($color-notice, .85);
+
+      #{$component-identifier}__header {
+        color: $color-notice;
+      }
+    }
+
+    &.m-warning {
+      border: 1px solid $color-warning;
+      background-color: transparentize($color-warning, .85);
+
+      #{$component-identifier}__header {
+        color: $color-warning;
+      }
+    }
+
+    &.m-danger {
+      border: 1px solid $color-danger;
+      background-color: transparentize($color-danger, .85);
+
+      #{$component-identifier}__header {
+        color: $color-danger;
+      }
+    }
+}
+
+$component-identifier: '';
