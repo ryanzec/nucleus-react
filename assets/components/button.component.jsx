@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var _ = require('lodash');
 
 var button = {};
 
@@ -28,9 +29,21 @@ button.getCssClasses = function buttonGetCssClasses() {
   return cssClasses;
 };
 
+button.getPassThroughProps = function buttonGetPassThroughProps() {
+  var props = _.clone(this.props);
+
+  delete props.className;
+  delete props.children;
+
+  return props;
+};
+
 button.render = function buttonRender() {
   return (
-    <button className={this.getCssClasses().join(' ')}>
+    <button
+      className={this.getCssClasses().join(' ')}
+      {...this.getPassThroughProps()}
+    >
       {this.props.children}
     </button>
   );

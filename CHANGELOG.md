@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [button] added passing through props for button component
 - [svg-icon] refactored svg icon system (#28)
 - [callout] added callout component (#24)
 - [date-picker] input blurs when single panel close method is called (#27)
