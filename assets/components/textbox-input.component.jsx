@@ -33,12 +33,6 @@ textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
   };
 };
 
-textboxInput.getInitialState = function textboxInputGetInitialState() {
-  return {
-    valid: true
-  };
-};
-
 textboxInput.getCssClasses = function textboxInputGetCssClasses() {
   var cssClasses = ['form-element'];
 

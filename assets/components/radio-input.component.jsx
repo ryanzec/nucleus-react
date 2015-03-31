@@ -29,12 +29,6 @@ radioInput.getDefaultProps = function radioInputGetDefaultProps() {
   };
 };
 
-radioInput.getInitialState = function radioInputGetInitialState() {
-  return {
-    valid: true
-  };
-};
-
 radioInput.getCssClasses = function radioInputGetCssClasses() {
   var cssClasses = ['form-element'];
 

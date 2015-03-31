@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var _ = require('lodash');
 var SvgIcon = require('../components/svg-icon.component.jsx');
 
 var validIconFragment = 'checkmark';
@@ -18,15 +19,26 @@ formInputMixin.getDefaultProps = function formInputMixinGetDefaultProps() {
   };
 };
 
-formInputMixin.componentWillMount = function formInputMixinComponentWillMount() {
-  this.initialValue = this.props.value || null;
-  this.isValueDirty = false;
+formInputMixin.getInitialState = function textboxInputGetInitialState() {
+  var initialValue;
+
+  if (_.isBoolean(this.props.checked)) {
+    initialValue = this.props.checked;
+  } else {
+    initialValue = this.props.value || null;
+  }
+
+  return {
+    initialValue: initialValue,
+    valid: true,
+    isValidationActive: false
+  };
 };
 
 formInputMixin.shouldRenderValidation = function formInputMixinShouldRenderValidation() {
   return (
     this.props.renderValidation
-    && (this.props.renderValidationOnLoad || this.isValueDirty)
+    && (this.props.renderValidationOnLoad || this.state.isValidationActive)
     && (
       (this.state.valid && this.props.renderValidation !== 'invalid')
       || (!this.state.valid && this.props.renderValidation !== 'valid')
@@ -58,26 +70,45 @@ formInputMixin.onChange = function formInputMixinOnChange(event) {
     value = event.target.value;
   }
 
-  //NOTE: since the else path is only valid for IE 10+, it can not be convered in unit tests
-  /* istanbul ignore else */
+  this.changeValue(value);
+};
+
+formInputMixin.changeValue = function formInputMixinChangeValue(value) {
   if (
-    !this.isValueDirty
-    && this.initialValue !== value
+    !this.state.isValidationActive
+    && this.state.initialValue !== value
     //IE 10+ triggers change on focus so this logic below prevents that from triggering validation on on focus
-    && (this.initialValue === null && value !== '')
+    && (this.state.initialValue === null && value !== '')
   ) {
-    this.isValueDirty = true;
+    this.isValidationActive = true;
   }
 
-  if (this.props.validate) {
-    this.state.valid = this.setState({
-      valid: this.props.validate(value)
-    });
-  }
+  this.validate(value, false);
 
   if (this.props.onChange) {
-    this.props.onChange(value, event);
+    this.props.onChange(value);
   }
+};
+
+formInputMixin.validate = function formInputMixinValidate(value, activateValidation) {
+  activateValidation = _.isBoolean(activateValidation) ? activateValidation : true;
+  var defaultValue = this.props.checked || this.props.value;
+  value = value || defaultValue;
+  var newState = {
+    isValidationActive: true
+  };
+
+  if (this.props.validate) {
+    newState.valid = this.props.validate(value);
+  }
+
+  this.setState(newState);
+};
+
+formInputMixin.clearValidation = function formInputMixinClearValidation() {
+  this.setState({
+    isValidationActive: false
+  });
 };
 
 module.exports = formInputMixin;

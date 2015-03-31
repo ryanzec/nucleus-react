@@ -29,12 +29,6 @@ selectInput.getDefaultProps = function selectInputGetDefaultProps() {
   };
 };
 
-selectInput.getInitialState = function selectInputGetInitialState() {
-  return {
-    valid: true
-  };
-};
-
 selectInput.getCssClasses = function selectInputGetCssClasses() {
   var cssClasses = ['form-element'];
 

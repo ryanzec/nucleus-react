@@ -27,12 +27,6 @@ checkboxInput.getDefaultProps = function checkboxInputGetDefaultProps() {
   };
 };
 
-checkboxInput.getInitialState = function checkboxInputGetInitialState() {
-  return {
-    valid: true
-  };
-};
-
 checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
   var cssClasses = ['form-element'];
 

@@ -9,24 +9,123 @@ var RadioInput = nucleusReact.components.RadioInput;
 var CheckboxInput = nucleusReact.components.CheckboxInput;
 var DatePicker = nucleusReact.components.DatePicker;
 var InputGroup = nucleusReact.components.InputGroup;
+var Button = nucleusReact.components.Button;
+var formMixin = nucleusReact.mixins.form;
 
 var FormExmplePlaceholders = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      test: {
-        firstName: null,
-        lastName: null,
-        email: null,
-        password: null,
-        gender: null,
-        bio: null,
+      initialTest: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: 'true',
+        gender: '',
+        bio: '',
         receiveNewletters: false,
         over21: false,
         agreeToTermsAndConditions: false,
-        liveIn: null,
-        date: null
+        liveIn: '',
+        date: ''
+      },
+      test: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: 'true',
+        gender: '',
+        bio: '',
+        receiveNewletters: false,
+        over21: false,
+        agreeToTermsAndConditions: false,
+        liveIn: '',
+        date: ''
       }
     };
+  },
+
+  getInputs: function(name) {
+    return {
+      firstName: (
+        <TextboxInput
+          ref="firstName"
+          placeholder="First Name"
+          value={this.state.test.firstName}
+          onChange={this.onChangeFormInput('test', 'firstName')}
+        />
+      ),
+      lastName: (
+        <TextboxInput
+          ref="lastName" placeholder="Last Name" value={this.state.test.lastName} onChange={this.onChangeFormInput('test', 'lastName')} />
+      ),
+      email: (
+        <TextboxInput
+          ref="email" placeholder="Email Address" value={this.state.test.email} onChange={this.onChangeFormInput('test', 'email')} renderValidation="invalid" validate={this.validate} />
+      ),
+      password: (
+        <TextboxInput
+          ref="password" className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onChangeFormInput('test', 'password')} renderValidation="both" validate={this.validate} />
+      ),
+      confirmPassword: (
+        <TextboxInput
+          ref="confirmPassword" className="confirm-password" placeholder="Confirm Password" />
+      ),
+      gender: (
+        <SelectInput
+          ref="gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onChangeFormInput('test', 'gender')} renderValidation="both"  validate={this.validate} />
+      ),
+      bio: (
+        <TextboxInput
+          ref="bio" placeholder="Enter in breif bio..." multiLined={true} value={this.state.test.bio} onChange={this.onChangeFormInput('test', 'bio')} />
+      ),
+      receiveNewletters: (
+        <CheckboxInput
+          ref="receiveNewletters" label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onChangeFormInput('test', 'receiveNewletters')} />
+      ),
+      over21: (
+        <CheckboxInput
+          ref="over21" label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onChangeFormInput('test', 'over21')} />
+      ),
+      agreeToTermsAndConditions: (
+        <CheckboxInput
+          ref="agreeToTermsAndConditions" label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onChangeFormInput('test', 'agreeToTermsAndConditions')} renderValidation="both" validate={this.validate} />
+      ),
+      liveIn: (
+        <RadioInput
+          ref="liveIn" name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onChangeFormInput('test', 'liveIn')} renderValidation="both" validate={this.validateLiveIn} />
+      ),
+      date: (
+        <DatePicker
+          ref="date" onClickDate={this.onClickDate} selectedDay={this.state.test.date} />
+      )
+    };
+  },
+
+  renderForm: function() {
+    var inputs = this.getInputs();
+
+    return (
+      <form>
+        {inputs.firstName}
+        {inputs.lastName}
+        {inputs.email}
+        <InputGroup>
+          {inputs.password}
+          {inputs.confirmPassword}
+        </InputGroup>
+        {inputs.gender}
+        {inputs.bio}
+        {inputs.receiveNewletters}
+        {inputs.over21}
+        {inputs.agreeToTermsAndConditions}
+        {inputs.liveIn}
+        {inputs.date}
+      </form>
+    );
   },
 
   validate: function(value) {
@@ -70,15 +169,8 @@ var FormExmplePlaceholders = React.createClass({
     });
   },
 
-  onChangeFormInput: function(field) {
-    return function(value, event) {
-      var formData = _.clone(this.state.test);
-      formData[field] = value;
-
-      this.setState({
-        test: formData
-      });
-    }.bind(this);
+  resetTestForm: function() {
+    this.resetForm('test');
   },
 
   render: function() {
@@ -88,22 +180,9 @@ var FormExmplePlaceholders = React.createClass({
           <header>Form Data</header>
           <span dangerouslySetInnerHTML={{__html: JSON.stringify(this.state.test, null, '\t').replace(/\n/g, '<br />')}}></span>
         </div>
-        <form>
-          <TextboxInput placeholder="First Name" value={this.state.test.firstName} onChange={this.onChangeFormInput('firstName')} />
-          <TextboxInput placeholder="Last Name" value={this.state.test.lastName} onChange={this.onChangeFormInput('lastName')} />
-          <TextboxInput placeholder="Email Address" value={this.state.test.email} onChange={this.onChangeFormInput('email')} renderValidation="invalid" validate={this.validate} />
-          <InputGroup>
-            <TextboxInput className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onChangeFormInput('password')} renderValidation="both" validate={this.validate} />
-            <TextboxInput className="confirm-password" placeholder="Confirm Password" />
-          </InputGroup>
-          <SelectInput emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onChangeFormInput('gender')} renderValidation="both"  validate={this.validate} />
-          <TextboxInput placeholder="Enter in breif bio..." multiLined={true} value={this.state.test.bio} onChange={this.onChangeFormInput('bio')} />
-          <CheckboxInput label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onChangeFormInput('receiveNewletters')} />
-          <CheckboxInput label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onChangeFormInput('over21')} />
-          <CheckboxInput label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onChangeFormInput('agreeToTermsAndConditions')} renderValidation="both" validate={this.validate} />
-          <RadioInput name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onChangeFormInput('liveIn')} renderValidation="both" validate={this.validateLiveIn} />
-          <DatePicker onClickDate={this.onClickDate} selectedDay={this.state.test.date} />
-        </form>
+        {this.renderForm()}
+        <Button onClick={this.resetTestForm}>Clear</Button>
+        <Button onClick={this.validateFormTest}>Validate</Button>
       </span>
     );
   }
@@ -264,7 +343,9 @@ module.exports = {
   type: 'component',
   overview: (
     <p>
-      Form.
+      Forms.
+
+      <p><strong>This is still very much a work in progress.</strong></p>
     </p>
   ),
   properties: [],
