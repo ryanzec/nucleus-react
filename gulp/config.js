@@ -47,11 +47,11 @@ var gulpConfig = {
         'web/app/components'
       ],
       manualGlobs: [
-        'web/locale/**/i18n.js'
+        'web/locale/**/i18n.js',
+        'web/components/nucleus-react/assets/javascript/prism.js'
       ],
       manualDirectories: {},
       manualAssets: {
-        'web/app/misc/svg-4-everybody.js': 'web/app/misc/svg-4-everybody.js',
         'assets/javascript/prism.js': 'web/components/nucleus-react/assets/javascript/prism.js',
         'assets/styles/prism.css': 'web/components/nucleus-react/assets/styles/prism.css'
       }

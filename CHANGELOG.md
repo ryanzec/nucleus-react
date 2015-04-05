@@ -9,6 +9,9 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [forms] fixed issue pulling inputs for some form mixin methods
+- [forms] fixed `formMixin.onChangeFormInput()` to properly set value to correct form
+- [forms] added form mixin tests to test a component with multiple forms
 - [form] added form mixin
 - [button] added passing through props for button component
 - [svg-icon] refactored svg icon system (#28)

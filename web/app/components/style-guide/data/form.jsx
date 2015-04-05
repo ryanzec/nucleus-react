@@ -18,37 +18,26 @@ var FormExmplePlaceholders = React.createClass({
   ],
 
   getInitialState: function() {
+    var initialFormData = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: 'true',
+      gender: '',
+      bio: '',
+      receiveNewletters: false,
+      over21: false,
+      agreeToTermsAndConditions: false,
+      liveIn: '',
+      date: ''
+    }
     return {
-      initialTest: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: 'true',
-        gender: '',
-        bio: '',
-        receiveNewletters: false,
-        over21: false,
-        agreeToTermsAndConditions: false,
-        liveIn: '',
-        date: ''
-      },
-      test: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: 'true',
-        gender: '',
-        bio: '',
-        receiveNewletters: false,
-        over21: false,
-        agreeToTermsAndConditions: false,
-        liveIn: '',
-        date: ''
-      }
+      initialTest: initialFormData,
+      test: initialFormData
     };
   },
 
-  getInputs: function(name) {
+  getInputs: function() {
     return {
       firstName: (
         <TextboxInput
@@ -173,6 +162,10 @@ var FormExmplePlaceholders = React.createClass({
     this.resetForm('test');
   },
 
+  validateTestForm: function() {
+    this.validateForm('test2');
+  },
+
   render: function() {
     return (
       <span>
@@ -182,7 +175,7 @@ var FormExmplePlaceholders = React.createClass({
         </div>
         {this.renderForm()}
         <Button onClick={this.resetTestForm}>Clear</Button>
-        <Button onClick={this.validateFormTest}>Validate</Button>
+        <Button onClick={this.validateTestForm}>Validate</Button>
       </span>
     );
   }

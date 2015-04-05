@@ -10,7 +10,7 @@ formMixin.resetForm = function formMixinResetForm(formName) {
   this.setState(resetData);
 
   //then clear the validation
-  var keys = Object.keys(this.getInputs());
+  var keys = Object.keys(this.getInputs(formName));
 
   _.forEach(keys, function(key) {
     if (this.refs[key] && this.refs[key].clearValidation) {
@@ -19,11 +19,11 @@ formMixin.resetForm = function formMixinResetForm(formName) {
   }.bind(this));
 };
 
-formMixin.validateForm = function formMixinValidateForm() {
-  var inputs = this.getInputs();
+formMixin.validateForm = function formMixinValidateForm(formName) {
+  var inputs = this.getInputs(formName);
 
   _.forEach(inputs, function formMixinResetFormInputLoop(value, key) {
-    if (this.refs[key].validate) {
+    if (this.refs[key] && this.refs[key].validate) {
       this.refs[key].validate();
     }
   }.bind(this));
@@ -31,12 +31,10 @@ formMixin.validateForm = function formMixinValidateForm() {
 
 formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, field) {
   return function(value, event) {
-    var formData = _.clone(this.state.test);
-    formData[field] = value;
-
-    this.setState({
-      test: formData
-    });
+    var newData = {}
+    newData[formName] = _.clone(this.state[formName]);
+    newData[formName][field] = value;
+    this.setState(newData);
   }.bind(this);
 };
 
