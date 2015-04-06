@@ -1,10 +1,14 @@
 .svg-icon-container {
   @include display(inline-flex);
+
+  width: $width-svg-icon;
+  height: $height-svg-icon;
+  fill: $color-neutral;
 }
 
 .svg-icon {
-  width: $width-svg-icon;
-  height: $height-svg-icon;
+  height: 100%;
+  width: 100%;
 
   &.m-safe {
     fill: $color-safe;

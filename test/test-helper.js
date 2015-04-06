@@ -8,7 +8,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
-var TestLocation = require('react-router/modules/locations/TestLocation');
+var TestLocation = require('react-router/lib/locations/TestLocation');
 var Fiber = require('fibers');
 var sinon = require('sinon');
 var mockedData = require('../web/mocked-api/data/index');
@@ -32,23 +32,28 @@ module.exports = {
     });
   },
 
-  getRouterComponent: function(Component) {
+  testPage: function(initialPath, steps) {
+    if (!_.isArray(steps)) {
+      steps = [steps];
+    };
+
     var component;
+    var routerMainComponent;
     var div = document.createElement('div');
-    var routes = [
-      React.createFactory(Route)({
-        name: "test",
-        handler:Component
-      })
-    ];
-    TestLocation.history = ['/test'];
+    var routes = require('../web/app/components/core/routes.jsx');
+    var location = new TestLocation([initialPath]);
 
-    Router.run(routes, TestLocation, function (Handler) {
-      var mainComponent = React.render(React.createFactory(Handler)({}), div);
-      component = reactTestUtils.findRenderedComponentWithType(mainComponent, Component);
-    });
+    Router.run(routes, location, function (Handler, routerState) {
+      var step = steps.shift();
 
-    return component;
+      //TODO: research: not sure why or if I need this here (https://github.com/rackt/react-router/issues/991)
+      this.unmountComponent(routerMainComponent);
+
+      routerMainComponent = React.render(React.createFactory(Handler)({
+        routerState: routerState
+      }), div);
+      step(routerMainComponent);
+    }.bind(this));
   },
 
   unmountComponent: function(component) {

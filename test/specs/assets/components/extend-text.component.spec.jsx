@@ -191,7 +191,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        expect(renderedComponent._owner.state.isActive).to.be.true;
+        expect(testGlobals.component.state.isActive).to.be.true;
         expect(renderedComponent.props.className).to.equal('extend-text is-active');
         done();
       }).run();
@@ -206,7 +206,7 @@ describe('extend text component', function() {
         isLoading: true
       });
 
-      expect(renderedComponent._owner.state.isActive).to.be.true;
+      expect(testGlobals.component.state.isActive).to.be.true;
       expect(renderedComponent.props.className).to.equal('extend-text is-active m-display-no-results');
     });
 

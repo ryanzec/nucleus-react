@@ -140,7 +140,7 @@ describe('character counter component', function() {
 
   it('should transition from under to over when the going over the limit', function() {
     this.component = React.render(<TextComponent />, div);
-    var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
+    var characterCounter = reactTestUtils.findRenderedComponentWithType(this.component, CharacterCounter);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
 
     reactTestUtils.Simulate.change(input, {
@@ -149,12 +149,12 @@ describe('character counter component', function() {
       }
     });
 
-    expect(characterCounter._owner.state.previousStatus).to.equal('over');
+    expect(characterCounter.state.previousStatus).to.equal('over');
   });
 
   it('should transition from over to under when coming under the limit', function() {
     this.component = React.render(<TextComponent />, div);
-    var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
+    var characterCounter = reactTestUtils.findRenderedComponentWithType(this.component, CharacterCounter);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
 
     reactTestUtils.Simulate.change(input, {
@@ -169,7 +169,7 @@ describe('character counter component', function() {
       }
     });
 
-    expect(characterCounter._owner.state.previousStatus).to.equal('under');
+    expect(characterCounter.state.previousStatus).to.equal('under');
   });
 
   it('should execute onOverLimit callback when the text transitions from under to over status', function() {
