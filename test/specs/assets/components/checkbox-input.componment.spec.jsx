@@ -33,7 +33,7 @@ var FormExample = React.createClass({
 
   render: function() {
     return (
-      <CheckboxInput checked={this.state.formData.prop} onChange={this.onFormDataChange} />
+      <CheckboxInput value={this.state.formData.prop} onChange={this.onFormDataChange} />
     );
   }
 });
@@ -58,7 +58,7 @@ var FormExampleWithDefaultValue = React.createClass({
 
   render: function() {
     return (
-      <CheckboxInput checked={this.state.formData.prop} onChange={this.onFormDataChange} />
+      <CheckboxInput value={this.state.formData.prop} onChange={this.onFormDataChange} />
     );
   }
 });

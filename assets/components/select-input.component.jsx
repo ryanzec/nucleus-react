@@ -57,6 +57,8 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
 
+  props.value = props.value || '';
+
   return props;
 };
 

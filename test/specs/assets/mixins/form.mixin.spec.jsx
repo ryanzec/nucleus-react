@@ -16,11 +16,11 @@ var SingleForm = React.createClass({
 
   getInitialState: function() {
     var initialFormData = {
-      firstName: '',
+      firstName: null,
       password: 'test',
       receiveNewletters: true,
       over21: false,
-      date: ''
+      date: null
     };
     return {
       initialTest: initialFormData,
@@ -55,7 +55,7 @@ var SingleForm = React.createClass({
         <CheckboxInput
           ref="receiveNewletters"
           label="I want to receive weekly newsletters"
-          checked={this.state.test.receiveNewletters}
+          value={this.state.test.receiveNewletters}
           onChange={this.onChangeFormInput('test', 'receiveNewletters')}
           validate={this.validateBoolean}
         />
@@ -64,7 +64,7 @@ var SingleForm = React.createClass({
         <CheckboxInput
           ref="over21"
           label="I am over the age of 21"
-          checked={this.state.test.over21}
+          value={this.state.test.over21}
           displayPosition="left"
           onChange={this.onChangeFormInput('test', 'over21')}
           validate={this.validateBoolean}
@@ -122,18 +122,18 @@ var MultipleForms = React.createClass({
 
   getInitialState: function() {
     var initialFormData = {
-      firstName: '',
+      firstName: null,
       password: 'test',
       receiveNewletters: true,
       over21: false,
-      date: ''
+      date: null
     };
     var initialFormData2 = {
-      lastName: '',
+      lastName: null,
       email: 'test',
       agreeToTerms: true,
       under21: false,
-      date2: ''
+      date2: null
     }
     return {
       initialTest: initialFormData,
@@ -171,7 +171,7 @@ var MultipleForms = React.createClass({
           <CheckboxInput
             ref="receiveNewletters"
             label="I want to receive weekly newsletters"
-            checked={this.state.test.receiveNewletters}
+            value={this.state.test.receiveNewletters}
             onChange={this.onChangeFormInput('test', 'receiveNewletters')}
             validate={this.validateBoolean}
           />
@@ -180,7 +180,7 @@ var MultipleForms = React.createClass({
           <CheckboxInput
             ref="over21"
             label="I am over the age of 21"
-            checked={this.state.test.over21}
+            value={this.state.test.over21}
             displayPosition="left"
             onChange={this.onChangeFormInput('test', 'over21')}
             validate={this.validateBoolean}
@@ -217,7 +217,7 @@ var MultipleForms = React.createClass({
           <CheckboxInput
             ref="agreeToTerms"
             label="I agree to the terms"
-            checked={this.state.test2.agreeToTerms}
+            value={this.state.test2.agreeToTerms}
             onChange={this.onChangeFormInput('test2', 'agreeToTerms')}
             validate={this.validateBoolean}
           />
@@ -226,7 +226,7 @@ var MultipleForms = React.createClass({
           <CheckboxInput
             ref="under21"
             label="I am under the age of 21"
-            checked={this.state.test2.under21}
+            value={this.state.test2.under21}
             displayPosition="left"
             onChange={this.onChangeFormInput('test2', 'under21')}
             validate={this.validateBoolean}

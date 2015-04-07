@@ -19,17 +19,10 @@ var FormExmplePlaceholders = React.createClass({
 
   getInitialState: function() {
     var initialFormData = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: 'true',
-      gender: '',
-      bio: '',
-      receiveNewletters: false,
-      over21: false,
-      agreeToTermsAndConditions: false,
-      liveIn: '',
-      date: ''
+      lastName: 'last',
+      over21: true,
+      liveIn: 'US',
+      date: '03/02/2015'
     }
     return {
       initialTest: initialFormData,

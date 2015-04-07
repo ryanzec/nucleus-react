@@ -53,6 +53,9 @@ checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThrou
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
 
+  props.checked = props.value || false;
+  delete props.value;
+
   return props;
 };
 
