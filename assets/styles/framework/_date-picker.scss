@@ -9,5 +9,6 @@
     background-color: $color-white;
     border: 1px solid $color-gray3;
     border-radius: 5px;
+    z-index: $z-index-calendar-date-picker;
   }
 }

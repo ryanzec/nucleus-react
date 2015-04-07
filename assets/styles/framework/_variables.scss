@@ -55,6 +55,7 @@ $color-dark-danger: darken($color-danger, 15%) !default;
 $z-index-container-tagging: 1 !default;
 $z-index-extend-text: 2 !default;
 $z-index-content-tooltip: 3 !default;
+$z-index-calendar-date-picker: 1000 !default;
 $z-index-absolute-overlay: 1600 !default;
 $z-index-overlay: 1700 !default;
 $z-index-notify: 1800 !default;
