@@ -30,82 +30,125 @@ var FormExmplePlaceholders = React.createClass({
     };
   },
 
-  getInputs: function() {
-    return {
-      firstName: (
-        <TextboxInput
-          ref="firstName"
-          placeholder="First Name"
-          value={this.state.test.firstName}
-          onChange={this.onChangeFormInput('test', 'firstName')}
-        />
-      ),
-      lastName: (
-        <TextboxInput
-          ref="lastName" placeholder="Last Name" value={this.state.test.lastName} onChange={this.onChangeFormInput('test', 'lastName')} />
-      ),
-      email: (
-        <TextboxInput
-          ref="email" placeholder="Email Address" value={this.state.test.email} onChange={this.onChangeFormInput('test', 'email')} renderValidation="invalid" validate={this.validate} />
-      ),
-      password: (
-        <TextboxInput
-          ref="password" className="password" maskValue={true} placeholder="Password" value={this.state.test.password} onChange={this.onChangeFormInput('test', 'password')} renderValidation="both" validate={this.validate} />
-      ),
-      confirmPassword: (
-        <TextboxInput
-          ref="confirmPassword" className="confirm-password" placeholder="Confirm Password" />
-      ),
-      gender: (
-        <SelectInput
-          ref="gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onChangeFormInput('test', 'gender')} renderValidation="both"  validate={this.validate} />
-      ),
-      bio: (
-        <TextboxInput
-          ref="bio" placeholder="Enter in breif bio..." multiLined={true} value={this.state.test.bio} onChange={this.onChangeFormInput('test', 'bio')} />
-      ),
-      receiveNewletters: (
-        <CheckboxInput
-          ref="receiveNewletters" label="I want to receive weekly newsletters" checked={this.state.test.receiveNewletters} onChange={this.onChangeFormInput('test', 'receiveNewletters')} />
-      ),
-      over21: (
-        <CheckboxInput
-          ref="over21" label="I am over the age of 21" checked={this.state.test.over21} displayPosition="left" onChange={this.onChangeFormInput('test', 'over21')} />
-      ),
-      agreeToTermsAndConditions: (
-        <CheckboxInput
-          ref="agreeToTermsAndConditions" label="I agree to the terms and conditions" checked={this.state.test.agreeToTermsAndConditions} onChange={this.onChangeFormInput('test', 'agreeToTermsAndConditions')} renderValidation="both" validate={this.validate} />
-      ),
-      liveIn: (
-        <RadioInput
-          ref="liveIn" name="liveIn" options={this.getRadioOptions()} value={this.state.test.liveIn} onChange={this.onChangeFormInput('test', 'liveIn')} renderValidation="both" validate={this.validateLiveIn} />
-      ),
-      date: (
-        <DatePicker
-          ref="date" onClickDate={this.onClickDate} selectedDay={this.state.test.date} />
-      )
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        firstName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'First Name'
+          }
+        },
+        lastName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Last Name'
+          }
+        },
+        email: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Email Address',
+            renderValidation: 'invalid',
+            validate: this.validate
+          }
+        },
+        password: {
+          component: TextboxInput,
+          props: {
+            className: 'password',
+            maskValue: true,
+            placeholder: 'Password',
+            renderValidation: 'both',
+            validate: this.validate
+          }
+        },
+        confirmPassword: {
+          component: TextboxInput,
+          props: {
+            className: 'confirm-password',
+            placeholder: 'Confirm Password'
+          }
+        },
+        gender: {
+          component: SelectInput,
+          props: {
+            emptyOption: 'Select Gender',
+            options: this.getGenderOptions(),
+            renderValidation: 'both',
+            validate: this.validate
+          }
+        },
+        bio: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Enter in breif bio...',
+            multiLined: true
+          }
+        },
+        receiveNewletters: {
+          component: CheckboxInput,
+          props: {
+            label: 'I want to receive weekly newsletters'
+          }
+        },
+        over21: {
+          component: CheckboxInput,
+          props: {
+            label: 'I am over the age of 21',
+            displayPosition: 'left'
+          }
+        },
+        agreeToTermsAndConditions: {
+          component: CheckboxInput,
+          props: {
+            label: 'I agree to the terms and conditions',
+            renderValidation: 'both',
+            validate: this.validate
+          }
+        },
+        liveIn: {
+          component: RadioInput,
+          props: {
+            ref: 'liveIn',
+            name: 'liveIn',
+            options: this.getRadioOptions(),
+            renderValidation: 'both',
+            validate: this.validateLiveIn
+          }
+        },
+        date: {
+          component: DatePicker,
+          hasNoValue: false,
+          hasOnChange: false,
+          props: {
+            onClickDate: this.onClickDate,
+            selectedDay: this.state.test.date
+          }
+        }
+      }
     };
   },
 
   renderForm: function() {
-    var inputs = this.getInputs();
+    var inputs = this.getInputs('test');
 
     return (
       <form>
-        {inputs.firstName}
-        {inputs.lastName}
-        {inputs.email}
+        {inputs.firstName.render()}
+        {inputs.lastName.render()}
+        {inputs.email.render()}
         <InputGroup>
-          {inputs.password}
-          {inputs.confirmPassword}
+          {inputs.password.render()}
+          {inputs.confirmPassword.render()}
         </InputGroup>
-        {inputs.gender}
-        {inputs.bio}
-        {inputs.receiveNewletters}
-        {inputs.over21}
-        {inputs.agreeToTermsAndConditions}
-        {inputs.liveIn}
-        {inputs.date}
+        {inputs.gender.render()}
+        {inputs.bio.render()}
+        {inputs.receiveNewletters.render()}
+        {inputs.over21.render()}
+        {inputs.agreeToTermsAndConditions.render()}
+        {inputs.liveIn.render()}
+        {inputs.date.render()}
       </form>
     );
   },
@@ -156,7 +199,7 @@ var FormExmplePlaceholders = React.createClass({
   },
 
   validateTestForm: function() {
-    this.validateForm('test2');
+    this.validateForm('test');
   },
 
   render: function() {
@@ -167,7 +210,7 @@ var FormExmplePlaceholders = React.createClass({
           <span dangerouslySetInnerHTML={{__html: JSON.stringify(this.state.test, null, '\t').replace(/\n/g, '<br />')}}></span>
         </div>
         {this.renderForm()}
-        <Button onClick={this.resetTestForm}>Clear</Button>
+        <Button onClick={this.resetTestForm}>Reset</Button>
         <Button onClick={this.validateTestForm}>Validate</Button>
       </span>
     );

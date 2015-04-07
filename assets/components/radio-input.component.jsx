@@ -66,13 +66,13 @@ radioInput.renderInput = function radioInputRenderInput() {
           key={option.value}
         >
           {option.display}<input
-                            className="form-element__input m-radio m-left"
-                            type="radio"
-                            checked={checked}
-                            value={option.value}
-                            name={this.props.name}
-                            onChange={this.onChange}
-                          />
+            className="form-element__input m-radio m-left"
+            type="radio"
+            checked={checked}
+            value={option.value}
+            name={this.props.name}
+            onChange={this.onChange}
+          />
         </label>
       );
     }

@@ -16,11 +16,11 @@ var SingleForm = React.createClass({
 
   getInitialState: function() {
     var initialFormData = {
-      firstName: null,
+      firstName: '',
       password: 'test',
       receiveNewletters: true,
       over21: false,
-      date: null
+      date: ''
     };
     return {
       initialTest: initialFormData,
@@ -28,51 +28,50 @@ var SingleForm = React.createClass({
     };
   },
 
-  getInputs: function() {
-    return {
-      firstName: (
-        <TextboxInput
-          ref="firstName"
-          placeholder="First Name"
-          value={this.state.test.firstName}
-          onChange={this.onChangeFormInput('test', 'firstName')}
-          validate={this.validate}
-        />
-      ),
-      password: (
-        <TextboxInput
-          ref="password"
-          className="password"
-          maskValue={true}
-          placeholder="Password"
-          value={this.state.test.password}
-          onChange={this.onChangeFormInput('test', 'password')}
-          renderValidation="both"
-          validate={this.validate}
-        />
-      ),
-      receiveNewletters: (
-        <CheckboxInput
-          ref="receiveNewletters"
-          label="I want to receive weekly newsletters"
-          value={this.state.test.receiveNewletters}
-          onChange={this.onChangeFormInput('test', 'receiveNewletters')}
-          validate={this.validateBoolean}
-        />
-      ),
-      over21: (
-        <CheckboxInput
-          ref="over21"
-          label="I am over the age of 21"
-          value={this.state.test.over21}
-          displayPosition="left"
-          onChange={this.onChangeFormInput('test', 'over21')}
-          validate={this.validateBoolean}
-        />
-      ),
-      date: (
-        <DatePicker ref="date" />
-      )
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        firstName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'First Name',
+            validate: this.validate
+          }
+        },
+
+        password: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Password',
+            validate: this.validate,
+            maskValue: true,
+            renderValidation: "both"
+          }
+        },
+
+        receiveNewletters: {
+          component: CheckboxInput,
+          props: {
+            label: "I want to receive weekly newsletters",
+            validate: this.validateBoolean
+          }
+        },
+
+        over21: {
+          component: CheckboxInput,
+          props: {
+            label: "I am over the age of 21",
+            validate: this.validateBoolean,
+            displayPosition: "left"
+          }
+        },
+
+        date: {
+          component: DatePicker,
+          hasOnChange: false,
+          props: {}
+        }
+      }
     };
   },
 
@@ -84,22 +83,18 @@ var SingleForm = React.createClass({
     return value === true;
   },
 
-  resetTestForm: function() {
-    this.resetForm('test');
-  },
-
   renderForm: function() {
-    var inputs = this.getInputs();
+    var inputs = this.getInputs('test');
 
     return (
       <form>
         <InputGroup>
-          {inputs.firstName}
-          {inputs.password}
+          {inputs.firstName.render()}
+          {inputs.password.render()}
         </InputGroup>
-        {inputs.receiveNewletters}
-        {inputs.over21}
-        {inputs.date}
+        {inputs.receiveNewletters.render()}
+        {inputs.over21.render()}
+        {inputs.date.render()}
       </form>
     );
   },
@@ -108,8 +103,6 @@ var SingleForm = React.createClass({
     return (
       <div>
         {this.renderForm()}
-        <Button className="reset" onClick={this.resetTestForm}>Clear</Button>
-        <Button className="validate-form" onClick={this.validateForm}>Validate</Button>
       </div>
     );
   }
@@ -122,18 +115,18 @@ var MultipleForms = React.createClass({
 
   getInitialState: function() {
     var initialFormData = {
-      firstName: null,
+      firstName: '',
       password: 'test',
       receiveNewletters: true,
       over21: false,
-      date: null
+      date: ''
     };
     var initialFormData2 = {
-      lastName: null,
+      lastName: '',
       email: 'test',
       agreeToTerms: true,
       under21: false,
-      date2: null
+      date2: ''
     }
     return {
       initialTest: initialFormData,
@@ -143,100 +136,94 @@ var MultipleForms = React.createClass({
     };
   },
 
-  getInputs: function(formName) {
-    if(formName === 'test') {
-      return {
-        firstName: (
-          <TextboxInput
-            ref="firstName"
-            placeholder="First Name"
-            value={this.state.test.firstName}
-            onChange={this.onChangeFormInput('test', 'firstName')}
-            validate={this.validate}
-          />
-        ),
-        password: (
-          <TextboxInput
-            ref="password"
-            className="password"
-            maskValue={true}
-            placeholder="Password"
-            value={this.state.test.password}
-            onChange={this.onChangeFormInput('test', 'password')}
-            renderValidation="both"
-            validate={this.validate}
-          />
-        ),
-        receiveNewletters: (
-          <CheckboxInput
-            ref="receiveNewletters"
-            label="I want to receive weekly newsletters"
-            value={this.state.test.receiveNewletters}
-            onChange={this.onChangeFormInput('test', 'receiveNewletters')}
-            validate={this.validateBoolean}
-          />
-        ),
-        over21: (
-          <CheckboxInput
-            ref="over21"
-            label="I am over the age of 21"
-            value={this.state.test.over21}
-            displayPosition="left"
-            onChange={this.onChangeFormInput('test', 'over21')}
-            validate={this.validateBoolean}
-          />
-        ),
-        date: (
-          <DatePicker ref="date" />
-        )
-      };
-    } else if (formName === 'test2') {
-      return {
-        lastName: (
-          <TextboxInput
-            ref="lastName"
-            placeholder="Last Name"
-            value={this.state.test2.lastName}
-            onChange={this.onChangeFormInput('test2', 'lastName')}
-            validate={this.validate}
-          />
-        ),
-        email: (
-          <TextboxInput
-            ref="email"
-            className="email"
-            maskValue={true}
-            placeholder="Email"
-            value={this.state.test2.email}
-            onChange={this.onChangeFormInput('test2', 'email')}
-            renderValidation="both"
-            validate={this.validate}
-          />
-        ),
-        agreeToTerms: (
-          <CheckboxInput
-            ref="agreeToTerms"
-            label="I agree to the terms"
-            value={this.state.test2.agreeToTerms}
-            onChange={this.onChangeFormInput('test2', 'agreeToTerms')}
-            validate={this.validateBoolean}
-          />
-        ),
-        under21: (
-          <CheckboxInput
-            ref="under21"
-            label="I am under the age of 21"
-            value={this.state.test2.under21}
-            displayPosition="left"
-            onChange={this.onChangeFormInput('test2', 'under21')}
-            validate={this.validateBoolean}
-          />
-        ),
-        date2: (
-          <DatePicker ref="date2" />
-        )
-      };
-    }
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        firstName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'First Name',
+            validate: this.validate
+          }
+        },
+
+        password: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Password',
+            validate: this.validate,
+            maskValue: true,
+            renderValidation: "both"
+          }
+        },
+
+        receiveNewletters: {
+          component: CheckboxInput,
+          props: {
+            label: "I want to receive weekly newsletters",
+            validate: this.validateBoolean
+          }
+        },
+
+        over21: {
+          component: CheckboxInput,
+          props: {
+            label: "I am over the age of 21",
+            validate: this.validateBoolean,
+            displayPosition: "left"
+          }
+        },
+
+        date: {
+          component: DatePicker,
+          hasOnChange: false,
+          props: {}
+        }
+      },
+
+      test2: {
+        lastName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Last Name',
+            validate: this.validate
+          }
+        },
+
+        email: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Email',
+            validate: this.validate,
+            maskValue: true,
+            renderValidation: "both"
+          }
+        },
+
+        agreeToTerms: {
+          component: CheckboxInput,
+          props: {
+            label: "I agree to terms",
+            validate: this.validateBoolean
+          }
+        },
+
+        under21: {
+          component: CheckboxInput,
+          props: {
+            label: "I am under the age of 21",
+            validate: this.validateBoolean,
+            displayPosition: "left"
+          }
+        },
+
+        date2: {
+          component: DatePicker,
+          hasOnChange: false,
+          props: {}
+        }
+      }
+    };
   },
 
   validate: function(value) {
@@ -247,34 +234,18 @@ var MultipleForms = React.createClass({
     return value === true;
   },
 
-  resetTestForm: function() {
-    this.resetForm('test');
-  },
-
-  resetTest2Form: function() {
-    this.resetForm('test2');
-  },
-
-  validateTestForm: function() {
-    this.validateForm('test');
-  },
-
-  validateTest2Form: function() {
-    this.validateForm('test2');
-  },
-
   renderTestForm: function() {
     var inputs = this.getInputs('test');
 
     return (
       <form>
         <InputGroup>
-          {inputs.firstName}
-          {inputs.password}
+          {inputs.firstName.render()}
+          {inputs.password.render()}
         </InputGroup>
-        {inputs.receiveNewletters}
-        {inputs.over21}
-        {inputs.date}
+        {inputs.receiveNewletters.render()}
+        {inputs.over21.render()}
+        {inputs.date.render()}
       </form>
     );
   },
@@ -285,12 +256,12 @@ var MultipleForms = React.createClass({
     return (
       <form>
         <InputGroup>
-          {inputs.lastName}
-          {inputs.email}
+          {inputs.lastName.render()}
+          {inputs.email.render()}
         </InputGroup>
-        {inputs.agreeToTerms}
-        {inputs.under21}
-        {inputs.date2}
+        {inputs.agreeToTerms.render()}
+        {inputs.under21.render()}
+        {inputs.date2.render()}
       </form>
     );
   },
@@ -300,10 +271,6 @@ var MultipleForms = React.createClass({
       <div>
         {this.renderTestForm()}
         {this.renderTest2Form()}
-        <Button className="reset" onClick={this.resetTestForm}>Clear Test</Button>
-        <Button className="reset2" onClick={this.resetTest2Form}>Clear Test2</Button>
-        <Button className="validate-form" onClick={this.validateTestForm}>Validate Test</Button>
-        <Button className="validate-form2" onClick={this.validateTest2Form}>Validate Test2</Button>
       </div>
     );
   }
@@ -352,10 +319,10 @@ describe('form mixin', function() {
 
       expect(firstNameInput.getDOMNode().value).to.equal('123');
       expect(passwordInput.getDOMNode().value).to.equal('234');
-      expect(receiveNewlettersInput.getDOMNode().checked).to.be.flase;
+      expect(receiveNewlettersInput.getDOMNode().checked).to.be.false;
       expect(over21Input.getDOMNode().checked).to.be.true;
 
-      this.component.resetTestForm();
+      this.component.resetForm('test');
 
       expect(firstNameInput.getDOMNode().value).to.equal('');
       expect(passwordInput.getDOMNode().value).to.equal('test');
@@ -380,7 +347,7 @@ describe('form mixin', function() {
           date: ''
         }
       });
-      this.component.validateForm();
+      this.component.validateForm('test');
 
       expect(this.component.refs.firstName.state.valid).to.be.false;
       expect(this.component.refs.password.state.valid).to.be.false;
@@ -396,7 +363,7 @@ describe('form mixin', function() {
           date: ''
         }
       });
-      this.component.validateForm();
+      this.component.validateForm('test');
 
       expect(this.component.refs.firstName.state.valid).to.be.true;
       expect(this.component.refs.password.state.valid).to.be.true;
@@ -452,7 +419,7 @@ describe('form mixin', function() {
       expect(agreeToTermsInput.getDOMNode().checked).to.be.flase;
       expect(under21Input.getDOMNode().checked).to.be.true;
 
-      this.component.resetTest2Form();
+      this.component.resetForm('test2');
 
       expect(lastNameInput.getDOMNode().value).to.equal('');
       expect(emailInput.getDOMNode().value).to.equal('test');

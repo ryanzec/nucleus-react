@@ -1,3 +1,4 @@
+var React = require('react/addons');
 var _ = require('lodash');
 
 var formMixin = {};
@@ -36,6 +37,33 @@ formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, fiel
     newData[formName][field] = value;
     this.setState(newData);
   }.bind(this);
+};
+
+formMixin.getInputs = function formMixinGetInputs(formName) {
+  var inputs = this.formInputs[formName];
+  var innerInputs = {};
+
+  _.forEach(inputs, function formMixinGetInputsInputsLoop(config, field) {
+    if (inputs[field].hasOnChange !== false && !inputs[field].props.onChange) {
+      inputs[field].props.onChange = this.onChangeFormInput(formName, field);
+    }
+
+    if (!inputs[field].props.ref) {
+      inputs[field].props.ref = field;
+    }
+
+    if (inputs[field].hasNoValue !== false) {
+      inputs[field].props.value = this.state[formName][field];
+    }
+
+    innerInputs[field] = {
+      render: function formMixinGetInputsReturnInputElement() {
+        return React.createElement(inputs[field].component, inputs[field].props);
+      }
+    };
+  }.bind(this));
+
+  return innerInputs;
 };
 
 module.exports = formMixin;
