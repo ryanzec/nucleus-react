@@ -12,7 +12,7 @@ formMixin.resetForm = function formMixinResetForm(formName) {
   //then clear the validation
   var keys = Object.keys(this.getInputs(formName));
 
-  _.forEach(keys, function(key) {
+  _.forEach(keys, function formMixinResetFormRefsLoop(key) {
     if (this.refs[key] && this.refs[key].clearValidation) {
       this.refs[key].clearValidation();
     }
@@ -30,8 +30,8 @@ formMixin.validateForm = function formMixinValidateForm(formName) {
 };
 
 formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, field) {
-  return function(value, event) {
-    var newData = {}
+  return function formMixinOnChangeFormInputGeneratedHandler(value, event) {
+    var newData = {};
     newData[formName] = _.clone(this.state[formName]);
     newData[formName][field] = value;
     this.setState(newData);

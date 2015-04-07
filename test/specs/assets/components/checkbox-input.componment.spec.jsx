@@ -149,14 +149,14 @@ describe('checkbox input component', function() {
     expect(validationIcon.length).to.equal(0);
   });
 
-  it('should be able to show validation on initial load', function() {
-    this.component = React.render(<CheckboxInput renderValidation="both" renderValidationOnLoad={true} validate={validateTrue} />, div);
+  it('should run and be able to show validation on initial load', function() {
+    this.component = React.render(<CheckboxInput renderValidation="both" renderValidationOnLoad={true} validate={validateFalse} />, div);
     var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
     var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-    expect(formElement.props.className).to.equal('form-element m-valid');
+    expect(formElement.props.className).to.equal('form-element m-invalid');
     expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
+    expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
   });
 
   it('should show valid validation', function() {

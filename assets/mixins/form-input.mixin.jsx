@@ -35,6 +35,12 @@ formInputMixin.getInitialState = function textboxInputGetInitialState() {
   };
 };
 
+formInputMixin.componentDidMount = function formInputMixinComponentDidMount() {
+  if (this.props.renderValidationOnLoad) {
+    this.validate();
+  }
+};
+
 formInputMixin.shouldRenderValidation = function formInputMixinShouldRenderValidation() {
   return (
     this.props.renderValidation
