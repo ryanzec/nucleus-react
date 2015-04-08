@@ -50,7 +50,13 @@ var FormExmplePlaceholders = React.createClass({
           props: {
             placeholder: 'Email Address',
             renderValidation: 'invalid',
-            validate: this.validate
+            validate: [{
+              message: "Can't be empty",
+              validator: this.validateNotEmpty
+            }, {
+              message: '\'%%value%%\' - Must be valid email format : your.name@example.com',
+              validator: this.validateEmail
+            }]
           }
         },
         password: {
@@ -119,11 +125,10 @@ var FormExmplePlaceholders = React.createClass({
         },
         date: {
           component: DatePicker,
-          hasNoValue: false,
+          valueProperty: 'selectedDay',
           hasOnChange: false,
           props: {
             onClickDate: this.onClickDate,
-            selectedDay: this.state.test.date
           }
         }
       }
@@ -159,6 +164,14 @@ var FormExmplePlaceholders = React.createClass({
 
   validateLiveIn: function(value) {
     return value === 'US';
+  },
+
+  validateNotEmpty: function(value) {
+    return value.length > 0;
+  },
+
+  validateEmail: function(value) {
+    return value === 'jane.doe@example.com';
   },
 
   getGenderOptions: function() {

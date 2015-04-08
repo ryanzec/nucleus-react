@@ -3,6 +3,7 @@ var reactTestUtils = React.addons.TestUtils;
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var CheckboxInput = require('../../../../assets/components/checkbox-input.component.jsx');
+var RadioInput = require('../../../../assets/components/radio-input.component.jsx');
 var InputGroup = require('../../../../assets/components/input-group.component.jsx');
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
 var Button = require('../../../../assets/components/button.component.jsx');
@@ -20,6 +21,7 @@ var SingleForm = React.createClass({
       password: 'test',
       receiveNewletters: true,
       over21: false,
+      radio: 'false',
       date: ''
     };
     return {
@@ -66,6 +68,20 @@ var SingleForm = React.createClass({
           }
         },
 
+        radio: {
+          component: RadioInput,
+          props: {
+            options: [{
+              display: 'True',
+              value: 'true'
+            }, {
+              display: 'False',
+              value: 'false'
+            }],
+            validate: this.validate
+          }
+        },
+
         date: {
           component: DatePicker,
           hasOnChange: false,
@@ -94,6 +110,7 @@ var SingleForm = React.createClass({
         </InputGroup>
         {inputs.receiveNewletters.render()}
         {inputs.over21.render()}
+        {inputs.radio.render()}
         {inputs.date.render()}
       </form>
     );
@@ -119,6 +136,7 @@ var MultipleForms = React.createClass({
       password: 'test',
       receiveNewletters: true,
       over21: false,
+      radio: 'false',
       date: ''
     };
     var initialFormData2 = {
@@ -126,6 +144,7 @@ var MultipleForms = React.createClass({
       email: 'test',
       agreeToTerms: true,
       under21: false,
+      radio2: 'false',
       date2: ''
     }
     return {
@@ -174,6 +193,20 @@ var MultipleForms = React.createClass({
           }
         },
 
+        radio: {
+          component: RadioInput,
+          props: {
+            options: [{
+              display: 'True',
+              value: 'true'
+            }, {
+              display: 'False',
+              value: 'false'
+            }],
+            validate: this.validate
+          }
+        },
+
         date: {
           component: DatePicker,
           hasOnChange: false,
@@ -217,6 +250,20 @@ var MultipleForms = React.createClass({
           }
         },
 
+        radio2: {
+          component: RadioInput,
+          props: {
+            options: [{
+              display: 'True',
+              value: 'true'
+            }, {
+              display: 'False',
+              value: 'false'
+            }],
+            validate: this.validate
+          }
+        },
+
         date2: {
           component: DatePicker,
           hasOnChange: false,
@@ -245,6 +292,7 @@ var MultipleForms = React.createClass({
         </InputGroup>
         {inputs.receiveNewletters.render()}
         {inputs.over21.render()}
+        {inputs.radio.render()}
         {inputs.date.render()}
       </form>
     );
@@ -261,6 +309,7 @@ var MultipleForms = React.createClass({
         </InputGroup>
         {inputs.agreeToTerms.render()}
         {inputs.under21.render()}
+        {inputs.radio2.render()}
         {inputs.date2.render()}
       </form>
     );
@@ -292,6 +341,7 @@ describe('form mixin', function() {
       var passwordInput = inputs[1];
       var receiveNewlettersInput = inputs[2];
       var over21Input = inputs[3];
+      var radioTrueInput = inputs[4];
 
       reactTestUtils.Simulate.change(firstNameInput, {
         target: {
@@ -317,10 +367,17 @@ describe('form mixin', function() {
         }
       });
 
+      reactTestUtils.Simulate.change(radioTrueInput, {
+        target: {
+          value: 'true'
+        }
+      });
+
       expect(firstNameInput.getDOMNode().value).to.equal('123');
       expect(passwordInput.getDOMNode().value).to.equal('234');
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.false;
       expect(over21Input.getDOMNode().checked).to.be.true;
+      expect(radioTrueInput.getDOMNode().checked).to.be.true;
 
       this.component.resetForm('test');
 
@@ -328,6 +385,7 @@ describe('form mixin', function() {
       expect(passwordInput.getDOMNode().value).to.equal('test');
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
       expect(over21Input.getDOMNode().checked).to.be.false;
+      expect(radioTrueInput.getDOMNode().checked).to.be.false;
     });
 
     it('should be able to validate all form fields', function() {
@@ -337,6 +395,7 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
       expect(this.component.refs.over21.state.valid).to.be.true;
+      expect(this.component.refs.radio.state.valid).to.be.true;
 
       this.component.setState({
         test: {
@@ -344,6 +403,7 @@ describe('form mixin', function() {
           password: '234',
           receiveNewletters: false,
           over21: false,
+          radio: 'false',
           date: ''
         }
       });
@@ -353,6 +413,7 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.false;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.false;
       expect(this.component.refs.over21.state.valid).to.be.false;
+      expect(this.component.refs.radio.state.valid).to.be.false;
 
       this.component.setState({
         test: {
@@ -360,6 +421,7 @@ describe('form mixin', function() {
           password: 'true',
           receiveNewletters: true,
           over21: true,
+          radio: 'true',
           date: ''
         }
       });
@@ -369,6 +431,7 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
       expect(this.component.refs.over21.state.valid).to.be.true;
+      expect(this.component.refs.radio.state.valid).to.be.true;
     });
   });
 
@@ -381,10 +444,14 @@ describe('form mixin', function() {
       var passwordInput = inputs[1];
       var receiveNewlettersInput = inputs[2];
       var over21Input = inputs[3];
-      var lastNameInput = inputs[5];
-      var emailInput = inputs[6];
-      var agreeToTermsInput = inputs[7];
-      var under21Input = inputs[8];
+      var radioTrueInput = inputs[4];
+      var radioFalseInput = inputs[5];
+      var lastNameInput = inputs[7];
+      var emailInput = inputs[8];
+      var agreeToTermsInput = inputs[9];
+      var under21Input = inputs[10];
+      var radio2TrueInput = inputs[11];
+      var radio2FalseInput = inputs[12];
 
       reactTestUtils.Simulate.change(lastNameInput, {
         target: {
@@ -410,14 +477,22 @@ describe('form mixin', function() {
         }
       });
 
+      reactTestUtils.Simulate.change(radio2TrueInput, {
+        target: {
+          value: 'true'
+        }
+      });
+
       expect(firstNameInput.getDOMNode().value).to.equal('');
       expect(passwordInput.getDOMNode().value).to.equal('test');
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
       expect(over21Input.getDOMNode().checked).to.be.false;
+      expect(radioFalseInput.getDOMNode().checked).to.be.true;
       expect(lastNameInput.getDOMNode().value).to.equal('123');
       expect(emailInput.getDOMNode().value).to.equal('234');
       expect(agreeToTermsInput.getDOMNode().checked).to.be.flase;
       expect(under21Input.getDOMNode().checked).to.be.true;
+      expect(radio2TrueInput.getDOMNode().checked).to.be.true;
 
       this.component.resetForm('test2');
 
@@ -425,6 +500,7 @@ describe('form mixin', function() {
       expect(emailInput.getDOMNode().value).to.equal('test');
       expect(agreeToTermsInput.getDOMNode().checked).to.be.true;
       expect(under21Input.getDOMNode().checked).to.be.false;
+      expect(radio2FalseInput.getDOMNode().checked).to.be.true;
     });
 
     it('should be able to validate all form fields', function() {
@@ -434,10 +510,12 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
       expect(this.component.refs.over21.state.valid).to.be.true;
+      expect(this.component.refs.radio.state.valid).to.be.true;
       expect(this.component.refs.lastName.state.valid).to.be.true;
       expect(this.component.refs.email.state.valid).to.be.true;
       expect(this.component.refs.agreeToTerms.state.valid).to.be.true;
       expect(this.component.refs.under21.state.valid).to.be.true;
+      expect(this.component.refs.radio2.state.valid).to.be.true;
 
       this.component.setState({
         test2: {
@@ -445,6 +523,7 @@ describe('form mixin', function() {
           email: '234',
           receiveNewletters: false,
           agreeToTerms: false,
+          radio2: 'false',
           date: ''
         }
       });
@@ -454,10 +533,12 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
       expect(this.component.refs.over21.state.valid).to.be.true;
+      expect(this.component.refs.radio.state.valid).to.be.true;
       expect(this.component.refs.lastName.state.valid).to.be.false;
       expect(this.component.refs.email.state.valid).to.be.false;
       expect(this.component.refs.agreeToTerms.state.valid).to.be.false;
       expect(this.component.refs.under21.state.valid).to.be.false;
+      expect(this.component.refs.radio2.state.valid).to.be.false;
 
       this.component.setState({
         test2: {
@@ -465,6 +546,7 @@ describe('form mixin', function() {
           email: 'true',
           agreeToTerms: true,
           under21: true,
+          radio2: 'true',
           date2: ''
         }
       });
@@ -474,10 +556,12 @@ describe('form mixin', function() {
       expect(this.component.refs.password.state.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
       expect(this.component.refs.over21.state.valid).to.be.true;
+      expect(this.component.refs.radio.state.valid).to.be.true;
       expect(this.component.refs.lastName.state.valid).to.be.true;
       expect(this.component.refs.email.state.valid).to.be.true;
       expect(this.component.refs.agreeToTerms.state.valid).to.be.true;
       expect(this.component.refs.under21.state.valid).to.be.true;
+      expect(this.component.refs.radio2.state.valid).to.be.true;
     });
   });
 });

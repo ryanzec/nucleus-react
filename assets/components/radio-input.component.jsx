@@ -14,18 +14,14 @@ radioInput.mixins = [
 radioInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
-  validate: React.PropTypes.func,
-  options: React.PropTypes.array.isRequired,
-  name: React.PropTypes.string.isRequired
+  options: React.PropTypes.array.isRequired
 };
 
 radioInput.getDefaultProps = function radioInputGetDefaultProps() {
   return {
     className: null,
     label: null,
-    validate: null,
-    options: [],
-    name: null
+    options: []
   };
 };
 
@@ -41,6 +37,10 @@ radioInput.getCssClasses = function radioInputGetCssClasses() {
   }
 
   return cssClasses;
+};
+
+radioInput.cleanValue = function radioInputCleanValue(value) {
+  return value;
 };
 
 radioInput.renderLabel = function radioInputRenderLabel() {

@@ -98,10 +98,6 @@ describe('checkbox input component', function() {
     var input = this.component.getDOMNode().querySelectorAll('input:checked');
 
     expect(input.length).to.equal(1);
-
-    // var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
-
-    // expect(input.getDOMNode().checked).to.be.true;
   });
 
   it('should be able to render content to the left', function() {
@@ -138,94 +134,5 @@ describe('checkbox input component', function() {
     });
 
     expect(this.component.state.formData.prop).to.be.true;
-  });
-
-  it('should not show validation on initial load by default', function() {
-    this.component = React.render(<CheckboxInput renderValidation="both" validate={validateTrue}  />, div);
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element');
-    expect(validationIcon.length).to.equal(0);
-  });
-
-  it('should run and be able to show validation on initial load', function() {
-    this.component = React.render(<CheckboxInput renderValidation="both" renderValidationOnLoad={true} validate={validateFalse} />, div);
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element m-invalid');
-    expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
-  });
-
-  it('should show valid validation', function() {
-    this.component = React.render(<CheckboxInput renderValidation="both" validate={validateTrue} />, div);
-    var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
-
-    reactTestUtils.Simulate.change(input, {
-      target: {
-        checked: true
-      }
-    });
-
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element m-valid');
-    expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
-  });
-
-  it('should not show valid validation if configued for invalid only', function() {
-    this.component = React.render(<CheckboxInput renderValidation="invalid" validate={validateTrue} />, div);
-    var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
-
-    reactTestUtils.Simulate.change(input, {
-      target: {
-        checked: true
-      }
-    });
-
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element');
-    expect(validationIcon.length).to.equal(0);
-  });
-
-  it('should show invalid validation', function() {
-    this.component = React.render(<CheckboxInput renderValidation="both" validate={validateFalse} />, div);
-    var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
-
-    reactTestUtils.Simulate.change(input, {
-      target: {
-        checked: true
-      }
-    });
-
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element m-invalid');
-    expect(validationIcon.length).to.equal(1);
-    expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
-  });
-
-  it('should not show invalid validation if configured for valid only', function() {
-    this.component = React.render(<CheckboxInput renderValidation="valid" validate={validateFalse} />, div);
-    var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
-
-    reactTestUtils.Simulate.change(input, {
-      target: {
-        checked: true
-      }
-    });
-
-    var formElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'form-element');
-    var validationIcon = this.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
-
-    expect(formElement.props.className).to.equal('form-element');
-    expect(validationIcon.length).to.equal(0);
   });
 });

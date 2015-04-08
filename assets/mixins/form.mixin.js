@@ -52,9 +52,8 @@ formMixin.getInputs = function formMixinGetInputs(formName) {
       inputs[field].props.ref = field;
     }
 
-    if (inputs[field].hasNoValue !== false) {
-      inputs[field].props.value = this.state[formName][field];
-    }
+    var valueProperty = inputs[field].valueProperty || 'value';
+    inputs[field].props[valueProperty] = this.state[formName][field];
 
     innerInputs[field] = {
       render: function formMixinGetInputsReturnInputElement() {

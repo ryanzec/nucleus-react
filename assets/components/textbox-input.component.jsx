@@ -15,7 +15,6 @@ textboxInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
   maskValue: React.PropTypes.bool,
-  validate: React.PropTypes.func,
   multiLined: React.PropTypes.bool,
   append: React.PropTypes.node,
   prepend: React.PropTypes.node
@@ -26,7 +25,6 @@ textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
     className: null,
     label: null,
     maskValue: false,
-    validate: null,
     multiLined: false,
     append: null,
     prepend: null
@@ -73,9 +71,13 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
 
-  props.value = props.value || '';
+  props.value = this.cleanValue(props.value);
 
   return props;
+};
+
+textboxInput.cleanValue = function textboxInputCleanValue(value) {
+  return value || '';
 };
 
 textboxInput.onClickPend = function textboxInputOnClickPend() {

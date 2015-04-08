@@ -9,29 +9,26 @@ var formInputMixin = {};
 
 formInputMixin.propTypes = {
   renderValidation: React.PropTypes.oneOf([false, 'valid', 'invalid', 'both']),
-  renderValidationOnLoad: React.PropTypes.bool
+  renderValidationOnLoad: React.PropTypes.bool,
+  validate: React.PropTypes.any,
 };
 
 formInputMixin.getDefaultProps = function formInputMixinGetDefaultProps() {
   return {
     renderValidation: false,
-    renderValidationOnLoad: false
+    renderValidationOnLoad: false,
+    validate: []
   };
 };
 
-formInputMixin.getInitialState = function textboxInputGetInitialState() {
-  var initialValue;
-
-  if (_.isBoolean(this.props.checked)) {
-    initialValue = this.props.checked;
-  } else {
-    initialValue = this.props.value || null;
-  }
+formInputMixin.getInitialState = function formInputMixinGetInitialState() {
+  var initialValue = _.isBoolean(this.props.value) || this.props.value ? this.props.value : null;
 
   return {
     initialValue: initialValue,
     valid: true,
-    isValidationActive: false
+    isValidationActive: false,
+    validationErrors: []
   };
 };
 
@@ -98,14 +95,28 @@ formInputMixin.changeValue = function formInputMixinChangeValue(value) {
 
 formInputMixin.validate = function formInputMixinValidate(value, activateValidation) {
   activateValidation = _.isBoolean(activateValidation) ? activateValidation : true;
-  var defaultValue = this.props.checked || this.props.value;
-  value = value || defaultValue;
+  var defaultValue = /*this.props.checked || */this.props.value;
+  value = value !== undefined ? value : defaultValue;
   var newState = {
-    isValidationActive: true
+    isValidationActive: true,
+    validationErrors: [],
+    valid: true
   };
 
-  if (this.props.validate) {
-    newState.valid = this.props.validate(value);
+  var validators = _.isArray(this.props.validate) ? this.props.validate : [{
+    validator: this.props.validate
+  }];
+
+  if (validators.length > 0) {
+    validators.forEach(function(validator) {
+      if (validator.validator(this.cleanValue(value)) !== true) {
+        newState.valid = false;
+
+        if (validator.message) {
+          newState.validationErrors.push(validator.message.replace('%%value%%', this.cleanValue(value)));
+        }
+      }
+    }.bind(this));
   }
 
   this.setState(newState);

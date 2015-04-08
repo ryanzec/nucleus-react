@@ -14,7 +14,6 @@ selectInput.mixins = [
 selectInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
-  validate: React.PropTypes.func,
   emptyOption: React.PropTypes.any,
   options: React.PropTypes.array
 };
@@ -23,7 +22,6 @@ selectInput.getDefaultProps = function selectInputGetDefaultProps() {
   return {
     className: null,
     label: null,
-    validate: null,
     emptyOption: 'Select',
     options: []
   };
@@ -57,9 +55,13 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
 
-  props.value = props.value || '';
+  props.value = this.cleanValue(props.value);
 
   return props;
+};
+
+selectInput.cleanValue = function selectInputCleanValue(value) {
+  return value || '';
 };
 
 selectInput.renderLabel = function selectInputRenderLabel() {

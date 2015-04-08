@@ -14,7 +14,6 @@ checkboxInput.mixins = [
 checkboxInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
-  validate: React.PropTypes.func,
   displayPosition: React.PropTypes.oneOf(['right', 'left'])
 };
 
@@ -22,7 +21,6 @@ checkboxInput.getDefaultProps = function checkboxInputGetDefaultProps() {
   return {
     className: null,
     label: null,
-    validate: null,
     displayPosition: 'right'
   };
 };
@@ -53,10 +51,14 @@ checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThrou
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
 
-  props.checked = props.value || false;
+  props.checked = this.cleanValue(props.value);
   delete props.value;
 
   return props;
+};
+
+checkboxInput.cleanValue = function checkboxInputCleanValue(value) {
+  return value || false;
 };
 
 checkboxInput.renderInput = function checkboxInputRenderInput() {

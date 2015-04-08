@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin');
 var testHelper = require('../../../test-helper');
 
 var selectedDay = '01/02/2014';
@@ -22,6 +23,48 @@ var Test = React.createClass({
     return (
       <DatePicker selectedDay={this.state.selectedDay} />
     );
+  }
+});
+
+var TestFormSystem = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    return {
+      test: {
+        selectedDay: selectedDay
+      }
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        selectedDay: {
+          component: DatePicker,
+          valueProperty: 'selectedDay',
+          hasOnChange: false,
+          props: {
+            onClickDate: this.onClickDate,
+          }
+        }
+      }
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      test: {
+        selectedDay: value
+      }
+    });
+  },
+
+  render: function() {
+    var inputs = this.getInputs('test');
+    return inputs.selectedDay.render();
   }
 });
 
@@ -154,5 +197,25 @@ describe('date picker component', function() {
     }));
 
     expect(document.activeElement).to.not.equal(this.component.refs.input.refs.input.getDOMNode());
+  });
+
+  it('should work within the form system', function() {
+    this.component = React.render(<TestFormSystem />, div);
+
+    var input = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'm-text');
+
+    expect(input.props.value).to.equal(selectedDay);
+
+    reactTestUtils.Simulate.focus(input);
+
+    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-day');
+
+    reactTestUtils.Simulate.click(days[10], {
+      target: days[10].getDOMNode()
+    });
+
+    input = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'm-text');
+
+    expect(input.props.value).to.equal('01/08/2014');
   });
 });

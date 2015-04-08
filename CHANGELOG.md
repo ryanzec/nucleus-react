@@ -9,6 +9,16 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [forms] moved validation stuff from form input components to form input mixing
+- [forms] refactored form input generation to use a configuration object
+- [forms] updated form validation to allow for error messages
+- [forms] updated form validation to allow for multiple validators (#37)
+- centralized form input component validation tests
+- [date-picker] fixed bug with use date picker within new form system (#35)
+- [forms] cleaned up setting values for form input components (#34)
+- [forms] validation now runs when showing validation on loading (#33)
+- [date-picker] fixed issue when calendar sould show up under some elements (#32)
+- [forms] added `getInputs()` to form mixin for better form management
 - [forms] fixed issue pulling inputs for some form mixin methods
 - [forms] fixed `formMixin.onChangeFormInput()` to properly set value to correct form
 - [forms] added form mixin tests to test a component with multiple forms
