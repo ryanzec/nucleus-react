@@ -37,7 +37,10 @@ var SingleForm = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'First Name',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -45,7 +48,9 @@ var SingleForm = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'Password',
-            validate: this.validate,
+            validators: [{
+              validator: this.validate
+            }],
             maskValue: true,
             renderValidation: "both"
           }
@@ -55,7 +60,10 @@ var SingleForm = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I want to receive weekly newsletters",
-            validate: this.validateBoolean
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -63,7 +71,10 @@ var SingleForm = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I am over the age of 21",
-            validate: this.validateBoolean,
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both',
             displayPosition: "left"
           }
         },
@@ -78,7 +89,10 @@ var SingleForm = React.createClass({
               display: 'False',
               value: 'false'
             }],
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -162,7 +176,10 @@ var MultipleForms = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'First Name',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -170,7 +187,9 @@ var MultipleForms = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'Password',
-            validate: this.validate,
+            validators: [{
+              validator: this.validate
+            }],
             maskValue: true,
             renderValidation: "both"
           }
@@ -180,7 +199,10 @@ var MultipleForms = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I want to receive weekly newsletters",
-            validate: this.validateBoolean
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -188,7 +210,10 @@ var MultipleForms = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I am over the age of 21",
-            validate: this.validateBoolean,
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both',
             displayPosition: "left"
           }
         },
@@ -203,7 +228,10 @@ var MultipleForms = React.createClass({
               display: 'False',
               value: 'false'
             }],
-            validate: this.validate
+            renderValidation: 'both',
+            validators: [{
+              validator: this.validate
+            }]
           }
         },
 
@@ -219,7 +247,10 @@ var MultipleForms = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'Last Name',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -227,7 +258,9 @@ var MultipleForms = React.createClass({
           component: TextboxInput,
           props: {
             placeholder: 'Email',
-            validate: this.validate,
+            validators: [{
+              validator: this.validate
+            }],
             maskValue: true,
             renderValidation: "both"
           }
@@ -237,7 +270,10 @@ var MultipleForms = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I agree to terms",
-            validate: this.validateBoolean
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -245,7 +281,10 @@ var MultipleForms = React.createClass({
           component: CheckboxInput,
           props: {
             label: "I am under the age of 21",
-            validate: this.validateBoolean,
+            validators: [{
+              validator: this.validateBoolean
+            }],
+            renderValidation: 'both',
             displayPosition: "left"
           }
         },
@@ -260,7 +299,10 @@ var MultipleForms = React.createClass({
               display: 'False',
               value: 'false'
             }],
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }],
+            renderValidation: 'both'
           }
         },
 
@@ -391,11 +433,11 @@ describe('form mixin', function() {
     it('should be able to validate all form fields', function() {
       this.component = React.render(<SingleForm />, div);
 
-      expect(this.component.refs.firstName.state.valid).to.be.true;
-      expect(this.component.refs.password.state.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
-      expect(this.component.refs.over21.state.valid).to.be.true;
-      expect(this.component.refs.radio.state.valid).to.be.true;
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
+      expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
 
       this.component.setState({
         test: {
@@ -409,11 +451,11 @@ describe('form mixin', function() {
       });
       this.component.validateForm('test');
 
-      expect(this.component.refs.firstName.state.valid).to.be.false;
-      expect(this.component.refs.password.state.valid).to.be.false;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.false;
-      expect(this.component.refs.over21.state.valid).to.be.false;
-      expect(this.component.refs.radio.state.valid).to.be.false;
+      expect(this.component.refs.firstName.validator.valid).to.be.false;
+      expect(this.component.refs.password.validator.valid).to.be.false;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.false;
+      expect(this.component.refs.over21.validator.valid).to.be.false;
+      expect(this.component.refs.radio.validator.valid).to.be.false;
 
       this.component.setState({
         test: {
@@ -427,11 +469,11 @@ describe('form mixin', function() {
       });
       this.component.validateForm('test');
 
-      expect(this.component.refs.firstName.state.valid).to.be.true;
-      expect(this.component.refs.password.state.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
-      expect(this.component.refs.over21.state.valid).to.be.true;
-      expect(this.component.refs.radio.state.valid).to.be.true;
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
+      expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
     });
   });
 
@@ -506,16 +548,16 @@ describe('form mixin', function() {
     it('should be able to validate all form fields', function() {
       this.component = React.render(<MultipleForms />, div);
 
-      expect(this.component.refs.firstName.state.valid).to.be.true;
-      expect(this.component.refs.password.state.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
-      expect(this.component.refs.over21.state.valid).to.be.true;
-      expect(this.component.refs.radio.state.valid).to.be.true;
-      expect(this.component.refs.lastName.state.valid).to.be.true;
-      expect(this.component.refs.email.state.valid).to.be.true;
-      expect(this.component.refs.agreeToTerms.state.valid).to.be.true;
-      expect(this.component.refs.under21.state.valid).to.be.true;
-      expect(this.component.refs.radio2.state.valid).to.be.true;
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
+      expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
+      expect(this.component.refs.lastName.validator.valid).to.be.true;
+      expect(this.component.refs.email.validator.valid).to.be.true;
+      expect(this.component.refs.agreeToTerms.validator.valid).to.be.true;
+      expect(this.component.refs.under21.validator.valid).to.be.true;
+      expect(this.component.refs.radio2.validator.valid).to.be.true;
 
       this.component.setState({
         test2: {
@@ -529,16 +571,16 @@ describe('form mixin', function() {
       });
       this.component.validateForm('test2');
 
-      expect(this.component.refs.firstName.state.valid).to.be.true;
-      expect(this.component.refs.password.state.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
-      expect(this.component.refs.over21.state.valid).to.be.true;
-      expect(this.component.refs.radio.state.valid).to.be.true;
-      expect(this.component.refs.lastName.state.valid).to.be.false;
-      expect(this.component.refs.email.state.valid).to.be.false;
-      expect(this.component.refs.agreeToTerms.state.valid).to.be.false;
-      expect(this.component.refs.under21.state.valid).to.be.false;
-      expect(this.component.refs.radio2.state.valid).to.be.false;
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
+      expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
+      expect(this.component.refs.lastName.validator.valid).to.be.false;
+      expect(this.component.refs.email.validator.valid).to.be.false;
+      expect(this.component.refs.agreeToTerms.validator.valid).to.be.false;
+      expect(this.component.refs.under21.validator.valid).to.be.false;
+      expect(this.component.refs.radio2.validator.valid).to.be.false;
 
       this.component.setState({
         test2: {
@@ -552,16 +594,16 @@ describe('form mixin', function() {
       });
       this.component.validateForm('test2');
 
-      expect(this.component.refs.firstName.state.valid).to.be.true;
-      expect(this.component.refs.password.state.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.state.valid).to.be.true;
-      expect(this.component.refs.over21.state.valid).to.be.true;
-      expect(this.component.refs.radio.state.valid).to.be.true;
-      expect(this.component.refs.lastName.state.valid).to.be.true;
-      expect(this.component.refs.email.state.valid).to.be.true;
-      expect(this.component.refs.agreeToTerms.state.valid).to.be.true;
-      expect(this.component.refs.under21.state.valid).to.be.true;
-      expect(this.component.refs.radio2.state.valid).to.be.true;
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
+      expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
+      expect(this.component.refs.lastName.validator.valid).to.be.true;
+      expect(this.component.refs.email.validator.valid).to.be.true;
+      expect(this.component.refs.agreeToTerms.validator.valid).to.be.true;
+      expect(this.component.refs.under21.validator.valid).to.be.true;
+      expect(this.component.refs.radio2.validator.valid).to.be.true;
     });
   });
 });

@@ -9,8 +9,13 @@ There are some key used within the changelog which are as following:
 
 ## master
 
-- [forms] moved validation stuff from form input components to form input mixing
-- [forms] refactored form input generation to use a configuration object
+- [validator][breaking] refactored validation logic into its own more generic object (along with refactoring all form input components)
+- [date-picker] fixed date picker's calendar display issue in IE
+- fixed IE issue with setting placeholder font size
+- fixed warning with using the type property in the test helper
+- [calendar] removed static style in calendar component
+- [forms] moved validation stuff from form input components to form input mixin
+- [forms] refactored from input generation to use a configuration object
 - [forms] updated form validation to allow for error messages
 - [forms] updated form validation to allow for multiple validators (#37)
 - centralized form input component validation tests
@@ -34,7 +39,7 @@ There are some key used within the changelog which are as following:
 - reformatted jsx code
 - update eslint and add reacts eslint plugin
 - [input-group] added back into input group component
-- [form-on-change][breaking] removed form on change mixing
+- [form-on-change][breaking] removed form on change mixin
 - major refactor of mocking solution
 - updated gulp clean build task to remove coverage generated files
 - [extend-text] fixed issue where blurring input would cause new indicator to show when it should not

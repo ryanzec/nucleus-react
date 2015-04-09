@@ -309,7 +309,6 @@ calendar.render = function calendarRender() {
   return (
     <div
       className="calendar"
-      style={{width: '235px'}}
     >
       {this.renderHeader()}
       {this.renderControls()}

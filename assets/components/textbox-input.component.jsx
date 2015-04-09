@@ -38,8 +38,8 @@ textboxInput.getCssClasses = function textboxInputGetCssClasses() {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.shouldRenderValidation()) {
-    cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
+  if (this.validator && this.validator.shouldRenderValidation()) {
+    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -65,8 +65,8 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
   delete props.className;
   delete props.label;
   delete props.renderValidation;
-  delete props.renderValidationOnLoad;
-  delete props.validate;
+  delete props.validateOnLoad;
+  delete props.validators;
 
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
@@ -153,6 +153,8 @@ textboxInput.renderInput = function textboxInputRenderInput() {
 };
 
 textboxInput.render = function textboxInputRender() {
+  var validationIcon = this.validator ? this.validator.renderValidationIcon() : null;
+
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
@@ -160,7 +162,7 @@ textboxInput.render = function textboxInputRender() {
         {this.renderPrepend()}
         {this.renderInput()}
         {this.renderAppend()}
-        {this.renderValidationIcon()}
+        {validationIcon}
       </div>
     </div>
   );

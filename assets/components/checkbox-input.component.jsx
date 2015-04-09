@@ -32,8 +32,8 @@ checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.shouldRenderValidation()) {
-    cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
+  if (this.validator && this.validator.shouldRenderValidation()) {
+    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -45,8 +45,8 @@ checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThrou
   delete props.className;
   delete props.label;
   delete props.renderValidation;
-  delete props.renderValidationOnLoad;
-  delete props.validate;
+  delete props.validateOnLoad;
+  delete props.validators;
 
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
@@ -90,11 +90,13 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
 };
 
 checkboxInput.render = function checkboxInputRender() {
+  var validationIcon = this.validator ? this.validator.renderValidationIcon() : null;
+
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="form-element__field-container">
         {this.renderInput()}
-        {this.renderValidationIcon()}
+        {validationIcon}
       </div>
     </div>
   );

@@ -34,8 +34,8 @@ selectInput.getCssClasses = function selectInputGetCssClasses() {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.shouldRenderValidation()) {
-    cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
+  if (this.validator && this.validator.shouldRenderValidation()) {
+    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -49,8 +49,8 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
   delete props.emptyOption;
   delete props.options;
   delete props.renderValidation;
-  delete props.renderValidationOnLoad;
-  delete props.validate;
+  delete props.validateOnLoad;
+  delete props.validators;
 
   //we provide a custon onChange event handler so we need to remove it from here
   delete props.onChange;
@@ -61,7 +61,7 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
 };
 
 selectInput.cleanValue = function selectInputCleanValue(value) {
-  return value || '';
+  return (value || value === false) ? value : '';
 };
 
 selectInput.renderLabel = function selectInputRenderLabel() {
@@ -111,12 +111,14 @@ selectInput.renderInput = function selectInputRenderInput() {
 };
 
 selectInput.render = function selectInputRender() {
+  var validationIcon = this.validator ? this.validator.renderValidationIcon() : null;
+
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
       <div className="form-element__field-container">
         {this.renderInput()}
-        {this.renderValidationIcon()}
+        {validationIcon}
       </div>
     </div>
   );

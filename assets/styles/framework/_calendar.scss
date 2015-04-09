@@ -40,8 +40,12 @@
 
   &__day-of-week,
   &__week-day {
+    @include flex(1);
+
+
+    //this prevent IE from making the boxes too small
+    min-width: 25px;
     display: inline-block;
-    width: 100%;
     padding: 5px;
     text-align: center;
     border: 1px solid $color-gray3;

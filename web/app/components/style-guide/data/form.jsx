@@ -50,7 +50,7 @@ var FormExmplePlaceholders = React.createClass({
           props: {
             placeholder: 'Email Address',
             renderValidation: 'invalid',
-            validate: [{
+            validators: [{
               message: "Can't be empty",
               validator: this.validateNotEmpty
             }, {
@@ -66,7 +66,9 @@ var FormExmplePlaceholders = React.createClass({
             maskValue: true,
             placeholder: 'Password',
             renderValidation: 'both',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }]
           }
         },
         confirmPassword: {
@@ -82,7 +84,9 @@ var FormExmplePlaceholders = React.createClass({
             emptyOption: 'Select Gender',
             options: this.getGenderOptions(),
             renderValidation: 'both',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }]
           }
         },
         bio: {
@@ -110,7 +114,9 @@ var FormExmplePlaceholders = React.createClass({
           props: {
             label: 'I agree to the terms and conditions',
             renderValidation: 'both',
-            validate: this.validate
+            validators: [{
+              validator: this.validate
+            }]
           }
         },
         liveIn: {
@@ -120,7 +126,9 @@ var FormExmplePlaceholders = React.createClass({
             name: 'liveIn',
             options: this.getRadioOptions(),
             renderValidation: 'both',
-            validate: this.validateLiveIn
+            validators: [{
+              validator: this.validateLiveIn
+            }]
           }
         },
         date: {
@@ -218,13 +226,13 @@ var FormExmplePlaceholders = React.createClass({
   render: function() {
     return (
       <span>
+        {this.renderForm()}
+        <Button onClick={this.resetTestForm}>Reset</Button>
+        <Button onClick={this.validateTestForm}>Validate</Button>
         <div>
           <header>Form Data</header>
           <span dangerouslySetInnerHTML={{__html: JSON.stringify(this.state.test, null, '\t').replace(/\n/g, '<br />')}}></span>
         </div>
-        {this.renderForm()}
-        <Button onClick={this.resetTestForm}>Reset</Button>
-        <Button onClick={this.validateTestForm}>Validate</Button>
       </span>
     );
   }
@@ -291,7 +299,7 @@ var FormExmpleLabels = React.createClass({
         <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} />
         <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} />
         <InputGroup>
-          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
+          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" validateOnLoad={true} validators={[{validator:this.validate}]} />
           <TextboxInput className="confirm-password" label="Confirm Password" />
         </InputGroup>
         <SelectInput label="Gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onGenderChange} />
@@ -366,7 +374,7 @@ var FormExmpleInline = React.createClass({
         <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} append=".com" />
         <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} prepend="http://" append=".com" />
         <InputGroup>
-          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" renderValidationOnLoad={true} validate={this.validate} />
+          <TextboxInput className="password" maskValue={true} label="Password" value={this.state.test.password} onChange={this.onPasswordChange} renderValidation="both" validateOnLoad={true} validators={[{validator:this.validate}]} />
           <TextboxInput className="confirm-password" label="Confirm Password" />
         </InputGroup>
         <SelectInput label="Gender" emptyOption="Select Gender" options={this.getGenderOptions()} value={this.state.test.gender} onChange={this.onGenderChange} />

@@ -14,8 +14,9 @@ formMixin.resetForm = function formMixinResetForm(formName) {
   var keys = Object.keys(this.getInputs(formName));
 
   _.forEach(keys, function formMixinResetFormRefsLoop(key) {
-    if (this.refs[key] && this.refs[key].clearValidation) {
-      this.refs[key].clearValidation();
+    if (this.refs[key] && this.refs[key].validator) {
+      this.refs[key].validator.reset();
+      this.refs[key].forceUpdate();
     }
   }.bind(this));
 };
@@ -24,8 +25,9 @@ formMixin.validateForm = function formMixinValidateForm(formName) {
   var inputs = this.getInputs(formName);
 
   _.forEach(inputs, function formMixinResetFormInputLoop(value, key) {
-    if (this.refs[key] && this.refs[key].validate) {
-      this.refs[key].validate();
+    if (this.refs[key] && this.refs[key].validator) {
+      this.refs[key].validator.validate(this.refs[key].cleanValue(this.refs[key].props.value));
+      this.refs[key].forceUpdate();
     }
   }.bind(this));
 };

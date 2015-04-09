@@ -32,8 +32,8 @@ radioInput.getCssClasses = function radioInputGetCssClasses() {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.shouldRenderValidation()) {
-    cssClasses.push(this.state.valid ? 'm-valid' : 'm-invalid');
+  if (this.validator && this.validator.shouldRenderValidation()) {
+    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -103,12 +103,14 @@ radioInput.renderInput = function radioInputRenderInput() {
 };
 
 radioInput.render = function radioInputRender() {
+  var validationIcon = this.validator ? this.validator.renderValidationIcon() : null;
+
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
       <div className="form-element__field-container">
         {this.renderInput()}
-        {this.renderValidationIcon()}
+        {validationIcon}
       </div>
     </div>
   );
