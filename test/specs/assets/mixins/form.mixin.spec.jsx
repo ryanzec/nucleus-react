@@ -40,7 +40,8 @@ var SingleForm = React.createClass({
             validators: [{
               validator: this.validate
             }],
-            renderValidation: 'both'
+            renderValidation: 'both',
+            validateOnLoad: true
           }
         },
 
@@ -99,7 +100,15 @@ var SingleForm = React.createClass({
         date: {
           component: DatePicker,
           hasOnChange: false,
-          props: {}
+          valueProperty: 'selectedDay',
+          props: {
+            renderValidation: 'both',
+            validators: [{
+              validator: function(value) {
+                return value === '01/01/2015';
+              }
+            }]
+          }
         }
       }
     };
@@ -433,12 +442,6 @@ describe('form mixin', function() {
     it('should be able to validate all form fields', function() {
       this.component = React.render(<SingleForm />, div);
 
-      expect(this.component.refs.firstName.validator.valid).to.be.true;
-      expect(this.component.refs.password.validator.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
-      expect(this.component.refs.over21.validator.valid).to.be.true;
-      expect(this.component.refs.radio.validator.valid).to.be.true;
-
       this.component.setState({
         test: {
           firstName: '123',
@@ -474,6 +477,46 @@ describe('form mixin', function() {
       expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
       expect(this.component.refs.over21.validator.valid).to.be.true;
       expect(this.component.refs.radio.validator.valid).to.be.true;
+    });
+
+    it('should keep validation active on form reset if validateOnLoad is set to true', function() {
+      this.component = React.render(<SingleForm />, div);
+
+      expect(this.component.refs.firstName.validator.shouldRenderValidation()).to.be.true;
+      expect(this.component.refs.password.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.receiveNewletters.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.over21.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.radio.validator.shouldRenderValidation()).to.be.false;
+
+      this.component.resetForm('test');
+
+      expect(this.component.refs.firstName.validator.shouldRenderValidation()).to.be.true;
+      expect(this.component.refs.password.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.receiveNewletters.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.over21.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.radio.validator.shouldRenderValidation()).to.be.false;
+    });
+
+    it('should be able to validate form with a component that does not use value and the value property', function() {
+      this.component = React.render(<SingleForm />, div);
+
+      this.component.setState({
+        test: {
+          date: '01/01/2015'
+        }
+      });
+      this.component.validateForm('test');
+
+      expect(this.component.refs.date.validator.valid).to.be.true;
+
+      this.component.setState({
+        test: {
+          date: ''
+        }
+      });
+      this.component.validateForm('test');
+
+      expect(this.component.refs.date.validator.valid).to.be.false;
     });
   });
 
@@ -547,17 +590,6 @@ describe('form mixin', function() {
 
     it('should be able to validate all form fields', function() {
       this.component = React.render(<MultipleForms />, div);
-
-      expect(this.component.refs.firstName.validator.valid).to.be.true;
-      expect(this.component.refs.password.validator.valid).to.be.true;
-      expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
-      expect(this.component.refs.over21.validator.valid).to.be.true;
-      expect(this.component.refs.radio.validator.valid).to.be.true;
-      expect(this.component.refs.lastName.validator.valid).to.be.true;
-      expect(this.component.refs.email.validator.valid).to.be.true;
-      expect(this.component.refs.agreeToTerms.validator.valid).to.be.true;
-      expect(this.component.refs.under21.validator.valid).to.be.true;
-      expect(this.component.refs.radio2.validator.valid).to.be.true;
 
       this.component.setState({
         test2: {

@@ -19,7 +19,10 @@ datePicker.propTypes = {
   selectedDay: React.PropTypes.string,
   onClickDate: React.PropTypes.func,
   placeholder: React.PropTypes.string,
-  calendarHeaderText: React.PropTypes.string
+  calendarHeaderText: React.PropTypes.string,
+  renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
+  validateOnLoad: React.PropTypes.bool,
+  validators: React.PropTypes.array
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -28,7 +31,10 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     selectedDay: null,
     onClickDate: null,
     placeholder: window.i18n['components/date-picker'].placeholder(),
-    calendarHeaderText: window.i18n['components/date-picker'].calendarHeaderText()
+    calendarHeaderText: window.i18n['components/date-picker'].calendarHeaderText(),
+    renderValidation: false,
+    validateOnLoad: false,
+    validators: []
   };
 };
 
@@ -37,6 +43,14 @@ datePicker.getInitialState = function datePickerGetInitialState() {
     isCalendarActive: false
   };
 };
+
+datePicker.componentDidMount = function() {
+  this.validator = this.refs.input.validator;
+}
+
+datePicker.cleanValue = function(value) {
+  return this.refs.input.cleanValue(value);
+}
 
 datePicker.singlePanelClose = function datePickerClose() {
   this.refs.input.refs.input.getDOMNode().blur();
@@ -52,6 +66,12 @@ datePicker.getCalendarPassThroughProps = function datePickerGetCalendarPassThoug
   delete props.placeholder;
   delete props.calendarHeaderText;
 
+  if (props.onClickDate) {
+    delete props.onClickDate;
+
+    props.onClickDate = this.onClickDate;
+  }
+
   props.headerText = this.props.calendarHeaderText;
 
   return props;
@@ -65,6 +85,17 @@ datePicker.onFocusInput = function datePickerOnFocusInput() {
 
 datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
   this.dontCloseOnClick = true;
+};
+
+datePicker.onClickDate = function(value) {
+  if (this.validator) {
+    this.validator.validate(this.cleanValue(value));
+  }
+
+  /* istanbul ignore else */
+  if (this.props.onClickDate) {
+    this.props.onClickDate(value);
+  }
 };
 
 datePicker.renderCalendar = function datePickerRenderCalendar() {
@@ -99,6 +130,9 @@ datePicker.render = function datePickerRender() {
         append={
           <SvgIcon fragment="calendar" />
         }
+        renderValidation={this.props.renderValidation}
+        validateOnLoad={this.props.validateOnLoad}
+        validators={this.props.validators}
         onFocus={this.onFocusInput}
       />
       {this.renderCalendar()}

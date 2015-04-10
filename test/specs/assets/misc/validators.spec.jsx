@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var validator = require('../../../../assets/misc/validator.jsx');
 var testHelper = require('../../../test-helper');
-var iconData = require('nucleus-icons');
 var _ = require('lodash');
 
 var minLengthMessage = 'min length of 4 required';

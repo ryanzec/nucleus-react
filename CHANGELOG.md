@@ -3,15 +3,19 @@
 There are some key used within the changelog which are as following:
 
 - [bug]: means a bug fix
-- [feature]: means a new fea- ture
+- [feature]: means a new feature
 - [breaking]: mean there is a change that might break existing code
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
 
+- [feature][forms] moved validator code out of form input mixin and into it's own mixin for better reuse
+- [feature][date-picker] integrated the date picker's internal input validator to be accessible from the date picker component
+- [bug][forms] fixed bug where resetting a form would not honor the validateOnLoad property
+- [bug][forms] fixed bug where validaing form would not work on a component with a different value property than `value`
 - [validator][breaking] refactored validation logic into its own more generic object (along with refactoring all form input components)
 - [date-picker] fixed date picker's calendar display issue in IE
-- fixed IE issue with setting placeholder font size
+- [forms] fixed IE issue with setting placeholder font size
 - fixed warning with using the type property in the test helper
 - [calendar] removed static style in calendar component
 - [forms] moved validation stuff from form input components to form input mixin

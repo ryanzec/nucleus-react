@@ -137,6 +137,14 @@ var FormExmplePlaceholders = React.createClass({
           hasOnChange: false,
           props: {
             onClickDate: this.onClickDate,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              message: 'Must be 03/10/2015 to validate',
+              validator: function(value) {
+                return value === '03/10/2015';
+              }
+            }]
           }
         }
       }

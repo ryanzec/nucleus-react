@@ -11,11 +11,16 @@ formMixin.resetForm = function formMixinResetForm(formName) {
   this.setState(resetData);
 
   //then clear the validation
-  var keys = Object.keys(this.getInputs(formName));
+  var inputs = this.getInputs(formName);
 
-  _.forEach(keys, function formMixinResetFormRefsLoop(key) {
+  _.forEach(inputs, function formMixinResetFormRefsLoop(input, key) {
     if (this.refs[key] && this.refs[key].validator) {
       this.refs[key].validator.reset();
+
+      if(this.refs[key].props.validateOnLoad === true) {
+        this.refs[key].validator.validate(this.refs[key].cleanValue(this.refs[key].props[input.valueProperty]));
+      }
+
       this.refs[key].forceUpdate();
     }
   }.bind(this));
@@ -24,9 +29,9 @@ formMixin.resetForm = function formMixinResetForm(formName) {
 formMixin.validateForm = function formMixinValidateForm(formName) {
   var inputs = this.getInputs(formName);
 
-  _.forEach(inputs, function formMixinResetFormInputLoop(value, key) {
+  _.forEach(inputs, function formMixinResetFormInputLoop(input, key) {
     if (this.refs[key] && this.refs[key].validator) {
-      this.refs[key].validator.validate(this.refs[key].cleanValue(this.refs[key].props.value));
+      this.refs[key].validator.validate(this.refs[key].cleanValue(this.refs[key].props[input.valueProperty]));
       this.refs[key].forceUpdate();
     }
   }.bind(this));
@@ -58,6 +63,7 @@ formMixin.getInputs = function formMixinGetInputs(formName) {
     inputs[field].props[valueProperty] = this.state[formName][field];
 
     innerInputs[field] = {
+      valueProperty: valueProperty,
       render: function formMixinGetInputsReturnInputElement() {
         return React.createElement(inputs[field].component, inputs[field].props);
       }

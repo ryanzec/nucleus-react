@@ -29,9 +29,14 @@ var Example = React.createClass({
       <span>
         <FlexRow>
           <FlexCell>
+            <div>will validate true if 01/20/2015 is selected</div>
             <DatePicker
               selectedDay={this.state.selectedDay1}
-              onClickDate={this.onClickDate1} />
+              onClickDate={this.onClickDate1}
+              renderValidation="both"
+              validateOnLoad={true}
+              validators={[{validator: function(value){return value === '01/20/2015';}}]}
+            />
           </FlexCell>
           <FlexCell>
             <DatePicker

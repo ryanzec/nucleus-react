@@ -1,37 +1,12 @@
 var React = require('react/addons');
 var _ = require('lodash');
-var validator = require('../misc/validator.jsx');
+var validatorMixin = require('./validator.mixin');
 
 var formInputMixin = {};
 
-formInputMixin.propTypes = {
-  renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
-  validateOnLoad: React.PropTypes.bool,
-  validators: React.PropTypes.array
-};
-
-formInputMixin.getDefaultProps = function formInputMixinGetDefaultProps() {
-  return {
-    renderValidation: false,
-    validateOnLoad: false,
-    validators: []
-  };
-};
-
-formInputMixin.componentWillMount = function formInputMixinComponentWillMount() {
-  if (this.props.renderValidation) {
-    var validatorConfiguration = {
-      renderValidation: this.props.renderValidation,
-      validators: this.props.validators
-    };
-
-    if (this.props.validateOnLoad === true) {
-      validatorConfiguration.validateValueOnCreate = this.props.value;
-    }
-
-    this.validator = validator.create(validatorConfiguration);
-  }
-};
+formInputMixin.mixins = [
+  validatorMixin
+];
 
 formInputMixin.componentDidMount = function formInputMixinComponentDidMount() {
   this.initialValue = _.isBoolean(this.props.value) || this.props.value ? this.props.value : null;
