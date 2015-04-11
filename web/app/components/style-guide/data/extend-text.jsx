@@ -14,7 +14,7 @@ var getData = function(value) {
     url += '/' + value;
   }
 
-  request.get(url, function desktopComponentOnGetUserRequest(response) {
+  request.get(url, function desktopComponentOnGetUserRequest(err, response) {
     var formattedData = [];
 
     if (response.body.data.results.length > 0) {
@@ -110,9 +110,15 @@ module.exports = {
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
-    description: 'Free form',
+    description: 'Free form tagging',
     example: (
       <ExtendText onChange={noop} getData={getData} allowFreeForm={true} taggingEnabled={true} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'preload data',
+    example: (
+      <ExtendText onChange={noop} getData={getData} characterThreshold={3} preloadData={true} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],

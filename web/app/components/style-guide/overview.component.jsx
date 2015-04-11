@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var StyleGuideMenu = require('./assets/components/style-guide-menu.component.jsx');
 var RouteHandler = require('react-router').RouteHandler;
-var request = require('superagent');
 
 var Standards = React.createClass({
   render: function() {

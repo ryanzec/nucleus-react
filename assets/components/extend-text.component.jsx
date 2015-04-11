@@ -65,7 +65,6 @@ extendText.getInitialState = function extendTextGetInitialState() {
     isActive: false,
     isLoading: false,
     focusedAutoCompleteItem: null,
-    isNewValue: false,
     lastAutoCompleteItems: [],
     displayInputValue: this.props.defaultValue || null,
     searchAttempted: false
@@ -80,34 +79,24 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   this.setAutoCompletePosition();
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
     if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
-      this.setState({
+      var newState = {
         isLoading: true
-      });
+      };
+
+      if (this.state.searchAttempted === true || this.props.preloadData === false) {
+        newState.isActive = true;
+      }
+
+      this.setState(newState);
     }
 
     this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
-      var newState = {
+      this.setState({
         lastAutoCompleteItems: this.state.autoCompleteItems,
         autoCompleteItems: items,
         isLoading: false,
         searchAttempted: true
-      };
-
-      if (this.isMounted()) {
-        var inputElement = this.getInputElement();
-
-        if (this.isAutoCompleteDisplayValue(inputElement.value) === false && inputElement.value.length > 0) {
-          this.setState({
-            isNewValue: true
-          });
-        } else {
-          this.setState({
-            isNewValue: false
-          });
-        }
-
-        this.setState(newState);
-      }
+      });
     }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
       throw new Error('ExtendText could not retrieve data, error: ' + error);
     });
@@ -127,8 +116,9 @@ extendText.onChange = function extendTextOnChange(event) {
 
   if (this.isOverCharacterThreshold(event.target.value)) {
     this.getData(event.target.value);
+  } else {
     this.setState({
-      isActive: true
+      isActive: false
     });
   }
 
@@ -187,9 +177,6 @@ extendText.onFocus = function extendTextOnFocus() {
 
   if (this.isOverCharacterThreshold(inputElement.value)) {
     this.getData(inputElement.value);
-    this.setState({
-      isActive: true
-    });
   }
 };
 
@@ -229,17 +216,6 @@ extendText.getCssClasses = function extendTextGetCssClasses() {
 
 extendText.getInputElement = function extendTextGetInputElement() {
   return this.refs.input.refs.input.getDOMNode();
-};
-
-extendText.isAutoCompleteDisplayValue = function extendTextIsAutoCompleteDisplayValue(displayValue) {
-  var matchCurrent = this.state.autoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueCurrentFilter(autoCompleteItem) {
-    return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
-  }.bind(this)).length;
-  var matchLast = this.state.lastAutoCompleteItems.filter(function extendTextIsAutoCompleteDisplayValueLastFilter(autoCompleteItem) {
-    return _.isObject(displayValue) ? equals(autoCompleteItem, displayValue) : autoCompleteItem[this.props.displayProperty] === displayValue;
-  }.bind(this)).length;
-
-  return matchCurrent === 1 || matchLast === 1;
 };
 
 extendText.getAutoCompleteIndex = function extendTextGetAutoCompleteIndex(displayValue) {
@@ -349,7 +325,6 @@ extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshol
 };
 
 extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
-  var isNewValue = false;
   var inputElement = this.getInputElement();
   var fullMatchAutoCompleteItem = this.getAutoCompleteIndex(inputElement.value);
 
@@ -361,7 +336,6 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
     this.updateValue(fullMatchAutoCompleteItem, true);
   } else if (this.props.allowFreeForm === true && inputElement.value !== '') {
     this.updateValue(inputElement.value, true);
-    isNewValue = true;
   } else {
     this.updateDisplayValue('');
   }
@@ -371,8 +345,7 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   }
 
   this.setState({
-    isActive: false,
-    isNewValue: isNewValue
+    isActive: false
   });
 };
 
@@ -439,7 +412,7 @@ extendText.renderTags = function extendTextRenderTags() {
 extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
   var autoCompleteDom;
 
-  if (this.state.autoCompleteItems.length > 0) {
+  if (this.state.autoCompleteItems.length > 0 && this.state.isActive === true) {
     var items = this.state.autoCompleteItems.map(function extendTextRenderAutoCompleteItemsMap(item, key) {
       var cssClass = this.state.focusedAutoCompleteItem === key ? 'is-focused' : '';
 
@@ -475,11 +448,7 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
 
   var statusIndicator;
 
-  if (this.props.allowFreeForm === true && this.state.isNewValue === true && this.state.isLoading !== true) {
-    statusIndicator = (
-      <div className="extend-text__new-indicator">{this.props.newIndicator}</div>
-    );
-  } else if (this.state.isActive === true && this.props.loadingIndicatorEnabled === true && this.state.isLoading === true) {
+  if (this.state.isActive === true && this.props.loadingIndicatorEnabled === true && this.state.isLoading === true) {
     statusIndicator = (
       <div
         className="extend-text__loading-indicator"

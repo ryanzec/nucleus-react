@@ -15,7 +15,7 @@ module.exports = {
 
     delay: {
       url: baseUrl + '/delay',
-      delay: 2000,
+      delay: 1000,
       response: {
         httpCode: 200,
         data: {
