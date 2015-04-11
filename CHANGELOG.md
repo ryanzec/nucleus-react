@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [bug][forms] fixed bug where form reset was not using proper value when validating inputs that were set to validate on load (#39)
 - [feature][forms] moved validator code out of form input mixin and into it's own mixin for better reuse
 - [feature][date-picker] integrated the date picker's internal input validator to be accessible from the date picker component
 - [bug][forms] fixed bug where resetting a form would not honor the validateOnLoad property

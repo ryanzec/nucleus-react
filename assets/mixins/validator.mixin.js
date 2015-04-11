@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var _ = require('lodash');
 var validator = require('../misc/validator.jsx');
 
 var validatorMixin = {};

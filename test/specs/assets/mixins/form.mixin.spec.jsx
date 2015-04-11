@@ -30,6 +30,15 @@ var SingleForm = React.createClass({
     };
   },
 
+  onClickDate: function(value) {
+    var newFormData = _.clone(this.state.test);
+    newFormData.date = value;
+
+    this.setState({
+      test: newFormData
+    });
+  },
+
   componentWillMount: function() {
     this.formInputs = {
       test: {
@@ -102,7 +111,9 @@ var SingleForm = React.createClass({
           hasOnChange: false,
           valueProperty: 'selectedDay',
           props: {
+            onClickDate: this.onClickDate,
             renderValidation: 'both',
+            validateOnLoad: true,
             validators: [{
               validator: function(value) {
                 return value === '01/01/2015';
@@ -178,6 +189,24 @@ var MultipleForms = React.createClass({
     };
   },
 
+  onClickDate: function(value) {
+    var newFormData = _.clone(this.state.test);
+    newFormData.date = value;
+
+    this.setState({
+      test: newFormData
+    });
+  },
+
+  onClickDate2: function(value) {
+    var newFormData = _.clone(this.state.test2);
+    newFormData.date2 = value;
+
+    this.setState({
+      test2: newFormData
+    });
+  },
+
   componentWillMount: function() {
     this.formInputs = {
       test: {
@@ -247,7 +276,17 @@ var MultipleForms = React.createClass({
         date: {
           component: DatePicker,
           hasOnChange: false,
-          props: {}
+          valueProperty: 'selectedDay',
+          props: {
+            onClickDate: this.onClickDate,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                return value === '01/01/2015';
+              }
+            }]
+          }
         }
       },
 
@@ -318,7 +357,17 @@ var MultipleForms = React.createClass({
         date2: {
           component: DatePicker,
           hasOnChange: false,
-          props: {}
+          valueProperty: 'selectedDay',
+          props: {
+            onClickDate: this.onClickDate2,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                return value === '01/01/2015';
+              }
+            }]
+          }
         }
       }
     };
@@ -393,6 +442,7 @@ describe('form mixin', function() {
       var receiveNewlettersInput = inputs[2];
       var over21Input = inputs[3];
       var radioTrueInput = inputs[4];
+      var dateInput = inputs[6];
 
       reactTestUtils.Simulate.change(firstNameInput, {
         target: {
@@ -424,11 +474,14 @@ describe('form mixin', function() {
         }
       });
 
+      this.component.refs.date.onClickDate('01/01/2015');
+
       expect(firstNameInput.getDOMNode().value).to.equal('123');
       expect(passwordInput.getDOMNode().value).to.equal('234');
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.false;
       expect(over21Input.getDOMNode().checked).to.be.true;
       expect(radioTrueInput.getDOMNode().checked).to.be.true;
+      expect(dateInput.getDOMNode().value).to.equal('01/01/2015');
 
       this.component.resetForm('test');
 
@@ -437,6 +490,7 @@ describe('form mixin', function() {
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
       expect(over21Input.getDOMNode().checked).to.be.false;
       expect(radioTrueInput.getDOMNode().checked).to.be.false;
+      expect(dateInput.getDOMNode().value).to.equal('');
     });
 
     it('should be able to validate all form fields', function() {
@@ -459,6 +513,7 @@ describe('form mixin', function() {
       expect(this.component.refs.receiveNewletters.validator.valid).to.be.false;
       expect(this.component.refs.over21.validator.valid).to.be.false;
       expect(this.component.refs.radio.validator.valid).to.be.false;
+      expect(this.component.refs.date.validator.valid).to.be.false;
 
       this.component.setState({
         test: {
@@ -467,7 +522,7 @@ describe('form mixin', function() {
           receiveNewletters: true,
           over21: true,
           radio: 'true',
-          date: ''
+          date: '01/01/2015'
         }
       });
       this.component.validateForm('test');
@@ -477,6 +532,7 @@ describe('form mixin', function() {
       expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
       expect(this.component.refs.over21.validator.valid).to.be.true;
       expect(this.component.refs.radio.validator.valid).to.be.true;
+      expect(this.component.refs.date.validator.valid).to.be.true;
     });
 
     it('should keep validation active on form reset if validateOnLoad is set to true', function() {
@@ -496,28 +552,6 @@ describe('form mixin', function() {
       expect(this.component.refs.over21.validator.shouldRenderValidation()).to.be.false;
       expect(this.component.refs.radio.validator.shouldRenderValidation()).to.be.false;
     });
-
-    it('should be able to validate form with a component that does not use value and the value property', function() {
-      this.component = React.render(<SingleForm />, div);
-
-      this.component.setState({
-        test: {
-          date: '01/01/2015'
-        }
-      });
-      this.component.validateForm('test');
-
-      expect(this.component.refs.date.validator.valid).to.be.true;
-
-      this.component.setState({
-        test: {
-          date: ''
-        }
-      });
-      this.component.validateForm('test');
-
-      expect(this.component.refs.date.validator.valid).to.be.false;
-    });
   });
 
   describe('multiple forms', function() {
@@ -531,12 +565,14 @@ describe('form mixin', function() {
       var over21Input = inputs[3];
       var radioTrueInput = inputs[4];
       var radioFalseInput = inputs[5];
+      var dateInput = inputs[6];
       var lastNameInput = inputs[7];
       var emailInput = inputs[8];
       var agreeToTermsInput = inputs[9];
       var under21Input = inputs[10];
       var radio2TrueInput = inputs[11];
       var radio2FalseInput = inputs[12];
+      var date2Input = inputs[13];
 
       reactTestUtils.Simulate.change(lastNameInput, {
         target: {
@@ -568,16 +604,20 @@ describe('form mixin', function() {
         }
       });
 
+      this.component.refs.date2.onClickDate('01/01/2015');
+
       expect(firstNameInput.getDOMNode().value).to.equal('');
       expect(passwordInput.getDOMNode().value).to.equal('test');
       expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
       expect(over21Input.getDOMNode().checked).to.be.false;
       expect(radioFalseInput.getDOMNode().checked).to.be.true;
+      expect(dateInput.getDOMNode().value).to.equal('');
       expect(lastNameInput.getDOMNode().value).to.equal('123');
       expect(emailInput.getDOMNode().value).to.equal('234');
       expect(agreeToTermsInput.getDOMNode().checked).to.be.flase;
       expect(under21Input.getDOMNode().checked).to.be.true;
       expect(radio2TrueInput.getDOMNode().checked).to.be.true;
+      expect(date2Input.getDOMNode().value).to.equal('01/01/2015');
 
       this.component.resetForm('test2');
 
@@ -586,6 +626,7 @@ describe('form mixin', function() {
       expect(agreeToTermsInput.getDOMNode().checked).to.be.true;
       expect(under21Input.getDOMNode().checked).to.be.false;
       expect(radio2FalseInput.getDOMNode().checked).to.be.true;
+      expect(date2Input.getDOMNode().value).to.equal('');
     });
 
     it('should be able to validate all form fields', function() {

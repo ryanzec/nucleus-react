@@ -44,13 +44,13 @@ datePicker.getInitialState = function datePickerGetInitialState() {
   };
 };
 
-datePicker.componentDidMount = function() {
+datePicker.componentDidMount = function datePickerComponentDidMount() {
   this.validator = this.refs.input.validator;
-}
+};
 
-datePicker.cleanValue = function(value) {
+datePicker.cleanValue = function datePickerCleanValue(value) {
   return this.refs.input.cleanValue(value);
-}
+};
 
 datePicker.singlePanelClose = function datePickerClose() {
   this.refs.input.refs.input.getDOMNode().blur();
@@ -87,7 +87,7 @@ datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
   this.dontCloseOnClick = true;
 };
 
-datePicker.onClickDate = function(value) {
+datePicker.onClickDate = function datePickerOnClickDate(value) {
   if (this.validator) {
     this.validator.validate(this.cleanValue(value));
   }
