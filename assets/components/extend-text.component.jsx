@@ -6,15 +6,20 @@ var equals = require('deep-equal');
 var domUtilities = require('dom-utilities');
 var SvgIcon = require('./svg-icon.component.jsx');
 var InputAutoSizer = require('./input-auto-sizer.component.jsx');
+var validatorMixin = require('../mixins/validator.mixin');
 
 var loadingSvg;
 /*eslint-disable*/
-loadingSvg = '<svg style="width: 22px; height: 22px;" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve"> <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/> <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"/> </path> </svg>';
+loadingSvg = '<svg style="width: 23px; height: 23px;" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve"> <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/> <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"/> </path> </svg>';
 /*eslint-enable*/
 
 var extendText = {};
 
 extendText.displayName = 'ExtendText';
+
+extendText.mixins = [
+  validatorMixin
+];
 
 extendText.propTypes = {
   onChange: React.PropTypes.func.isRequired,
@@ -109,6 +114,10 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
 
 extendText.componentDidUpdate = function extendTextComponentDidUpdate() {
   this.setAutoCompletePosition();
+};
+
+extendText.getValidationInitialValue = function extendTextGetValidationInitialValue() {
+  return this.state.value;
 };
 
 extendText.onChange = function extendTextOnChange(event) {
@@ -211,6 +220,10 @@ extendText.getCssClasses = function extendTextGetCssClasses() {
     cssClasses.push('m-display-no-results');
   }
 
+  if (this.validator && this.validator.shouldRenderValidation()) {
+    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
+  }
+
   return cssClasses;
 };
 
@@ -284,11 +297,18 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 
   this.setState(updatedState);
+  this.validate(updatedState.value);
 
   if (updateDisplayValue === true) {
     this.updateDisplayValue(newValue);
   }
 };
+
+extendText.validate = function(value) {
+  if (this.validator) {
+    this.validator.validate(value);
+  }
+}
 
 extendText.removeValue = function extendTextRemoveValue(valueIndex) {
   var newValue = _.clone(this.state.value);
@@ -297,6 +317,7 @@ extendText.removeValue = function extendTextRemoveValue(valueIndex) {
   this.setState({
     value: newValue
   });
+  this.validate(this.newValue);
 };
 
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
@@ -309,8 +330,8 @@ extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition(
       if (this.isMounted()) {
         var valueContainerDimensions = domUtilities.getDimensions(this.getDOMNode().querySelector('.extend-text__value-container'));
 
-        autoCompleteElement.style.top = valueContainerDimensions.margins.top + valueContainerDimensions.height + 'px';
-        autoCompleteElement.style.left = valueContainerDimensions.margins.left + 'px';
+        autoCompleteElement.style.top = valueContainerDimensions.height - valueContainerDimensions.borders.bottom + 'px';
+        autoCompleteElement.style.left = valueContainerDimensions.margins.left - valueContainerDimensions.borders.left + 'px';
       }
     }.bind(this), 0);
   }
@@ -446,7 +467,13 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
     cssClasses.push('u-hide');
   }
 
-  var statusIndicator;
+  return (
+      <div className={cssClasses.join(' ')}>{autoCompleteDom}</div>
+  );
+};
+
+extendText.renderStatusIndicator = function() {
+  var statusIndicator = null;
 
   if (this.state.isActive === true && this.props.loadingIndicatorEnabled === true && this.state.isLoading === true) {
     statusIndicator = (
@@ -459,15 +486,12 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
     );
   }
 
-  return (
-    <span>
-      <div className={cssClasses.join(' ')}>{autoCompleteDom}</div>
-      {statusIndicator}
-    </span>
-  );
+  return statusIndicator
 };
 
 extendText.render = function extendTextRender() {
+  var validationIcon = this.validator ? this.validator.renderValidationIcon('extend-text__validation-icon') : null;
+
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div
@@ -485,8 +509,10 @@ extendText.render = function extendTextRender() {
           onBlur={this.onBlur}
           onKeyDown={this.onKeyDown}
         />
+        {this.renderAutoComplete()}
+        {this.renderStatusIndicator()}
       </div>
-      {this.renderAutoComplete()}
+      {validationIcon}
     </div>
   );
 };

@@ -121,6 +121,21 @@ module.exports = {
       <ExtendText onChange={noop} getData={getData} characterThreshold={3} preloadData={true} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'validation',
+    example: (
+      <ExtendText renderValidation="both" validateOnLoad={true} validators={
+        [{
+          validator: function(value) {
+            if (value) {
+              return value.value === 'd';
+            }
+
+            return false;
+          }
+        }]} onChange={noop} getData={getData} characterThreshold={3} debounce={200} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],
   notes: [(
     <span>The getData property must return a promise (may I recommend the bluebird library)</span>

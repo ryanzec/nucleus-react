@@ -58,13 +58,13 @@ module.exports = {
         );
       },
 
-      renderValidationIcon: function validatorRenderValidationIcon() {
+      renderValidationIcon: function validatorRenderValidationIcon(className) {
         var validationIcon = null;
 
         if (this.shouldRenderValidation()) {
           validationIcon = (
             <SvgIcon
-              className="form-element__validation-icon"
+              className={className}
               fragment={this.valid ? validIconFragment : invalidIconFragment}
             />
           );

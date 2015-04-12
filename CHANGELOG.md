@@ -9,6 +9,9 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [extend-text][feature] added validation to extend text
+- [validator-mixin][feature] added support for configuration value property
+- [extend-text][feature] removed new indicator
 - [bug][forms] fixed bug where form reset was not using proper value when validating inputs that were set to validate on load (#39)
 - [feature][forms] moved validator code out of form input mixin and into it's own mixin for better reuse
 - [feature][date-picker] integrated the date picker's internal input validator to be accessible from the date picker component

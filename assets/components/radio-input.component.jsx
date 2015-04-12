@@ -103,7 +103,7 @@ radioInput.renderInput = function radioInputRenderInput() {
 };
 
 radioInput.render = function radioInputRender() {
-  var validationIcon = this.validator ? this.validator.renderValidationIcon() : null;
+  var validationIcon = this.validator ? this.validator.renderValidationIcon('form-element__validation-icon') : null;
 
   return (
     <div className={this.getCssClasses().join(' ')}>

@@ -6,7 +6,8 @@ var validatorMixin = {};
 validatorMixin.propTypes = {
   renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
   validateOnLoad: React.PropTypes.bool,
-  validators: React.PropTypes.array
+  validators: React.PropTypes.array,
+  valueProperty: React.PropTypes.string
 };
 
 validatorMixin.getDefaultProps = function validatorMixinGetDefaultProps() {
@@ -25,7 +26,7 @@ validatorMixin.componentWillMount = function validatorMixinComponentWillMount() 
     };
 
     if (this.props.validateOnLoad === true) {
-      validatorConfiguration.validateValueOnCreate = this.props.value;
+      validatorConfiguration.validateValueOnCreate = this.getValidationInitialValue ? this.getValidationInitialValue() : this.props.value;
     }
 
     this.validator = validator.create(validatorConfiguration);

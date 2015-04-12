@@ -108,8 +108,8 @@ $background-color-overlay: transparentize($color-black, .5);
 
 //extend text
 $border-radius-extend-text: 5px !default;
-$top-new-indicator-extend-text: 6px !default;
-$right-new-indicator-extend-text: -24px !default;
+$top-new-indicator-extend-text: 0px !default;
+$right-new-indicator-extend-text: 0px !default;
 
 //tagging
 $margin-tag-tagging: 2px 8px 0 2px !default;

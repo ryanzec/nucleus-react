@@ -1,6 +1,8 @@
 .extend-text {
+  @include display(flex);
+  @include align-items(center);
+
   position: relative;
-  display: inline-block;
 
   &.is-active {
     .extend-text__value-container {
@@ -16,6 +18,28 @@
     }
   }
 
+  &.m-valid {
+    .extend-text__value-container {
+      border-color: $color-safe;
+      background-color: transparentize($color-safe, 0.97);
+    }
+
+    .extend-text__validation-icon {
+      fill: $color-safe;
+    }
+  }
+
+  &.m-invalid {
+    .extend-text__value-container {
+      border-color: $color-danger;
+      background-color: transparentize($color-danger, 0.97);
+    }
+
+    .extend-text__validation-icon {
+      fill: $color-danger;
+    }
+  }
+
   li {
     cursor: pointer;
   }
@@ -24,16 +48,24 @@
     padding: 0;
     border: none;
     border-radius: 0;
+      background-color: transparent;
   }
 
   .extend-text__value-container {
-    width: 100%;
+    @include flex(1);
+    position: relative;
+    //width: 100%;
     margin: 5px 0;
     border: 1px solid $color-gray2;
     border-radius: 5px;
     padding: 4px 6px;
     background-color: $color-white;
     cursor: text;
+  }
+
+  .extend-text__validation-icon {
+    @include flexbox-value-width(0 0 16px);
+    margin: 0 5px;
   }
 
   .extend-text__tag-container {
@@ -81,7 +113,7 @@
     border-top: none;
     max-height: $max-height-options-auto-complete;
     overflow: auto;
-    width: 100%;
+    width: calc(100% + 2px);
     border-radius: 0 0 $border-radius-extend-text $border-radius-extend-text;
     display: none;
 
