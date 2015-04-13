@@ -26,14 +26,16 @@ extendText.propTypes = {
   value: React.PropTypes.any,
   autoHeightResize: React.PropTypes.bool,
   emptyIndicator: React.PropTypes.node,
-  getData: React.PropTypes.func.isRequired,
+  getData: React.PropTypes.func,
   allowFreeForm: React.PropTypes.bool,
   newIndicator: React.PropTypes.node,
   characterThreshold: React.PropTypes.number,
   debounce: React.PropTypes.number,
   loadingIndicatorEnabled: React.PropTypes.bool,
   preloadData: React.PropTypes.bool,
-  taggingEnabled: React.PropTypes.bool
+  taggingEnabled: React.PropTypes.bool,
+  staticData: React.PropTypes.array,
+  staticDataFilter: React.PropTypes.func
 };
 
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
@@ -53,7 +55,13 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     debounce: 0,
     loadingIndicatorEnabled: true,
     preloadData: false,
-    taggingEnabled: false
+    taggingEnabled: false,
+    staticData: [],
+    staticDataFilter: function(value, data) {
+      return data.filter(function(dataValue) {
+        return dataValue.display.toLowerCase().indexOf(value.toLowerCase()) !== -1 || dataValue.value.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+      });
+    }
   };
 };
 
@@ -80,7 +88,15 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   }
 
   this.setAutoCompletePosition();
+
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
+    if (this.props.staticData.length > 0) {
+      this.setState({
+        autoCompleteItems: this.props.staticDataFilter(value, this.props.staticData),
+        isActive: true,
+        searchAttempted: true
+      });
+    } else {
     if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
       var newState = {
         isLoading: true
@@ -110,6 +126,7 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
         searchAttempted: true
       });
     }.bind(this));
+    }
   }.bind(this), this.props.debounce);
 
   if (this.props.preloadData === true) {
@@ -193,10 +210,12 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
       }
       break;
 
+    case 9: //tab
+      this.selectCurrentValue();
+      break;
+
     default:
       //just continue normally
-
-    //TODO: tab key
   }
 };
 
@@ -210,7 +229,11 @@ extendText.onFocus = function extendTextOnFocus() {
 
 extendText.onBlur = function extendTextOnBlur() {
   if (this.state.isActive) {
-    this.selectCurrentValue();
+    this.updateDisplayValue('');
+    this.setState({
+      focusedAutoCompleteItem: null,
+      isActive: false
+    });
   }
 };
 
@@ -359,7 +382,7 @@ extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition(
 };
 
 extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshold(value) {
-  /* istanbul ignore else */
+  /* istanbul ignore next */
   if (!this.isMounted()) {
     return false;
   }

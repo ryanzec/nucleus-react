@@ -150,6 +150,39 @@ module.exports = {
         }]} onChange={noop} getData={getData} characterThreshold={3} debounce={200} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'static data',
+    example: (
+      <ExtendText onChange={noop} staticData={[{
+        display: 'ASP.NET (Yuck!)',
+        value: 'asp.net'
+      }, {
+        display: 'C#',
+        value: 'c-sharp'
+      }, {
+        display: 'Go',
+        value: 'golang'
+      }, {
+        display: 'Groovy',
+        value: 'groovy'
+      }, {
+        display: 'Java',
+        value: 'java'
+      }, {
+        display: 'JavaScript',
+        value: 'js'
+      }, {
+        display: 'PHP',
+        value: 'php'
+      }, {
+        display: 'Python',
+        value: 'python'
+      }, {
+        display: 'Rust',
+        value: 'rust'
+      }]} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],
   notes: [(
     <span>The getData property must return a promise (may I recommend the bluebird library)</span>

@@ -10,6 +10,9 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [extend-text][feature] added static data functionality (#25)
+- [extend-text] added event handling for tab
+- [extend-text][breaking] refactored event handling for blur to not selected value
 - [extend-text][test] add test for setting default tag values (#42)
 - [extend-text][bug] integrate with form system (#41)
 - [extend-text][feature] refactored extend text to work with form system (#41)

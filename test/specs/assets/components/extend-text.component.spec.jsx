@@ -33,6 +33,23 @@ var testAutoCompleteItems = [{
   value: 3
 }];
 
+var staticData = [{
+  display: 'static 1',
+  value: 's1'
+}, {
+  display: 'static 2',
+  value: 's2'
+}, {
+  display: 'static 2',
+  value: 's3'
+}, {
+  display: 'unique display',
+  value: 'ud'
+}, {
+  display: 'uv',
+  value: 'unique value'
+}];
+
 var getData = function(value) {
   var defer = bluebird.defer();
   var data = testAutoCompleteItems;
@@ -100,6 +117,28 @@ var PageTest = React.createClass({
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} />
+    );
+  }
+});
+
+var PageTestStaticData = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: null
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    var value = this.props.value || null;
+
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={value} staticData={staticData} />
     );
   }
 });
@@ -379,7 +418,7 @@ describe('extend text component', function() {
   });
 
   describe('basic functionality', function() {
-    it('should update state internal display value', function(done) {
+    it('should update value', function(done) {
       Fiber(function() {
         testData.component = React.render(<PageTest />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
@@ -396,7 +435,9 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -435,7 +476,9 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -695,7 +738,7 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it('should select focused item when bluring input', function(done) {
+      it('should not select focused item when bluring input', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
@@ -712,10 +755,8 @@ describe('extend text component', function() {
 
           testHelper.sleep(5);
 
-          expect(testData.component.state.extendTextValue).to.deep.equal({
-            display: 'test 2',
-            value: 2
-          });
+          expect(testData.component.state.extendTextValue).to.be.null;
+          expect(extendTextComponent.state.focusedAutoCompleteItem).to.be.null;
           expect(extendTextComponent.state.isActive).to.be.false;
           done();
         }).run();
@@ -860,7 +901,7 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it('should select item when bluring input if value matches only one item but was not specifically selected', function(done) {
+      it('should select item when pressing enter input if value matches only one item but was not specifically selected', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
@@ -881,7 +922,9 @@ describe('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.blur(input);
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
 
           testHelper.sleep(5);
 
@@ -967,7 +1010,9 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -1254,7 +1299,9 @@ describe('extend text component', function() {
         extendTextComponent.setState({
           focusedAutoCompleteItem: 2
         });
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -1404,7 +1451,9 @@ describe('extend text component', function() {
         extendTextComponent.setState({
           focusedAutoCompleteItem: 2
         });
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -1412,7 +1461,9 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.blur(input);
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
 
         testHelper.sleep(5);
 
@@ -1849,6 +1900,82 @@ describe('extend text component', function() {
 
         expect(extendText.props.className).to.equal('extend-text');
         expect(validationIcon.length).to.equal(0);
+        done();
+      }).run();
+    });
+  });
+
+  describe('static data', function() {
+    it('should be able to define data', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestStaticData />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        //make sure elements are correct
+        autoCompleteItems.forEach(function(item, key) {
+          expect(item.props['data-key']).to.equal(key);
+          expect(item.props.children).to.equal(staticData[key].display);
+        });
+
+        //make sure there is the correct number of elements
+        expect(autoCompleteItems.length).to.equal(autoCompleteItems.length);
+        done();
+      }).run();
+    });
+
+    it('should be able to filter by display value', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestStaticData />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'unique display'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItem = TestUtils.findRenderedDOMComponentWithTag(autoCompleteContainer, 'li');
+
+        expect(autoCompleteItem.props.children).to.equal('unique display');
+        done();
+      }).run();
+    });
+
+    it('should be able to filter by value value', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestStaticData />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'unique value'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItem = TestUtils.findRenderedDOMComponentWithTag(autoCompleteContainer, 'li');
+
+        expect(autoCompleteItem.props.children).to.equal('uv');
         done();
       }).run();
     });
