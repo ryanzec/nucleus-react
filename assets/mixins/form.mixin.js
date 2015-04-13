@@ -53,7 +53,11 @@ formMixin.getInputs = function formMixinGetInputs(formName) {
   var innerInputs = {};
 
   _.forEach(inputs, function formMixinGetInputsInputsLoop(config, field) {
-    if (inputs[field].hasOnChange !== false && !inputs[field].props.onChange) {
+    if (inputs[field].hasOnChange !== false && (!inputs[field].props || !inputs[field].props.onChange)) {
+      if (!inputs[field].props) {
+        inputs[field].props = {};
+      }
+
       inputs[field].props.onChange = this.onChangeFormInput(formName, field);
     }
 

@@ -19,6 +19,11 @@
   }
 
   &.m-valid {
+    .extend-text__auto-complete-container {
+      border-color: $color-safe;
+      background-color: transparentize($color-safe, 0.97);
+    }
+
     .extend-text__value-container {
       border-color: $color-safe;
       background-color: transparentize($color-safe, 0.97);
@@ -30,6 +35,11 @@
   }
 
   &.m-invalid {
+    .extend-text__auto-complete-container {
+      border-color: $color-danger;
+      background-color: transparentize($color-danger, 0.97);
+    }
+
     .extend-text__value-container {
       border-color: $color-danger;
       background-color: transparentize($color-danger, 0.97);
@@ -135,21 +145,5 @@
     position: absolute;
     top: $top-new-indicator-extend-text;
     right: $right-new-indicator-extend-text;
-  }
-}
-
-.invalid {
-  .extend-text .extend-text__auto-complete-options {
-    //display the darkened version as this should never show when the input is not selected
-    border-color: $color-dark-danger;
-    box-shadow: $box-shadow-options-invalid-auto-complete;
-  }
-}
-
-.valid {
-  .extend-text .extend-text__auto-complete-options {
-    //display the darkened version as this should never show when the input is not selected
-    border-color: $color-dark-safe;
-    box-shadow: $box-shadow-options-valid-auto-complete;
   }
 }

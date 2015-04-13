@@ -10,7 +10,9 @@ var CheckboxInput = nucleusReact.components.CheckboxInput;
 var DatePicker = nucleusReact.components.DatePicker;
 var InputGroup = nucleusReact.components.InputGroup;
 var Button = nucleusReact.components.Button;
+var ExtendText = nucleusReact.components.ExtendText;
 var formMixin = nucleusReact.mixins.form;
+var bluebird = require('bluebird');
 
 var FormExmplePlaceholders = React.createClass({
   mixins: [
@@ -22,7 +24,14 @@ var FormExmplePlaceholders = React.createClass({
       lastName: 'last',
       over21: true,
       liveIn: 'US',
-      date: '03/02/2015'
+      date: '03/02/2015',
+      tagging: [{
+        display: 'test',
+        value: 'test'
+      }, {
+        display: 'again',
+        value: 'again'
+      }]
     }
     return {
       initialTest: initialFormData,
@@ -146,9 +155,39 @@ var FormExmplePlaceholders = React.createClass({
               }
             }]
           }
+        },
+        extendText: {
+          component: ExtendText,
+          props: {
+            getData: this.getExtendTextData
+          }
+        },
+        tagging: {
+          component: ExtendText,
+          props: {
+            getData: this.getExtendTextData,
+            taggingEnabled: true
+          }
         }
       }
     };
+  },
+
+  getExtendTextData: function(value) {
+    var defer = bluebird.defer();
+
+    defer.resolve([{
+      display: 'test1',
+      value: 't1'
+    }, {
+      display: 'test2',
+      value: 't2'
+    }, {
+      display: 'test3',
+      value: 't3'
+    }]);
+
+    return defer.promise;
   },
 
   renderForm: function() {
@@ -170,6 +209,8 @@ var FormExmplePlaceholders = React.createClass({
         {inputs.agreeToTermsAndConditions.render()}
         {inputs.liveIn.render()}
         {inputs.date.render()}
+        {inputs.extendText.render()}
+        {inputs.tagging.render()}
       </form>
     );
   },

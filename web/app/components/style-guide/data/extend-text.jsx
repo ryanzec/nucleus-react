@@ -29,6 +29,26 @@ var getData = function(value) {
   return defer.promise;
 };
 
+var ExtendsTextTaggingAllowFreeForm = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
+    );
+  }
+});
+
 module.exports = {
   name: 'Extend Text',
   type: 'component',
@@ -112,13 +132,7 @@ module.exports = {
   }, {
     description: 'Free form tagging',
     example: (
-      <ExtendText onChange={noop} getData={getData} allowFreeForm={true} taggingEnabled={true} />
-    ),
-    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
-  }, {
-    description: 'preload data',
-    example: (
-      <ExtendText onChange={noop} getData={getData} characterThreshold={3} preloadData={true} />
+      <ExtendsTextTaggingAllowFreeForm />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {

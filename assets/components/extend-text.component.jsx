@@ -23,7 +23,7 @@ extendText.mixins = [
 
 extendText.propTypes = {
   onChange: React.PropTypes.func.isRequired,
-  defaultValue: React.PropTypes.string,
+  value: React.PropTypes.any,
   autoHeightResize: React.PropTypes.bool,
   emptyIndicator: React.PropTypes.node,
   getData: React.PropTypes.func.isRequired,
@@ -39,7 +39,7 @@ extendText.propTypes = {
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
   return {
     onChange: null,
-    defaultValue: null,
+    value: null,
     autoHeightResize: true,
     emptyIndicator: (
       <span>No Options Found</span>
@@ -58,27 +58,26 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
 };
 
 extendText.getInitialState = function extendTextGetInitialState() {
-  var value = this.props.defaultValue;
+  var displayInputValue = null;
 
-  if (this.props.taggingEnabled === true && value === null) {
-    value = [];
+  if (this.props.taggingEnabled !== true && this.props.value && this.props.value.display) {
+    displayInputValue = this.props.value.display;
   }
 
   return {
-    value: value,
     autoCompleteItems: [],
     isActive: false,
     isLoading: false,
     focusedAutoCompleteItem: null,
     lastAutoCompleteItems: [],
-    displayInputValue: this.props.defaultValue || null,
+    displayInputValue: displayInputValue,
     searchAttempted: false
   };
 };
 
 extendText.componentDidMount = function extendTextComponentDidMount() {
-  if (this.props.onChange && this.props.defaultValue) {
-    this.props.onChange(this.props.defaultValue);
+  if (this.props.onChange && this.props.value) {
+    this.props.onChange(this.props.value);
   }
 
   this.setAutoCompletePosition();
@@ -96,28 +95,43 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
     }
 
     this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
-      this.setState({
-        lastAutoCompleteItems: this.state.autoCompleteItems,
-        autoCompleteItems: items,
-        isLoading: false,
-        searchAttempted: true
-      });
+      if (this.isMounted()) {
+        this.setState({
+          lastAutoCompleteItems: this.state.autoCompleteItems,
+          autoCompleteItems: items,
+          isLoading: false,
+          searchAttempted: true
+        });
+      }
     }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
       throw new Error('ExtendText could not retrieve data, error: ' + error);
     });
   }.bind(this), this.props.debounce);
 
   if (this.props.preloadData === true) {
-    this.getData(this.state.value);
+    this.getData(this.props.value);
   }
 };
 
-extendText.componentDidUpdate = function extendTextComponentDidUpdate() {
+extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousProps) {
   this.setAutoCompletePosition();
+
+  if (equals(previousProps.value, this.props.value) === false) {
+    var displayInputValue = '';
+
+    if (this.props.taggingEnabled !== true && this.props.value && this.props.value.display) {
+      displayInputValue = this.props.value.display;
+    }
+
+    this.updateDisplayValue(displayInputValue);
+  }
+};
+
+extendText.getDisplayValue = function extendTextGetDisplayValue() {
 };
 
 extendText.getValidationInitialValue = function extendTextGetValidationInitialValue() {
-  return this.state.value;
+  return this.props.value;
 };
 
 extendText.onChange = function extendTextOnChange(event) {
@@ -167,9 +181,9 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
       if (this.props.taggingEnabled === true) {
         var inputElement = this.getInputElement();
 
-        if (inputElement.value === '' && this.state.value.length > 0) {
+        if (inputElement.value === '' && this.props.value.length > 0) {
           event.preventDefault();
-          this.removeValue(this.state.value.length - 1);
+          this.removeValue(this.props.value.length - 1);
         }
       }
       break;
@@ -266,6 +280,7 @@ extendText.updateDisplayValue = function extendTextUdpateDisplayValue(newValue) 
 
 extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayValue) {
   var updatedState = {};
+  var newFullValue;
 
   if (_.isNumber(newValue) && this.state.autoCompleteItems[newValue]) {
     newValue = this.state.autoCompleteItems[newValue];
@@ -285,19 +300,19 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
 
   if (this.props.taggingEnabled === true) {
     if (newValue !== '') {
-      updatedState.value = _.clone(this.state.value);
-      updatedState.value.push(newValue);
+      newFullValue = _.clone(this.props.value);
+      newFullValue.push(newValue);
     }
   } else {
-    updatedState.value = newValue;
+    newFullValue = newValue;
   }
 
-  if (updatedState.value && this.props.onChange) {
-    this.props.onChange(updatedState.value);
+  if (newFullValue && this.props.onChange) {
+    this.props.onChange(newFullValue);
   }
 
   this.setState(updatedState);
-  this.validate(updatedState.value);
+  this.validate(newFullValue);
 
   if (updateDisplayValue === true) {
     this.updateDisplayValue(newValue);
@@ -311,13 +326,14 @@ extendText.validate = function(value) {
 }
 
 extendText.removeValue = function extendTextRemoveValue(valueIndex) {
-  var newValue = _.clone(this.state.value);
+  var newValue = _.clone(this.props.value);
   newValue.splice(valueIndex, 1);
 
-  this.setState({
-    value: newValue
-  });
-  this.validate(this.newValue);
+  if (this.props.onChange) {
+    this.props.onChange(newValue);
+  }
+
+  this.validate(newValue);
 };
 
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
@@ -413,8 +429,8 @@ extendText.decreaseFocusedAutoCompleteItem = function extendTextDecreaseFocusedA
 extendText.renderTags = function extendTextRenderTags() {
   var tags = null;
 
-  if (this.props.taggingEnabled === true && this.state.value.length > 0) {
-    tags = this.state.value.map(function extendTextRenderTagsValueMap(item, key) {
+  if (this.props.taggingEnabled === true && this.props.value.length > 0) {
+    tags = this.props.value.map(function extendTextRenderTagsValueMap(item, key) {
       return (
         <div
           className="extend-text__tag"

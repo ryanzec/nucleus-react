@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [extend-text][feature] refactored extend text to work with form system (#41)
 - [extend-text][feature] added validation to extend text
 - [validator-mixin][feature] added support for configuration value property
 - [extend-text][feature] removed new indicator
