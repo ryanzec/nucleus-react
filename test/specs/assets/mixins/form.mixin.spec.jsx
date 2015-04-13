@@ -6,6 +6,7 @@ var CheckboxInput = require('../../../../assets/components/checkbox-input.compon
 var RadioInput = require('../../../../assets/components/radio-input.component.jsx');
 var InputGroup = require('../../../../assets/components/input-group.component.jsx');
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
+var ExtendText = require('../../../../assets/components/extend-text.component.jsx');
 var Button = require('../../../../assets/components/button.component.jsx');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
@@ -22,7 +23,11 @@ var SingleForm = React.createClass({
       receiveNewletters: true,
       over21: false,
       radio: 'false',
-      date: ''
+      date: '',
+      tags: [{
+        display: 'test1',
+        value: 't1'
+      }]
     };
     return {
       initialTest: initialFormData,
@@ -120,9 +125,41 @@ var SingleForm = React.createClass({
               }
             }]
           }
+        },
+
+        tags: {
+          component: ExtendText,
+          props: {
+            getData: this.getExtendTextData,
+            taggingEnabled: true,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                return !value ? false : value.length > 0;
+              }
+            }]
+          }
         }
       }
     };
+  },
+
+  getExtendTextData: function(value) {
+    var defer = bluebird.defer();
+
+    defer.resolve([{
+      display: 'test1',
+      value: 't1'
+    }, {
+      display: 'test2',
+      value: 't2'
+    }, {
+      display: 'test3',
+      value: 't3'
+    }]);
+
+    return defer.promise;
   },
 
   validate: function(value) {
@@ -146,6 +183,7 @@ var SingleForm = React.createClass({
         {inputs.over21.render()}
         {inputs.radio.render()}
         {inputs.date.render()}
+        {inputs.tags.render()}
       </form>
     );
   },
@@ -503,7 +541,8 @@ describe('form mixin', function() {
           receiveNewletters: false,
           over21: false,
           radio: 'false',
-          date: ''
+          date: '',
+          tags: []
         }
       });
       this.component.validateForm('test');
@@ -514,6 +553,7 @@ describe('form mixin', function() {
       expect(this.component.refs.over21.validator.valid).to.be.false;
       expect(this.component.refs.radio.validator.valid).to.be.false;
       expect(this.component.refs.date.validator.valid).to.be.false;
+      expect(this.component.refs.tags.validator.valid).to.be.false;
 
       this.component.setState({
         test: {
@@ -522,7 +562,11 @@ describe('form mixin', function() {
           receiveNewletters: true,
           over21: true,
           radio: 'true',
-          date: '01/01/2015'
+          date: '01/01/2015',
+          tags: [{
+            display: 'test1',
+            value: 't1'
+          }]
         }
       });
       this.component.validateForm('test');
@@ -533,6 +577,7 @@ describe('form mixin', function() {
       expect(this.component.refs.over21.validator.valid).to.be.true;
       expect(this.component.refs.radio.validator.valid).to.be.true;
       expect(this.component.refs.date.validator.valid).to.be.true;
+      expect(this.component.refs.tags.validator.valid).to.be.true;
     });
 
     it('should keep validation active on form reset if validateOnLoad is set to true', function() {
@@ -543,6 +588,8 @@ describe('form mixin', function() {
       expect(this.component.refs.receiveNewletters.validator.shouldRenderValidation()).to.be.false;
       expect(this.component.refs.over21.validator.shouldRenderValidation()).to.be.false;
       expect(this.component.refs.radio.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.date.validator.shouldRenderValidation()).to.be.true;
+      expect(this.component.refs.tags.validator.shouldRenderValidation()).to.be.true;
 
       this.component.resetForm('test');
 
@@ -551,6 +598,8 @@ describe('form mixin', function() {
       expect(this.component.refs.receiveNewletters.validator.shouldRenderValidation()).to.be.false;
       expect(this.component.refs.over21.validator.shouldRenderValidation()).to.be.false;
       expect(this.component.refs.radio.validator.shouldRenderValidation()).to.be.false;
+      expect(this.component.refs.date.validator.shouldRenderValidation()).to.be.true;
+      expect(this.component.refs.tags.validator.shouldRenderValidation()).to.be.true;
     });
   });
 

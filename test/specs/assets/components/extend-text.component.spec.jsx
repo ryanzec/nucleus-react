@@ -50,6 +50,14 @@ var getData = function(value) {
   return defer.promise;
 };
 
+var getDataRejected = function(value) {
+  var defer = bluebird.defer();
+
+  defer.reject('SERVER ERROR');
+
+  return defer.promise;
+};
+
 var getDataNoFilter = function() {
   var defer = bluebird.defer();
   defer.resolve(testAutoCompleteItems);
@@ -110,8 +118,10 @@ var PageTestTagging = React.createClass({
   },
 
   render: function() {
+    var value = this.props.value || [];
+
     return (
-      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} />
+      <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} taggingEnabled={true} />
     );
   }
 });
@@ -1065,6 +1075,25 @@ describe('extend text component', function() {
       }).run();
     });
 
+    it('should work like no data was returned if getData is rejected', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getDataRejected} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        expect(testData.component.state.isActive).to.be.true;
+        expect(testData.component.state.isLoading).to.be.false;
+        expect(autoCompleteItems.length).to.equal(0);
+        done();
+      }).run();
+    });
+
     it('should add is focused class when focused item is set', function(done) {
       Fiber(function() {
         testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
@@ -1407,16 +1436,22 @@ describe('extend text component', function() {
       }).run();
     });
 
-    // it('should set focused item when mousing over one', function(done) {
+    // it.only('should set focused item when mousing over one', function(done) {
     //   Fiber(function() {
     //     testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
+    //     var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+    //     TestUtils.Simulate.focus(input);
 
     //     testHelper.sleep(5);
 
     //     var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
     //     var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-    //     TestUtils.Simulate.mouseEnter(autoCompleteItems[2]);
+    //     //TestUtils.Simulate.mouseEnter(autoCompleteItems[2]);
+
+    //     TestUtils.Simulate.click(autoCompleteItems[2].getDOMNode());
+    //     TestUtils.Simulate.mouseOver(autoCompleteItems[2].getDOMNode());
 
     //     expect(testData.component.state.focusedAutoCompleteItem).to.equal(2);
     //     done();
@@ -1446,6 +1481,19 @@ describe('extend text component', function() {
   });
 
   describe('tagging', function() {
+    it('should be able to set initial value with multiple tags', function() {
+      var tags = [{
+        display: 'test1',
+        value: 't1'
+      }, {
+        display: 'test2',
+        value: 't2'
+      }];
+      testData.component = React.render(<PageTestTagging value={tags} />, div);
+
+      expect(testData.component.state.extendTextValue).to.deep.equal(tags);
+    });
+
     it('should store value as an array', function() {
       testData.component = React.render(<PageTestTagging />, div);
 

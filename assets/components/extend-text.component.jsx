@@ -69,7 +69,6 @@ extendText.getInitialState = function extendTextGetInitialState() {
     isActive: false,
     isLoading: false,
     focusedAutoCompleteItem: null,
-    lastAutoCompleteItems: [],
     displayInputValue: displayInputValue,
     searchAttempted: false
   };
@@ -95,17 +94,22 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
     }
 
     this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
+      /* istanbul ignore next */
       if (this.isMounted()) {
         this.setState({
-          lastAutoCompleteItems: this.state.autoCompleteItems,
           autoCompleteItems: items,
           isLoading: false,
           searchAttempted: true
         });
       }
     }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
-      throw new Error('ExtendText could not retrieve data, error: ' + error);
-    });
+      //TODO: do we need to do anythign specific if it is an error?
+      this.setState({
+        autoCompleteItems: [],
+        isLoading: false,
+        searchAttempted: true
+      });
+    }.bind(this));
   }.bind(this), this.props.debounce);
 
   if (this.props.preloadData === true) {
@@ -127,7 +131,8 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
   }
 };
 
-extendText.getDisplayValue = function extendTextGetDisplayValue() {
+extendText.cleanValue = function extendTextCleanValue(value) {
+  return value;
 };
 
 extendText.getValidationInitialValue = function extendTextGetValidationInitialValue() {
@@ -339,10 +344,10 @@ extendText.removeValue = function extendTextRemoveValue(valueIndex) {
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
   var autoCompleteElement = this.getDOMNode().querySelector('.extend-text__auto-complete-container');
 
-  /* istanbul ignore else */
   if (autoCompleteElement) {
     //this call is wrapped in a timeout of 0 to allow for the input auto sizer to set correct initial size which is needed to position the auto complete items
     setTimeout(function extendTextSetAutoCompletePositionSetTimeout() {
+      /* istanbul ignore else */
       if (this.isMounted()) {
         var valueContainerDimensions = domUtilities.getDimensions(this.getDOMNode().querySelector('.extend-text__value-container'));
 
@@ -354,6 +359,7 @@ extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition(
 };
 
 extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshold(value) {
+  /* istanbul ignore else */
   if (!this.isMounted()) {
     return false;
   }

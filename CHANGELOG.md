@@ -5,10 +5,13 @@ There are some key used within the changelog which are as following:
 - [bug]: means a bug fix
 - [feature]: means a new feature
 - [breaking]: mean there is a change that might break existing code
+- [test]: add test
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
 
+- [extend-text][test] add test for setting default tag values (#42)
+- [extend-text][bug] integrate with form system (#41)
 - [extend-text][feature] refactored extend text to work with form system (#41)
 - [extend-text][feature] added validation to extend text
 - [validator-mixin][feature] added support for configuration value property

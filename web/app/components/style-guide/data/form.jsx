@@ -166,7 +166,15 @@ var FormExmplePlaceholders = React.createClass({
           component: ExtendText,
           props: {
             getData: this.getExtendTextData,
-            taggingEnabled: true
+            taggingEnabled: true,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                console.log('test');
+                return !value ? false : value.length > 1;
+              }
+            }]
           }
         }
       }
