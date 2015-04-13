@@ -57,8 +57,8 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     preloadData: false,
     taggingEnabled: false,
     staticData: [],
-    staticDataFilter: function(value, data) {
-      return data.filter(function(dataValue) {
+    staticDataFilter: function extendTextPropStaticDataFilter(value, data) {
+      return data.filter(function extendTextPropStaticDataFilterFilter(dataValue) {
         return dataValue.display.toLowerCase().indexOf(value.toLowerCase()) !== -1 || dataValue.value.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
     }
@@ -97,35 +97,35 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
         searchAttempted: true
       });
     } else {
-    if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
-      var newState = {
-        isLoading: true
-      };
+      if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
+        var newState = {
+          isLoading: true
+        };
 
-      if (this.state.searchAttempted === true || this.props.preloadData === false) {
-        newState.isActive = true;
+        if (this.state.searchAttempted === true || this.props.preloadData === false) {
+          newState.isActive = true;
+        }
+
+        this.setState(newState);
       }
 
-      this.setState(newState);
-    }
-
-    this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
-      /* istanbul ignore next */
-      if (this.isMounted()) {
+      this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
+        /* istanbul ignore next */
+        if (this.isMounted()) {
+          this.setState({
+            autoCompleteItems: items,
+            isLoading: false,
+            searchAttempted: true
+          });
+        }
+      }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
+        //TODO: do we need to do anythign specific if it is an error?
         this.setState({
-          autoCompleteItems: items,
+          autoCompleteItems: [],
           isLoading: false,
           searchAttempted: true
         });
-      }
-    }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
-      //TODO: do we need to do anythign specific if it is an error?
-      this.setState({
-        autoCompleteItems: [],
-        isLoading: false,
-        searchAttempted: true
-      });
-    }.bind(this));
+      }.bind(this));
     }
   }.bind(this), this.props.debounce);
 
@@ -347,11 +347,11 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 };
 
-extendText.validate = function(value) {
+extendText.validate = function extendTextValidate(value) {
   if (this.validator) {
     this.validator.validate(value);
   }
-}
+};
 
 extendText.removeValue = function extendTextRemoveValue(valueIndex) {
   var newValue = _.clone(this.props.value);
@@ -517,7 +517,7 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
   );
 };
 
-extendText.renderStatusIndicator = function() {
+extendText.renderStatusIndicator = function extendTextRenderStatusIndicator() {
   var statusIndicator = null;
 
   if (this.state.isActive === true && this.props.loadingIndicatorEnabled === true && this.state.isLoading === true) {
@@ -531,7 +531,7 @@ extendText.renderStatusIndicator = function() {
     );
   }
 
-  return statusIndicator
+  return statusIndicator;
 };
 
 extendText.render = function extendTextRender() {
