@@ -817,6 +817,33 @@ describe('extend text component', function() {
         }).run();
       });
 
+      it('should select item on mouse click', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTest />, div);
+          var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+          reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+
+          testHelper.sleep(5);
+
+          expect(extendTextComponent.state.isActive).to.be.false;
+          expect(testData.component.state.extendTextValue).to.deep.equal({
+            display: 'test 2',
+            value: 2
+          });
+          expect(input.getDOMNode().value).to.equal('test 2');
+          done();
+        }).run();
+      });
+
       it('should de-focus all items and blur input when pressing escape', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTest />, div);
@@ -1523,34 +1550,13 @@ describe('extend text component', function() {
 
     //     //TestUtils.Simulate.mouseEnter(autoCompleteItems[2]);
 
-    //     TestUtils.Simulate.click(autoCompleteItems[2].getDOMNode());
+    //     TestUtils.Simulate.mouseDown(autoCompleteItems[2].getDOMNode());
     //     TestUtils.Simulate.mouseOver(autoCompleteItems[2].getDOMNode());
 
     //     expect(testData.component.state.focusedAutoCompleteItem).to.equal(2);
     //     done();
     //   }).run();
     // });
-
-    it('should set value when clicking item', function(done) {
-      Fiber(function() {
-        testData.component = React.render(<PageTest />, div);
-        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
-
-        TestUtils.Simulate.focus(input);
-
-        testHelper.sleep(5);
-
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
-        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
-
-        TestUtils.Simulate.click(autoCompleteItems[1]);
-
-        expect(extendTextComponent.state.focusedAutoCompleteItem).to.be.null;
-        expect(testData.component.state.extendTextValue).to.deep.equal(testAutoCompleteItems[1]);
-        done();
-      }).run();
-    });
   });
 
   describe('tagging', function() {
@@ -1869,7 +1875,7 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        TestUtils.Simulate.click(autoCompleteItems[1]);
+        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         TestUtils.Simulate.blur(input);
 
         testHelper.sleep(5);
@@ -1896,7 +1902,7 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        TestUtils.Simulate.click(autoCompleteItems[1]);
+        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         TestUtils.Simulate.blur(input);
 
         testHelper.sleep(5);
@@ -1922,7 +1928,7 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        TestUtils.Simulate.click(autoCompleteItems[1]);
+        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         TestUtils.Simulate.blur(input);
 
         testHelper.sleep(5);
@@ -1949,7 +1955,7 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        TestUtils.Simulate.click(autoCompleteItems[1]);
+        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         TestUtils.Simulate.blur(input);
 
         testHelper.sleep(5);

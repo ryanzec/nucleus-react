@@ -259,7 +259,7 @@ extendText.onMouseEnterAutoCompleteItem = function extendTextOnMouseEnterAutoCom
 };
 
 extendText.onMouseDownAutoCompleteItem = function extendTextOnMouseDownAutoCompleteItem(event) {
-  this.updateValue(parseInt(event.currentTarget.getAttribute('data-key'), 10));
+  this.updateValue(parseInt(event.currentTarget.getAttribute('data-key'), 10), true);
 };
 
 extendText.onClickInputContainer = function extendTextOnInputContainerClick() {
@@ -503,7 +503,7 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
           data-key={key}
           key={key}
           onMouseEnter={this.onMouseEnterAutoCompleteItem}
-          onClick={this.onMouseDownAutoCompleteItem}
+          onMouseDown={this.onMouseDownAutoCompleteItem}
         >
           {item.display}
         </li>
