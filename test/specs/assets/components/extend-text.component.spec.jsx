@@ -40,7 +40,7 @@ var staticData = [{
   display: 'static 2',
   value: 's2'
 }, {
-  display: 'static 2',
+  display: 'static 3',
   value: 's3'
 }, {
   display: 'unique display',
@@ -139,6 +139,28 @@ var PageTestStaticData = React.createClass({
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} staticData={staticData} />
+    );
+  }
+});
+
+var PageTestStaticDataTaggingEnabledAllowFreeForm = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    var value = this.props.value || [];
+
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} taggingEnabled={true} allowFreeForm={true} staticData={staticData} />
     );
   }
 });
@@ -1610,6 +1632,42 @@ describe('extend text component', function() {
       }).run();
     });
 
+    it('should filter out already selected values', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test 1'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        expect(autoCompleteItems.length).to.equal(2);
+        expect(autoCompleteItems[0].props.children).to.equal('test 2');
+        expect(autoCompleteItems[1].props.children).to.equal('test 3');
+
+        done();
+      }).run();
+    });
+
     it('should be able to add multiple values', function(done) {
       Fiber(function() {
         testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
@@ -1906,6 +1964,96 @@ describe('extend text component', function() {
   });
 
   describe('static data', function() {
+    describe('tagging', function() {
+      it('should be able to add multiple values', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'static 1'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'stat'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
+
+          testHelper.sleep(5);
+
+          expect(testData.component.state.extendTextValue).to.deep.equal([{
+            display: 'static 1',
+            value: 's1'
+          }, {
+            display: 'stat',
+            value: 'stat'
+          }]);
+          done();
+        }).run();
+      });
+
+      it('should filter out already selected values', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'static 1'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+          //make sure elements are correct
+          autoCompleteItems.forEach(function(item, key) {
+            expect(item.props['data-key']).to.equal(key);
+            expect(item.props.children).to.equal(staticData[key + 1].display);
+          });
+
+          //make sure there is the correct number of elements
+          expect(autoCompleteItems.length).to.equal(staticData.length - 1);
+          done();
+        }).run();
+      });
+    });
+
     it('should be able to define data', function(done) {
       Fiber(function() {
         testData.component = React.render(<PageTestStaticData />, div);
@@ -1925,7 +2073,7 @@ describe('extend text component', function() {
         });
 
         //make sure there is the correct number of elements
-        expect(autoCompleteItems.length).to.equal(autoCompleteItems.length);
+        expect(autoCompleteItems.length).to.equal(staticData.length);
         done();
       }).run();
     });

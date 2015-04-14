@@ -10,6 +10,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [extend-text][feature] filtering out values that are already selected in the tags
 - [extend-text][feature] added static data functionality (#25)
 - [extend-text] added event handling for tab
 - [extend-text][breaking] refactored event handling for blur to not selected value

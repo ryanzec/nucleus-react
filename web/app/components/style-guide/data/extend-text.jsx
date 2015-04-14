@@ -5,6 +5,34 @@ var ExtendText = nucleusReact.components.ExtendText;
 var bluebird = require('bluebird');
 var request = require('superagent');
 
+var staticData = [{
+  display: 'ASP.NET (Yuck!)',
+  value: 'asp.net'
+}, {
+  display: 'C#',
+  value: 'c-sharp'
+}, {
+  display: 'Go',
+  value: 'golang'
+}, {
+  display: 'Groovy',
+  value: 'groovy'
+}, {
+  display: 'Java',
+  value: 'java'
+}, {
+  display: 'JavaScript',
+  value: 'js'
+}, {
+  display: 'PHP',
+  value: 'php'
+}, {
+  display: 'Python',
+  value: 'python'
+}, {
+  display: 'Rust',
+  value: 'rust'
+}];
 var noop = function(){};
 var getData = function(value) {
   var defer = bluebird.defer();
@@ -45,6 +73,26 @@ var ExtendsTextTaggingAllowFreeForm = React.createClass({
   render: function() {
     return (
       <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
+    );
+  }
+});
+
+var ExtendsTextTaggingStaticData = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} staticData={staticData} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
     );
   }
 });
@@ -181,6 +229,12 @@ module.exports = {
         display: 'Rust',
         value: 'rust'
       }]} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'static data tagging',
+    example: (
+      <ExtendsTextTaggingStaticData />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }],

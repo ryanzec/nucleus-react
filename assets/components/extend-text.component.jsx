@@ -92,7 +92,7 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
     if (this.props.staticData.length > 0) {
       this.setState({
-        autoCompleteItems: this.props.staticDataFilter(value, this.props.staticData),
+        autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
         isActive: true,
         searchAttempted: true
       });
@@ -113,7 +113,7 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
         /* istanbul ignore next */
         if (this.isMounted()) {
           this.setState({
-            autoCompleteItems: items,
+            autoCompleteItems: this.filterSelectedValues(items),
             isLoading: false,
             searchAttempted: true
           });
@@ -146,6 +146,21 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
 
     this.updateDisplayValue(displayInputValue);
   }
+};
+
+extendText.filterSelectedValues = function(data) {
+  return data.filter(function(value) {
+    var isSelected = false;
+    var valueCount = _.isArray(this.props.value) ? this.props.value.length : 0;
+
+    for(var x = 0; x < valueCount; x += 1) {
+      if(this.props.value[x].value === value.value) {
+        isSelected = true;
+      }
+    }
+
+    return !isSelected;
+  }.bind(this));
 };
 
 extendText.cleanValue = function extendTextCleanValue(value) {
