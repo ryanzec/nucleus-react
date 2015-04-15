@@ -146,7 +146,7 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
 
     this.updateDisplayValue(displayInputValue);
 
-    if(this.props.taggingEnabled === true) {
+    if (this.props.taggingEnabled === true) {
       this.getData('');
     }
   }
@@ -176,6 +176,7 @@ extendText.getValidationInitialValue = function extendTextGetValidationInitialVa
 };
 
 extendText.onChange = function extendTextOnChange(event) {
+  this.valueHasChanged = true;
   this.updateDisplayValue(event.target.value);
 
   if (this.isOverCharacterThreshold(event.target.value)) {
@@ -239,6 +240,7 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
 };
 
 extendText.onFocus = function extendTextOnFocus() {
+  this.valueHasChanged = false;
   var inputElement = this.getInputElement();
 
   if (this.isOverCharacterThreshold(inputElement.value)) {
@@ -248,7 +250,10 @@ extendText.onFocus = function extendTextOnFocus() {
 
 extendText.onBlur = function extendTextOnBlur() {
   if (this.state.isActive) {
-    this.updateDisplayValue('');
+    if (this.valueHasChanged) {
+      this.updateValue('', true);
+    }
+
     this.setState({
       focusedAutoCompleteItem: null,
       isActive: false
@@ -263,6 +268,7 @@ extendText.onMouseEnterAutoCompleteItem = function extendTextOnMouseEnterAutoCom
 };
 
 extendText.onMouseDownAutoCompleteItem = function extendTextOnMouseDownAutoCompleteItem(event) {
+  this.valueHasChanged = true;
   this.updateValue(parseInt(event.currentTarget.getAttribute('data-key'), 10), true);
 };
 
@@ -356,16 +362,24 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
     newFullValue = newValue;
   }
 
-  if (newFullValue && this.props.onChange) {
+  if ((this.valueHasChanged === true || this.state.focusedAutoCompleteItem !== null) && this.props.onChange) {
+    //standardize empty value
+    if (!newFullValue && this.props.taggingEnabled === true) {
+      newFullValue = [];
+    } else if (!newFullValue) {
+      newFullValue = null;
+    }
+
     this.props.onChange(newFullValue);
+    this.valueHasChanged = false;
+
+    if (updateDisplayValue === true) {
+      this.updateDisplayValue(newFullValue);
+    }
   }
 
   this.setState(updatedState);
   this.validate(newFullValue);
-
-  if (updateDisplayValue === true) {
-    this.updateDisplayValue(newValue);
-  }
 };
 
 extendText.validate = function extendTextValidate(value) {
@@ -408,7 +422,7 @@ extendText.isOverCharacterThreshold = function extendTextIsOverCharacterThreshol
     return false;
   }
 
-  return value.length >= this.props.characterThreshold;
+  return _.isString(value) && value.length >= this.props.characterThreshold;
 };
 
 extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
@@ -424,7 +438,7 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   } else if (this.props.allowFreeForm === true && inputElement.value !== '') {
     this.updateValue(inputElement.value, true);
   } else {
-    this.updateDisplayValue('');
+    this.updateValue('', true);
   }
 
   if (this.props.taggingEnabled === true) {

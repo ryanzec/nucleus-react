@@ -544,6 +544,8 @@ describe('extend text component', function() {
     it('should be able to update value with single value', function() {
       testData.component = React.render(<PageTest />, div);
       var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+
+      extendTextComponent.valueHasChanged = true;
       extendTextComponent.updateValue('test');
 
       expect(testData.component.state.extendTextValue).to.deep.equal({
@@ -556,6 +558,8 @@ describe('extend text component', function() {
       Fiber(function() {
         testData.component = React.render(<PageTest />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+
+        extendTextComponent.valueHasChanged = true;
         extendTextComponent.updateValue({
           id: 123,
           display: 'test display',
@@ -641,7 +645,7 @@ describe('extend text component', function() {
           expect(testData.component.state.focusedAutoCompleteItem).to.equal(0);
           done();
         }).run();
-      })
+      });
 
       it('should increase focused item when pressing the down arrow', function(done) {
         Fiber(function() {
@@ -946,6 +950,49 @@ describe('extend text component', function() {
 
           expect(extendTextComponent.state.isActive).to.be.false;
           expect(testData.component.state.extendTextValue).to.be.null;
+          done();
+        }).run();
+      });
+
+      it('should not clear value when bluring input value has not changed since last focus', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTest />, div);
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'test 2'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.TAB
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          expect(testData.component.state.extendTextValue).to.deep.equal({
+            display: 'test 2',
+            value: 2
+          });
+          expect(input.getDOMNode().value).to.equal('test 2');
           done();
         }).run();
       });
@@ -1530,6 +1577,53 @@ describe('extend text component', function() {
         testHelper.sleep(5);
 
         expect(testData.component.getAutoCompleteIndex('test 3')).to.equal(2);
+        done();
+      }).run();
+    });
+
+    it('should not change value when tabbing after selecting a value', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTest />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.DOWN
+        });
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.DOWN
+        });
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.DOWN
+        });
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.TAB
+        });
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.extendTextValue).to.deep.equal({
+          display: 'test 3',
+          value: 3
+        });
+        expect(extendTextComponent.props.value.display).to.equal('test 3');
         done();
       }).run();
     });

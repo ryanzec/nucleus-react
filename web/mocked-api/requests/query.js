@@ -34,6 +34,16 @@ module.exports = {
       }
     },
 
+    delayed: {
+      url: baseUrl + '/test 3',
+      response: {
+        httpCode: 200,
+        data: {
+          results: mockedData.query.empty
+        }
+      }
+    },
+
     others: {
       url: baseUrl + '/*',
       response: {

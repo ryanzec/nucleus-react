@@ -10,6 +10,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [extend-text][bug] fixed a few locations where the value was not being updated or not updated properly (#47)
 - [extend-text][bug] auto complete now displays remaining items after entering a tag automatically if threshold is 0 (#45)
 - [extend-text][bug] coverted svg based animation to css based animation for loading indicator (#46)
 - [extend-text][bug] fixed clicking on auto complete items updating value
