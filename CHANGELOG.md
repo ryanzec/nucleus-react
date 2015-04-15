@@ -10,7 +10,8 @@ There are some key used within the changelog which are as following:
 
 ## master
 
-- [extend-text] coverted svg based animation to css based animation for loading indicator (#46)
+- [extend-text][bug] auto complete now displays remaining items after entering a tag automatically if threshold is 0 (#45)
+- [extend-text][bug] coverted svg based animation to css based animation for loading indicator (#46)
 - [extend-text][bug] fixed clicking on auto complete items updating value
 - [extend-text][feature] filtering out values that are already selected in the tags (#43)
 - [extend-text][feature] added static data functionality (#25)

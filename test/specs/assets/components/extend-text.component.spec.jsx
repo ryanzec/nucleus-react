@@ -113,7 +113,7 @@ var PageTest = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} />
@@ -135,7 +135,7 @@ var PageTestStaticData = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} staticData={staticData} />
@@ -157,10 +157,10 @@ var PageTestStaticDataTaggingEnabledAllowFreeForm = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || [];
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
-      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} taggingEnabled={true} allowFreeForm={true} staticData={staticData} />
+      <ExtendText onChange={this.onExtendTextChange} value={value} taggingEnabled={true} allowFreeForm={true} staticData={staticData} />
     );
   }
 });
@@ -179,7 +179,7 @@ var PageTestTagging = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || [];
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} taggingEnabled={true} />
@@ -221,7 +221,7 @@ var PageTestNoFilter = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getDataNoFilter} />
@@ -243,7 +243,7 @@ var PageTestAllowFreeForm = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} allowFreeForm={true} />
@@ -265,7 +265,7 @@ var FormExampleValidationTrueBoth = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText
@@ -299,7 +299,7 @@ var FormExampleValidationFalseBothOnLoad = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText
@@ -334,7 +334,7 @@ var FormExampleValidationTrueInvalid = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText
@@ -368,7 +368,7 @@ var FormExampleValidationFalseBoth = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText
@@ -402,7 +402,7 @@ var FormExampleValidationFalseValid = React.createClass({
   },
 
   render: function() {
-    var value = this.props.value || null;
+    var value = this.props.value || this.state.extendTextValue;
 
     return (
       <ExtendText
@@ -1036,7 +1036,6 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        expect(extendTextComponent.state.isActive).to.be.false;
         expect(testData.component.state.extendTextValue).to.be.null;
         expect(input.getDOMNode().value).to.equal('');
         done();
@@ -1065,7 +1064,6 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        expect(extendTextComponent.state.isActive).to.be.false;
         expect(testData.component.state.extendTextValue).to.deep.equal({
           display: 'tes',
           value: 'tes'
@@ -1634,6 +1632,40 @@ describe('extend text component', function() {
           display: 'tes',
           value: 'tes'
         }]);
+        done();
+      }).run();
+    });
+
+    it('should display remain auto complete list automatically after adding in tag when threshold is 0', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test 1'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        expect(autoCompleteItems.length).to.equal(2);
+        expect(autoCompleteItems[0].props.children).to.equal('test 2');
+        expect(autoCompleteItems[1].props.children).to.equal('test 3');
+
         done();
       }).run();
     });

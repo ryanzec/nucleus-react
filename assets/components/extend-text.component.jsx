@@ -145,6 +145,10 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
     }
 
     this.updateDisplayValue(displayInputValue);
+
+    if(this.props.taggingEnabled === true) {
+      this.getData('');
+    }
   }
 };
 
@@ -342,6 +346,8 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 
   if (this.props.taggingEnabled === true) {
+    updatedState.isActive = true;
+
     if (newValue !== '') {
       newFullValue = _.clone(this.props.value);
       newFullValue.push(newValue);
@@ -424,10 +430,6 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   if (this.props.taggingEnabled === true) {
     this.updateDisplayValue('');
   }
-
-  this.setState({
-    isActive: false
-  });
 };
 
 extendText.increaseFocusedAutoCompleteItem = function extendTextIncreaseFocusedAutoCompleteItem() {
