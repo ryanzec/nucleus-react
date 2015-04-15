@@ -1,73 +1,97 @@
-@mixin button-color($button-main-color, $button-text-color) {
-  &.quiet {
-    color: $color-text;
-    background: none;
-  }
+$background-color-button-default: $color-gray4 !default;
+$color-default-button: $color-white !default;
 
-  &:not(.quiet) {
-    color: $button-text-color;
-    background-color: $button-main-color;
-  }
+$background-color-safe-button: $color-safe !default;
+$color-safe-button: $color-white !default;
 
-  &.border {
-    border: 1px solid darken($button-main-color, 30%);
-  }
+$background-color-notice-button: $color-notice !default;
+$color-notice-button: $color-white !default;
 
-  &:not(.solid-color) {
-    &:hover {
+$background-color-warning-button: $color-warning !default;
+$color-warning-button: $color-white !default;
 
-      &.quiet {
-        color: $button-text-color;
-      }
-
-      &:not([disabled]) {
-        background-color: darken($button-main-color, 10%);
-      }
-    }
-
-    &:active, &.is-active {
-      &:not([disabled]) {
-        background-color: darken($button-main-color, 10%);
-      }
-    }
-  }
-}
+$background-color-danger-button: $color-danger !default;
+$color-danger-button: $color-white !default;
 
 button {
-  @include button-color($background-color-button-default, $color-default-button);
-
-  border-radius: $border-radius-button;
+  color: $color-default-button;
+  background-color: $background-color-button-default;
+  border-radius: $border-radius-small;
   position: relative;
   border: none;
-  font-weight: $font-weight-button;
+  font-weight: 400;
   cursor: pointer;
   vertical-align: middle;
-  font-size: $font-size-button;
-  padding: $padding-button;
+  font-size: 1.3rem;
+  padding: 4px 12px;
   margin: 5px;
+
+  &:hover:not([disabled]) {
+    background-color: darken($background-color-button-default, 10%);
+  }
+
+  &:active:not([disabled]) {
+    background-color: darken($background-color-button-default, 20%);
+  }
 
   &:focus {
     outline: none;
   }
 
   &.m-safe {
-    @include button-color($background-color-safe-button, $color-safe-button);
+    color: $color-safe-button;
+    background-color: $background-color-safe-button;
+
+    &:hover:not([disabled]) {
+      background-color: darken($background-color-safe-button, 10%);
+    }
+
+    &:active:not([disabled]) {
+      background-color: darken($background-color-safe-button, 20%);
+    }
   }
 
   &.m-notice {
-    @include button-color($background-color-notice-button, $color-notice-button);
+    color: $color-notice-button;
+    background-color: $background-color-notice-button;
+
+    &:hover:not([disabled]) {
+      background-color: darken($background-color-notice-button, 10%);
+    }
+
+    &:active:not([disabled]) {
+      background-color: darken($background-color-notice-button, 20%);
+    }
   }
 
   &.m-warning {
-    @include button-color($background-color-warning-button, $color-warning-button);
+    color: $color-warning-button;
+    background-color: $background-color-warning-button;
+
+    &:hover:not([disabled]) {
+      background-color: darken($background-color-warning-button, 10%);
+    }
+
+    &:active:not([disabled]) {
+      background-color: darken($background-color-warning-button, 20%);
+    }
   }
 
   &.m-danger {
-    @include button-color($background-color-danger-button, $color-danger-button);
+    color: $color-danger-button;
+    background-color: $background-color-danger-button;
+
+    &:hover:not([disabled]) {
+      background-color: darken($background-color-danger-button, 10%);
+    }
+
+    &:active:not([disabled]) {
+      background-color: darken($background-color-danger-button, 20%);
+    }
   }
 
   &[disabled] {
-    opacity: $opacity-disabled-button;
+    opacity: .5;
     cursor: not-allowed;
   }
 

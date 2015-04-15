@@ -34,7 +34,7 @@ $color-dark-neutral: darken($color-neutral, 10%) !default;
 //safe colors
 $color-safe: $color-secondary1 !default;
 $color-dark-safe: darken($color-safe, 5%) !default;
-$color-light-safe: lighten($color-safe, 72%) !default;
+$color-light-safe: lighten($color-safe, 52%) !default;
 
 //notice colors
 $color-notice: $color-secondary2 !default;
@@ -48,7 +48,7 @@ $color-dark-warning: darken($color-warning, 10%) !default;
 
 //danger colors
 $color-danger: $color-secondary4 !default;
-$color-light-danger: lighten($color-danger, 38%) !default;
+$color-light-danger: lighten($color-danger, 43%) !default;
 $color-dark-danger: darken($color-danger, 15%) !default;
 
 //z-indexes
@@ -69,108 +69,9 @@ $font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !defau
 //this variable is only used on body to prevent issues with Chrome
 $font-size-body: 1.3em !default;
 
-//forms
-$text-align-compact-label: right !default;
-$padding-compact-label: 0 10px 0 0 !default;
-$border-radius-input: 5px !default;
-$border-input: 1px solid $color-primary1 !default;
-$padding-input: 4px !default;
-$opacity-disabled-input: .7 !default;
-$margin-label: 0 0 3px 0 !default;
-$box-shadow-focused-input: 0 0 4px $color-dark-notice !default;
-$height-select: 19px !default;
-$background-color-input: $color-white !default;
-$width-text-input: 100% !default;
-$margin-radio-checkbox: 3px !default;
-$box-shadow-invalid-input-element: 0 0 4px $color-dark-danger !default;
-$box-shadow-valid-input-element: 0 0 4px $color-dark-safe !default;
-$padding-input-element: 5px 0 !default;
-$position-label-validator-input-element: relative !default;
-$top-label-validitor-input-element: 3px !default;
-$margin-label-validator-input-element: 0 0 0 5px !default;
-$margin-message-input-element: 10px 0 0 0 !default;
-
-//svg icons
-$width-svg-icon: 16px !default;
-$height-svg-icon: 16px !default;
-
-//auto complete
-$border-options-auto-complete: $border-input !default;
-$background-color-options-auto-complete: $color-white !default;
-$max-height-options-auto-complete: 300px !default;
-$padding-option-auto-complete: 3px 6px !default;
-$background-color-option-is-focused-auto-complete: transparentize($color-secondary2, .5) !default;
-$box-shadow-options-valid-auto-complete: $box-shadow-valid-input-element !default;
-$box-shadow-options-invalid-auto-complete: $box-shadow-invalid-input-element !default;
-
-//overlay
-$background-color-overlay: transparentize($color-black, .5);
-
-//extend text
-$border-radius-extend-text: 5px !default;
-$top-new-indicator-extend-text: 0px !default;
-$right-new-indicator-extend-text: 0px !default;
-
-//tagging
-$margin-tag-tagging: 2px 8px 2px 2px !default;
-$background-color-tag-tagging: rgb(184, 215, 235) !default;
-$border-tag-tagging: 1px solid rgb(95, 134, 142) !default;
-$border-radius-tag-tagging: 2px !default;
-$padding-tag-tagging: 2px 4px !default;
-$border-color-selected-tag-tagging: rgb(255, 0, 0) !default;
-$width-tag-remove-icon-tagging: 10px !default;
-$height-tag-remove-icon-tagging: 10px !default;
-
-//search query
-$height-inputs-search-query: 25px !default;
-$color-icon-empty-search-query: $color-gray6 !default;
-$padding-textarea-search-query: 30px !default;
-$top-tooltip-search-query: 4px !default;
-$right-tooltip-search-query: 5px !default;
-$text-align-tooltip-content-search-query: center !default;
-$border-tooltip-content-search-query: 1px solid $color-gray4 !default;
-$border-radius-tooltip-content-search-query: 5px !default;
-
-//buttons
-$border-radius-button: 3px !default;
-$font-weight-button: 400 !default;
-$opacity-disabled-button: 0.5 !default;
-
-$background-color-button-default: $color-gray4 !default;
-$color-default-button: $color-white !default;
-
-$background-color-safe-button: $color-safe !default;
-$color-safe-button: $color-white !default;
-
-$background-color-notice-button: $color-notice !default;
-$color-notice-button: $color-white !default;
-
-$background-color-warning-button: $color-warning !default;
-$color-warning-button: $color-white !default;
-
-$background-color-danger-button: $color-danger !default;
-$color-danger-button: $color-white !default;
-
-$font-size-button: 1.3rem !default;
-$padding-button: 4px 12px !default;
-
-//progress bars
-$border-progress-bar: 1px solid $color-neutral !default;
-$height-progress-bar: 16px !default;
-$border-radius-progress-bar: $height-progress-bar / 2 !default;
-$background-color-indicator-progress-bar: $color-neutral !default;
-
-//modal
-$top-content-center-modal: 75px !default;
-$border-radius-center-modal: 5px !default;
-$border-modal: 1px solid $color-black !default;
-$background-color-content-modal: $color-white !default;
-$padding-content-modal: 10px !default;
-
-//pagination
-$color-navigation-active-pagination: $color-notice !default;
-$icon-size-pagination: 12px !default;
-$padding-item-pagination: 6px 12px !default;
+//border radiuses
+$border-radius-small: 2px;
+$border-radius-medium: 5px;
 
 //break points
 $small-break-point: 640px !default;

@@ -6,21 +6,21 @@ $component_identifier: '.pagination';
   &__navigation,
   &__ellipse {
     display: inline-block;
-    padding: $padding-item-pagination;
+    padding: 6px 12px;
   }
 
   &__navigation {
     cursor: pointer;
 
     &.is-active {
-      color: $color-navigation-active-pagination;
+      color: $color-notice;
     }
   }
 
   &__previous .svg-icon,
   &__next .svg-icon {
-    width: $icon-size-pagination;
-    height: $icon-size-pagination;
+    width: 12px;
+    height: 12px;
   }
 
   &__pages {

@@ -8,7 +8,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $background-color-overlay;
+  background-color: transparentize($color-black, .5);
   z-index: $z-index-overlay;
 
   &.m-absolute {

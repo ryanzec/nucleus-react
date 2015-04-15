@@ -10,7 +10,7 @@
     }
 
     &:not(.m-display-no-results) .extend-text__value-container {
-      border-radius: $border-radius-extend-text $border-radius-extend-text 0 0;
+      border-radius: $border-radius-medium $border-radius-medium 0 0;
     }
 
     .extend-text__auto-complete-container {
@@ -21,12 +21,12 @@
   &.m-valid {
     .extend-text__auto-complete-container {
       border-color: $color-safe;
-      background-color: transparentize($color-safe, 0.97);
+      background-color: $color-light-safe;
     }
 
     .extend-text__value-container {
       border-color: $color-safe;
-      background-color: transparentize($color-safe, 0.97);
+      background-color: $color-light-safe;
     }
 
     .extend-text__validation-icon {
@@ -37,12 +37,12 @@
   &.m-invalid {
     .extend-text__auto-complete-container {
       border-color: $color-danger;
-      background-color: transparentize($color-danger, 0.97);
+      background-color: $color-light-danger;
     }
 
     .extend-text__value-container {
       border-color: $color-danger;
-      background-color: transparentize($color-danger, 0.97);
+      background-color: $color-light-danger;
     }
 
     .extend-text__validation-icon {
@@ -58,23 +58,26 @@
     padding: 0;
     border: none;
     border-radius: 0;
-      background-color: transparent;
+    background-color: transparent;
   }
 
   .extend-text__value-container {
     @include flex(1);
+
     position: relative;
-    //width: 100%;
     margin: 5px 0;
     border: 1px solid $color-gray2;
-    border-radius: 5px;
+    border-radius: $border-radius-medium;
     padding: 4px 6px;
     background-color: $color-white;
     cursor: text;
   }
 
   .extend-text__validation-icon {
-    @include flexbox-value-width(0 0 16px);
+    @include flexbox-value-width(0 0 20px);
+
+    height: 20px;
+    width: 20px;
     margin: 0 5px;
   }
 
@@ -84,15 +87,15 @@
 
   .extend-text__tag {
     display: inline-block;
-    margin: $margin-tag-tagging;
+    margin: 2px 8px 2px 2px;
     position: relative;
-    background-color: $background-color-tag-tagging;
-    border: $border-tag-tagging;
-    border-radius: $border-radius-tag-tagging;
-    padding: $padding-tag-tagging;
+    background-color: $color-primary1;
+    border: $color-black;
+    border-radius: $border-radius-small;
+    padding: 2px 4px;
 
     &.selected {
-      border-color: $border-color-selected-tag-tagging;
+      border-color: $color-dark-danger;
     }
 
     &:last-child {
@@ -102,8 +105,9 @@
     .extend-text__tag-remove {
       cursor: pointer;
       margin-left: 4px;
-      width: $width-tag-remove-icon-tagging;
-      height: $height-tag-remove-icon-tagging;
+      width: 10px;
+      height: 10px;
+      fill: $color-text;
     }
   }
 
@@ -117,22 +121,22 @@
 
   .extend-text__auto-complete-container {
     position: absolute;
-    border: $border-options-auto-complete;
-    background-color: $background-color-options-auto-complete;
+    border: 1px solid $color-primary1;
+    background-color: $color-white;
     z-index: $z-index-extend-text;
     border-top: none;
-    max-height: $max-height-options-auto-complete;
+    max-height: 300px;
     overflow: auto;
     width: calc(100% + 2px);
-    border-radius: 0 0 $border-radius-extend-text $border-radius-extend-text;
+    border-radius: 0 0 $border-radius-medium $border-radius-medium;
     display: none;
 
     li {
-      padding: $padding-option-auto-complete;
+      padding: 3px 6px;
     }
 
     .is-focused {
-      background-color: $background-color-option-is-focused-auto-complete;
+      background-color: transparentize($color-secondary2, .5);
     }
   }
 
@@ -143,7 +147,7 @@
   .extend-text__new-indicator,
   .extend-text__loading-indicator {
     position: absolute;
-    top: $top-new-indicator-extend-text;
-    right: $right-new-indicator-extend-text;
+    top: 0px;
+    right: 0px;
   }
 }

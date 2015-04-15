@@ -19,19 +19,19 @@ $component-identifier: '.modal';
       top: 50%;
       left: 50%;
 
-      border-radius: $border-radius-center-modal;
+      border-radius: $border-radius-medium;
       display: none;
-      border: $border-modal;
+      border: 1px solid $color-black;
     }
   }
 
   #{$component-identifier}__content {
     position: fixed;
     z-index: $z-index-content-modal;
-    background-color: $background-color-content-modal;
+    background-color: $color-white;
     overflow: auto;
     display: none;
-    padding: $padding-content-modal;
+    padding: 10px;
   }
 
   &.is-active {

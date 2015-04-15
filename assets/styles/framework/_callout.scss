@@ -4,7 +4,7 @@ $component-identifier: '.callout';
     border: 1px solid $color-neutral;
     background-color: transparentize($color-neutral, .85);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: $border-radius-medium;
     margin: 10px;
 
     &__header {

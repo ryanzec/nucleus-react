@@ -13,7 +13,7 @@ $component-identifier: '.form-element';
     width: 100%;
     margin: 5px 0;
     border: 1px solid $color-gray2;
-    border-radius: 5px;
+    border-radius: $border-radius-medium;
     padding: 4px 6px;
 
     &:focus {
@@ -96,11 +96,11 @@ $component-identifier: '.form-element';
   }
 
   &__input-prepend {
-    border-radius: 5px 0 0 5px;
+    border-radius: $border-radius-medium 0 0 $border-radius-medium;
   }
 
   &__input-append {
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 $border-radius-medium $border-radius-medium 0;
   }
 
   &.m-valid {
@@ -108,7 +108,7 @@ $component-identifier: '.form-element';
     #{$component-identifier}__input.m-select,
     #{$component-identifier}__input.m-textarea {
       border-color: $color-safe;
-      background-color: transparentize($color-safe, 0.97);
+      background-color: $color-light-safe;
     }
 
     #{$component-identifier}__validation-icon {
@@ -121,7 +121,7 @@ $component-identifier: '.form-element';
     #{$component-identifier}__input.m-select,
     #{$component-identifier}__input.m-textarea {
       border-color: $color-danger;
-      background-color: transparentize($color-danger, 0.97);
+      background-color: $color-light-danger;
     }
 
     #{$component-identifier}__validation-icon {

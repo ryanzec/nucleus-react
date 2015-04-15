@@ -148,13 +148,13 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
   }
 };
 
-extendText.filterSelectedValues = function(data) {
-  return data.filter(function(value) {
+extendText.filterSelectedValues = function extendTextFilterSelectedValues(data) {
+  return data.filter(function extendTextFilterSelectedValuesDataFilter(value) {
     var isSelected = false;
     var valueCount = _.isArray(this.props.value) ? this.props.value.length : 0;
 
-    for(var x = 0; x < valueCount; x += 1) {
-      if(this.props.value[x].value === value.value) {
+    for (var x = 0; x < valueCount; x += 1) {
+      if (this.props.value[x].value === value.value) {
         isSelected = true;
       }
     }

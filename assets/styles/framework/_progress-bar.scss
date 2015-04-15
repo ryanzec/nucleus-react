@@ -1,19 +1,21 @@
 $component-identifier: '.progress-bar';
 
+$height-progress-bar: 16px !default;
+
 #{$component-identifier} {
-  border: $border-progress-bar;
+  border: 1px solid $color-neutral;
   position: relative;
   display: inline-block;
   height: $height-progress-bar;
   overflow: hidden;
   cursor: pointer;
-  border-radius: $border-radius-progress-bar;
+  border-radius: ($height-progress-bar / 2);
 
   &__indicator {
     position: absolute;
     display: block;
     height: $height-progress-bar;
-    background-color: $background-color-indicator-progress-bar;
+    background-color: $color-neutral;
   }
 
   &.m-safe {

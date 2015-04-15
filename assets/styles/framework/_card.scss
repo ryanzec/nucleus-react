@@ -2,7 +2,7 @@ $component-identifier: '.card';
 
 #{$component-identifier} {
   border: 1px solid $color-gray3;
-  border-radius: 5px;
+  border-radius: $border-radius-medium;
 
   &__header {
     position: relative;
