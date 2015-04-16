@@ -76,5 +76,17 @@ module.exports = {
       </Card>
     ),
     exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        Clickable card.
+      </p>
+    ),
+    example: (
+      <Card isClickable={true} onClick={function(){alert('test');}}>
+        <CardContent>Content</CardContent>
+      </Card>
+    ),
+    exampleString: '<Badge>Standard</Badge>'
   }]
 };

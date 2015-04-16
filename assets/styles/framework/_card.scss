@@ -3,6 +3,7 @@ $component-identifier: '.card';
 #{$component-identifier} {
   border: 1px solid $color-gray3;
   border-radius: $border-radius-medium;
+  background-color: $color-white;
 
   &__header {
     position: relative;
@@ -35,7 +36,6 @@ $component-identifier: '.card';
   &__content {
     position: relative;
     padding: 10px;
-    background-color: $color-white;
   }
 
   &__content-arrow {
@@ -56,6 +56,17 @@ $component-identifier: '.card';
 
     position: absolute;
     top: 1px;
+  }
+
+  &.has-clickability {
+    &:hover {
+      cursor: pointer;
+      background-color: $color-primary1;
+    }
+
+    &.is-pressed {
+      background-color: lighten($color-primary1, 55%);
+    }
   }
 }
 
