@@ -1,5 +1,3 @@
-//TODO: need to figure out better way to display the new indicator (maybe in the auto complete list?)
-
 var React = require('react/addons');
 var _ = require('lodash');
 var equals = require('deep-equal');

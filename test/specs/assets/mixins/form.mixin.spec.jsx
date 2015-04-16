@@ -27,7 +27,8 @@ var SingleForm = React.createClass({
       tags: [{
         display: 'test1',
         value: 't1'
-      }]
+      }],
+      noProps: ''
     };
     return {
       initialTest: initialFormData,
@@ -140,6 +141,10 @@ var SingleForm = React.createClass({
               }
             }]
           }
+        },
+
+        noProps: {
+          component: TextboxInput
         }
       }
     };

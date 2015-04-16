@@ -34,7 +34,7 @@ module.exports = {
       }
     },
 
-    delayed: {
+    test3: {
       url: baseUrl + '/test 3',
       response: {
         httpCode: 200,
