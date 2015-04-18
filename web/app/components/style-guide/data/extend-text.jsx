@@ -199,9 +199,9 @@ module.exports = {
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
-    description: 'static data',
+    description: 'static data (no filter)',
     example: (
-      <ExtendText onChange={noop} staticData={[{
+      <ExtendText onChange={noop} staticDataFilter={function(value, data){return data}} staticData={[{
         display: 'ASP.NET (Yuck!)',
         value: 'asp.net'
       }, {

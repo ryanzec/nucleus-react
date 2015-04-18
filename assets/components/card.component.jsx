@@ -46,19 +46,19 @@ card.getCssClasses = function cardGetCssClasses() {
   return cssClasses;
 };
 
-card.onMouseLeave = function() {
+card.onMouseLeave = function cardOnMouseLeave() {
   this.setState({
     isPressed: false
   });
 };
 
-card.onMouseDown = function() {
+card.onMouseDown = function cardOnMouseDown() {
   this.setState({
     isPressed: true
   });
 };
 
-card.onMouseUp = function() {
+card.onMouseUp = function cardOnMouseUp() {
   this.setState({
     isPressed: false
   });

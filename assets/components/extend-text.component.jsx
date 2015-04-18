@@ -88,6 +88,12 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   this.setAutoCompletePosition();
 
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
+    //don't bother getting the data if the input have been blurred since requesting data (like when tabbing to select or clicking item)
+    if (this.hasBeenBlurred === true) {
+      this.hasBeenBlurred = false;
+      return;
+    }
+
     if (this.props.staticData.length > 0) {
       this.setState({
         autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
@@ -144,8 +150,16 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
 
     this.updateDisplayValue(displayInputValue);
 
-    if (this.props.taggingEnabled === true) {
+    if (
+      this.props.taggingEnabled === true
+      && this.isOverCharacterThreshold('')
+      && equals(document.activeElement, this.getInputElement())
+    ) {
       this.getData('');
+    } else {
+      this.setState({
+        isActive: false
+      });
     }
   }
 };
@@ -238,6 +252,7 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
 };
 
 extendText.onFocus = function extendTextOnFocus() {
+  this.hasBeenBlurred = false;
   this.valueHasChanged = false;
   var inputElement = this.getInputElement();
 
@@ -249,9 +264,14 @@ extendText.onFocus = function extendTextOnFocus() {
 extendText.onBlur = function extendTextOnBlur() {
   if (this.state.isActive) {
     if (this.valueHasChanged) {
-      this.updateValue('', true);
+      if (this.props.taggingEnabled === true) {
+        this.updateDisplayValue('');
+      } else {
+        this.updateValue('', true);
+      }
     }
 
+    this.hasBeenBlurred = true;
     this.setState({
       focusedAutoCompleteItem: null,
       isActive: false
@@ -335,7 +355,6 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
 
   if (_.isNumber(newValue) && this.state.autoCompleteItems[newValue]) {
     newValue = this.state.autoCompleteItems[newValue];
-    updatedState.isActive = false;
     updatedState.focusedAutoCompleteItem = null;
   }
 
@@ -350,8 +369,6 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 
   if (this.props.taggingEnabled === true) {
-    updatedState.isActive = true;
-
     if (newValue !== '') {
       newFullValue = _.clone(this.props.value);
       newFullValue.push(newValue);
@@ -384,6 +401,13 @@ extendText.validate = function extendTextValidate(value) {
   if (this.validator) {
     this.validator.validate(value);
   }
+};
+
+extendText.onClickRemoveTag = function extendTextOnClickRemoveTag(valueIndex) {
+  return function extendTextOnClickRemoveTagGeneratedCallback(event) {
+    event.stopPropagation();
+    this.removeValue(valueIndex);
+  }.bind(this);
 };
 
 extendText.removeValue = function extendTextRemoveValue(valueIndex) {
@@ -495,7 +519,7 @@ extendText.renderTags = function extendTextRenderTags() {
           key={key}
         >
           {item.display}
-          <SvgIcon onClick={this.removeValue.bind(this, key)} className="extend-text__tag-remove" fragment="x" />
+          <SvgIcon onClick={this.onClickRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
         </div>
       );
     }.bind(this));

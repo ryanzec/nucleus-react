@@ -707,7 +707,7 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it('should select the item when pressing the enter key is value complete matches the item', function(done) {
+      it('should select the item when pressing the enter key is value completely matches the item', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
@@ -1532,7 +1532,7 @@ describe('extend text component', function() {
       }).run();
     });
 
-    it('should not clear value if the value match an auto complete when blurring input', function(done) {
+    it('should not clear value if the value matches an auto complete when blrring input', function(done) {
       Fiber(function() {
         testData.component = React.render(<PageTestNoFilter />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
@@ -1555,9 +1555,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
-          which: testHelper.keyCodes.TAB
-        });
+        TestUtils.Simulate.blur(input);
 
         testHelper.sleep(5);
 
@@ -1652,6 +1650,33 @@ describe('extend text component', function() {
   });
 
   describe('tagging', function() {
+    describe('events', function() {
+      it('should deactivate the auto complete when when selecting with mouse click', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+          var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+          reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          console.log(extendTextComponent.props.value);
+
+          expect(extendTextComponent.state.isActive).to.be.false;
+          done();
+        }).run();
+      });
+    });
+
     it('should be able to set initial value with multiple tags', function() {
       var tags = [{
         display: 'test1',
@@ -1663,6 +1688,39 @@ describe('extend text component', function() {
       testData.component = React.render(<PageTestTagging value={tags} />, div);
 
       expect(testData.component.state.extendTextValue).to.deep.equal(tags);
+    });
+
+    it('should remove tags when bluring input that has invalid value', function(done) {
+      Fiber(function() {
+        var tags = [{
+          display: 'test1',
+          value: 't1'
+        }, {
+          display: 'test2',
+          value: 't2'
+        }];
+        testData.component = React.render(<PageTestTagging value={tags} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.extendTextValue).to.deep.equal(tags);
+        done();
+      }).run();
     });
 
     it('should store value as an array', function() {
@@ -1750,6 +1808,7 @@ describe('extend text component', function() {
         TestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
+        TestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1901,6 +1960,54 @@ describe('extend text component', function() {
         // TestUtils.Simulate.click(tagRemoveElements[1]);
 
         expect(testData.component.state.extendTextValue).to.deep.equal([]);
+        done();
+      }).run();
+    });
+
+    it('should not activate input when clicking delete element', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test 1'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
+
+        TestUtils.Simulate.click(tagRemoveElements[0]);
+
+        expect(document.activeElement).to.not.equal(input.getDOMNode());
+        expect(extendTextComponent.state.isActive).to.be.false;
         done();
       }).run();
     });
