@@ -22,6 +22,9 @@ $color-white: hsla(0, 0%, 100%, 1) !default;
 $color-black: hsla(0, 0%, 0%, 1) !default;
 $color-transparent: hsla(0, 0%, 0%, 0) !default;
 
+//transparent colors
+$color-transparent1: hsla(0, 0%, 0%, .05) !default;
+
 //text colors
 $color-text: hsla(0, 0%, 20%, 1) !default;
 $color-light-text: hsla(0, 0%, 90%, 1) !default;
@@ -72,6 +75,7 @@ $font-size-body: 1.3em !default;
 //border radiuses
 $border-radius-small: 2px;
 $border-radius-medium: 5px;
+$border-radius-rounded-sides: 999px;
 
 //break points
 $small-break-point: 640px !default;

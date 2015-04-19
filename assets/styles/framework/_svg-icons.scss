@@ -1,3 +1,21 @@
+.svg-icon-outer-container {
+  @include display(inline-flex);
+  @include user-select(none);
+
+  &.has-clickability {
+    cursor: pointer;
+
+    &:not(.m-quiet) {
+      padding: 6px;
+
+      &.is-pressed {
+        background-color: $color-transparent1;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
 .svg-icon-container {
   @include display(inline-flex);
 

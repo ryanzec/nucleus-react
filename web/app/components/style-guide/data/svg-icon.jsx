@@ -57,6 +57,39 @@ module.exports = {
   }, {
     description: (
       <p>
+        You can make it clickable by setting the <code>isClickable</code> property.
+      </p>
+    ),
+    example: (
+      <SvgIcon
+        isClickable={true}
+        onClick={function() {
+          alert('clicked');
+        }}
+        fragment="play"
+        size="small" />
+    ),
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tsize="small" />'
+  }, {
+    description: (
+      <p>
+        The <code>isQuiet</code> property can be added for a different style.
+      </p>
+    ),
+    example: (
+      <SvgIcon
+        isClickable={true}
+        isQuiet={true}
+        onClick={function() {
+          alert('clicked');
+        }}
+        fragment="play"
+        size="small" />
+    ),
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tsize="small" />'
+  }, {
+    description: (
+      <p>
         You can provide additional CSS classes with the <code>className</code> property.
       </p>
     ),

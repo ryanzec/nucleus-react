@@ -1,13 +1,14 @@
 var React = require('react/addons');
 var iconData = require('nucleus-icons');
-var _ = require('lodash');
+var clickableMixin = require('../mixins/clickable.mixin');
 
 var svgIcon = {};
 
 svgIcon.displayName = 'SvgIcon';
 
 svgIcon.mixins = [
-  React.addons.PureRenderMixin
+  React.addons.PureRenderMixin,
+  clickableMixin
 ];
 
 svgIcon.propTypes = {
@@ -28,7 +29,7 @@ svgIcon.getSvgHtml = function svgIconGetSvgHtml() {
   return iconData[this.props.size][this.props.fragment];
 };
 
-svgIcon.getCssClasses = function svgIconGetCssClasses() {
+svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
   var cssClasses = ['svg-icon-container'];
 
   if (this.props.className) {
@@ -38,25 +39,37 @@ svgIcon.getCssClasses = function svgIconGetCssClasses() {
   return cssClasses;
 };
 
-svgIcon.getInputPassThroughProps = function svgIconGetInputPassThroughProps() {
-  var props = _.clone(this.props);
+svgIcon.getOuterCssClasses = function svgIconGetOuterCssClasses() {
+  var cssClasses = ['svg-icon-outer-container'];
 
-  delete props.fragment;
-  delete props.size;
-  delete props.className;
+  if (this.props.isClickable === true) {
+    cssClasses.push('has-clickability');
+  }
 
-  return props;
+  if (this.state.isPressed === true) {
+    cssClasses.push('is-pressed');
+  }
+
+  if (this.props.isQuiet === true) {
+    cssClasses.push('m-quiet');
+  }
+
+  return cssClasses;
 };
 
 svgIcon.render = function svgIconRender() {
   return (
     <span
-      className={this.getCssClasses().join(' ')}
-      {...this.getInputPassThroughProps()}
-      dangerouslySetInnerHTML={{
-        __html: this.getSvgHtml()
-      }}
-    ></span>
+      className={this.getOuterCssClasses().join(' ')}
+      {...this.getEventHandlerProps()}
+    >
+      <span
+        className={this.getInnerCssClasses().join(' ')}
+        dangerouslySetInnerHTML={{
+          __html: this.getSvgHtml()
+        }}
+      ></span>
+    </span>
   );
 };
 

@@ -1,30 +1,22 @@
 var React = require('react/addons');
+var clickableMixin = require('../mixins/clickable.mixin');
 
 var card = {};
 
 card.displayName = 'Card';
 
 card.mixins = [
-  React.addons.PureRenderMixin
+  React.addons.PureRenderMixin,
+  clickableMixin
 ];
 
 card.propTypes = {
-  className: React.PropTypes.string,
-  isClickable: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  className: React.PropTypes.string
 };
 
 card.getDefaultProps = function cardGetDefaultProps() {
   return {
-    className: null,
-    isClickable: false,
-    onClick: null
-  };
-};
-
-card.getInitialState = function cardGetInitialState() {
-  return {
-    isPressed: false
+    className: null
   };
 };
 
@@ -46,32 +38,11 @@ card.getCssClasses = function cardGetCssClasses() {
   return cssClasses;
 };
 
-card.onMouseLeave = function cardOnMouseLeave() {
-  this.setState({
-    isPressed: false
-  });
-};
-
-card.onMouseDown = function cardOnMouseDown() {
-  this.setState({
-    isPressed: true
-  });
-};
-
-card.onMouseUp = function cardOnMouseUp() {
-  this.setState({
-    isPressed: false
-  });
-};
-
 card.render = function cardRender() {
   return (
     <div
       className={this.getCssClasses().join(' ')}
-      onClick={this.props.onClick}
-      onMouseDown={this.onMouseDown}
-      onMouseUp={this.onMouseUp}
-      onMouseLeave={this.onMouseLeave}
+      {...this.getEventHandlerProps()}
     >
       {this.props.children}
     </div>
