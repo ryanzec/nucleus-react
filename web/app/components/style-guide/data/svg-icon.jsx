@@ -99,5 +99,65 @@ module.exports = {
         className="m-safe" />
     ),
     exampleString: '<SvgIcon\n\tfragment="play"\n\tclassName="m-safe" />'
+  }, {
+    description: (
+      <p>
+        color.
+      </p>
+    ),
+    example: (
+      <span>
+        <SvgIcon
+          fragment="play"
+          className="m-safe"
+        />
+        <SvgIcon
+          fragment="play"
+          className="m-notice"
+        />
+        <SvgIcon
+          fragment="play"
+          className="m-warning"
+        />
+        <SvgIcon
+          fragment="play"
+          className="m-danger"
+        />
+      </span>
+    ),
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tclassName="m-safe" />'
+  }, {
+    description: (
+      <p>
+        clickable indicator.
+      </p>
+    ),
+    example: (
+      <span>
+        <SvgIcon
+          outerClassName="outer-test"
+          fragment="eye"
+          isClickable={true}
+          indicator="new"
+        />
+      </span>
+    ),
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tclassName="m-safe" />'
+  }, {
+    description: (
+      <p>
+        indicator.
+      </p>
+    ),
+    example: (
+      <span>
+        <SvgIcon
+          outerClassName="outer-test"
+          fragment="eye"
+          indicator="new"
+        />
+      </span>
+    ),
+    exampleString: '<SvgIcon\n\tfragment="play"\n\tclassName="m-safe" />'
   }]
 };

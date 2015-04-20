@@ -519,7 +519,7 @@ extendText.renderTags = function extendTextRenderTags() {
           key={key}
         >
           {item.display}
-          <SvgIcon onClick={this.onClickRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
+          <SvgIcon isClickable={true} isQuiet={true} onClick={this.onClickRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
         </div>
       );
     }.bind(this));

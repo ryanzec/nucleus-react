@@ -1669,8 +1669,6 @@ describe('extend text component', function() {
 
           testHelper.sleep(5);
 
-          console.log(extendTextComponent.props.value);
-
           expect(extendTextComponent.state.isActive).to.be.false;
           done();
         }).run();

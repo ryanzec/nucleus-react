@@ -14,14 +14,18 @@ svgIcon.mixins = [
 svgIcon.propTypes = {
   fragment: React.PropTypes.string,
   size: React.PropTypes.string,
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  outerClassName: React.PropTypes.string,
+  indicator: React.PropTypes.string
 };
 
 svgIcon.getDefaultProps = function svgIconGetDefaultProps() {
   return {
     fragment: null,
     size: 'small',
-    className: null
+    className: null,
+    outerClassName: null,
+    indicator: null
   };
 };
 
@@ -30,7 +34,7 @@ svgIcon.getSvgHtml = function svgIconGetSvgHtml() {
 };
 
 svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
-  var cssClasses = ['svg-icon-container'];
+  var cssClasses = ['svg-icon__container'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -40,7 +44,11 @@ svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
 };
 
 svgIcon.getOuterCssClasses = function svgIconGetOuterCssClasses() {
-  var cssClasses = ['svg-icon-outer-container'];
+  var cssClasses = ['svg-icon__outer-container'];
+
+  if (this.props.outerClassName) {
+    cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
+  }
 
   if (this.props.isClickable === true) {
     cssClasses.push('has-clickability');
@@ -57,6 +65,16 @@ svgIcon.getOuterCssClasses = function svgIconGetOuterCssClasses() {
   return cssClasses;
 };
 
+svgIcon.getIndicatorHtml = function svgIconGetIndicatorHtml() {
+  var indicator = '';
+
+  if (this.props.indicator) {
+    indicator = '<div class="svg-icon__indicator m-' + this.props.indicator + '"></div>';
+  }
+
+  return indicator;
+};
+
 svgIcon.render = function svgIconRender() {
   return (
     <span
@@ -66,7 +84,7 @@ svgIcon.render = function svgIconRender() {
       <span
         className={this.getInnerCssClasses().join(' ')}
         dangerouslySetInnerHTML={{
-          __html: this.getSvgHtml()
+          __html: this.getSvgHtml() + this.getIndicatorHtml()
         }}
       ></span>
     </span>
