@@ -22,7 +22,8 @@ datePicker.propTypes = {
   calendarHeaderText: React.PropTypes.string,
   renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
   validateOnLoad: React.PropTypes.bool,
-  validators: React.PropTypes.array
+  validators: React.PropTypes.array,
+  closeOnClick: React.PropTypes.bool
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -34,7 +35,8 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     calendarHeaderText: window.i18n['components/date-picker'].calendarHeaderText(),
     renderValidation: false,
     validateOnLoad: false,
-    validators: []
+    validators: [],
+    closeOnClick: false
   };
 };
 
@@ -95,6 +97,12 @@ datePicker.onClickDate = function datePickerOnClickDate(value) {
   /* istanbul ignore else */
   if (this.props.onClickDate) {
     this.props.onClickDate(value);
+  }
+
+  if (this.props.closeOnClick === true) {
+    this.setState({
+      isCalendarActive: false
+    });
   }
 };
 

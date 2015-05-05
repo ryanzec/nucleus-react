@@ -27,6 +27,49 @@ var Test = React.createClass({
   }
 });
 
+var TestCloseOnClick = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    return {
+      test: {
+        selectedDay: selectedDay
+      }
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        selectedDay: {
+          component: DatePicker,
+          valueProperty: 'selectedDay',
+          hasOnChange: false,
+          props: {
+            onClickDate: this.onClickDate,
+            closeOnClick: true
+          }
+        }
+      }
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      test: {
+        selectedDay: value
+      }
+    });
+  },
+
+  render: function() {
+    var inputs = this.getInputs('test');
+    return inputs.selectedDay.render();
+  }
+});
+
 var TestFormSystem = React.createClass({
   mixins: [
     formMixin
@@ -281,6 +324,50 @@ describe('date picker component', function() {
       input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
 
       expect(input.props.value).to.equal('01/08/2014');
+    });
+
+    it('should not close calendar when clicking date', function() {
+      testData.component = React.render(<TestCloseOnClick />, div);
+
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
+      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
+
+      expect(input.props.value).to.equal(selectedDay);
+
+      reactTestUtils.Simulate.focus(input);
+
+      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
+
+      reactTestUtils.Simulate.click(days[10], {
+        target: days[10].getDOMNode()
+      });
+
+      input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
+
+      expect(input.props.value).to.equal('01/08/2014');
+      expect(datePicker.state.isCalendarActive).to.be.false;
+    });
+
+    it('should close calendar when clicking date', function() {
+      testData.component = React.render(<TestFormSystem />, div);
+
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
+      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
+
+      expect(input.props.value).to.equal(selectedDay);
+
+      reactTestUtils.Simulate.focus(input);
+
+      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
+
+      reactTestUtils.Simulate.click(days[10], {
+        target: days[10].getDOMNode()
+      });
+
+      input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
+
+      expect(input.props.value).to.equal('01/08/2014');
+      expect(datePicker.state.isCalendarActive).to.be.true;
     });
   });
 });

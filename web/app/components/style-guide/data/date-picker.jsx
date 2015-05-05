@@ -31,6 +31,7 @@ var Example = React.createClass({
           <FlexCell>
             <div>will validate true if 01/20/2015 is selected</div>
             <DatePicker
+              closeOnClick={true}
               selectedDay={this.state.selectedDay1}
               onClickDate={this.onClickDate1}
               renderValidation="both"

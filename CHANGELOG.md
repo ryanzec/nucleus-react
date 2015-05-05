@@ -10,6 +10,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- [date-picker][feature] added ability to close date picker calendar on date selection (#59)
 - [card][feature] added hover/pressed functionality for card (without header) (#44)
 - [extend-text][bug] fixed a few locations where the value was not being updated or not updated properly (#47)
 - [extend-text][bug] auto complete now displays remaining items after entering a tag automatically if threshold is 0 (#45)
