@@ -16,8 +16,6 @@ describe('drop down component', function() {
     var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
     var content = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__content');
 
-    console.log(content.props.children[2]);
-
     expect(mainElement.props.className).to.equal('drop-down');
     expect(handle.props.children).to.equal('handle');
     expect(content.props.children[2]).to.equal('content');
