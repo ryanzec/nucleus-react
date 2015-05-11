@@ -1,0 +1,54 @@
+$component-identifier: ".drop-down";
+
+#{$component-identifier} {
+  display: inline-block;
+  position: relative;
+
+  &__handle {
+    cursor: pointer;
+  }
+
+  &__content {
+    //NOTE: using fixed while hidden allows the javascript to get the correct width needed by the content
+    position: fixed;
+    visibility: hidden;
+    z-index: -1;
+    border: 1px solid $color-black;
+    background-color: $color-white;
+  }
+
+  &__triangle {
+    @include triangle(12px, $color-black, up);
+
+    position: absolute;
+    top: -6px;
+    left: 20px;
+
+    &.m-right {
+      left: auto;
+      right: 20px;
+    }
+  }
+
+  &__triangle-inner {
+    @include triangle(10px, $color-white, up);
+
+    position: absolute;
+    top: -5px;
+    left: 21px;
+
+    &.m-right {
+      left: auto;
+      right: 21px;
+    }
+  }
+
+  &.is-active #{$component-identifier}__content {
+    position: absolute;
+    visibility: visible;
+
+    z-index: 1;
+  }
+}
+
+$component-identifier: "";

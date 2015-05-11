@@ -40,19 +40,21 @@ clickableMixin.onMouseUp = function clickableMixinOnMouseUp() {
 };
 
 clickableMixin.getEventHandlerProps = function clickableMixinGetEventHandlerProps() {
-  var props = {};
+  var events = {};
 
   if (this.props.isClickable === true) {
     if (this.props.onClick) {
-      props.onClick = this.props.onClick;
+      events.onClick = this.props.onClick;
     }
 
-    props.onMouseDown = this.onMouseDown;
-    props.onMouseUp = this.onMouseUp;
-    props.onMouseLeave = this.onMouseLeave;
+    events.onMouseDown = this.onMouseDown;
+    events.onTouchStart = this.onMouseDown;
+    events.onMouseUp = this.onMouseUp;
+    events.onTouchEnd = this.onMouseUp;
+    events.onMouseLeave = this.onMouseLeave;
   }
 
-  return props;
+  return events;
 };
 
 module.exports = clickableMixin;

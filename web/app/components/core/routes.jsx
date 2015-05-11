@@ -11,6 +11,7 @@ var StyleGuideCharacterCounter = require('../style-guide/character-counter.compo
 var StyleGuideDatePicker = require('../style-guide/date-picker.component.jsx');
 var StyleGuideDebounce = require('../style-guide/debounce.component.jsx');
 var StyleGuideDomEventManager = require('../style-guide/dom-event-manager.component.jsx');
+var StyleGuideDropDown = require('../style-guide/drop-down.component.jsx');
 var StyleGuideExtendText = require('../style-guide/extend-text.component.jsx');
 var StyleGuideFlexboxGrid = require('../style-guide/flexbox-grid.component.jsx');
 var StyleGuideForm = require('../style-guide/form.component.jsx');
@@ -43,6 +44,7 @@ module.exports = (
     <Route name="date-picker" path="date-picker" handler={StyleGuideDatePicker} />
     <Route name="debounce" path="debounce" handler={StyleGuideDebounce} />
     <Route name="dom-event-manager" path="dom-event-manager" handler={StyleGuideDomEventManager} />
+    <Route name="drop-down" path="drop-down" handler={StyleGuideDropDown} />
     <Route name="extend-text" path="extend-text" handler={StyleGuideExtendText} />
     <Route name="flexbox-grid" path="flexbox-grid" handler={StyleGuideFlexboxGrid} />
     <Route name="form" path="form" handler={StyleGuideForm} />

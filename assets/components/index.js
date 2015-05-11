@@ -10,6 +10,7 @@ module.exports = {
   CardHeader: require('./card-header.component.jsx'),
   Code: require('./code.component.jsx'),
   DatePicker: require('./date-picker.component.jsx'),
+  DropDown: require('./drop-down.component.jsx'),
   ExtendText: require('./extend-text.component.jsx'),
   FlexRow: require('./flex-row.component.jsx'),
   FlexCell: require('./flex-cell.component.jsx'),
