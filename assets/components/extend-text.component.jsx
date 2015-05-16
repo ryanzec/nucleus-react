@@ -33,7 +33,9 @@ extendText.propTypes = {
   preloadData: React.PropTypes.bool,
   taggingEnabled: React.PropTypes.bool,
   staticData: React.PropTypes.array,
-  staticDataFilter: React.PropTypes.func
+  staticDataFilter: React.PropTypes.func,
+  dropDownIconFragment: React.PropTypes.string,
+  className: React.PropTypes.string
 };
 
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
@@ -59,7 +61,9 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
       return data.filter(function extendTextPropStaticDataFilterFilter(dataValue) {
         return dataValue.display.toLowerCase().indexOf(value.toLowerCase()) !== -1 || dataValue.value.toLowerCase().indexOf(value.toLowerCase()) !== -1;
       });
-    }
+    },
+    dropDownIconFragment: null,
+    className: null
   };
 };
 
@@ -307,6 +311,10 @@ extendText.getCssClasses = function extendTextGetCssClasses() {
 
   if (this.validator && this.validator.shouldRenderValidation()) {
     cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
+  }
+
+  if (this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
   return cssClasses;
@@ -587,6 +595,18 @@ extendText.renderStatusIndicator = function extendTextRenderStatusIndicator() {
   return statusIndicator;
 };
 
+extendText.renderDropDownIndicator = function extendTextRenderDropDownIndicator() {
+  var dropDownIndicator = null;
+
+  if (this.props.dropDownIconFragment) {
+    dropDownIndicator = (
+      <SvgIcon className="extend-text__drop-down-indicator" fragment={this.props.dropDownIconFragment} />
+    );
+  }
+
+  return dropDownIndicator;
+};
+
 extendText.render = function extendTextRender() {
   var validationIcon = this.validator ? this.validator.renderValidationIcon('extend-text__validation-icon') : null;
 
@@ -609,6 +629,7 @@ extendText.render = function extendTextRender() {
         />
         {this.renderAutoComplete()}
         {this.renderStatusIndicator()}
+        {this.renderDropDownIndicator()}
       </div>
       {validationIcon}
     </div>

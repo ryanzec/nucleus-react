@@ -12,7 +12,8 @@ module.exports = {
       renderValidation: 'both',
       validateValueOnCreate: undefined,
       validators: [],
-      initialValue: null
+      initialValue: null,
+      renderIcon: true
     }, options);
 
     if (options.validators && !_.isArray(options.validators)) {
@@ -61,7 +62,7 @@ module.exports = {
       renderValidationIcon: function validatorRenderValidationIcon(className) {
         var validationIcon = null;
 
-        if (this.shouldRenderValidation()) {
+        if (options.renderIcon === true && this.shouldRenderValidation()) {
           validationIcon = (
             <SvgIcon
               className={className}

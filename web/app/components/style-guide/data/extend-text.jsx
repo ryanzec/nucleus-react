@@ -72,7 +72,14 @@ var ExtendsTextTaggingAllowFreeForm = React.createClass({
 
   render: function() {
     return (
-      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
+      <ExtendText
+        dropDownIconFragment="chevron-down"
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getData}
+        taggingEnabled={true}
+        allowFreeForm={true}
+      />
     );
   }
 });

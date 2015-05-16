@@ -1,11 +1,13 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
+var SvgIcon = require('../../../../assets/components/svg-icon.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin');
 var testHelper = require('../../../test-helper');
 
 var testData = {};
 var selectedDay = '01/02/2014';
+var selectedStartOfWeek = '01/02/2014';
 
 var Test = React.createClass({
   getInitialState: function() {
@@ -23,6 +25,26 @@ var Test = React.createClass({
   render: function() {
     return (
       <DatePicker selectedDay={this.state.selectedDay} />
+    );
+  }
+});
+
+var TestWeekMode = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedStartOfWeek: selectedStartOfWeek
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      selectedStartOfWeek: value
+    });
+  },
+
+  render: function() {
+    return (
+      <DatePicker selectionUnit="week" selectedDay={this.state.selectedStartOfWeek} />
     );
   }
 });
@@ -49,7 +71,7 @@ var TestCloseOnClick = React.createClass({
           hasOnChange: false,
           props: {
             onClickDate: this.onClickDate,
-            closeOnClick: true
+            closeOnClick: false
           }
         }
       }
@@ -171,6 +193,24 @@ describe('date picker component', function() {
     div = document.createElement('div');
   });
 
+  describe('week mode', function() {
+    it('toggle calendar when clicking svg icon', function() {
+      testData.component = React.render(<TestWeekMode />, div);
+      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
+      var svgIcon = reactTestUtils.findRenderedComponentWithType(datePicker, SvgIcon);
+
+      expect(datePicker.state.isCalendarActive).to.be.false;
+
+      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+
+      expect(datePicker.state.isCalendarActive).to.be.true;
+
+      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+
+      expect(datePicker.state.isCalendarActive).to.be.false;
+    });
+  });
+
   describe('validation', function() {
     it('should properly set the internal inputs validation props to utilize its validation code', function() {
       testData.component = React.render(<TestCustomValidation />, div);
@@ -208,11 +248,27 @@ describe('date picker component', function() {
       var datePicker = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'date-picker');
       var input = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'm-text');
       var calendar = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar');
+      var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
 
       expect(datePicker.length).to.equal(1);
       expect(input.length).to.equal(1);
       expect(input[0].props.placeholder).to.equal('Click to select date');
       expect(calendar.length).to.equal(0);
+      expect(label.length).to.equal(0);
+    });
+
+    it('should be able to add custom css classes', function() {
+      testData.component = React.render(<DatePicker className="m-safe" />, div);
+      var datePicker = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'date-picker');
+
+      expect(datePicker.props.className).to.contain('m-safe');
+    });
+
+    it('should render label', function() {
+      testData.component = React.render(<DatePicker label="test" />, div);
+      var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
+
+      expect(label.props.children).to.equal('test');
     });
 
     it('should render calendar when active', function() {
@@ -345,7 +401,7 @@ describe('date picker component', function() {
       input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
 
       expect(input.props.value).to.equal('01/08/2014');
-      expect(datePicker.state.isCalendarActive).to.be.false;
+      expect(datePicker.state.isCalendarActive).to.be.true;
     });
 
     it('should close calendar when clicking date', function() {
@@ -367,7 +423,7 @@ describe('date picker component', function() {
       input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
 
       expect(input.props.value).to.equal('01/08/2014');
-      expect(datePicker.state.isCalendarActive).to.be.true;
+      expect(datePicker.state.isCalendarActive).to.be.false;
     });
   });
 });

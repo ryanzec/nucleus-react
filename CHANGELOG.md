@@ -9,7 +9,18 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
-
+- [date-picker] closeOnClick default to `true` (#73)
+- [extend-text] added className prop (#63)
+- [date-picker] added label prop (#60)
+- [sate-picker] added className prop
+- [drop-down] added closeOnContentClick prop
+- [single-panel-manager] added ability to set outsideHandleClick
+- [calendar] added className prop
+- [calendar] added ability to set selection unit to day or week (#70)
+- [date-picker] added ability to set selection unit to day or week (#70)
+- [drop-down] fixed bug with drop down tests/examples
+- [extend-text] added dropDownIconFragment prop (#71)
+- [drop-down] added test coverage
 - [clickable][feature] added mobile support to clickable mixin
 - [drop-down][feature] added drop down component
 - [date-picker][feature] added ability to close date picker calendar on date selection (#59)

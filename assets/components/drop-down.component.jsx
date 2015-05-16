@@ -4,7 +4,7 @@ var domUtilities = require('dom-utilities');
 
 var dropDown = {};
 
-dropDown.displayName = 'dropDown';
+dropDown.displayName = 'DropDown';
 
 dropDown.mixins = [
   React.addons.PureRenderMixin,
@@ -13,17 +13,19 @@ dropDown.mixins = [
 
 dropDown.propTypes = {
   className: React.PropTypes.string,
-  handle: React.PropTypes.node.isRequired,
-  content: React.PropTypes.node.isRequired,
+  handleNode: React.PropTypes.node.isRequired,
+  contentNode: React.PropTypes.node.isRequired,
   align: React.PropTypes.oneOf(['left', 'right']),
+  closeOnContentClick: React.PropTypes.bool
 };
 
 dropDown.getDefaultProps = function dropDownGetDefaultProps() {
   return {
     className: null,
-    handle: null,
-    content: null,
-    align: 'left'
+    handleNode: null,
+    contentNode: null,
+    align: 'left',
+    closeOnContentClick: true
   };
 };
 
@@ -33,7 +35,11 @@ dropDown.getInitialState = function dropDownGetInitialState() {
   };
 };
 
-dropDown.componentDidMount = function() {
+dropDown.componentWillUpdate = function dropDownComponentWillUpdate() {
+  this.positionContent();
+};
+
+dropDown.positionContent = function dropDownPositionContent() {
   var handleHeight = Math.ceil(domUtilities.getDimensions(this.refs.handle.getDOMNode()).height);
   var handleWidth = Math.ceil(domUtilities.getDimensions(this.refs.handle.getDOMNode()).width);
   var contentWidth = Math.ceil(domUtilities.getDimensions(this.refs.content.getDOMNode()).width);
@@ -64,15 +70,21 @@ dropDown.singlePanelClose = function dropDownSinglePanelClose() {
   });
 };
 
-dropDown.onClickHandle = function dropDownOnClickHandle() {
+dropDown.onClickHandle = function dropDownOnClickHandle(event) {
+  event.stopPropagation();
+
   this.dontCloseOnClick = true;
   this.setState({
     isActive: !this.state.isActive
   });
 };
 
-dropDown.onClickContent = function dropDownOnClickContent() {
-  this.dontCloseOnClick = true;
+dropDown.onClickContent = function dropDownOnClickContent(event) {
+  event.stopPropagation();
+
+  if (this.props.closeOnContentClick !== true) {
+    this.dontCloseOnClick = true;
+  }
 };
 
 dropDown.render = function dropDownRender() {
@@ -83,7 +95,7 @@ dropDown.render = function dropDownRender() {
         className="drop-down__handle"
         onClick={this.onClickHandle}
       >
-        {this.props.handle}
+        {this.props.handleNode}
       </span>
       <div
         ref="content"
@@ -92,7 +104,7 @@ dropDown.render = function dropDownRender() {
       >
         <div className={'drop-down__triangle m-' + this.props.align}></div>
         <div className={'drop-down__triangle-inner m-' + this.props.align}></div>
-        {this.props.content}
+        {this.props.contentNode}
       </div>
     </span>
   );

@@ -11,12 +11,10 @@ describe('drop down component', function() {
   });
 
   it('should render', function() {
-    this.component = React.render(<DropDown handle="handle" content="content" />, div);
+    this.component = React.render(<DropDown handleNode="handle" contentNode="content" />, div);
     var mainElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down');
     var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
     var content = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__content');
-
-    console.log(content.props.children[2]);
 
     expect(mainElement.props.className).to.equal('drop-down');
     expect(handle.props.children).to.equal('handle');
@@ -24,14 +22,14 @@ describe('drop down component', function() {
   });
 
   it('should be able to add custom classes', function() {
-    this.component = React.render(<DropDown className="m-safe" handle="handle" content="content" />, div);
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" />, div);
     var mainElement = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down');
 
     expect(mainElement.props.className).to.contain('m-safe');
   });
 
   it('should be able to specify alignment for content', function() {
-    this.component = React.render(<DropDown handle="handle" content="content" align="right" />, div);
+    this.component = React.render(<DropDown handleNode="handle" contentNode="content" align="right" />, div);
     var triangle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__triangle');
     var innerTriangle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__triangle-inner');
 
@@ -40,7 +38,7 @@ describe('drop down component', function() {
   });
 
   it('should toggle active when clicking handle', function() {
-    this.component = React.render(<DropDown className="m-safe" handle="handle" content="content" />, div);
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" />, div);
     var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
 
     expect(this.component.state.isActive).to.be.false;
@@ -55,7 +53,7 @@ describe('drop down component', function() {
   });
 
   it('should deactivate when signle panel method is called', function() {
-    this.component = React.render(<DropDown className="m-safe" handle="handle" content="content" />, div);
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" />, div);
     var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
 
     expect(this.component.state.isActive).to.be.false;
@@ -68,7 +66,7 @@ describe('drop down component', function() {
   });
 
   it('should set dont close for single panel when clicking content', function() {
-    this.component = React.render(<DropDown className="m-safe" handle="handle" content="content" />, div);
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" />, div);
     var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
     var content = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__content');
 
@@ -78,5 +76,57 @@ describe('drop down component', function() {
     reactTestUtils.Simulate.click(content);
 
     expect(this.component.dontCloseOnClick).to.be.true;
+  });
+
+  it('should deactivate when clicking content', function() {
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" />, div);
+    var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
+    var content = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__content');
+
+    expect(this.component.state.isActive).to.be.false;
+
+    reactTestUtils.Simulate.click(handle);
+
+    document.dispatchEvent(testHelper.createNativeClickEvent({
+      eventType: 'HTMLEvents',
+      action: 'click'
+    }));
+
+    expect(this.component.state.isActive).to.be.true;
+
+    reactTestUtils.Simulate.click(content);
+
+    document.dispatchEvent(testHelper.createNativeClickEvent({
+      eventType: 'HTMLEvents',
+      action: 'click'
+    }));
+
+    expect(this.component.state.isActive).to.be.false;
+  });
+
+  it('should not deactivate when clicking content', function() {
+    this.component = React.render(<DropDown className="m-safe" handleNode="handle" contentNode="content" closeOnContentClick={false} />, div);
+    var handle = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__handle');
+    var content = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'drop-down__content');
+
+    expect(this.component.state.isActive).to.be.false;
+
+    reactTestUtils.Simulate.click(handle);
+
+    document.dispatchEvent(testHelper.createNativeClickEvent({
+      eventType: 'HTMLEvents',
+      action: 'click'
+    }));
+
+    expect(this.component.state.isActive).to.be.true;
+
+    reactTestUtils.Simulate.click(content);
+
+    document.dispatchEvent(testHelper.createNativeClickEvent({
+      eventType: 'HTMLEvents',
+      action: 'click'
+    }));
+
+    expect(this.component.state.isActive).to.be.true;
   });
 });

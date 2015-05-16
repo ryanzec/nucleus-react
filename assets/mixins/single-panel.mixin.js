@@ -2,12 +2,15 @@ var domEventManagerMixin = require('./dom-event-manager.mixin');
 var singlePanelMixin = {};
 
 singlePanelMixin.mixins = [
-  domEventManagerMixin
+    domEventManagerMixin
 ];
 
 singlePanelMixin.componentWillMount = function singlePanelMixinComponentWillMount() {
   //need to manually track whether or not to close component on click since we can't use stopPropagation on native events
   this.dontCloseOnClick = false;
+
+  //this can allow an outside component to tigger a click with reset dontCloseOnClick
+  this.outsideHandleClick = false;
 
   this.addDomEvent(document, 'keyup', this.onKeyUpDocument);
   this.addDomEvent(document, 'click', this.onClickDocument);
@@ -24,7 +27,11 @@ singlePanelMixin.onClickDocument = function singlePanelMixinOnClickDocument(even
     this.singlePanelClose();
   }
 
-  this.dontCloseOnClick = false;
+  if (this.outsideHandleClick === true) {
+    this.outsideHandleClick = false;
+  } else {
+    this.dontCloseOnClick = false;
+  }
 };
 
 module.exports = singlePanelMixin;

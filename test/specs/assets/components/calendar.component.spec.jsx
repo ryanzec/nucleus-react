@@ -8,9 +8,11 @@ var currentDate = moment();
 var currentMonth = currentDate.month();
 var currentYear = currentDate.year();
 var selectedDay = '01/13/2013';
-var selectedDayCustomFormat = '2013-01-13';
 var expectedChangedDay = '01/24/2013';
+var selectedDayCustomFormat = '2013-01-13';
 var expectedChangedDayCustomFormat= '2013-01-24';
+var selectedDayWeekMode = '01/13/2013';
+var expectedChangeDayWeekMode = '01/20/2013';
 var expectedDays = [
   [[30, '12/30/2012'], [31, '12/31/2012'], [1, '01/01/2013'], [2, '01/02/2013'], [3, '01/03/2013'], [4, '01/04/2013'], [5, '01/05/2013']],
   [[6, '01/06/2013'], [7, '01/07/2013'], [8, '01/08/2013'], [9, '01/09/2013'], [10, '01/10/2013'], [11, '01/11/2013'], [12, '01/12/2013']],
@@ -142,6 +144,26 @@ var Test = React.createClass({
   }
 });
 
+var TestWeekMode = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedStartOfWeek: selectedDayWeekMode
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      selectedStartOfWeek: value
+    });
+  },
+
+  render: function() {
+    return (
+      <Calendar selectionUnit="week" selectedDay={this.state.selectedStartOfWeek} onClickDate={this.onClickDate} />
+    );
+  }
+});
+
 var TestCustomFormat = React.createClass({
   getInitialState: function() {
     return {
@@ -169,7 +191,65 @@ describe('calendar component', function() {
     div = document.createElement('div');
   });
 
-  it('render calendar', function() {
+  describe('week mode', function() {
+    it('should be add unit selection modifier class', function() {
+      this.component = React.render(<Calendar selectionUnit="week" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+      var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
+
+      expect(calendar.props.className).to.contain('m-week-selection');
+    });
+
+    it('select the first day or the week when clicking on any first for that week', function() {
+      this.component = React.render(<TestWeekMode />, div);
+
+      expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
+
+      var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[3], 'calendar__week-day');
+
+      reactTestUtils.Simulate.click(days[4], {
+        target: days[4].getDOMNode()
+      });
+
+      expect(this.component.state.selectedStartOfWeek).to.equal(expectedChangeDayWeekMode);
+    });
+
+    it('should not add selected class to selected day', function() {
+      this.component = React.render(<TestWeekMode />, div);
+
+      expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
+
+      var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+
+      expect(days[0].props['data-date']).to.equal(selectedDayWeekMode);
+      expect(days[0].props.className).to.not.contain('is-selected');
+      expect(days[1].props.className).to.not.contain('is-selected');
+      expect(days[2].props.className).to.not.contain('is-selected');
+      expect(days[3].props.className).to.not.contain('is-selected');
+      expect(days[4].props.className).to.not.contain('is-selected');
+      expect(days[5].props.className).to.not.contain('is-selected');
+      expect(days[6].props.className).to.not.contain('is-selected');
+    });
+
+    it('should add selected class to selected week', function() {
+      this.component = React.render(<TestWeekMode />, div);
+
+      expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
+
+      var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+
+      expect(days[0].props['data-date']).to.equal(selectedDayWeekMode);
+      expect(weekRows[0].props.className).to.not.contain('is-selected');
+      expect(weekRows[1].props.className).to.not.contain('is-selected');
+      expect(weekRows[2].props.className).to.contain('is-selected');
+      expect(weekRows[3].props.className).to.not.contain('is-selected');
+      expect(weekRows[4].props.className).to.not.contain('is-selected');
+    });
+  });
+
+  it('should render', function() {
     this.component = React.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
 
     var daysOfWeekContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__days-of-week');
@@ -225,6 +305,20 @@ describe('calendar component', function() {
     daysOfWeek.forEach(function(dayOfWeek, key) {
       expect(dayOfWeek.props.children).to.equal(expectedDaysOfWeek[key]);
     });
+  });
+
+  it('should be able to add custom class', function() {
+    this.component = React.render(<Calendar className="m-safe" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+    var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
+
+    expect(calendar.props.className).to.contain('m-safe');
+  });
+
+  it('should be add unit selection modifier class', function() {
+    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+    var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
+
+    expect(calendar.props.className).to.contain('m-day-selection');
   });
 
   it('should render controls', function() {
@@ -334,6 +428,40 @@ describe('calendar component', function() {
     });
 
     expect(this.component.state.selectedDay).to.equal(expectedChangedDay);
+  });
+
+  it('should add selected class to selected day', function() {
+    this.component = React.render(<Test />, div);
+
+    expect(this.component.state.selectedDay).to.equal(selectedDay);
+
+    var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+
+    expect(days[0].props['data-date']).to.equal(selectedDay);
+    expect(days[0].props.className).to.contain('is-selected');
+    expect(days[1].props.className).to.not.contain('is-selected');
+    expect(days[2].props.className).to.not.contain('is-selected');
+    expect(days[3].props.className).to.not.contain('is-selected');
+    expect(days[4].props.className).to.not.contain('is-selected');
+    expect(days[5].props.className).to.not.contain('is-selected');
+    expect(days[6].props.className).to.not.contain('is-selected');
+  });
+
+  it('should add selected class to selected week', function() {
+    this.component = React.render(<Test />, div);
+
+    expect(this.component.state.selectedDay).to.equal(selectedDay);
+
+    var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+
+    expect(days[0].props['data-date']).to.equal(selectedDay);
+    expect(weekRows[0].props.className).to.not.contain('is-selected');
+    expect(weekRows[1].props.className).to.not.contain('is-selected');
+    expect(weekRows[2].props.className).to.not.contain('is-selected');
+    expect(weekRows[3].props.className).to.not.contain('is-selected');
+    expect(weekRows[4].props.className).to.not.contain('is-selected');
   });
 
   it('should be able to use custom format', function() {

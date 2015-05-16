@@ -471,6 +471,13 @@ describe('extend text component', function() {
       }).run();
     });
 
+    it('should be able to add custom css class', function() {
+        testData.component = React.render(<ExtendText className="m-safe" onChange={testHelper.noop} getData={getData} />, div);
+        var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
+
+        expect(renderedComponent.props.className).to.contain('m-safe');
+    });
+
     it('should be able to set initial value', function() {
       var initialValue = {display: 'initial', value: 'initial'};
       testData.component = React.render(<PageTest value={initialValue} />, div);
@@ -573,6 +580,26 @@ describe('extend text component', function() {
           display: 'test display',
           value: 'test value'
         });
+        done();
+      }).run();
+    });
+
+    it('should not show drop down indicator indicator if it is not enabled', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} />, div);
+        var indicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
+
+        expect(indicator.length).to.equal(0);
+        done();
+      }).run();
+    });
+
+    it('should show drop down indicator indicator if it is enabled', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText dropDownIconFragment="chevron-down" onChange={testHelper.noop} getData={getDataDelay} />, div);
+        var indicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
+
+        expect(indicator.length).to.equal(1);
         done();
       }).run();
     });

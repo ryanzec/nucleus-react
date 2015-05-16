@@ -21,8 +21,8 @@ module.exports = {
     example: (
       <div>
         just a test on a <DropDown
-          handle="simple"
-          content={
+          handleNode="simple"
+          contentNode={
             <ul className="plain-list">
               <li>drop down item 1</li>
               <li>drop down item 2</li>
@@ -46,8 +46,8 @@ module.exports = {
       <div>
         just a test on a <DropDown
           align="right"
-          handle="simple"
-          content={
+          handleNode="simple"
+          contentNode={
             <ul className="plain-list">
               <li>drop down item 1</li>
               <li>drop down item 2</li>

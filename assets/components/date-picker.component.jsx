@@ -23,7 +23,10 @@ datePicker.propTypes = {
   renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
   validateOnLoad: React.PropTypes.bool,
   validators: React.PropTypes.array,
-  closeOnClick: React.PropTypes.bool
+  closeOnClick: React.PropTypes.bool,
+  selectionUnit: React.PropTypes.oneOf(['day', 'week']),
+  label: React.PropTypes.string,
+  className: React.PropTypes.string
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -36,7 +39,10 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     renderValidation: false,
     validateOnLoad: false,
     validators: [],
-    closeOnClick: false
+    closeOnClick: true,
+    selectionUnit: 'day',
+    label: null,
+    className: null
   };
 };
 
@@ -47,15 +53,33 @@ datePicker.getInitialState = function datePickerGetInitialState() {
 };
 
 datePicker.componentDidMount = function datePickerComponentDidMount() {
-  this.validator = this.refs.input.validator;
+  if (this.refs.input) {
+    this.validator = this.refs.input.validator;
+  }
 };
 
+datePicker.getCssClasses = function() {
+  var cssClasses = ['date-picker'];
+
+  if (this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
+  }
+
+  return cssClasses;
+}
+
 datePicker.cleanValue = function datePickerCleanValue(value) {
-  return this.refs.input.cleanValue(value);
+  /* istanbul ignore else */
+  if (this.refs.input) {
+    return this.refs.input.cleanValue(value);
+  }
 };
 
 datePicker.singlePanelClose = function datePickerClose() {
-  this.refs.input.refs.input.getDOMNode().blur();
+  if (this.refs.input) {
+    this.refs.input.refs.input.getDOMNode().blur();
+  }
+
   this.setState({
     isCalendarActive: false
   });
@@ -106,6 +130,12 @@ datePicker.onClickDate = function datePickerOnClickDate(value) {
   }
 };
 
+datePicker.onClickCalendarIconWeekMode = function datePickerOnClickCalendarIconWeekMode() {
+  this.setState({
+    isCalendarActive: !this.state.isCalendarActive
+  });
+};
+
 datePicker.renderCalendar = function datePickerRenderCalendar() {
   var calendar = null;
 
@@ -115,6 +145,7 @@ datePicker.renderCalendar = function datePickerRenderCalendar() {
         <Calendar
           showControls={true}
           {...this.getCalendarPassThroughProps()}
+          selectionUnit={this.props.selectionUnit}
         />
       </span>
     );
@@ -123,26 +154,49 @@ datePicker.renderCalendar = function datePickerRenderCalendar() {
   return calendar;
 };
 
+datePicker.renderDayMode = function datePickerRenderDayMode() {
+  return (
+    <TextboxInput
+      ref="input"
+      className="date-picker__input"
+      placeholder={this.props.placeholder}
+      value={this.props.selectedDay}
+      readOnly={true}
+      append={
+        <SvgIcon fragment="calendar" />
+      }
+      renderValidation={this.props.renderValidation}
+      validateOnLoad={this.props.validateOnLoad}
+      validators={this.props.validators}
+      onFocus={this.onFocusInput}
+      label={this.props.label}
+    />
+  );
+};
+
+datePicker.renderWeekMode = function datePickerRenderWeekMode() {
+  return (
+    <div>
+      <SvgIcon
+        isClickable={true}
+        fragment="calendar"
+        onClick={this.onClickCalendarIconWeekMode}
+      />
+    </div>
+  );
+};
+
 datePicker.render = function datePickerRender() {
+  var renderModes = {
+    day: 'renderDayMode',
+    week: 'renderWeekMode'
+  };
   return (
     <div
-      className="date-picker"
+      className={this.getCssClasses().join(' ')}
       onClick={this.onClickCalendar}
     >
-      <TextboxInput
-        ref="input"
-        className="date-picker__input"
-        placeholder={this.props.placeholder}
-        value={this.props.selectedDay}
-        readOnly={true}
-        append={
-          <SvgIcon fragment="calendar" />
-        }
-        renderValidation={this.props.renderValidation}
-        validateOnLoad={this.props.validateOnLoad}
-        validators={this.props.validators}
-        onFocus={this.onFocusInput}
-      />
+      {this[renderModes[this.props.selectionUnit]]()}
       {this.renderCalendar()}
     </div>
   );

@@ -1,8 +1,19 @@
 $component-identifier: ".drop-down";
 
+$border-color-drop-down: $color-black !default;
+$background-color-drop-down: $color-white !default;
+
 #{$component-identifier} {
   display: inline-block;
   position: relative;
+
+  &.m-inline-flex {
+    @include display(inline-flex);
+
+    #{$component-identifier}__handle {
+      @include display(inline-flex);
+    }
+  }
 
   &__handle {
     cursor: pointer;
@@ -13,16 +24,19 @@ $component-identifier: ".drop-down";
     position: fixed;
     visibility: hidden;
     z-index: -1;
-    border: 1px solid $color-black;
-    background-color: $color-white;
+    border-radius: $border-radius-small;
+    border: 1px solid $border-color-drop-down;
+    background-color: $background-color-drop-down;
+    margin-top: 10px
   }
 
   &__triangle {
-    @include triangle(12px, $color-black, up);
+    @include triangle(12px, $border-color-drop-down, up);
 
     position: absolute;
     top: -6px;
     left: 20px;
+    z-index: 3;
 
     &.m-right {
       left: auto;
@@ -31,11 +45,12 @@ $component-identifier: ".drop-down";
   }
 
   &__triangle-inner {
-    @include triangle(10px, $color-white, up);
+    @include triangle(10px, $background-color-drop-down, up);
 
     position: absolute;
     top: -5px;
     left: 21px;
+    z-index: 3;
 
     &.m-right {
       left: auto;
@@ -52,3 +67,4 @@ $component-identifier: ".drop-down";
 }
 
 $component-identifier: "";
+

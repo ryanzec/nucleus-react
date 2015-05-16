@@ -205,6 +205,15 @@ describe('validator', function() {
 
       expect(React.render(svgIconComponent, div).props.fragment).to.equal('x');
     });
+
+    it('should not return icon if configured not to ', function() {
+      var myValidator = validator.create(_.extend(_.clone(validatorConfigMinLength, true), {
+        validateValueOnCreate: 'tes',
+        renderIcon: false
+      }));
+
+      expect(myValidator.renderValidationIcon()).to.be.null;
+    });
   });
 
   it('should be able to create multiple instances', function() {

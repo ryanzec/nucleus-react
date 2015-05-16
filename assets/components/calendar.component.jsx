@@ -11,24 +11,28 @@ calendar.mixins = [
 ];
 
 calendar.propTypes = {
+  className: React.PropTypes.string,
   format: React.PropTypes.string,
   selectedDay: React.PropTypes.string,
   minuxYears: React.PropTypes.number,
   plusYears: React.PropTypes.number,
   onClickDate: React.PropTypes.func,
   showControls: React.PropTypes.bool,
-  headerText: React.PropTypes.string
+  headerText: React.PropTypes.string,
+  selectionUnit: React.PropTypes.oneOf(['day', 'week'])
 };
 
 calendar.getDefaultProps = function calendarGetDefaultProps() {
   return {
+    className: null,
     format: 'MM/DD/YYYY',
     selectedDay: null,
     minusYears: 10,
     plusYears: 10,
     onClickDate: null,
     showControls: false,
-    headerText: null
+    headerText: null,
+    selectionUnit: 'day'
   };
 };
 
@@ -77,6 +81,17 @@ calendar.months = [
   window.i18n['components/calendar'].november(),
   window.i18n['components/calendar'].december()
 ];
+
+calendar.getCssClasses = function calendarGetCssClasses() {
+  var cssClasses = ['calendar'];
+  cssClasses.push('m-' + this.props.selectionUnit + '-selection');
+
+  if (this.props.className) {
+    cssClasses = cssClasses.concat(this.props.className.split(' '));
+  }
+
+  return cssClasses;
+};
 
 calendar.getDaysInMonth = function calendarGetDaysInMonth(month, year) {
   var days = this.monthDays[month - 1];
@@ -165,7 +180,13 @@ calendar.onChangeYear = function calendarOnChangeYear(value) {
 calendar.onClickDate = function calendarOnClickDate(event) {
   /* istanbul ignore else */
   if (this.props.onClickDate) {
-    this.props.onClickDate(event.target.getAttribute('data-date'), event);
+    var clickedDate = moment(event.target.getAttribute('data-date'), this.props.format);
+
+    if (this.props.selectionUnit === 'week') {
+      clickedDate.startOf('week');
+    }
+
+    this.props.onClickDate(clickedDate.format(this.props.format), event);
   }
 };
 
@@ -218,7 +239,8 @@ calendar.renderWeeks = function calendarRenderWeeks() {
   var momentDateObject = this.getMomentCompatibleDate(1, this.state.month, this.state.year);
   var firstDayOfMonth = (moment(momentDateObject.date, momentDateObject.format).day());
   var currentMomentDateObject;
-  var extraCssClass = '';
+  var extraDayCssClass = '';
+  var selectedWeekIndex;
   var dayKey = 1;
   var weeks = [];
   var days = [];
@@ -240,14 +262,21 @@ calendar.renderWeeks = function calendarRenderWeeks() {
       );
     } else {
       currentMomentDateObject = this.getMomentCompatibleDate(x + 1 - firstDayOfMonth, this.state.month, this.state.year);
-      extraCssClass = moment(currentMomentDateObject.date, currentMomentDateObject.format).format(this.props.format) === this.props.selectedDay
-      ? ' is-selected'
-      : '';
+
+      extraDayCssClass = '';
+
+      if (moment(currentMomentDateObject.date, currentMomentDateObject.format).format(this.props.format) === this.props.selectedDay) {
+        if (this.props.selectionUnit === 'day') {
+          extraDayCssClass = ' is-selected';
+        } else {
+          selectedWeekIndex = weeks.length;
+        }
+      }
 
       days.push(
         <div
           key={dayKey}
-          className={'calendar__week-day' + extraCssClass}
+          className={'calendar__week-day' + extraDayCssClass}
           onClick={this.onClickDate}
           data-date={moment(currentMomentDateObject.date, currentMomentDateObject.format).format(this.props.format)}
         >
@@ -277,10 +306,11 @@ calendar.renderWeeks = function calendarRenderWeeks() {
   weeks.push(days);
 
   return weeks.map(function calendarRenderWeeksWeeksLoop(weekDays, key) {
+    var extraCssClass = key === selectedWeekIndex ? ' is-selected' : '';
     return (
       <div
         key={key}
-        className="calendar__week-row"
+        className={'calendar__week-row' + extraCssClass}
       >
         {weekDays}
       </div>
@@ -308,7 +338,7 @@ calendar.renderCalendar = function calendarRenderCalendar() {
 calendar.render = function calendarRender() {
   return (
     <div
-      className="calendar"
+      className={this.getCssClasses().join(' ')}
     >
       {this.renderHeader()}
       {this.renderControls()}
