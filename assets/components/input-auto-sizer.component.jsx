@@ -12,13 +12,15 @@ inputAutoSizer.mixins = [
 
 inputAutoSizer.propTypes = {
   maxWidth: React.PropTypes.string,
-  inputClassName: React.PropTypes.string
+  inputClassName: React.PropTypes.string,
+  placeholder: React.PropTypes.string
 };
 
 inputAutoSizer.getDefaultProps = function inputAutoSizerGetDefaultProps() {
   return {
     maxWidth: '100%',
-    inputClassName: null
+    inputClassName: null,
+    placeholder: null
   };
 };
 
@@ -42,6 +44,7 @@ inputAutoSizer.componentDidUpdate = function inputAutoSizerComponentDidUpdate(pr
 
 inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
   var dimensions = domUtilities.getDimensions(this.refs.input.getDOMNode());
+  var sizerElement = this.props.value ? this.refs.sizer : this.refs.placeholder;
 
   return (
     Math.ceil(dimensions.paddings.left
@@ -49,7 +52,7 @@ inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
     + dimensions.borders.left
     + dimensions.borders.right
     //the 1 is to make sure the cursor for the input is visible when the input value is empty
-    + this.refs.sizer.getDOMNode().scrollWidth + 1) + 'px'
+    + sizerElement.getDOMNode().scrollWidth + 1) + 'px'
   );
 };
 
@@ -90,11 +93,26 @@ inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() 
   );
 };
 
+inputAutoSizer.renderPlaceholder = function() {
+  var placeholder = (
+    <div ref="placeholder" className="input-auto-sizer__placeholder"></div>
+  );
+
+  if (!this.props.value) {
+    placeholder = (
+      <div ref="placeholder" className="input-auto-sizer__placeholder">{this.props.placeholder}</div>
+    );
+  }
+
+  return placeholder;
+};
+
 inputAutoSizer.render = function inputAutoSizerRender() {
   var htmlValue = (this.props.value || '').replace(/ /g, '&nbsp;');
 
   return (
     <span className="input-auto-sizer">
+      {this.renderPlaceholder()}
       {this.renderInputElement()}
       <div
         ref="sizer"

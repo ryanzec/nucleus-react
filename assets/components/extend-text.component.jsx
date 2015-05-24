@@ -35,7 +35,8 @@ extendText.propTypes = {
   staticData: React.PropTypes.array,
   staticDataFilter: React.PropTypes.func,
   dropDownIconFragment: React.PropTypes.string,
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  placeholder: React.PropTypes.string
 };
 
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
@@ -63,7 +64,8 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
       });
     },
     dropDownIconFragment: null,
-    className: null
+    className: null,
+    placeholder: null
   };
 };
 
@@ -626,6 +628,7 @@ extendText.render = function extendTextRender() {
           value={this.state.displayInputValue}
           onBlur={this.onBlur}
           onKeyDown={this.onKeyDown}
+          placeholder={this.props.placeholder}
         />
         {this.renderAutoComplete()}
         {this.renderStatusIndicator()}

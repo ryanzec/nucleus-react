@@ -22,6 +22,26 @@ var ExampleText = React.createClass({
   }
 });
 
+var ExampleTextPlaceholder = React.createClass({
+  getInitialState: function() {
+    return {
+      value: ''
+    };
+  },
+
+  onChange: function(event) {
+    this.setState({
+      value: event.target.value
+    });
+  },
+
+  render: function() {
+    return (
+      <InputAutoSizer placeholder="Placeholder" value={this.state.value} onChange={this.onChange} />
+    );
+  }
+});
+
 module.exports = {
   name: 'Input Auto Sizer',
   type: 'component',
@@ -30,12 +50,7 @@ module.exports = {
       This component allows you to create a textarea or text input that auto sizes.
     </p>
   ),
-  properties: [{
-    type: 'string',
-    name: 'className',
-    defaultValue: 'null',
-    description: 'CSS classes to add to the pill.'
-  }],
+  properties: [],
   examples: [{
     description: (
       <p>
@@ -44,6 +59,16 @@ module.exports = {
     ),
     example: (
       <ExampleText />
+    ),
+    exampleString: '<Badge>Standard</Badge>'
+  }, {
+    description: (
+      <p>
+        With placeholder.
+      </p>
+    ),
+    example: (
+      <ExampleTextPlaceholder />
     ),
     exampleString: '<Badge>Standard</Badge>'
   }]

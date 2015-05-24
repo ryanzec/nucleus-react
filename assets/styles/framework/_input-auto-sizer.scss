@@ -3,7 +3,8 @@
   //display: inline-block;
   max-width: 100%;
 
-  &__sizer {
+  &__sizer,
+  &__placeholder {
     position: absolute;
     display: inline-block;
     top: 0px;
