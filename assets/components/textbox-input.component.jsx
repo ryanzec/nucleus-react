@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
+var InputAutoSizer = require('./input-auto-sizer.component.jsx');
 
 var textboxInput = {};
 
@@ -17,7 +18,8 @@ textboxInput.propTypes = {
   maskValue: React.PropTypes.bool,
   multiLined: React.PropTypes.bool,
   append: React.PropTypes.node,
-  prepend: React.PropTypes.node
+  prepend: React.PropTypes.node,
+  autoSize: React.PropTypes.bool
 };
 
 textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
@@ -27,7 +29,8 @@ textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
     maskValue: false,
     multiLined: false,
     append: null,
-    prepend: null
+    prepend: null,
+    autoSize: false
   };
 };
 
@@ -81,6 +84,7 @@ textboxInput.cleanValue = function textboxInputCleanValue(value) {
 };
 
 textboxInput.onClickPend = function textboxInputOnClickPend() {
+  //NOTE: append/prepend only work for regular inputs so no need to check for refs.input.refs.input
   this.refs.input.getDOMNode().focus();
 };
 
@@ -131,10 +135,22 @@ textboxInput.renderLabel = function textboxInputRenderLabel() {
 };
 
 textboxInput.renderInput = function textboxInputRenderInput() {
+  var type = this.props.maskValue ? 'password' : 'text';
+
   if (this.props.multiLined) {
     return (
       <textarea
         className="form-element__input-container form-element__input m-textarea"
+        onChange={this.onChange}
+        {...this.getInputPassThroughProps()}
+      />
+    );
+  } else if (this.props.autoSize) {
+    return (
+      <InputAutoSizer
+        ref="input"
+        type={type}
+        inputClassName={this.getInputCssClasses().join(' ')}
         onChange={this.onChange}
         {...this.getInputPassThroughProps()}
       />
@@ -145,7 +161,7 @@ textboxInput.renderInput = function textboxInputRenderInput() {
     <input
       ref="input"
       className={this.getInputCssClasses().join(' ')}
-      type={this.props.maskValue ? 'password' : 'text'}
+      type={type}
       onChange={this.onChange}
       {...this.getInputPassThroughProps()}
     />

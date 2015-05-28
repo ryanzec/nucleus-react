@@ -36,7 +36,8 @@ extendText.propTypes = {
   staticDataFilter: React.PropTypes.func,
   dropDownIconFragment: React.PropTypes.string,
   className: React.PropTypes.string,
-  placeholder: React.PropTypes.string
+  placeholder: React.PropTypes.string,
+  label: React.PropTypes.string
 };
 
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
@@ -65,7 +66,8 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     },
     dropDownIconFragment: null,
     className: null,
-    placeholder: null
+    placeholder: null,
+    label: null
   };
 };
 
@@ -94,9 +96,9 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   this.setAutoCompletePosition();
 
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
-    //don't bother getting the data if the input have been blurred since requesting data (like when tabbing to select or clicking item)
-    if (this.hasBeenBlurred === true) {
-      this.hasBeenBlurred = false;
+    //certain actions should not trigger data pull (like if the input has been blurred or you remove a value)
+    if (this.skipNextDataPull === true) {
+      this.skipNextDataPull = false;
       return;
     }
 
@@ -258,7 +260,7 @@ extendText.onKeyDown = function extendTextOnKeyDown(event) {
 };
 
 extendText.onFocus = function extendTextOnFocus() {
-  this.hasBeenBlurred = false;
+  this.skipNextDataPull = false;
   this.valueHasChanged = false;
   var inputElement = this.getInputElement();
 
@@ -277,7 +279,7 @@ extendText.onBlur = function extendTextOnBlur() {
       }
     }
 
-    this.hasBeenBlurred = true;
+    this.skipNextDataPull = true;
     this.setState({
       focusedAutoCompleteItem: null,
       isActive: false
@@ -413,8 +415,9 @@ extendText.validate = function extendTextValidate(value) {
   }
 };
 
-extendText.onClickRemoveTag = function extendTextOnClickRemoveTag(valueIndex) {
-  return function extendTextOnClickRemoveTagGeneratedCallback(event) {
+extendText.onMouseDownRemoveTag = function extendTextOnMouseDownRemoveTag(valueIndex) {
+  return function extendTextOnMouseDownRemoveTagGeneratedCallback(event) {
+    this.skipNextDataPull = true;
     event.stopPropagation();
     this.removeValue(valueIndex);
   }.bind(this);
@@ -529,7 +532,7 @@ extendText.renderTags = function extendTextRenderTags() {
           key={key}
         >
           {item.display}
-          <SvgIcon isClickable={true} isQuiet={true} onClick={this.onClickRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
+          <SvgIcon isClickable={true} isQuiet={true} onMouseDown={this.onMouseDownRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
         </div>
       );
     }.bind(this));
@@ -609,32 +612,49 @@ extendText.renderDropDownIndicator = function extendTextRenderDropDownIndicator(
   return dropDownIndicator;
 };
 
+extendText.renderLabel = function extendTextRenderLabel() {
+  var label = null;
+
+  if (this.props.label) {
+    label = (
+      <label className="extend-text__label">
+          {this.props.label}
+        </label>
+      );
+  }
+
+  return label;
+};
+
 extendText.render = function extendTextRender() {
   var validationIcon = this.validator ? this.validator.renderValidationIcon('extend-text__validation-icon') : null;
 
   return (
     <div className={this.getCssClasses().join(' ')}>
+      {this.renderLabel()}
       <div
-        className="extend-text__value-container"
+        className="extend-text__input-container"
         onClick={this.onClickInputContainer}
       >
-        {this.renderTags()}
-        <InputAutoSizer
-          ref="input"
-          type="textarea"
-          inputClassName="extend-text__display-input"
-          onFocus={this.onFocus}
-          onChange={this.onChange}
-          value={this.state.displayInputValue}
-          onBlur={this.onBlur}
-          onKeyDown={this.onKeyDown}
-          placeholder={this.props.placeholder}
-        />
-        {this.renderAutoComplete()}
-        {this.renderStatusIndicator()}
-        {this.renderDropDownIndicator()}
+        <div className="extend-text__value-container">
+          {this.renderTags()}
+          <InputAutoSizer
+            ref="input"
+            type="textarea"
+            inputClassName="extend-text__display-input"
+            onFocus={this.onFocus}
+            onChange={this.onChange}
+            value={this.state.displayInputValue}
+            onBlur={this.onBlur}
+            onKeyDown={this.onKeyDown}
+            placeholder={this.props.placeholder}
+          />
+          {this.renderAutoComplete()}
+          {this.renderStatusIndicator()}
+          {this.renderDropDownIndicator()}
+        </div>
+        {validationIcon}
       </div>
-      {validationIcon}
     </div>
   );
 };

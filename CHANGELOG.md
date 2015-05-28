@@ -9,6 +9,12 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [input-auto-sizer][feature] added type props to input auto sizer
+- [input-auto-sizer][textbox-input][feature] added support for input auto sizer
+- [extend-text][feature] added label support (#76)
+- [extend-text][bug] clicking the delete button does not close auto complete box for static data (#77)
+- [clickable][feature] now calls passed event if needed
+- [input-auto-sizer][extend-text][feature] added support for placeholder text (#74)
 - [date-picker] closeOnClick default to `true` (#73)
 - [extend-text] added className prop (#63)
 - [date-picker] added label prop (#60)

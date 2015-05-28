@@ -102,7 +102,7 @@
     "no-new-wrappers": 2,
     "no-octal": 2,
     "no-octal-escape": 2,
-    "no-process-env": 2,
+    "no-process-env": 0,
     "no-proto": 2,
     "no-redeclare": 2,
     "no-return-assign": 2,
@@ -141,7 +141,7 @@
         "args": "none"
       }
     ],
-    "no-use-before-define": 2,
+    "no-use-before-define": 0,
 
     //stylistic
     "indent": [
@@ -259,7 +259,7 @@
       }
     ],
     "spaced-line-comment": [
-      2,
+      1,
       "never"
     ],
     "wrap-regex": 2,

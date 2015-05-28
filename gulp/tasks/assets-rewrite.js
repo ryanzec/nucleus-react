@@ -31,14 +31,15 @@ gulp.task('assets-rewrite', 'Rewrite asset urls', function(done) {
     }));
     var sha = shasum.digest('hex');
     var assetParts = asset.split('/');
-    var spliceStart = 0;
 
     if(config.addStatic === true) {
-      assetParts.splice(spliceStart, 0, 'static', sha);
+      assetParts.splice(0, 0, 'static', sha);
     }
 
-    if(assetParts[0] !== gulpConfig.buildDirectoryName && config.noBuildVersion.indexOf(asset) === -1) {
-      assetParts.splice(spliceStart, 0, gulpConfig.buildDirectoryName);
+    var buildIndex = (config.addStatic === true ? 2 : 0);
+
+    if(assetParts[buildIndex] !== gulpConfig.buildDirectoryName && config.noBuildVersion.indexOf(asset) === -1) {
+      assetParts.splice(buildIndex, 0, gulpConfig.buildDirectoryName);
     }
 
     return assetParts.join('/');

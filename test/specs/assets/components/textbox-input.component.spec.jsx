@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
+var InputAutoSizer = require('../../../../assets/components/input-auto-sizer.component.jsx');
 var testHelper = require('../../../test-helper');
 var iconData = require('nucleus-icons');
 var _ = require('lodash');
@@ -456,6 +457,13 @@ describe('textbox input component', function() {
       expect(spy).to.have.callCount(1);
 
       testHelper.restoreEventHandler(TextboxInput, 'onClickPend');
+    });
+
+    it('should work with input auto resizer element', function() {
+      testData.component = React.render(<TextboxInput append="app" autoSize={true}/>, div);
+      var inputAutoSizer = reactTestUtils.scryRenderedComponentsWithType(testData.component, InputAutoSizer);
+
+      expect(inputAutoSizer.length).to.equal(1);
     });
   });
 });

@@ -58,7 +58,7 @@ datePicker.componentDidMount = function datePickerComponentDidMount() {
   }
 };
 
-datePicker.getCssClasses = function() {
+datePicker.getCssClasses = function datePickerGetCssClasses() {
   var cssClasses = ['date-picker'];
 
   if (this.props.className) {
@@ -66,7 +66,7 @@ datePicker.getCssClasses = function() {
   }
 
   return cssClasses;
-}
+};
 
 datePicker.cleanValue = function datePickerCleanValue(value) {
   /* istanbul ignore else */

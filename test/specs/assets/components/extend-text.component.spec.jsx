@@ -603,6 +603,17 @@ describe('extend text component', function() {
         done();
       }).run();
     });
+
+    it('should show label', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText label="Extend Text" dropDownIconFragment="chevron-down" onChange={testHelper.noop} getData={getDataDelay} />, div);
+        var label = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__label');
+
+        expect(label.length).to.equal(1);
+        expect(label[0].props.children).to.equal('Extend Text');
+        done();
+      }).run();
+    });
   });
 
   describe('events', function() {
@@ -1971,7 +1982,7 @@ describe('extend text component', function() {
 
         var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.click(tagRemoveElements[0]);
+        TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
 
         expect(testData.component.state.extendTextValue).to.deep.equal([{
           display: 'tes',
@@ -1980,7 +1991,7 @@ describe('extend text component', function() {
 
         var tagRemoveElement = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.click(tagRemoveElement);
+        TestUtils.Simulate.mouseDown(tagRemoveElement);
         //TODO: investigate: not sure why this give me an error but the above works fine
         // TestUtils.Simulate.click(tagRemoveElements[1]);
 
@@ -2029,7 +2040,7 @@ describe('extend text component', function() {
 
         var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.click(tagRemoveElements[0]);
+        TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
 
         expect(document.activeElement).to.not.equal(input.getDOMNode());
         expect(extendTextComponent.state.isActive).to.be.false;
@@ -2313,6 +2324,44 @@ describe('extend text component', function() {
 
           //make sure there is the correct number of elements
           expect(autoCompleteItems.length).to.equal(staticData.length - 1);
+          done();
+        }).run();
+      });
+
+      it('should not activate input when clicking delete element', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+          reactTestUtils.Simulate.mouseDown(autoCompleteItems[0]);
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+          reactTestUtils.Simulate.mouseDown(autoCompleteItems[0]);
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
+
+          TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
+
+          expect(document.activeElement).to.not.equal(input.getDOMNode());
+          expect(extendTextComponent.state.isActive).to.be.false;
           done();
         }).run();
       });

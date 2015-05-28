@@ -21,22 +21,34 @@ clickableMixin.getInitialState = function clickableMixinGetInitialState() {
   };
 };
 
-clickableMixin.onMouseLeave = function clickableMixinOnMouseLeave() {
+clickableMixin.onMouseLeave = function clickableMixinOnMouseLeave(event) {
   this.setState({
     isPressed: false
   });
+
+  if (this.props.onMouseLeave) {
+    this.props.onMouseLeave(event);
+  }
 };
 
-clickableMixin.onMouseDown = function clickableMixinOnMouseDown() {
+clickableMixin.onMouseDown = function clickableMixinOnMouseDown(event) {
   this.setState({
     isPressed: true
   });
+
+  if (this.props.onMouseDown) {
+    this.props.onMouseDown(event);
+  }
 };
 
-clickableMixin.onMouseUp = function clickableMixinOnMouseUp() {
+clickableMixin.onMouseUp = function clickableMixinOnMouseUp(event) {
   this.setState({
     isPressed: false
   });
+
+  if (this.props.onMouseUp) {
+    this.props.onMouseUp(event);
+  }
 };
 
 clickableMixin.getEventHandlerProps = function clickableMixinGetEventHandlerProps() {

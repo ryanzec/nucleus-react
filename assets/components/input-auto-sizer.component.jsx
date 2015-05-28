@@ -13,14 +13,16 @@ inputAutoSizer.mixins = [
 inputAutoSizer.propTypes = {
   maxWidth: React.PropTypes.string,
   inputClassName: React.PropTypes.string,
-  placeholder: React.PropTypes.string
+  placeholder: React.PropTypes.string,
+  type: React.PropTypes.string
 };
 
 inputAutoSizer.getDefaultProps = function inputAutoSizerGetDefaultProps() {
   return {
     maxWidth: '100%',
     inputClassName: null,
-    placeholder: null
+    placeholder: null,
+    type: 'text'
   };
 };
 
@@ -82,7 +84,7 @@ inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() 
 
   return (
     <input
-      type="text"
+      type={this.props.type}
       className={this.getInputCssClasses().join(' ')}
       style={{
         width: this.state.width,
@@ -93,7 +95,7 @@ inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() 
   );
 };
 
-inputAutoSizer.renderPlaceholder = function() {
+inputAutoSizer.renderPlaceholder = function inputAutoSizerRenderPlaceholder() {
   var placeholder = (
     <div ref="placeholder" className="input-auto-sizer__placeholder"></div>
   );

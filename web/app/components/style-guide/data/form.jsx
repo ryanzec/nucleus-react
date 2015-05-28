@@ -51,7 +51,8 @@ var FormExmplePlaceholders = React.createClass({
         lastName: {
           component: TextboxInput,
           props: {
-            placeholder: 'Last Name'
+            placeholder: 'Last Name',
+            autoSize: true
           }
         },
         email: {
@@ -353,6 +354,7 @@ var FormExmpleLabels = React.createClass({
     return (
       <form>
         <TextboxInput label="First Name" value={this.state.test.firstName} onChange={this.onFirstNameChange} />
+        <TextboxInput label="Middle Name" value={this.state.test.middleName} onChange={this.onMiddleNameChange} autoSize={true} />
         <TextboxInput label="Last Name" value={this.state.test.lastName} onChange={this.onLastNameChange} />
         <TextboxInput label="Email Address" value={this.state.test.email} onChange={this.onEmailChange} renderValidation="invalid" validate={this.validate} />
         <InputGroup>

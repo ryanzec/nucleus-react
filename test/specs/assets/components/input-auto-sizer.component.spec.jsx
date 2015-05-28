@@ -16,16 +16,24 @@ describe('input auto sizer component', function() {
       this.component = React.render(<InputAutoSizer />, div);
       var inputAutoSizer = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'input-auto-sizer');
 
-      expect(inputAutoSizer.props.children.length).to.equal(2);
-      expect(inputAutoSizer.props.children[0].type).to.equal('input');
-      expect(inputAutoSizer.props.children[1].type).to.equal('div');
+      expect(inputAutoSizer.props.children.length).to.equal(3);
+      expect(inputAutoSizer.props.children[0].type).to.equal('div');
+      expect(inputAutoSizer.props.children[1].type).to.equal('input');
+      expect(inputAutoSizer.props.children[2].type).to.equal('div');
     });
 
     it('should be able to add custom class to input element', function() {
       this.component = React.render(<InputAutoSizer inputClassName="m-safe" defaultValue="coverage" />, div);
       var inputAutoSizer = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'input-auto-sizer');
 
-      expect(inputAutoSizer.props.children[0].props.className).to.equal('form-element__input m-text m-safe');
+      expect(inputAutoSizer.props.children[1].props.className).to.equal('form-element__input m-text m-safe');
+    });
+
+    it('should be able to add specify type', function() {
+      this.component = React.render(<InputAutoSizer type="password" inputClassName="m-safe" defaultValue="coverage" />, div);
+      var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
+
+      expect(input.props.type).to.equal('password');
     });
   });
 });
