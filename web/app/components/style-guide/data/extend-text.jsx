@@ -99,7 +99,7 @@ var ExtendsTextTaggingStaticData = React.createClass({
 
   render: function() {
     return (
-      <ExtendText onChange={this.onExtendTextChange} staticData={staticData} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
+      <ExtendText placeholder="Placeholder" onChange={this.onExtendTextChange} staticData={staticData} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} />
     );
   }
 });

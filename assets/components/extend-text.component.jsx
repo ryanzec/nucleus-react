@@ -521,6 +521,16 @@ extendText.decreaseFocusedAutoCompleteItem = function extendTextDecreaseFocusedA
   }
 };
 
+extendText.getPlaceholder = function extendTextGetPlaceholder() {
+  var placeholder = null;
+
+  if (this.props.placeholder && (this.props.taggingEnabled === false || this.props.value.length === 0)) {
+    placeholder = this.props.placeholder;
+  }
+
+  return placeholder;
+};
+
 extendText.renderTags = function extendTextRenderTags() {
   var tags = null;
 
@@ -647,7 +657,7 @@ extendText.render = function extendTextRender() {
             value={this.state.displayInputValue}
             onBlur={this.onBlur}
             onKeyDown={this.onKeyDown}
-            placeholder={this.props.placeholder}
+            placeholder={this.getPlaceholder()}
           />
           {this.renderAutoComplete()}
           {this.renderStatusIndicator()}

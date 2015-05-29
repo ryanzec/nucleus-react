@@ -160,7 +160,7 @@ var PageTestStaticDataTaggingEnabledAllowFreeForm = React.createClass({
     var value = this.props.value || this.state.extendTextValue;
 
     return (
-      <ExtendText onChange={this.onExtendTextChange} value={value} taggingEnabled={true} allowFreeForm={true} staticData={staticData} />
+      <ExtendText placeholder="Test" onChange={this.onExtendTextChange} value={value} taggingEnabled={true} allowFreeForm={true} staticData={staticData} />
     );
   }
 });
@@ -2362,6 +2362,36 @@ describe('extend text component', function() {
 
           expect(document.activeElement).to.not.equal(input.getDOMNode());
           expect(extendTextComponent.state.isActive).to.be.false;
+          done();
+        }).run();
+      });
+
+      it.only('should not render placeholder if there are tags values', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          expect(input.props.placeholder).to.equal('Test');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'static 1'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.keyDown(input, {
+            which: testHelper.keyCodes.ENTER
+          });
+
+          testHelper.sleep(5);
+
+          expect(input.props.placeholder).to.be.null;
           done();
         }).run();
       });
