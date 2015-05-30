@@ -2366,7 +2366,7 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it.only('should not render placeholder if there are tags values', function(done) {
+      it('should not render placeholder if there are tags values', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
           var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');

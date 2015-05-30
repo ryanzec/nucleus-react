@@ -116,7 +116,6 @@ modal.render = function modalRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="modal__content">{this.props.children}</div>
-      <Overlay isActive={this.props.isActive} />
     </div>
   );
 };

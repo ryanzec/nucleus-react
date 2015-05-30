@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [modal][bug] fixed IE mobile issue
 - [extend-text][feature] placeholder no longer shows when one or more tags are set (#75)
 - [input-auto-sizer][feature] added type props to input auto sizer
 - [input-auto-sizer][textbox-input][feature] added support for input auto sizer

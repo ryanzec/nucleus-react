@@ -1,6 +1,19 @@
 $component-identifier: '.modal';
 
 #{$component-identifier} {
+  //HACK: this is because of IE mobile
+  //NOTE: while is would be nice to be able to have the modal component use the overlay component I ahve to copy the overlay base style here because for
+  //NOTE: whatever reason, if the modal__content is fixed, IE mobile while start having the content and overlay jump around when scroll if there are other
+  //NOTE: scrollable elements on the page so this is what I have to do to support IE mobile
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparentize($color-black, .5);
+  z-index: $z-index-overlay;
+  display: none;
+
   //TODO: add documentation for this case to test it
   //useful for want to have a revealing panel within an element in the page instead of on the page itself
   &.m-absolute {
@@ -26,7 +39,7 @@ $component-identifier: '.modal';
   }
 
   #{$component-identifier}__content {
-    position: fixed;
+    position: absolute;
     z-index: $z-index-content-modal;
     background-color: $color-white;
     overflow: auto;
@@ -35,6 +48,8 @@ $component-identifier: '.modal';
   }
 
   &.is-active {
+    display: block;
+
     #{$component-identifier}__content {
       display: block;
     }
