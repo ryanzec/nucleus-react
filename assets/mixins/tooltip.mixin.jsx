@@ -4,14 +4,15 @@
 var React = require('react/addons');
 var appendBodyMixin = require('./append-body.mixin.jsx');
 var _ = require('lodash');
-var singlePanelManager = require('../stores/single-panel-manager.store');
+var singlePanelMixin = require('../mixins/single-panel.mixin');
 var domUtilities = require('dom-utilities');
 
 var tooltipMixin = {};
 
 tooltipMixin.mixins = [
   React.addons.PureRenderMixin,
-  appendBodyMixin
+  appendBodyMixin,
+  singlePanelMixin
 ];
 
 tooltipMixin.propTypes = {
@@ -63,9 +64,7 @@ tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
     handle.addEventListener('click', this.onClickTooltip);
   }
 
-  singlePanelManager.registerComponent({
-    component: this
-  });
+  this.dontCloseOnClick = true;
 };
 
 tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() {
@@ -87,9 +86,7 @@ tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() 
 
   this.removeAppendElement();
 
-  singlePanelManager.unregisterComponent({
-    component: this
-  });
+  this.dontCloseOnClick = true;
 };
 
 /* istanbul ignore next */
@@ -219,9 +216,7 @@ tooltipMixin.onClickTooltip = function tooltipMixinTooltipClick(event) {
 };
 
 tooltipMixin.onClickTooltipContent = function tooltipMixinTooltipContentClick(event) {
-  singlePanelManager.setClickedComponent({
-    component: this
-  });
+  this.dontCloseOnClick = true;
 };
 
 tooltipMixin.getTooltipCssClasses = function tooltipMixingetTooltipCssClasses() {

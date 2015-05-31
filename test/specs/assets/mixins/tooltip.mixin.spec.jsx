@@ -6,7 +6,6 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var tooltipMixin = require('../../../../assets/mixins/tooltip.mixin.jsx');
-var singlePanelManager = require('../../../../assets/stores/single-panel-manager.store');
 var testHelper = require('../../../test-helper');
 var Fiber = require('fibers');
 
@@ -81,12 +80,6 @@ describe('tooltip mixin', function() {
       expect(testGlobals.component.state.tooltipStickyActive).to.be.false;
     });
 
-    it('should register the component with the single panel store', function() {
-      testGlobals.component = React.render(<SimpleTooltip />, div);
-
-      expect(singlePanelManager._internalData.registeredComponents[0]).to.deep.equal(testGlobals.component);
-    });
-
     it('should append tooltip content to the body', function() {
       testGlobals.component = React.render(<SimpleTooltip />, div);
 
@@ -97,7 +90,7 @@ describe('tooltip mixin', function() {
       testGlobals.component = React.render(<SimpleTooltip />, div);
       testHelper.unmountComponent(testGlobals.component);
 
-      expect(singlePanelManager._internalData.registeredComponents.length).to.equal(0);
+      expect(testGlobals.component.dontCloseOnClick).to.be.true;
     });
 
     it('should remove the appended content when unmounting the component', function() {
@@ -424,18 +417,7 @@ describe('tooltip mixin', function() {
 
         testHelper.sleep(10);
 
-        handle.getDOMNode().dispatchEvent(testHelper.createNativeClickEvent({
-          eventType: 'HTMLEvents',
-          action: 'click'
-        }));
-
-        singlePanelManager.registerGlobalEventHandler();
-
-        document.dispatchEvent(testHelper.createNativeKeyboardEvent({
-          which: 27
-        }));
-
-        singlePanelManager.unregisterGlobalEventHandler();
+        reactTestUtils.Simulate.click(handle);
 
         expect(testGlobals.component.state.tooltipActive).to.be.true;
         expect(testGlobals.component.state.tooltipStickyActive).to.be.false;
@@ -454,19 +436,7 @@ describe('tooltip mixin', function() {
 
         testHelper.sleep(10);
 
-        handle.getDOMNode().dispatchEvent(testHelper.createNativeClickEvent({
-          eventType: 'HTMLEvents',
-          action: 'click'
-        }));
-
-        singlePanelManager.registerGlobalEventHandler();
-
-        document.dispatchEvent(testHelper.createNativeClickEvent({
-          eventType: 'HTMLEvents',
-          action: 'click'
-        }));
-
-        singlePanelManager.unregisterGlobalEventHandler();
+        reactTestUtils.Simulate.click(handle);
 
         expect(testGlobals.component.state.tooltipActive).to.be.true;
         expect(testGlobals.component.state.tooltipStickyActive).to.be.false;
