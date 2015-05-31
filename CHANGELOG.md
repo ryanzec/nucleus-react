@@ -9,6 +9,7 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- removed single panel manager store
 - added notification components
 - [modal][bug] fixed IE mobile issue
 - [extend-text][feature] placeholder no longer shows when one or more tags are set (#75)
