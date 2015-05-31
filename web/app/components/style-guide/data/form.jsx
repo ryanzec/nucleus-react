@@ -160,7 +160,8 @@ var FormExmplePlaceholders = React.createClass({
         extendText: {
           component: ExtendText,
           props: {
-            getData: this.getExtendTextData
+            getData: this.getExtendTextData,
+            placeholder: 'Extend Text'
           }
         },
         tagging: {

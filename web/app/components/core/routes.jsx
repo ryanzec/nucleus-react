@@ -17,6 +17,7 @@ var StyleGuideFlexboxGrid = require('../style-guide/flexbox-grid.component.jsx')
 var StyleGuideForm = require('../style-guide/form.component.jsx');
 var StyleGuideInputAutoSizer = require('../style-guide/input-auto-sizer.component.jsx');
 var StyleGuideModal = require('../style-guide/modal.component.jsx');
+var StyleGuideNotification = require('../style-guide/notification.component.jsx');
 var StyleGuideOverlay = require('../style-guide/overlay.component.jsx');
 var StyleGuideOverview = require('../style-guide/overview.component.jsx');
 var StyleGuidePagination = require('../style-guide/pagination.component.jsx');
@@ -50,6 +51,7 @@ module.exports = (
     <Route name="form" path="form" handler={StyleGuideForm} />
     <Route name="input-auto-sizer" path="input-auto-sizer" handler={StyleGuideInputAutoSizer} />
     <Route name="modal" path="modal" handler={StyleGuideModal} />
+    <Route name="notification" path="notification" handler={StyleGuideNotification} />
     <Route name="overlay" path="overlay" handler={StyleGuideOverlay} />
     <Route name="pagination" path="pagination" handler={StyleGuidePagination} />
     <Route name="pagination-mixin" path="pagination-mixin" handler={StyleGuidePaginationMixin} />

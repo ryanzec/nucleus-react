@@ -31,17 +31,16 @@ $color-light-text: hsla(0, 0%, 90%, 1) !default;
 
 //neutral colors
 $color-neutral: $color-gray4 !default;
-$color-light-neutral: lighten($color-neutral, 40%) !default;
+$color-light-neutral: lighten($color-neutral, 30%) !default;
 $color-dark-neutral: darken($color-neutral, 10%) !default;
 
 //safe colors
 $color-safe: $color-secondary1 !default;
+$color-light-safe: lighten($color-safe, 46%) !default;
 $color-dark-safe: darken($color-safe, 5%) !default;
-$color-light-safe: lighten($color-safe, 52%) !default;
-
 //notice colors
 $color-notice: $color-secondary2 !default;
-$color-light-notice: lighten($color-notice, 50%) !default;
+$color-light-notice: lighten($color-notice, 41%) !default;
 $color-dark-notice: darken($color-notice, 15%) !default;
 
 //warning colors
@@ -51,7 +50,7 @@ $color-dark-warning: darken($color-warning, 10%) !default;
 
 //danger colors
 $color-danger: $color-secondary4 !default;
-$color-light-danger: lighten($color-danger, 43%) !default;
+$color-light-danger: lighten($color-danger, 41%) !default;
 $color-dark-danger: darken($color-danger, 15%) !default;
 
 //z-indexes
@@ -59,6 +58,7 @@ $z-index-container-tagging: 1 !default;
 $z-index-extend-text: 2 !default;
 $z-index-content-tooltip: 3 !default;
 $z-index-calendar-date-picker: 1000 !default;
+$z-index-global-notifications: 1500 !default;
 $z-index-absolute-overlay: 1600 !default;
 $z-index-overlay: 1700 !default;
 $z-index-notify: 1800 !default;

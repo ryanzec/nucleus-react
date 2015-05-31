@@ -24,9 +24,7 @@ var ExampleText = React.createClass({
 
 var ExampleTextPlaceholder = React.createClass({
   getInitialState: function() {
-    return {
-      value: ''
-    };
+    return {};
   },
 
   onChange: function(event) {

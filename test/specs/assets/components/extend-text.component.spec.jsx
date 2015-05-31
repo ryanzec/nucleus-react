@@ -867,7 +867,7 @@ describe('extend text component', function() {
 
           TestUtils.Simulate.focus(input);
 
-          testHelper.sleep(5);
+          testHelper.sleep(15);
 
           var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
           var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
@@ -2436,7 +2436,7 @@ describe('extend text component', function() {
           }
         });
 
-        testHelper.sleep(5);
+        testHelper.sleep(15);
 
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItem = TestUtils.findRenderedDOMComponentWithTag(autoCompleteContainer, 'li');
