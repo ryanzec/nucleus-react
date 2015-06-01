@@ -3,7 +3,7 @@ var reactTestUtils = React.addons.TestUtils;
 var GlobalNotificationItem = require('../../../../assets/components/global-notification-item.component.jsx');
 var testHelper = require('../../../test-helper');
 
-describe('global notification component', function() {
+describe('global notification item component', function() {
   var div;
 
   beforeEach(function() {
