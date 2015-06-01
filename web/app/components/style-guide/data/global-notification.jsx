@@ -5,7 +5,7 @@ var GlobalNotificationItem = nucleusReact.components.GlobalNotificationItem;
 var SvgIcon = nucleusReact.components.SvgIcon;
 
 module.exports = {
-  name: 'Notification',
+  name: 'Global Notification',
   type: 'component',
   overview: (
     <p>

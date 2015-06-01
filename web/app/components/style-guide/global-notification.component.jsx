@@ -1,8 +1,8 @@
 var React = require('react/addons');
 var StyleGuideTemplate = require('./assets/components/style-guide-template.component.jsx');
-var data = require('./data/notification.jsx');
+var data = require('./data/global-notification.jsx');
 
-var BadgePage = React.createClass({
+var GlobalNotificationPage = React.createClass({
   render: function() {
     return (
       <StyleGuideTemplate data={data} />
@@ -10,4 +10,4 @@ var BadgePage = React.createClass({
   }
 });
 
-module.exports = BadgePage;
+module.exports = GlobalNotificationPage;
