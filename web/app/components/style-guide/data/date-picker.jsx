@@ -26,30 +26,26 @@ var Example = React.createClass({
 
   render: function() {
     return (
-      <span>
-        <FlexRow>
-          <FlexCell>
-            <div>will validate true if 01/20/2015 is selected</div>
-            <DatePicker
-              closeOnClick={true}
-              selectedDay={this.state.selectedDay1}
-              onClickDate={this.onClickDate1}
-              renderValidation="both"
-              validateOnLoad={true}
-              validators={[{validator: function(value){return value === '01/20/2015';}}]}
-            />
-          </FlexCell>
-          <FlexCell>
-            <DatePicker
-              label="My Label"
-              selectedDay={this.state.selectedDay2}
-              onClickDate={this.onClickDate2} />
-          </FlexCell>
-        </FlexRow>
+      <div>
+        <div>will validate true if 01/20/2015 is selected</div>
+        <DatePicker
+          closeOnClick={true}
+          selectedDay={this.state.selectedDay1}
+          onClickDate={this.onClickDate1}
+          renderValidation="both"
+          validateOnLoad={true}
+          validators={[{validator: function(value){return value === '01/20/2015';}}]}
+        />
+        <DatePicker
+          label="My Label"
+          selectedDay={this.state.selectedDay2}
+          onClickDate={this.onClickDate2}
+          renderInputs={false}
+        />
         <div>
           just some content after the date picker for visual testing purposes
         </div>
-      </span>
+      </div>
     );
   }
 });
@@ -76,29 +72,27 @@ var ExampleWeekMode = React.createClass({
 
   render: function() {
     return (
-      <span>
-        <FlexRow>
-          <FlexCell>
-            <div>selected start of week: {this.state.selectedStartOfWeek1}</div>
-            <DatePicker
-              selectionUnit="week"
-              onClickDate={this.onClickDate1}
-              selectedDay={this.state.selectedStartOfWeek1}
-            />
-          </FlexCell>
-          <FlexCell>
-            <div>selected start of week: {this.state.selectedStartOfWeek2}</div>
-            <DatePicker
-              selectionUnit="week"
-              onClickDate={this.onClickDate2}
-              selectedDay={this.state.selectedStartOfWeek2}
-            />
-          </FlexCell>
-        </FlexRow>
+      <div>
+        <div>selected start of week: {this.state.selectedStartOfWeek1}</div>
+        <DatePicker
+          selectionUnit="week"
+          onClickDate={this.onClickDate1}
+          selectedDay={this.state.selectedStartOfWeek1}
+          renderValidation="both"
+          validateOnLoad={true}
+          validators={[{validator: function(value){return value === '01/11/2015';}}]}
+        />
+        <div>selected start of week: {this.state.selectedStartOfWeek2}</div>
+        <DatePicker
+          selectionUnit="week"
+          onClickDate={this.onClickDate2}
+          selectedDay={this.state.selectedStartOfWeek2}
+          renderInputs={false}
+        />
         <div>
           just some content after the date picker for visual testing purposes
         </div>
-      </span>
+      </div>
     );
   }
 });

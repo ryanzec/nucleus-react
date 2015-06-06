@@ -5,10 +5,11 @@ There are some key used within the changelog which are as following:
 - [bug]: means a bug fix
 - [feature]: means a new feature
 - [breaking]: mean there is a change that might break existing code
-- [test]: add test
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [date-picker] made display on input configurable (#80)
+- [modal][forms][bug] fixed issue with form inputs and modal window not working in IE (#82)
 - removed single panel manager store
 - added notification components
 - [modal][bug] fixed IE mobile issue

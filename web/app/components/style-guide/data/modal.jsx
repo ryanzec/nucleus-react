@@ -1,22 +1,40 @@
 var React = require('react/addons');
+var _ = require('lodash');
 var nucleusReact = require('../../../../../assets/index');
 var Modal = nucleusReact.components.Modal;
+var formMixin = nucleusReact.mixins.form;
+var TextboxInput = nucleusReact.components.TextboxInput;
 var domEventManagerMixin = nucleusReact.mixins.domEventManager;
 
 var ModalExample = React.createClass({
   mixins: [
-    domEventManagerMixin
+    domEventManagerMixin,
+    formMixin
   ],
 
   componentDidMount: function() {
     this.addDomEvent(document, 'keyup', this._closeModalOnEscape);
   },
 
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        test: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Test'
+          }
+        }
+      }
+    }
+  },
+
   getInitialState: function() {
     return {
       isModalActive: false,
       lines: 0,
-      test: null
+      test: {},
+      initialTest: {}
     }
   },
 
@@ -50,12 +68,17 @@ var ModalExample = React.createClass({
   },
 
   setRandomFormValue: function() {
+    var newForm = _.clone(this.state.test);
+
+    newForm.test = Math.random().toString(36).replace(/[^a-z]+/g, '');
+
     this.setState({
-      test: Math.random().toString(36).replace(/[^a-z]+/g, '')
+      test: newForm
     });
   },
 
   renderModalContent: function() {
+    var inputs = this.getInputs('test');
     var lines = [];
 
     for(var x = 0; x < this.state.lines; x += 1) {
@@ -69,7 +92,7 @@ var ModalExample = React.createClass({
         <p><a onClick={this.hideModal}>close me (press escape key will close too)</a></p>
         <p><a onClick={this.increaseLineCount}>add 3 lines</a></p>
         This is the modal window content and making it extra long to testing purposes.<br />
-        <input value={this.state.test} onChange={this.handleFormChange} />
+        {inputs.test.render()}
         {lines}
       </div>
     );
@@ -78,7 +101,7 @@ var ModalExample = React.createClass({
   render: function() {
     return (
       <span>
-        <p>test value from modal: {this.state.test}</p>
+        <p>test value from modal: {this.state.test.test}</p>
         <button onClick={this.setRandomFormValue}>set randon form value</button><br />
         <a onClick={this.showModal}>Toggle Modal</a>
         <Modal

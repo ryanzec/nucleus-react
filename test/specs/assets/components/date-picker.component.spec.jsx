@@ -44,7 +44,7 @@ var TestWeekMode = React.createClass({
 
   render: function() {
     return (
-      <DatePicker selectionUnit="week" selectedDay={this.state.selectedStartOfWeek} />
+      <DatePicker renderInputs={false} selectionUnit="week" selectedDay={this.state.selectedStartOfWeek} />
     );
   }
 });
@@ -193,24 +193,6 @@ describe('date picker component', function() {
     div = document.createElement('div');
   });
 
-  describe('week mode', function() {
-    it('toggle calendar when clicking svg icon', function() {
-      testData.component = React.render(<TestWeekMode />, div);
-      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
-      var svgIcon = reactTestUtils.findRenderedComponentWithType(datePicker, SvgIcon);
-
-      expect(datePicker.state.isCalendarActive).to.be.false;
-
-      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
-
-      expect(datePicker.state.isCalendarActive).to.be.true;
-
-      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
-
-      expect(datePicker.state.isCalendarActive).to.be.false;
-    });
-  });
-
   describe('validation', function() {
     it('should properly set the internal inputs validation props to utilize its validation code', function() {
       testData.component = React.render(<TestCustomValidation />, div);
@@ -255,6 +237,29 @@ describe('date picker component', function() {
       expect(input[0].props.placeholder).to.equal('Click to select date');
       expect(calendar.length).to.equal(0);
       expect(label.length).to.equal(0);
+    });
+
+    it('should render week mode', function() {
+      testData.component = React.render(<DatePicker selectionUnit="week" />, div);
+
+      var datePicker = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'date-picker');
+      var input = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'm-text');
+      var calendar = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar');
+      var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
+
+      expect(datePicker.length).to.equal(1);
+      expect(input.length).to.equal(1);
+      expect(input[0].props.placeholder).to.equal('Click to select date');
+      expect(calendar.length).to.equal(0);
+      expect(label.length).to.equal(0);
+    });
+
+    it('should not render inputs', function() {
+      testData.component = React.render(<DatePicker renderInputs={false}/>, div);
+
+      var input = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'm-text');
+
+      expect(input.length).to.equal(0);
     });
 
     it('should be able to add custom css classes', function() {
@@ -423,6 +428,23 @@ describe('date picker component', function() {
       input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'm-text');
 
       expect(input.props.value).to.equal('01/08/2014');
+      expect(datePicker.state.isCalendarActive).to.be.false;
+    });
+
+
+    it('toggle calendar when clicking svg icon', function() {
+      testData.component = React.render(<TestWeekMode />, div);
+      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
+      var svgIcon = reactTestUtils.findRenderedComponentWithType(datePicker, SvgIcon);
+
+      expect(datePicker.state.isCalendarActive).to.be.false;
+
+      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+
+      expect(datePicker.state.isCalendarActive).to.be.true;
+
+      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+
       expect(datePicker.state.isCalendarActive).to.be.false;
     });
   });

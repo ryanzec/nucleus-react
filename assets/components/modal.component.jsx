@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Overlay = require('./overlay.component.jsx');
 var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var domUtilities = require('dom-utilities');
 
@@ -24,6 +23,9 @@ modal.getDefaultProps = function modalGetDefaultProps() {
 
 /* istanbul ignore next */
 modal.componentDidMount = function modalComponentDidMount() {
+  //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
+  this.getDOMNode().querySelector('.modal__content').classList.add('u-invisible');
+
   this.addDomEvent(window, 'resize', this.reposition);
   this.addDomEvent(window, 'orientationchange', this.reposition);
 };
@@ -31,15 +33,24 @@ modal.componentDidMount = function modalComponentDidMount() {
 /* istanbul ignore next */
 modal.componentDidUpdate = function modalComponentDidUpdate() {
   if (this.props.isActive) {
-    this.setTrueDimensions();
-    this.centerPosition();
+    //NOTE: this timesout is to help make sure any javascript based styling is done before this component determining the required height for the content
+    setTimeout(function modalComponentDidUpdatePositionTimeout() {
+      this.setMaxDimensions();
+      this.setTrueDimensions();
+      this.centerPosition();
+
+      //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
+      this.getDOMNode().querySelector('.modal__content').classList.remove('u-invisible');
+    }.bind(this), 100);
+  } else {
+    //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
+    this.getDOMNode().querySelector('.modal__content').classList.add('u-invisible');
   }
 };
 
 /* istanbul ignore next */
 modal.setTrueDimensions = function modalSetTrueDimensions() {
   var setStylesToGetTrueDimensions = function modalSetTrueDimensionsSetStylesToGetTrueDimensions(modalContentElement) {
-    modalContentElement.style.visibility = 'hidden';
     modalContentElement.style.display = 'block';
     modalContentElement.style.top = '0px';
     modalContentElement.style.left = '0px';
@@ -48,7 +59,6 @@ modal.setTrueDimensions = function modalSetTrueDimensions() {
   };
 
   var resetStyleForNormalDisplay = function modalSetTrueDimensionsResetStyleForNormalDisplay(modalContentElement, originalStyles) {
-    modalContentElement.style.visibility = 'visible';
     modalContentElement.style.display = originalStyles.display;
     modalContentElement.style.top = originalStyles.top;
     modalContentElement.style.left = originalStyles.left;
@@ -75,8 +85,8 @@ modal.setTrueDimensions = function modalSetTrueDimensions() {
 /* istanbul ignore next */
 modal.reposition = function modalReposition() {
   if (this.props.isActive) {
-    this.setTrueDimensions();
     this.setMaxDimensions();
+    this.setTrueDimensions();
     this.centerPosition();
   }
 };

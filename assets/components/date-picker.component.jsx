@@ -26,7 +26,8 @@ datePicker.propTypes = {
   closeOnClick: React.PropTypes.bool,
   selectionUnit: React.PropTypes.oneOf(['day', 'week']),
   label: React.PropTypes.string,
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  renderInputs: React.PropTypes.bool
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -42,7 +43,8 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     closeOnClick: true,
     selectionUnit: 'day',
     label: null,
-    className: null
+    className: null,
+    renderInputs: true
   };
 };
 
@@ -130,7 +132,7 @@ datePicker.onClickDate = function datePickerOnClickDate(value) {
   }
 };
 
-datePicker.onClickCalendarIconWeekMode = function datePickerOnClickCalendarIconWeekMode() {
+datePicker.toggleCalendarDisplay = function datePickerToggleCalendarDisplay() {
   this.setState({
     isCalendarActive: !this.state.isCalendarActive
   });
@@ -154,49 +156,49 @@ datePicker.renderCalendar = function datePickerRenderCalendar() {
   return calendar;
 };
 
-datePicker.renderDayMode = function datePickerRenderDayMode() {
-  return (
-    <TextboxInput
-      ref="input"
-      className="date-picker__input"
-      placeholder={this.props.placeholder}
-      value={this.props.selectedDay}
-      readOnly={true}
-      append={
-        <SvgIcon fragment="calendar" />
-      }
-      renderValidation={this.props.renderValidation}
-      validateOnLoad={this.props.validateOnLoad}
-      validators={this.props.validators}
-      onFocus={this.onFocusInput}
-      label={this.props.label}
-    />
-  );
-};
+datePicker.renderDisplay = function datePickerRenderDisplay() {
+  var display = null;
 
-datePicker.renderWeekMode = function datePickerRenderWeekMode() {
-  return (
-    <div>
-      <SvgIcon
-        isClickable={true}
-        fragment="calendar"
-        onClick={this.onClickCalendarIconWeekMode}
+  if (this.props.renderInputs === true) {
+    display = (
+      <TextboxInput
+        ref="input"
+        className="date-picker__input"
+        placeholder={this.props.placeholder}
+        value={this.props.selectedDay}
+        readOnly={true}
+        append={
+          <SvgIcon fragment="calendar" />
+        }
+        renderValidation={this.props.renderValidation}
+        validateOnLoad={this.props.validateOnLoad}
+        validators={this.props.validators}
+        onFocus={this.onFocusInput}
+        label={this.props.label}
       />
-    </div>
-  );
+    );
+  } else {
+    display = (
+      <div>
+        <SvgIcon
+          isClickable={true}
+          fragment="calendar"
+          onClick={this.toggleCalendarDisplay}
+        />
+      </div>
+    );
+  }
+
+  return display;
 };
 
 datePicker.render = function datePickerRender() {
-  var renderModes = {
-    day: 'renderDayMode',
-    week: 'renderWeekMode'
-  };
   return (
     <div
       className={this.getCssClasses().join(' ')}
       onClick={this.onClickCalendar}
     >
-      {this[renderModes[this.props.selectionUnit]]()}
+      {this.renderDisplay()}
       {this.renderCalendar()}
     </div>
   );
