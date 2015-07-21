@@ -472,7 +472,7 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
     this.updateValue(fullMatchAutoCompleteItem, true);
   } else if (this.props.allowFreeForm === true && inputElement.value !== '') {
     this.updateValue(inputElement.value, true);
-  } else {
+  } else if (this.props.taggingEnabled !== true) {
     this.updateValue('', true);
   }
 
