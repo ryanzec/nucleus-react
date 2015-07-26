@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var domUtilities = require('dom-utilities');
+var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var _ = require('lodash');
 
 var inputAutoSizer = {};
@@ -7,7 +8,8 @@ var inputAutoSizer = {};
 inputAutoSizer.displayName = 'InputAutoSizer';
 
 inputAutoSizer.mixins = [
-  React.addons.PureRenderMixin
+  React.addons.PureRenderMixin,
+  domEventManagerMixin
 ];
 
 inputAutoSizer.propTypes = {
@@ -33,13 +35,17 @@ inputAutoSizer.getInitialState = function inputAutoSizerGetInitialState() {
 };
 
 inputAutoSizer.componentDidMount = function inputAutoSizerComponentDidMount() {
-  this.setState({
-    width: this.getNewWidth(),
-    height: this.getNewHeight()
-  });
+  this.setSize();
+
+  this.addDomEvent(window, 'resize', this.setSize);
+  this.addDomEvent(window, 'orientationchange', this.setSize);
 };
 
-inputAutoSizer.componentDidUpdate = function inputAutoSizerComponentDidUpdate(previousProps, previousState) {
+inputAutoSizer.componentDidUpdate = function inputAutoSizerComponentDidUpdate() {
+  this.setSize();
+};
+
+inputAutoSizer.setSize = function inputAutoSizerSetSize() {
   this.setState({
     width: this.getNewWidth(),
     height: this.getNewHeight()

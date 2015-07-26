@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [input-auto-sizer] fixed issue where rendered in hidden element does not work properly (#89)
 - [forms] added support for inline radio groups (#91)
 - [forms] added m-[TYPE] class to for form elements (#90)
 - [extend-text] added options to configure allowing duplicate tags (#85)
