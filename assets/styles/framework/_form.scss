@@ -148,11 +148,21 @@ form.m-inline {
 
 @media #{$medium-screen-media-query} {
   #{$component-identifier} {
-    &__input-group-item {
-      @include flex(1);
+    &__input-group {
+      &.m-align-start {
+        @include justify-content(flex-start);
 
-      &:not(:first-child) {
-        margin-left: 10px;
+        #{$component-identifier}__input-group-item {
+          @include flex(0 1 auto);
+        }
+      }
+
+      &-item {
+        @include flex(1);
+
+        &:not(:first-child) {
+          margin-left: 10px;
+        }
       }
     }
   }

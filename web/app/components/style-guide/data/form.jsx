@@ -216,9 +216,11 @@ var FormExmplePlaceholders = React.createClass({
         </InputGroup>
         {inputs.gender.render()}
         {inputs.bio.render()}
-        {inputs.receiveNewletters.render()}
-        {inputs.over21.render()}
-        {inputs.agreeToTermsAndConditions.render()}
+        <InputGroup className="m-align-start">
+          {inputs.receiveNewletters.render()}
+          {inputs.over21.render()}
+          {inputs.agreeToTermsAndConditions.render()}
+        </InputGroup>
         {inputs.liveIn.render()}
         {inputs.date.render()}
         {inputs.extendText.render()}
