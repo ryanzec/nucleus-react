@@ -2,9 +2,12 @@ $component-identifier: '.form-element';
 
 #{$component-identifier} {
   label {
-    @include flex(1);
-
     display: inline-block;
+  }
+
+  &.m-inline.m-radio #{$component-identifier}__field-container {
+    display: inline-block;
+    margin-left: 8px;
   }
 
   &__input.m-text,
@@ -61,10 +64,6 @@ $component-identifier: '.form-element';
   &__radio-group {
     @include display(flex);
     @include flex-wrap(wrap);
-
-    label {
-      @include flex-basis(100%);
-    }
   }
 
   &__field-container {

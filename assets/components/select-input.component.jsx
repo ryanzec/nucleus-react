@@ -28,7 +28,7 @@ selectInput.getDefaultProps = function selectInputGetDefaultProps() {
 };
 
 selectInput.getCssClasses = function selectInputGetCssClasses() {
-  var cssClasses = ['form-element'];
+  var cssClasses = ['form-element', 'm-select'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));

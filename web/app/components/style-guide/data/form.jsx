@@ -132,8 +132,10 @@ var FormExmplePlaceholders = React.createClass({
         liveIn: {
           component: RadioInput,
           props: {
+            label: 'Testing',
             ref: 'liveIn',
             name: 'liveIn',
+            className: 'm-inline',
             options: this.getRadioOptions(),
             renderValidation: 'both',
             validators: [{
@@ -256,12 +258,12 @@ var FormExmplePlaceholders = React.createClass({
 
   getRadioOptions: function() {
     return [{
-      display: 'I live in the US',
-      value: 'US'
-    }, {
       display: 'I live outside the US',
       value: 'OTHER',
       displayPosition: 'left'
+    }, {
+      display: 'I live in the US',
+      value: 'US'
     }];
   },
 

@@ -26,7 +26,7 @@ radioInput.getDefaultProps = function radioInputGetDefaultProps() {
 };
 
 radioInput.getCssClasses = function radioInputGetCssClasses() {
-  var cssClasses = ['form-element'];
+  var cssClasses = ['form-element', 'm-radio'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));

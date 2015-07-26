@@ -35,7 +35,7 @@ textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
 };
 
 textboxInput.getCssClasses = function textboxInputGetCssClasses() {
-  var cssClasses = ['form-element'];
+  var cssClasses = ['form-element', 'm-text'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));

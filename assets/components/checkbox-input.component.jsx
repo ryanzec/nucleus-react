@@ -26,7 +26,7 @@ checkboxInput.getDefaultProps = function checkboxInputGetDefaultProps() {
 };
 
 checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
-  var cssClasses = ['form-element'];
+  var cssClasses = ['form-element', 'm-checkbox'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
