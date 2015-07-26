@@ -53,7 +53,8 @@ var SingleForm = React.createClass({
           props: {
             placeholder: 'First Name',
             validators: [{
-              validator: this.validate
+              validator: this.validate,
+              message: 'error \'%%value%%\' message'
             }],
             renderValidation: 'both',
             validateOnLoad: true
@@ -65,7 +66,8 @@ var SingleForm = React.createClass({
           props: {
             placeholder: 'Password',
             validators: [{
-              validator: this.validate
+              validator: this.validate,
+              message: 'error message'
             }],
             maskValue: true,
             renderValidation: "both"
@@ -77,7 +79,8 @@ var SingleForm = React.createClass({
           props: {
             label: "I want to receive weekly newsletters",
             validators: [{
-              validator: this.validateBoolean
+              validator: this.validateBoolean,
+              message: 'error message'
             }],
             renderValidation: 'both'
           }
@@ -88,7 +91,8 @@ var SingleForm = React.createClass({
           props: {
             label: "I am over the age of 21",
             validators: [{
-              validator: this.validateBoolean
+              validator: this.validateBoolean,
+              message: 'error message'
             }],
             renderValidation: 'both',
             displayPosition: "left"
@@ -106,7 +110,8 @@ var SingleForm = React.createClass({
               value: 'false'
             }],
             validators: [{
-              validator: this.validate
+              validator: this.validate,
+              message: 'error message'
             }],
             renderValidation: 'both'
           }
@@ -123,7 +128,8 @@ var SingleForm = React.createClass({
             validators: [{
               validator: function(value) {
                 return value === '01/01/2015';
-              }
+              },
+              message: 'error message'
             }]
           }
         },
@@ -138,7 +144,8 @@ var SingleForm = React.createClass({
             validators: [{
               validator: function(value) {
                 return !value ? false : value.length > 0;
-              }
+              },
+              message: 'error message'
             }]
           }
         },
@@ -473,6 +480,93 @@ describe('form mixin', function() {
 
   beforeEach(function() {
     div = document.createElement('div');
+  });
+
+  describe('validator collection', function() {
+    it('should be able to get', function() {
+      this.component = React.render(<SingleForm />, div);
+
+      this.component.setState({
+        test: {
+          firstName: 'true',
+          password: 'true',
+          receiveNewletters: true,
+          over21: true,
+          radio: 'true',
+          date: '01/01/2015',
+          tags: [{
+            display: 'test1',
+            value: 't1'
+          }]
+        }
+      });
+      this.component.validateForm('test');
+
+      var validatorCollection = this.component.getFormValidatorCollection('test');
+      var errorMessages = validatorCollection.getValidationErrors();
+
+      expect(errorMessages.firstName).to.be.null;
+      expect(errorMessages.password).to.be.null;
+      expect(errorMessages.receiveNewletters).to.be.null;
+      expect(errorMessages.over21).to.be.null;
+      expect(errorMessages.radio).to.be.null;
+      expect(errorMessages.date).to.be.null;
+      expect(errorMessages.tags).to.be.null;
+      expect(validatorCollection.isValid()).to.be.true;
+    });
+
+    it('should return error messages', function() {
+      this.component = React.render(<SingleForm />, div);
+
+      this.component.setState({
+        test: {
+          firstName: '123',
+          password: '234',
+          receiveNewletters: false,
+          over21: false,
+          radio: 'false',
+          date: '',
+          tags: []
+        }
+      });
+      this.component.validateForm('test');
+
+      var validatorCollection = this.component.getFormValidatorCollection('test');
+      var errorMessages = validatorCollection.getValidationErrors();
+
+      expect(errorMessages.firstName).to.deep.equal(['error \'123\' message']);
+      expect(errorMessages.password).to.deep.equal(['error message']);
+      expect(errorMessages.receiveNewletters).to.deep.equal(['error message']);
+      expect(errorMessages.over21).to.deep.equal(['error message']);
+      expect(errorMessages.radio).to.deep.equal(['error message']);
+      expect(errorMessages.date).to.deep.equal(['error message']);
+      expect(errorMessages.tags).to.deep.equal(['error message']);
+    });
+
+    it('should validate to false', function() {
+      this.component = React.render(<SingleForm />, div);
+
+      this.component.setState({
+        test: {
+          firstName: '123',
+          password: 'true',
+          receiveNewletters: true,
+          over21: true,
+          radio: 'true',
+          date: '01/01/2015',
+          tags: [{
+            display: 'test1',
+            value: 't1'
+          }]
+        }
+      });
+      this.component.validateForm('test');
+
+      var validatorCollection = this.component.getFormValidatorCollection('test');
+      var errorMessages = validatorCollection.getValidationErrors();
+
+      expect(validatorCollection.isValid()).to.be.false;
+    });
   });
 
   describe('single form', function() {

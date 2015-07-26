@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var validatorCollection = require('../misc/validator-collection');
 var _ = require('lodash');
 
 var formMixin = {};
@@ -37,6 +38,21 @@ formMixin.validateForm = function formMixinValidateForm(formName) {
       this.refs[key].forceUpdate();
     }
   }.bind(this));
+};
+
+formMixin.getFormValidatorCollection = function formMixinGetFormValidatorCollection(formName) {
+  var validators = {};
+
+  var inputs = this.getInputs(formName);
+
+  _.forEach(inputs, function formMixinGetFormValidatorCollectionInputsLoop(input, key) {
+    /* istanbul ignore else */
+    if (this.refs[key] && this.refs[key].validator) {
+      validators[key] = this.refs[key].validator;
+    }
+  }.bind(this));
+
+  return validatorCollection.create(validators);
 };
 
 formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, field) {
