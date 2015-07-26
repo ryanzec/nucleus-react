@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [extend-text] added options to configure allowing duplicate tags (#85)
+- [extend-text] add new indicator display (#87)
 - [modal] added class list shim to test enviroment to fix modal tests (#86)
 - [character-counter] properly works when the default value is undefined or null
 - [svg-icon] added fragment name as class name for easier styling customization

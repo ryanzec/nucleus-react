@@ -72,7 +72,8 @@
     "superagent": "1.1.0",
     "through2": "0.6.3",
     "vinyl-source-stream": "1.1.0",
-    "wrench": "1.5.8"
+    "wrench": "1.5.8",
+    "eventemitter3": "1.1.1"
   },
   "engines": {
     "node": ">=0.10.33"

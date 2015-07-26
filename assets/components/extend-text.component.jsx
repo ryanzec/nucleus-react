@@ -26,7 +26,7 @@ extendText.propTypes = {
   emptyIndicator: React.PropTypes.node,
   getData: React.PropTypes.func,
   allowFreeForm: React.PropTypes.bool,
-  newIndicator: React.PropTypes.node,
+  newIndicatorNode: React.PropTypes.node,
   characterThreshold: React.PropTypes.number,
   debounce: React.PropTypes.number,
   loadingIndicatorEnabled: React.PropTypes.bool,
@@ -37,7 +37,9 @@ extendText.propTypes = {
   dropDownIconFragment: React.PropTypes.string,
   className: React.PropTypes.string,
   placeholder: React.PropTypes.string,
-  label: React.PropTypes.string
+  label: React.PropTypes.string,
+  allowDuplicates: React.PropTypes.bool,
+  newPosition: React.PropTypes.oneOf(['top', 'bottom'])
 };
 
 extendText.getDefaultProps = function extendTextGetDefaultProps() {
@@ -49,9 +51,8 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
       <span>No Options Found</span>
     ),
     allowFreeForm: false,
-    newIndicator: (
-      <span>New</span>
-    ),
+    newIndicatorNode: ' (New)',
+
     displayProperty: 'display',
     characterThreshold: 0,
     debounce: 0,
@@ -67,7 +68,9 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     dropDownIconFragment: null,
     className: null,
     placeholder: null,
-    label: null
+    label: null,
+    allowDuplicates: false,
+    newPosition: 'bottom'
   };
 };
 
@@ -173,7 +176,7 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
 };
 
 extendText.filterSelectedValues = function extendTextFilterSelectedValues(data) {
-  return data.filter(function extendTextFilterSelectedValuesDataFilter(value) {
+  var autoCompleteItems = data.filter(function extendTextFilterSelectedValuesDataFilter(value) {
     var isSelected = false;
     var valueCount = _.isArray(this.props.value) ? this.props.value.length : 0;
 
@@ -185,6 +188,22 @@ extendText.filterSelectedValues = function extendTextFilterSelectedValues(data) 
 
     return !isSelected;
   }.bind(this));
+
+  if (
+    this.state.displayInputValue
+    && this.props.allowFreeForm === true
+    && !this.autoCompleteItemExists({display: this.state.displayInputValue, value: this.state.displayInputValue}, autoCompleteItems)
+  ) {
+    var addMethod = this.props.newPosition === 'bottom' ? 'push' : 'unshift';
+
+    autoCompleteItems[addMethod]({
+      display: this.state.displayInputValue,
+      value: this.state.displayInputValue,
+      isNew: true
+    });
+  }
+
+  return autoCompleteItems;
 };
 
 extendText.cleanValue = function extendTextCleanValue(value) {
@@ -361,6 +380,38 @@ extendText.updateDisplayValue = function extendTextUdpateDisplayValue(newValue) 
   }
 };
 
+extendText.tagAlreadyExists = function extendTextTagAlreadyExists(tag) {
+  if (!this.props.value) {
+    return false;
+  }
+
+  var count = this.props.value.length;
+
+  for (var x = 0; x < count; x += 1) {
+    if (this.props.value[x].value === tag.value) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+extendText.autoCompleteItemExists = function(item) {
+  if (!this.state.autoCompleteItems) {
+    return false;
+  }
+
+  var count = this.state.autoCompleteItems.length;
+
+  for (var x = 0; x < count; x += 1) {
+    if (this.state.autoCompleteItems[x].display === item.display) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayValue) {
   var updatedState = {};
   var newFullValue;
@@ -381,8 +432,9 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 
   if (this.props.taggingEnabled === true) {
-    if (newValue !== '') {
-      newFullValue = _.clone(this.props.value);
+    newFullValue = _.clone(this.props.value);
+
+    if (newValue !== '' && (this.props.allowDuplicates === true || !this.tagAlreadyExists(newValue))) {
       newFullValue.push(newValue);
     }
   } else {
@@ -557,6 +609,18 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
   if (this.state.autoCompleteItems.length > 0 && this.state.isActive === true) {
     var items = this.state.autoCompleteItems.map(function extendTextRenderAutoCompleteItemsMap(item, key) {
       var cssClass = this.state.focusedAutoCompleteItem === key ? 'is-focused' : '';
+      var displayValue = item.display;
+
+      if (item.isNew) {
+        displayValue = (
+          <span>
+            {item.display}
+            <span className="extend-text__new-indicator">
+              {this.props.newIndicatorNode}
+            </span>
+          </span>
+        );
+      }
 
       return (
         <li
@@ -566,7 +630,7 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
           onMouseEnter={this.onMouseEnterAutoCompleteItem}
           onMouseDown={this.onMouseDownAutoCompleteItem}
         >
-          {item.display}
+          {displayValue}
         </li>
       );
     }.bind(this));

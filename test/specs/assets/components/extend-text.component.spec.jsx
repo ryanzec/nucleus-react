@@ -207,6 +207,26 @@ var PageTestTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var PageTestTaggingAllowFreeFormAllowDuplicates = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} allowDuplicates={true} />
+    );
+  }
+});
+
 var PageTestNoFilter = React.createClass({
   getInitialState: function() {
     return {
@@ -1151,7 +1171,8 @@ describe('extend text component', function() {
 
         expect(testData.component.state.extendTextValue).to.deep.equal({
           display: 'tes',
-          value: 'tes'
+          value: 'tes',
+          isNew: true
         });
         expect(input.getDOMNode().value).to.equal('tes');
         done();
@@ -1248,6 +1269,78 @@ describe('extend text component', function() {
 
         //make sure there is the correct number of elements
         expect(autoCompleteItems.length).to.equal(3);
+        done();
+      }).run();
+    });
+
+    it('should add new indicator to top', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        //make sure elements are correct
+        testAutoCompleteItems.forEach(function(item, key) {
+          expect(autoCompleteItems[key].props['data-key']).to.equal(key);
+          expect(autoCompleteItems[key].props.children).to.equal(item.display);
+        });
+
+        expect(autoCompleteItems[3].props['data-key']).to.equal(3);
+        expect(autoCompleteItems[3].props.children.props.children[0]).to.equal('tes');
+        expect(autoCompleteItems[3].props.children.props.children[1].props.children).to.equal(' (New)');
+
+        //make sure there is the correct number of elements
+        expect(autoCompleteItems.length).to.equal(4);
+        done();
+      }).run();
+    });
+
+    it('should add new indicator when allow free form is set to true', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} newPosition="top" />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        //make sure elements are correct
+        testAutoCompleteItems.forEach(function(item, key) {
+          expect(autoCompleteItems[key + 1].props['data-key']).to.equal(key + 1);
+          expect(autoCompleteItems[key + 1].props.children).to.equal(item.display);
+        });
+
+        expect(autoCompleteItems[0].props['data-key']).to.equal(0);
+        expect(autoCompleteItems[0].props.children.props.children[0]).to.equal('tes');
+        expect(autoCompleteItems[0].props.children.props.children[1].props.children).to.equal(' (New)');
+
+        //make sure there is the correct number of elements
+        expect(autoCompleteItems.length).to.equal(4);
         done();
       }).run();
     });
@@ -1818,7 +1911,104 @@ describe('extend text component', function() {
 
         expect(testData.component.state.extendTextValue).to.deep.equal([{
           display: 'tes',
-          value: 'tes'
+          value: 'tes',
+          isNew: true
+        }]);
+        done();
+      }).run();
+    });
+
+    it('should not add value if it is in selected tags', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.extendTextValue).to.deep.equal([{
+          display: 'tes',
+          value: 'tes',
+          isNew: true
+        }]);
+        done();
+      }).run();
+    });
+
+    it('should add value if it is in selected tags if duplicates are allowed', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormAllowDuplicates />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.extendTextValue).to.deep.equal([{
+          display: 'tes',
+          value: 'tes',
+          isNew: true
+        }, {
+          display: 'tes',
+          value: 'tes',
+          isNew: true
         }]);
         done();
       }).run();
@@ -1937,7 +2127,8 @@ describe('extend text component', function() {
           value: 1
         }, {
           display: 'tes',
-          value: 'tes'
+          value: 'tes',
+          isNew: true
         }]);
         done();
       }).run();
@@ -1986,7 +2177,8 @@ describe('extend text component', function() {
 
         expect(testData.component.state.extendTextValue).to.deep.equal([{
           display: 'tes',
-          value: 'tes'
+          value: 'tes',
+          isNew: true
         }]);
 
         var tagRemoveElement = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__tag-remove');
@@ -2282,7 +2474,8 @@ describe('extend text component', function() {
             value: 's1'
           }, {
             display: 'stat',
-            value: 'stat'
+            value: 'stat',
+            isNew: true
           }]);
           done();
         }).run();
