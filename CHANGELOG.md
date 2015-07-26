@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+
+## 0.5.0
 - [forms] added validator collection into form system (#84)
 - [loading-bar] added loading bar for site loading indicator (#83)
 - [forms] added support for input group to align items with flex-start (#88)
