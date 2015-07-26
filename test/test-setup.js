@@ -7,6 +7,8 @@ global.navigator = {
  userAgent: 'node.js'
 };
 
+require('./class-list-shim.js');
+
 //setup testing tools
 global.chai = require('chai');
 global.expect = chai.expect;

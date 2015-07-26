@@ -37,14 +37,14 @@ describe('svg icon component', function() {
     this.component = React.render(<SvgIcon fragment="user" outerClassName="custom1 custom2" />, div);
     var outerContainer = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'svg-icon__outer-container');
 
-    expect(outerContainer.getDOMNode().className).to.equal('svg-icon__outer-container custom1 custom2');
+    expect(outerContainer.getDOMNode().className).to.equal('svg-icon__outer-container user-icon custom1 custom2');
   });
 
   it('should be able to add custom css classes to the inner svg container element', function() {
     this.component = React.render(<SvgIcon fragment="user" className="custom1 custom2" />, div);
     var innerContainer = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'svg-icon__container');
 
-    expect(innerContainer.getDOMNode().className).to.equal('svg-icon__container custom1 custom2');
+    expect(innerContainer.getDOMNode().className).to.equal('svg-icon__container user-icon custom1 custom2');
   });
 
   it('should be able to be clickable', function() {
@@ -62,7 +62,7 @@ describe('svg icon component', function() {
 
     reactTestUtils.Simulate.mouseDown(outerContainer);
 
-    expect(outerContainer.props.className).to.equal('svg-icon__outer-container has-clickability is-pressed');
+    expect(outerContainer.props.className).to.equal('svg-icon__outer-container user-icon has-clickability is-pressed');
     expect(this.component.state.isPressed).to.be.true;
   });
 
@@ -73,7 +73,7 @@ describe('svg icon component', function() {
     reactTestUtils.Simulate.mouseDown(outerContainer);
     reactTestUtils.Simulate.mouseUp(outerContainer);
 
-    expect(outerContainer.props.className).to.equal('svg-icon__outer-container has-clickability');
+    expect(outerContainer.props.className).to.equal('svg-icon__outer-container user-icon has-clickability');
     expect(this.component.state.isPressed).to.be.false;
   });
 
@@ -84,7 +84,7 @@ describe('svg icon component', function() {
     reactTestUtils.Simulate.mouseDown(outerContainer);
     reactTestUtils.Simulate.mouseUp(outerContainer);
 
-    expect(outerContainer.props.className).to.equal('svg-icon__outer-container has-clickability m-quiet');
+    expect(outerContainer.props.className).to.equal('svg-icon__outer-container user-icon has-clickability m-quiet');
     expect(this.component.state.isPressed).to.be.false;
   });
 
@@ -96,7 +96,7 @@ describe('svg icon component', function() {
   //   reactTestUtils.Simulate.mouseDown(outerContainer);
   //   reactTestUtils.Simulate.mouseLeave(outerContainer);
 
-  //   expect(outerContainer.props.className).to.equal('svg-icon__outer-container has-clickability');
+  //   expect(outerContainer.props.className).to.equal('svg-icon__outer-container user-icon has-clickability');
   //   expect(this.component.state.isPressed).to.be.false;
   // });
 });

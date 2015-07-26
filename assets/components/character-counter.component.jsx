@@ -78,7 +78,7 @@ characterCounter.getCssClasses = function chracterCounterGetCssClasses() {
 };
 
 characterCounter.getCharactersLeft = function characterCounterGetCharactersLeft() {
-  return this.props.maxLimit - this.props.input.length;
+  return this.props.maxLimit - (this.props.input ? this.props.input.length : 0);
 };
 
 characterCounter.render = function characterCounterRender() {

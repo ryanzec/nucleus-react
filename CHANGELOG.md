@@ -2,12 +2,15 @@
 
 There are some key used within the changelog which are as following:
 
-- [bug]: means a bug fix
-- [feature]: means a new feature
 - [breaking]: mean there is a change that might break existing code
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [modal] added class list shim to test enviroment to fix modal tests (#86)
+- [character-counter] properly works when the default value is undefined or null
+- [svg-icon] added fragment name as class name for easier styling customization
+- [core] added some utilitiy classes
+- [confirmation-modal] added confirmation modal component
 - [date-picker] made display on input configurable (#80)
 - [modal][forms][bug] fixed issue with form inputs and modal window not working in IE (#82)
 - removed single panel manager store

@@ -2,6 +2,30 @@
   display: none !important;
 }
 
+.u-invisible {
+  visibility: hidden !important;
+}
+
+.u-underline {
+  text-decoration: underline !important;
+}
+
+.u-display-text-pre-wrap {
+  white-space: pre-wrap !important;
+}
+
+.u-full-height {
+  height: 100% !important;
+}
+
+.u-full-width {
+  width: 100% !important;
+}
+
+.u-margin-center-vertical {
+    margin: 0 auto;
+}
+
 @media #{$small-screen-only-media-query} {
   .u-hide-small {
     display: none !important;

@@ -34,7 +34,7 @@ svgIcon.getSvgHtml = function svgIconGetSvgHtml() {
 };
 
 svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
-  var cssClasses = ['svg-icon__container'];
+  var cssClasses = ['svg-icon__container', this.props.fragment + '-icon'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -44,7 +44,7 @@ svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
 };
 
 svgIcon.getOuterCssClasses = function svgIconGetOuterCssClasses() {
-  var cssClasses = ['svg-icon__outer-container'];
+  var cssClasses = ['svg-icon__outer-container', this.props.fragment + '-icon'];
 
   if (this.props.outerClassName) {
     cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
