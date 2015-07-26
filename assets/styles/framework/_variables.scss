@@ -24,6 +24,7 @@ $color-transparent: hsla(0, 0%, 0%, 0) !default;
 
 //transparent colors
 $color-transparent1: hsla(0, 0%, 0%, .05) !default;
+$color-transparent2: hsla(0, 0%, 0%, .3) !default;
 
 //text colors
 $color-text: hsla(0, 0%, 20%, 1) !default;
@@ -65,6 +66,7 @@ $z-index-notify: 1800 !default;
 $z-index-non-blocking-site-loader: 1899 !default;
 $z-index-site-loader: 1900 !default;
 $z-index-content-modal: 2000 !default;
+$z-index-loading-bar: 2100 !default;
 
 //font
 $font-size: 1.3rem !default;

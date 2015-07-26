@@ -75,6 +75,10 @@ var gulpConfig = {
         name: 'deep-equal'
       }, {
         name: 'jsuri'
+      }, {
+        name: 'object-assign'
+      }, {
+        name: 'eventemitter3'
       }]
     },
     bowerClean: [

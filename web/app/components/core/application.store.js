@@ -1,17 +1,22 @@
-module.exports = {
+var storeGenerator = require('./store-generator');
+
+module.exports = storeGenerator({
   getPreventDoubleClick: function() {
     return this._internalData.preventDoubleClick;
   },
 
-  storeName: 'Application',
+  getLoadingBarPercentage: function() {
+    return this._internalData.loadingBarPercentage
+  },
 
-  _dispatcherEvents: {
-    'enablePreventDoubleClick': '_onEnablePreventDoubleClick',
-    'disablePreventDoubleClick': '_onDisablePreventDoubleClick'
+  setLoadingBarPercentage: function(percentage) {
+    this._internalData.loadingBarPercentage = percentage;
+    this.emit('changed');
   },
 
   _internalData: {
-    preventDoubleClick: false
+    preventDoubleClick: false,
+    loadingBarPercentage: 0
   },
 
   _onEnablePreventDoubleClick: function() {
@@ -23,4 +28,4 @@ module.exports = {
     this._internalData.preventDoubleClick = false;
     this.emit('preventDoubleClickChanged');
   }
-};
+});

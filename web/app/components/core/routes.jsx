@@ -17,6 +17,7 @@ var StyleGuideFlexboxGrid = require('../style-guide/flexbox-grid.component.jsx')
 var StyleGuideForm = require('../style-guide/form.component.jsx');
 var StyleGuideGlobalNotification = require('../style-guide/global-notification.component.jsx');
 var StyleGuideInputAutoSizer = require('../style-guide/input-auto-sizer.component.jsx');
+var StyleGuideLoadingBar = require('../style-guide/loading-bar.component.jsx');
 var StyleGuideModal = require('../style-guide/modal.component.jsx');
 var StyleGuideOverlay = require('../style-guide/overlay.component.jsx');
 var StyleGuideOverview = require('../style-guide/overview.component.jsx');
@@ -50,6 +51,7 @@ module.exports = (
     <Route name="flexbox-grid" path="flexbox-grid" handler={StyleGuideFlexboxGrid} />
     <Route name="form" path="form" handler={StyleGuideForm} />
     <Route name="input-auto-sizer" path="input-auto-sizer" handler={StyleGuideInputAutoSizer} />
+    <Route name="loading-bar" path="loading-bar" handler={StyleGuideLoadingBar} />
     <Route name="modal" path="modal" handler={StyleGuideModal} />
     <Route name="global-notification" path="global-notification" handler={StyleGuideGlobalNotification} />
     <Route name="overlay" path="overlay" handler={StyleGuideOverlay} />

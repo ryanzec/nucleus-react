@@ -19,6 +19,7 @@ module.exports = {
   GlobalNotificationItem: require('./global-notification-item.component.jsx'),
   InputAutoSizer: require('./input-auto-sizer.component.jsx'),
   InputGroup: require('./input-group.component.jsx'),
+  LoadingBar: require('./loading-bar.component.jsx'),
   Modal: require('./modal.component.jsx'),
   Overlay: require('./overlay.component.jsx'),
   Pagination: require('./pagination.component.jsx'),
