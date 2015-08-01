@@ -1859,6 +1859,24 @@ describe('extend text component', function() {
       expect(testData.component.state.extendTextValue).to.deep.equal(tags);
     });
 
+    it('should be able to set custom class name for tags', function() {
+      var tags = [{
+        display: 'test1',
+        value: 't1',
+        className: 'm-safe'
+      }, {
+        display: 'test2',
+        value: 't2',
+        className: 'm-danger'
+      }];
+      testData.component = React.render(<PageTestTagging value={tags} />, div);
+
+      var tags = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag');
+
+      expect(tags[0].props.className).to.contain('m-safe');
+      expect(tags[1].props.className).to.contain('m-danger');
+    });
+
     it('should remove tags when bluring input that has invalid value', function(done) {
       Fiber(function() {
         var tags = [{

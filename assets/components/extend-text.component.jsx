@@ -602,9 +602,15 @@ extendText.renderTags = function extendTextRenderTags() {
 
   if (this.props.taggingEnabled === true && this.props.value.length > 0) {
     tags = this.props.value.map(function extendTextRenderTagsValueMap(item, key) {
+      var className = 'extend-text__tag';
+
+      if (item.className) {
+        className += ' ' + item.className;
+      }
+
       return (
         <div
-          className="extend-text__tag"
+          className={className}
           key={key}
         >
           {item.display}

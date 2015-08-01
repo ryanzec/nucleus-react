@@ -6,11 +6,12 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
-[confirmation-modal] centered buttons
-[confirmation-modal] added disableButtons prop
-[extend-text] fixed bug where auto complete would show iwth not option after attempting to select value that was already selected (#94)
-[extend-text] remove filtering selected values with remote data (#93)
-fixed broken tests
+- [extend-text] added ability to set custom classes for tags (#95)
+- [confirmation-modal] centered buttons
+- [confirmation-modal] added disableButtons prop
+- [extend-text] fixed bug where auto complete would show iwth not option after attempting to select value that was already selected (#94)
+- [extend-text] remove filtering selected values with remote data (#93)
+- fixed broken tests
 
 ## 0.5.0
 - [forms] added validator collection into form system (#84)
