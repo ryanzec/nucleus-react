@@ -14,7 +14,7 @@ calendar.propTypes = {
   className: React.PropTypes.string,
   format: React.PropTypes.string,
   selectedDay: React.PropTypes.string,
-  minuxYears: React.PropTypes.number,
+  minusYears: React.PropTypes.number,
   plusYears: React.PropTypes.number,
   onClickDate: React.PropTypes.func,
   showControls: React.PropTypes.bool,
