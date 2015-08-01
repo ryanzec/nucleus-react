@@ -209,6 +209,211 @@ var SingleForm = React.createClass({
   }
 });
 
+var SingleFormAllowEmpty = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    var initialFormData = {
+      firstName: '',
+      password: 'test',
+      receiveNewletters: true,
+      over21: false,
+      radio: 'false',
+      date: '',
+      tags: [{
+        display: 'test1',
+        value: 't1'
+      }],
+      noProps: ''
+    };
+    return {
+      initialTest: initialFormData,
+      test: initialFormData
+    };
+  },
+
+  onClickDate: function(value) {
+    var newFormData = _.clone(this.state.test);
+    newFormData.date = value;
+
+    this.setState({
+      test: newFormData
+    });
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        firstName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'First Name',
+            validators: [{
+              validator: this.validate,
+              message: 'error \'%%value%%\' message'
+            }],
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validatorAllowEmpty: true
+          }
+        },
+
+        password: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Password',
+            validators: [{
+              validator: this.validate,
+              message: 'error message'
+            }],
+            maskValue: true,
+            renderValidation: "both",
+            validatorAllowEmpty: true
+          }
+        },
+
+        receiveNewletters: {
+          component: CheckboxInput,
+          props: {
+            label: "I want to receive weekly newsletters",
+            validators: [{
+              validator: this.validateBoolean,
+              message: 'error message'
+            }],
+            renderValidation: 'both',
+            validatorAllowEmpty: true
+          }
+        },
+
+        over21: {
+          component: CheckboxInput,
+          props: {
+            label: "I am over the age of 21",
+            validators: [{
+              validator: this.validateBoolean,
+              message: 'error message'
+            }],
+            renderValidation: 'both',
+            displayPosition: "left",
+            validatorAllowEmpty: true
+          }
+        },
+
+        radio: {
+          component: RadioInput,
+          props: {
+            options: [{
+              display: 'True',
+              value: 'true'
+            }, {
+              display: 'False',
+              value: 'false'
+            }],
+            validators: [{
+              validator: this.validate,
+              message: 'error message'
+            }],
+            renderValidation: 'both',
+            validatorAllowEmpty: true
+          }
+        },
+
+        date: {
+          component: DatePicker,
+          hasOnChange: false,
+          valueProperty: 'selectedDay',
+          props: {
+            onClickDate: this.onClickDate,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                return value === '01/01/2015';
+              },
+              message: 'error message'
+            }],
+            validatorAllowEmpty: true
+          }
+        },
+
+        tags: {
+          component: ExtendText,
+          props: {
+            getData: this.getExtendTextData,
+            taggingEnabled: true,
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{
+              validator: function(value) {
+                return !value ? false : value.length > 0;
+              },
+              message: 'error message'
+            }],
+            validatorAllowEmpty: true
+          }
+        },
+
+        noProps: {
+          component: TextboxInput
+        }
+      }
+    };
+  },
+
+  getExtendTextData: function(value) {
+    var defer = bluebird.defer();
+
+    defer.resolve([{
+      display: 'test1',
+      value: 't1'
+    }, {
+      display: 'test2',
+      value: 't2'
+    }, {
+      display: 'test3',
+      value: 't3'
+    }]);
+
+    return defer.promise;
+  },
+
+  validate: function(value) {
+    return value === 'true' ? true : false;
+  },
+
+  validateBoolean: function(value) {
+    return value === true;
+  },
+
+  renderForm: function() {
+    var inputs = this.getInputs('test');
+
+    return (
+      <form>
+        <InputGroup>
+          {inputs.firstName.render()}
+          {inputs.password.render()}
+        </InputGroup>
+        {inputs.receiveNewletters.render()}
+        {inputs.over21.render()}
+        {inputs.radio.render()}
+        {inputs.date.render()}
+        {inputs.tags.render()}
+      </form>
+    );
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.renderForm()}
+      </div>
+    );
+  }
+});
+
 var MultipleForms = React.createClass({
   mixins: [
     formMixin
@@ -674,6 +879,31 @@ describe('form mixin', function() {
       expect(this.component.refs.password.validator.valid).to.be.true;
       expect(this.component.refs.receiveNewletters.validator.valid).to.be.true;
       expect(this.component.refs.over21.validator.valid).to.be.true;
+      expect(this.component.refs.radio.validator.valid).to.be.true;
+      expect(this.component.refs.date.validator.valid).to.be.true;
+      expect(this.component.refs.tags.validator.valid).to.be.true;
+    });
+
+    it('should be able to validate to true is allow empty is set (except checkboxes)', function() {
+      this.component = React.render(<SingleFormAllowEmpty />, div);
+
+      this.component.setState({
+        test: {
+          firstName: '',
+          password: '',
+          receiveNewletters: '',
+          over21: '',
+          radio: '',
+          date: '',
+          tags: []
+        }
+      });
+      this.component.validateForm('test');
+
+      expect(this.component.refs.firstName.validator.valid).to.be.true;
+      expect(this.component.refs.password.validator.valid).to.be.true;
+      expect(this.component.refs.receiveNewletters.validator.valid).to.be.false;
+      expect(this.component.refs.over21.validator.valid).to.be.false;
       expect(this.component.refs.radio.validator.valid).to.be.true;
       expect(this.component.refs.date.validator.valid).to.be.true;
       expect(this.component.refs.tags.validator.valid).to.be.true;

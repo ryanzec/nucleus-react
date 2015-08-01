@@ -27,7 +27,8 @@ datePicker.propTypes = {
   selectionUnit: React.PropTypes.oneOf(['day', 'week']),
   label: React.PropTypes.string,
   className: React.PropTypes.string,
-  renderInputs: React.PropTypes.bool
+  renderInputs: React.PropTypes.bool,
+  validatorAllowEmpty: React.PropTypes.bool
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -44,7 +45,8 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     selectionUnit: 'day',
     label: null,
     className: null,
-    renderInputs: true
+    renderInputs: true,
+    validatorAllowEmpty: false
   };
 };
 
@@ -173,6 +175,7 @@ datePicker.renderDisplay = function datePickerRenderDisplay() {
         renderValidation={this.props.renderValidation}
         validateOnLoad={this.props.validateOnLoad}
         validators={this.props.validators}
+        validatorAllowEmpty={this.props.validatorAllowEmpty}
         onFocus={this.onFocusInput}
         label={this.props.label}
       />

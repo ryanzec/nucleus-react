@@ -6,7 +6,7 @@ var validIconFragment = 'checkmark';
 var invalidIconFragment = 'x';
 
 var isValudEmpty = function isValueEmpty(value) {
-  return value === '' || value === null || value === undefined;
+  return value === '' || value === null || value === undefined || value.length === 0;
 };
 
 module.exports = {
