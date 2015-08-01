@@ -207,6 +207,26 @@ var PageTestTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var PageTestTaggingAllowFreeFormThreshold1 = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} characterThreshold={1} />
+    );
+  }
+});
+
 var PageTestTaggingAllowFreeFormNoFilter = React.createClass({
   getInitialState: function() {
     return {
@@ -462,7 +482,7 @@ var FormExampleValidationFalseValid = React.createClass({
   }
 });
 
-describe.only('extend text component', function() {
+describe('extend text component', function() {
   beforeEach(function() {
     div = document.createElement('div');
   });
@@ -2066,6 +2086,51 @@ describe.only('extend text component', function() {
         expect(autoCompleteItems[1].props.children).to.equal('test 2');
         expect(autoCompleteItems[2].props.children).to.equal('test 3');
 
+        done();
+      }).run();
+    });
+
+    it('should not display auto complete when attempting to add in tag that already exists and threshold is higher than 0', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormThreshold1 />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test 1'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test 1'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        expect(extendTextComponent.state.isActive).to.be.false;
         done();
       }).run();
     });

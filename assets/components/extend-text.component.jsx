@@ -441,6 +441,15 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
 
     if (newValue !== '' && (this.props.allowDuplicates === true || !this.tagAlreadyExists(newValue))) {
       newFullValue.push(newValue);
+    } else {
+      if (
+        this.isOverCharacterThreshold('')
+        && equals(document.activeElement, this.getInputElement())
+      ) {
+        this.getData('');
+      } else {
+        updatedState.isActive = false;
+      }
     }
   } else {
     newFullValue = newValue;

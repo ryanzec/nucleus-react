@@ -84,6 +84,34 @@ var ExtendsTextTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var ExtendsTextTaggingAllowFreeFormWithThreshold = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        dropDownIconFragment="chevron-down"
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getData}
+        taggingEnabled={true}
+        allowFreeForm={true}
+        characterThreshold={1}
+      />
+    );
+  }
+});
+
 var ExtendsTextTaggingStaticData = React.createClass({
   getInitialState: function() {
     return {
@@ -123,6 +151,12 @@ module.exports = {
     description: 'Free form tagging',
     example: (
       <ExtendsTextTaggingAllowFreeForm />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: 'Free form tagging with threshold',
+    example: (
+      <ExtendsTextTaggingAllowFreeFormWithThreshold />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {
