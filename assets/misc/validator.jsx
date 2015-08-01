@@ -5,6 +5,10 @@ var SvgIcon = require('../components/svg-icon.component.jsx');
 var validIconFragment = 'checkmark';
 var invalidIconFragment = 'x';
 
+var isValudEmpty = function isValueEmpty(value) {
+  return value === '' || value === null || value === undefined;
+};
+
 module.exports = {
   create: function validatorFactoryCreate(options) {
     options = options || {};
@@ -13,7 +17,8 @@ module.exports = {
       validateValueOnCreate: undefined,
       validators: [],
       initialValue: null,
-      renderIcon: true
+      renderIcon: true,
+      allowEmpty: false
     }, options);
 
     if (options.validators && !_.isArray(options.validators)) {
@@ -35,15 +40,19 @@ module.exports = {
         this.lastValidatedValue = value;
 
         if (options.validators.length > 0) {
-          options.validators.forEach(function validatorValidateValidatorsLoop(validator) {
-            if (validator.validator(value, validator.options) !== true) {
-              this.valid = false;
+          if (isValudEmpty(value) && options.allowEmpty === true) {
+            //should validate to true so do nothing
+          } else {
+            options.validators.forEach(function validatorValidateValidatorsLoop(validator) {
+              if (validator.validator(value, validator.options) !== true) {
+                this.valid = false;
 
-              if (validator.message) {
-                this.validationErrors.push(validator.message.replace('%%value%%', value));
+                if (validator.message) {
+                  this.validationErrors.push(validator.message.replace('%%value%%', value));
+                }
               }
-            }
-          }.bind(this));
+            }.bind(this));
+          }
         }
 
         validationHasHappened = true;

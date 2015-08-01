@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [validator] added ability to allow empty value even if there are validators
+- [calendar] fixed prop type typo
 - [extend-text] added ability to set custom classes for tags (#95)
 - [confirmation-modal] centered buttons
 - [confirmation-modal] added disableButtons prop

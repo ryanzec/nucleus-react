@@ -114,6 +114,35 @@ var validatorConfigMinMaxLengthMatchWithMessage = {
   }]
 };
 
+var validatorConfigMinMaxLengthMatchWithMessageAllowEmpty = {
+  allowEmpty: true,
+  validators: [{
+    message: minLengthMessage,
+    options: {
+      length: 4
+    },
+    validator: function(value, options) {
+      return value.length >= options.length;
+    }
+  }, {
+    message: maxLengthMessage,
+    options: {
+      length: 8
+    },
+    validator: function(value, options) {
+      return value.length <= options.length;
+    }
+  }, {
+    message: matchMessage,
+    options: {
+      match: 'match',
+    },
+    validator: function(value, options) {
+      return value === options.match;
+    }
+  }]
+};
+
 describe('validator', function() {
   describe('shouldRenderValidation', function() {
     it('should return false is validation has not happened', function() {
@@ -319,6 +348,13 @@ describe('validator', function() {
       minLengthMessage,
       matchMessage.replace('%%value%%', 'tes')
     ]);
+  });
+
+  it('should be able to allow a value to be empty even with validators', function() {
+    var myValidator = validator.create(validatorConfigMinMaxLengthMatchWithMessageAllowEmpty);
+    myValidator.validate('');
+
+    expect(myValidator.valid).to.be.true;
   });
 
   it('should return true for should render validation', function() {
