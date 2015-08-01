@@ -16,7 +16,8 @@ confirmationModal.propTypes = {
   onDecline: React.PropTypes.func.isRequired,
   isActive: React.PropTypes.bool,
   confirmText: React.PropTypes.string,
-  declineText: React.PropTypes.string
+  declineText: React.PropTypes.string,
+  disableButtons: React.PropTypes.bool
 };
 
 confirmationModal.getDefaultProps = function confirmationModalGetDefaultProps() {
@@ -26,7 +27,8 @@ confirmationModal.getDefaultProps = function confirmationModalGetDefaultProps() 
     onDecline: null,
     isActive: false,
     confirmText: 'Yes',
-    declineText: 'No'
+    declineText: 'No',
+    disableButtons: false
   };
 };
 
@@ -46,8 +48,20 @@ confirmationModal.render = function confirmationModalRender() {
       <Modal isActive={this.props.isActive}>
         {this.props.children}
         <div className="confirmation-modal__actions">
-          <Button className="confirmation-modal__confirm-action" onClick={this.props.onConfirm}>{this.props.confirmText}</Button>
-          <Button className="confirmation-modal__decline-action" onClick={this.props.onDecline}>{this.props.declineText}</Button>
+          <Button
+            className="confirmation-modal__confirm-action"
+            onClick={this.props.onConfirm}
+            disabled={this.props.disableButtons}
+          >
+            {this.props.confirmText}
+          </Button>
+          <Button
+            className="confirmation-modal__decline-action"
+            onClick={this.props.onDecline}
+            disabled={this.props.disableButtons}
+          >
+            {this.props.declineText}
+          </Button>
         </div>
       </Modal>
     </div>
