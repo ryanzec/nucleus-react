@@ -240,7 +240,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element');
+      expect(formElement.props.className).to.equal('form-element m-text');
       expect(validationIcon.length).to.equal(0);
     });
 
@@ -249,7 +249,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element m-invalid');
+      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
       expect(validationIcon.length).to.equal(1);
       expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
@@ -267,7 +267,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element m-valid');
+      expect(formElement.props.className).to.equal('form-element m-text m-valid');
       expect(validationIcon.length).to.equal(1);
       expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
@@ -285,7 +285,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element');
+      expect(formElement.props.className).to.equal('form-element m-text');
       expect(validationIcon.length).to.equal(0);
     });
 
@@ -302,7 +302,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element m-invalid');
+      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
       expect(validationIcon.length).to.equal(1);
       expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
@@ -320,7 +320,7 @@ describe('textbox input component', function() {
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
-      expect(formElement.props.className).to.equal('form-element');
+      expect(formElement.props.className).to.equal('form-element m-text');
       expect(validationIcon.length).to.equal(0);
     });
   });
@@ -419,7 +419,7 @@ describe('textbox input component', function() {
       testData.component = React.render(<TextboxInput className="m-safe" />, div);
       var mainComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(mainComponent.props.className).to.equal('form-element m-safe');
+      expect(mainComponent.props.className).to.equal('form-element m-text m-safe');
     });
 
     it('should be able to attach onChange event', function() {

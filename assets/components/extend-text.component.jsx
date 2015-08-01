@@ -176,18 +176,23 @@ extendText.componentDidUpdate = function extendTextComponentDidUpdate(previousPr
 };
 
 extendText.filterSelectedValues = function extendTextFilterSelectedValues(data) {
-  var autoCompleteItems = data.filter(function extendTextFilterSelectedValuesDataFilter(value) {
-    var isSelected = false;
-    var valueCount = _.isArray(this.props.value) ? this.props.value.length : 0;
+  var autoCompleteItems = _.clone(data);
 
-    for (var x = 0; x < valueCount; x += 1) {
-      if (this.props.value[x].value === value.value) {
-        isSelected = true;
+  //NOTE: only filter is not remote data, if remote, it is expect the remote API will do the proper filtering that is needed
+  if (this.props.staticData.length > 0) {
+    autoCompleteItems = data.filter(function extendTextFilterSelectedValuesDataFilter(value) {
+      var isSelected = false;
+      var valueCount = _.isArray(this.props.value) ? this.props.value.length : 0;
+
+      for (var x = 0; x < valueCount; x += 1) {
+        if (this.props.value[x].value === value.value) {
+          isSelected = true;
+        }
       }
-    }
 
-    return !isSelected;
-  }.bind(this));
+      return !isSelected;
+    }.bind(this));
+  }
 
   if (
     this.state.displayInputValue

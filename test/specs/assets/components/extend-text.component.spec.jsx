@@ -207,6 +207,26 @@ var PageTestTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var PageTestTaggingAllowFreeFormNoFilter = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getDataNoFilter} taggingEnabled={true} allowFreeForm={true} />
+    );
+  }
+});
+
 var PageTestTaggingAllowFreeFormAllowDuplicates = React.createClass({
   getInitialState: function() {
     return {
@@ -442,7 +462,7 @@ var FormExampleValidationFalseValid = React.createClass({
   }
 });
 
-describe('extend text component', function() {
+describe.only('extend text component', function() {
   beforeEach(function() {
     div = document.createElement('div');
   });
@@ -2014,7 +2034,7 @@ describe('extend text component', function() {
       }).run();
     });
 
-    it('should display remain auto complete list automatically after adding in tag when threshold is 0', function(done) {
+    it('should display auto complete list automatically after adding in tag when threshold is 0', function(done) {
       Fiber(function() {
         testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
@@ -2041,17 +2061,18 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        expect(autoCompleteItems.length).to.equal(2);
-        expect(autoCompleteItems[0].props.children).to.equal('test 2');
-        expect(autoCompleteItems[1].props.children).to.equal('test 3');
+        expect(autoCompleteItems.length).to.equal(3);
+        expect(autoCompleteItems[0].props.children).to.equal('test 1');
+        expect(autoCompleteItems[1].props.children).to.equal('test 2');
+        expect(autoCompleteItems[2].props.children).to.equal('test 3');
 
         done();
       }).run();
     });
 
-    it('should filter out already selected values', function(done) {
+    it('should not filter out already selected values for remote data', function(done) {
       Fiber(function() {
-        testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+        testData.component = React.render(<PageTestTaggingAllowFreeFormNoFilter />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
@@ -2077,9 +2098,10 @@ describe('extend text component', function() {
         var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
 
-        expect(autoCompleteItems.length).to.equal(2);
-        expect(autoCompleteItems[0].props.children).to.equal('test 2');
-        expect(autoCompleteItems[1].props.children).to.equal('test 3');
+        expect(autoCompleteItems.length).to.equal(3);
+        expect(autoCompleteItems[0].props.children).to.equal('test 1');
+        expect(autoCompleteItems[1].props.children).to.equal('test 2');
+        expect(autoCompleteItems[2].props.children).to.equal('test 3');
 
         done();
       }).run();

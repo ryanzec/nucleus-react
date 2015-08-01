@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+[extend-text] remove filtering selected values with remote data (#93)
+fixed broken tests
 
 ## 0.5.0
 - [forms] added validator collection into form system (#84)
