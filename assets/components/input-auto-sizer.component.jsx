@@ -47,8 +47,7 @@ inputAutoSizer.componentDidUpdate = function inputAutoSizerComponentDidUpdate() 
 
 inputAutoSizer.setSize = function inputAutoSizerSetSize() {
   this.setState({
-    width: this.getNewWidth(),
-    height: this.getNewHeight()
+    width: this.getNewWidth()
   });
 };
 
@@ -63,18 +62,6 @@ inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
     + dimensions.borders.right
     //the 1 is to make sure the cursor for the input is visible when the input value is empty
     + sizerElement.getDOMNode().scrollWidth + 1) + 'px'
-  );
-};
-
-inputAutoSizer.getNewHeight = function inputAutoSizerGetNetHeight() {
-  var dimensions = domUtilities.getDimensions(this.refs.input.getDOMNode());
-  var sizerElement = this.props.value ? this.refs.sizer : this.refs.placeholder;
-
-  return (
-    Math.ceil(dimensions.paddings.top
-    + dimensions.paddings.bottom
-    //the 1 is to make sure the cursor for the input is visible when the input value is empty
-    + sizerElement.getDOMNode().scrollHeight) + 'px'
   );
 };
 
@@ -108,8 +95,7 @@ inputAutoSizer.renderInputElement = function inputAutoSizerRenderInputElement() 
       className={this.getInputCssClasses().join(' ')}
       style={{
         width: this.state.width,
-        maxWidth: '100%',
-        height: this.state.height
+        maxWidth: '100%'
       }}
       {...props}
     />

@@ -57,6 +57,31 @@ var getData = function(value) {
   return defer.promise;
 };
 
+var getDataDelayed = function(value) {
+  var defer = bluebird.defer();
+  var url = '/query';
+
+  if (value) {
+    url += '/' + value;
+  }
+
+  request.get(url, function desktopComponentOnGetUserRequest(err, response) {
+    var formattedData = [];
+
+    if (response.body.data.results.length > 0) {
+      response.body.data.results.forEach(function(item) {
+        formattedData.push(item);
+      });
+    }
+
+    setTimeout(function() {
+      defer.resolve(formattedData);
+    }, 3000);
+  });
+
+  return defer.promise;
+};
+
 var ExtendsTextTaggingAllowFreeForm = React.createClass({
   getInitialState: function() {
     return {
@@ -79,6 +104,34 @@ var ExtendsTextTaggingAllowFreeForm = React.createClass({
         getData={getData}
         taggingEnabled={true}
         allowFreeForm={true}
+      />
+    );
+  }
+});
+
+var ExtendsTextTaggingAllowFreeFormThreshold = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        dropDownIconFragment="chevron-down"
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getDataDelayed}
+        taggingEnabled={true}
+        allowFreeForm={true}
+        characterThreshold={1}
       />
     );
   }
@@ -145,6 +198,12 @@ module.exports = {
     description: 'Standard',
     example: (
       <ExtendText label="My Label" placeholder="My Placeholder" onChange={noop} getData={getData} debounce={200} characterThreshold={3} />
+    ),
+    exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
+  }, {
+    description: '1 character threshold free form',
+    example: (
+      <ExtendsTextTaggingAllowFreeFormThreshold />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {

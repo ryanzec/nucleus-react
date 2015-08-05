@@ -29,7 +29,7 @@ datePicker.propTypes = {
   className: React.PropTypes.string,
   renderInputs: React.PropTypes.bool,
   validatorAllowEmpty: React.PropTypes.bool,
-  disabled: React.PropTypes.bool,
+  disabled: React.PropTypes.bool
 
 };
 
@@ -124,7 +124,7 @@ datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
 
 datePicker.onClickDate = function datePickerOnClickDate(value) {
   if (this.refs.input) {
-    this.refs.input.changeValue(this.cleanValue(value))
+    this.refs.input.changeValue(this.cleanValue(value));
   }
 
   /* istanbul ignore else */

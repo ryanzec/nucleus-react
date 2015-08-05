@@ -10,6 +10,7 @@ var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var reactTestUtils = React.addons.TestUtils;
 var ExtendText = require('../../../../assets/components/extend-text.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin');
 var testHelper = require('../../../test-helper');
 var Fiber = require('fibers');
 var _ = require('lodash');
@@ -185,6 +186,49 @@ var PageTestTagging = React.createClass({
       <ExtendText onChange={this.onExtendTextChange} value={value} getData={getData} taggingEnabled={true} />
     );
   }
+});
+
+var PageTestTaggingValidation = React.createClass({
+    mixins: [
+        formMixin
+    ],
+
+    getInitialState: function() {
+        return {
+            form: {
+                extendTextValue: []
+            },
+            initialForm: {
+                extendTextValue: []
+            }
+        };
+    },
+
+    componentWillMount: function() {
+        this.formInputs = {
+            form: {
+                extendTextValue: {
+                    component: ExtendText,
+                    props: {
+                        getData: getData,
+                        taggingEnabled: true,
+                        //characterThreshold: 1,
+                        //debounce: 300,
+                        renderValidation: 'invalid',
+                        validators: [{
+                            validator: function(value) {
+                                return false;
+                            }
+                        }]
+                    }
+                }
+            }
+        };
+    },
+
+    render: function() {
+        return this.getInputs('form').extendTextValue.render();
+    }
 });
 
 var PageTestTaggingAllowFreeForm = React.createClass({
@@ -2526,6 +2570,30 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
+        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
+
+        expect(extendText.props.className).to.equal('extend-text');
+        expect(validationIcon.length).to.equal(0);
+        done();
+      }).run();
+    });
+
+    it('should not show validation when initializing tagging extend text to an empty array', function(done) {
+      Fiber(function() {
+        var initialValue = [];
+        testData.component = React.render(<PageTestTaggingValidation value={initialValue} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+
+        var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
         var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
 
         expect(extendText.props.className).to.equal('extend-text');

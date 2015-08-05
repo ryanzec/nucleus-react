@@ -5,7 +5,7 @@ var SvgIcon = require('../components/svg-icon.component.jsx');
 var validIconFragment = 'checkmark';
 var invalidIconFragment = 'x';
 
-var isValudEmpty = function isValueEmpty(value) {
+var isValueEmpty = function isValueEmpty(value) {
   return value === '' || value === null || value === undefined || value.length === 0;
 };
 
@@ -40,9 +40,7 @@ module.exports = {
         this.lastValidatedValue = value;
 
         if (options.validators.length > 0) {
-          if (isValudEmpty(value) && options.allowEmpty === true) {
-            //should validate to true so do nothing
-          } else {
+          if (!isValueEmpty(value) || options.allowEmpty !== true) {
             options.validators.forEach(function validatorValidateValidatorsLoop(validator) {
               if (validator.validator(value, validator.options) !== true) {
                 this.valid = false;

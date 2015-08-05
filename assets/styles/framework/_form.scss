@@ -87,6 +87,9 @@ $component-identifier: '.form-element';
 
     #{$component-identifier}__input-container {
       @include flex(1);
+
+      //NOTE: this for whatever reason fixes a display issue in FireFox
+      max-width: 100%;
     }
 
     #{$component-identifier}__validation-icon {

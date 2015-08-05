@@ -40,6 +40,15 @@ formMixin.validateForm = function formMixinValidateForm(formName) {
   }.bind(this));
 };
 
+formMixin.validateFormInput = function formMixinValidateFormInput(formName, fieldName) {
+  var inputs = this.getInputs(formName);
+
+  if (this.refs[fieldName] && this.refs[fieldName].validator) {
+    this.refs[fieldName].validator.validate(this.refs[fieldName].cleanValue(this.refs[fieldName].props[inputs[fieldName].valueProperty]));
+    this.refs[fieldName].forceUpdate();
+  }
+};
+
 formMixin.getFormValidatorCollection = function formMixinGetFormValidatorCollection(formName) {
   var validators = {};
 
@@ -55,18 +64,33 @@ formMixin.getFormValidatorCollection = function formMixinGetFormValidatorCollect
   return validatorCollection.create(validators);
 };
 
-formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, field) {
+formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, fieldName) {
   return function formMixinOnChangeFormInputGeneratedHandler(value, event) {
     var newData = {};
     newData[formName] = _.clone(this.state[formName]);
-    newData[formName][field] = value;
+    newData[formName][fieldName] = value;
     this.setState(newData, function formMixinOnChangeFormInputSetStateCallback() {
-      if (this.refs[field] && this.refs[field].validator) {
-        this.refs[field].validator.validate(this.refs[field].cleanValue(value));
-        this.refs[field].forceUpdate();
+      if (this.refs[fieldName] && this.refs[fieldName].validator) {
+        this.refs[fieldName].validator.validate(this.refs[fieldName].cleanValue(value));
+        this.refs[fieldName].forceUpdate();
+      }
+
+      if (this.formInputs[formName][fieldName].afterChange) {
+        this.formInputs[formName][fieldName].afterChange.call(this);
       }
     });
   }.bind(this);
+};
+
+formMixin.updateFormInputProperty = function formMixinUpdateFormInputProperty(formName, fieldName, propertyName, newValue) {
+  if (this.formInputs[formName] && this.formInputs[formName][fieldName]) {
+    if (!this.formInputs[formName][fieldName].props) {
+      this.formInputs[formName][fieldName].props = {};
+    }
+
+    this.formInputs[formName][fieldName].props[propertyName] = newValue;
+    this.refs[fieldName].forceUpdate();
+  }
 };
 
 formMixin.getInputs = function formMixinGetInputs(formName) {

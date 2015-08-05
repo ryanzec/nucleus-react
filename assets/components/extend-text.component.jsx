@@ -92,7 +92,13 @@ extendText.getInitialState = function extendTextGetInitialState() {
 };
 
 extendText.componentDidMount = function extendTextComponentDidMount() {
-  if (this.props.onChange && (this.props.value || (_.isArray(this.props.value) && this.props.value.length > 0))) {
+  if (
+    this.props.onChange
+    && (
+      (!_.isArray(this.props.value) && this.props.value)
+      || (_.isArray(this.props.value) && this.props.value.length > 0)
+    )
+  ) {
     this.props.onChange(this.props.value);
   }
 
@@ -401,7 +407,7 @@ extendText.tagAlreadyExists = function extendTextTagAlreadyExists(tag) {
   return false;
 };
 
-extendText.autoCompleteItemExists = function(item) {
+extendText.autoCompleteItemExists = function extendTextAutoCompleteItemExists(item) {
   if (!this.state.autoCompleteItems) {
     return false;
   }
@@ -441,15 +447,13 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
 
     if (newValue !== '' && (this.props.allowDuplicates === true || !this.tagAlreadyExists(newValue))) {
       newFullValue.push(newValue);
+    } else if (
+      this.isOverCharacterThreshold('')
+      && equals(document.activeElement, this.getInputElement())
+    ) {
+      this.getData('');
     } else {
-      if (
-        this.isOverCharacterThreshold('')
-        && equals(document.activeElement, this.getInputElement())
-      ) {
-        this.getData('');
-      } else {
-        updatedState.isActive = false;
-      }
+      updatedState.isActive = false;
     }
   } else {
     newFullValue = newValue;
