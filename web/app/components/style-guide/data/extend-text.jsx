@@ -162,7 +162,7 @@ module.exports = {
   }, {
     description: 'validation',
     example: (
-      <ExtendText renderValidation="both" validateOnLoad={true} validators={
+      <ExtendText renderValidation="both" validators={
         [{
           validator: function(value) {
             if (value) {

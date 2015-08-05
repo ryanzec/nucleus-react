@@ -92,7 +92,7 @@ extendText.getInitialState = function extendTextGetInitialState() {
 };
 
 extendText.componentDidMount = function extendTextComponentDidMount() {
-  if (this.props.onChange && this.props.value) {
+  if (this.props.onChange && (this.props.value || (_.isArray(this.props.value) && this.props.value.length > 0))) {
     this.props.onChange(this.props.value);
   }
 

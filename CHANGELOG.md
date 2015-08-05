@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [extend-text] fixed issue with it validating on load incorrectly
 - [checkbox-input] support for svg icons
 - [radio-input] added support for svg icon
 - [forms] refactored however validators are called
