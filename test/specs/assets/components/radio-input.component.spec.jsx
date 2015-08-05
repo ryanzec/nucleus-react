@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var RadioInput = require('../../../../assets/components/radio-input.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var iconData = require('nucleus-icons');
 var _ = require('lodash');
@@ -40,213 +41,227 @@ var getOptionsLeft = function() {
 var radioName = 'test';
 
 var FormExample = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions()
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput name={radioName} options={getOptions()} value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleWithDefaultValue = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
+      form: {
         prop: 'two'
+      },
+      initialform: {
+        prop: 'two'
+      },
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions()
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput name={radioName} options={getOptions()} value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput
-        name={radioName}
-        options={getOptions()}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBothOnLoad = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}],
+            validateOnLoad: true
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput
-        name={radioName}
-        options={getOptions()}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validateOnLoad={true}
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueInvalid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'invalid',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput
-        name={radioName}
-        options={getOptions()}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="invalid"
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput
-        name={radioName}
-        options={getOptions()}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseValid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: RadioInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'valid',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <RadioInput
-        name={radioName}
-        options={getOptions()}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="valid"
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
@@ -266,20 +281,15 @@ describe('radio input component', function() {
     it('should not show validation on initial load by default', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should run and be able to show validation on initial load', function() {
       testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should show valid validation', function() {
@@ -293,11 +303,8 @@ describe('radio input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio m-valid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
 
     it('should not show valid validation if configued for invalid only', function() {
@@ -311,10 +318,8 @@ describe('radio input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should show invalid validation', function() {
@@ -328,11 +333,8 @@ describe('radio input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should not show invalid validation if configured for valid only', function() {
@@ -346,10 +348,8 @@ describe('radio input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-radio');
-      expect(validationIcon.length).to.equal(0);
     });
   });
 
@@ -359,20 +359,18 @@ describe('radio input component', function() {
       var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
       var radioGroup = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__radio-group');
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
-      var inputContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__input-container');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
       var checkedRadio = testData.component.getDOMNode().querySelectorAll('option:checked');
 
       expect(mainComponent.length).to.equal(1);
-      expect(inputContainer.length).to.equal(1);
       expect(radioGroup.length).to.equal(1);
       expect(label.length).to.equal(2);
       expect(input.length).to.equal(2);
-      expect(label[0].props.children[1]).to.equal('Option 1');
+      expect(label[0].props.children[2]).to.equal('Option 1');
       expect(input[0].props.value).to.equal(1);
       expect(input[0].props.type).to.equal('radio');
       expect(input[0].props.className).to.equal('form-element__input m-radio m-right');
-      expect(label[1].props.children[1]).to.equal('Option 2');
+      expect(label[1].props.children[2]).to.equal('Option 2');
       expect(input[1].props.value).to.equal('two');
       expect(input[1].props.type).to.equal('radio');
       expect(input[1].props.type).to.equal('radio');
@@ -424,7 +422,7 @@ describe('radio input component', function() {
         }
       });
 
-      expect(testData.component.state.formData.prop).to.equal('two');
+      expect(testData.component.state.form.prop).to.equal('two');
     });
   });
 });

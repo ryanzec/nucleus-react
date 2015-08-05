@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var CheckboxInput = require('../../../../assets/components/checkbox-input.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
 var iconData = require('nucleus-icons');
@@ -16,203 +17,216 @@ var validateFalse = function() {
 };
 
 var FormExample = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleWithDefaultValue = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
+      form: {
+        prop: true
+      },
+      initialForm: {
         prop: true
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput
+        }
+      }
+    };
   },
 
   render: function() {
-    return (
-      <CheckboxInput value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput,
+          props: {
+            renderValidation: 'both',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBothOnLoad = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput,
+          props: {
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validateOnLoad={true}
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueInvalid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput,
+          props: {
+            renderValidation: 'invalid',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="invalid"
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput,
+          props: {
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="both"
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseValid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: false
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: CheckboxInput,
+          props: {
+            renderValidation: 'valid',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <CheckboxInput
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        renderValidation="valid"
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
@@ -232,20 +246,15 @@ describe('checkbox input component', function() {
     it('should not show validation on initial load by default', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should run and be able to show validation on initial load', function() {
       testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should show valid validation', function() {
@@ -259,11 +268,8 @@ describe('checkbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox m-valid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
 
     it('should not show valid validation if configued for invalid only', function() {
@@ -277,10 +283,8 @@ describe('checkbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should show invalid validation', function() {
@@ -294,11 +298,8 @@ describe('checkbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should not show invalid validation if configured for valid only', function() {
@@ -312,10 +313,8 @@ describe('checkbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-checkbox');
-      expect(validationIcon.length).to.equal(0);
     });
   });
 
@@ -330,8 +329,8 @@ describe('checkbox input component', function() {
       expect(mainComponent.length).to.equal(1);
       expect(inputContainer.length).to.equal(1);
       expect(label.length).to.equal(1);
-      expect(label[0].props.children.length).to.equal(2);
-      expect(label[0].props.children[1]).to.be.null;
+      expect(label[0].props.children.length).to.equal(3);
+      expect(label[0].props.children[2]).to.be.null;
       expect(input.length).to.equal(1);
       expect(input[0].getDOMNode().checked).to.be.false;
       expect(input[0].props.className).to.equal('form-element__input m-checkbox m-right');
@@ -358,7 +357,7 @@ describe('checkbox input component', function() {
       testData.component = React.render(<CheckboxInput label="Label" />, div);
       var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
 
-      expect(label.props.children[1]).to.equal('Label');
+      expect(label.props.children[2]).to.equal('Label');
     });
 
     it('should be able to add custom classes', function() {
@@ -378,7 +377,7 @@ describe('checkbox input component', function() {
         }
       });
 
-      expect(testData.component.state.formData.prop).to.be.true;
+      expect(testData.component.state.form.prop).to.be.true;
     });
   });
 });

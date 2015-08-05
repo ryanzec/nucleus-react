@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
+var SvgIcon = require('./svg-icon.component.jsx');
 
 var radioInput = {};
 
@@ -58,14 +59,26 @@ radioInput.renderLabel = function radioInputRenderLabel() {
 radioInput.renderInput = function radioInputRenderInput() {
   var options = _.map(this.props.options, function radioInputRenderInputOptionsMap(option) {
     var checked = this.props.value === option.value;
+    var icon = null;
+    var iconProperties = {
+      fragment: 'radio-empty',
+      outerClassName: 'm-right'
+    };
+
+    if (checked === true) {
+      iconProperties.fragment = 'radio-checked';
+    }
 
     if (option.displayPosition === 'left') {
+      iconProperties.outerClassName = 'm-left';
+      icon = React.createElement(SvgIcon, iconProperties);
+
       return (
         <label
           className="m-toggle"
           key={option.value}
         >
-          {option.display}<input
+          {option.display}{icon}<input
             className="form-element__input m-radio m-left"
             type="radio"
             checked={checked}
@@ -77,12 +90,14 @@ radioInput.renderInput = function radioInputRenderInput() {
       );
     }
 
+    icon = React.createElement(SvgIcon, iconProperties);
+
     return (
       <label
         className="m-toggle"
         key={option.value}
       >
-        <input
+        {icon}<input
           className="form-element__input m-radio m-right"
           type="radio"
           value={option.value}
@@ -96,7 +111,7 @@ radioInput.renderInput = function radioInputRenderInput() {
   }.bind(this));
 
   return (
-    <div className="form-element__input-container form-element__radio-group">
+    <div className="form-element__radio-group">
       {options}
     </div>
   );

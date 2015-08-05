@@ -28,7 +28,9 @@ datePicker.propTypes = {
   label: React.PropTypes.string,
   className: React.PropTypes.string,
   renderInputs: React.PropTypes.bool,
-  validatorAllowEmpty: React.PropTypes.bool
+  validatorAllowEmpty: React.PropTypes.bool,
+  disabled: React.PropTypes.bool,
+
 };
 
 datePicker.getDefaultProps = function datePickerGetDefaultProps() {
@@ -46,7 +48,8 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     label: null,
     className: null,
     renderInputs: true,
-    validatorAllowEmpty: false
+    validatorAllowEmpty: false,
+    disabled: false
   };
 };
 
@@ -108,9 +111,11 @@ datePicker.getCalendarPassThroughProps = function datePickerGetCalendarPassThoug
 };
 
 datePicker.onFocusInput = function datePickerOnFocusInput() {
-  this.setState({
-    isCalendarActive: true
-  });
+  if (this.props.disabled === false) {
+    this.setState({
+      isCalendarActive: true
+    });
+  }
 };
 
 datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
@@ -118,8 +123,8 @@ datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
 };
 
 datePicker.onClickDate = function datePickerOnClickDate(value) {
-  if (this.validator) {
-    this.validator.validate(this.cleanValue(value));
+  if (this.refs.input) {
+    this.refs.input.changeValue(this.cleanValue(value))
   }
 
   /* istanbul ignore else */
@@ -135,9 +140,11 @@ datePicker.onClickDate = function datePickerOnClickDate(value) {
 };
 
 datePicker.toggleCalendarDisplay = function datePickerToggleCalendarDisplay() {
-  this.setState({
-    isCalendarActive: !this.state.isCalendarActive
-  });
+  if (this.props.disabled === false) {
+    this.setState({
+      isCalendarActive: !this.state.isCalendarActive
+    });
+  }
 };
 
 datePicker.renderCalendar = function datePickerRenderCalendar() {
@@ -178,6 +185,7 @@ datePicker.renderDisplay = function datePickerRenderDisplay() {
         validatorAllowEmpty={this.props.validatorAllowEmpty}
         onFocus={this.onFocusInput}
         label={this.props.label}
+        disabled={this.props.disabled}
       />
     );
   } else {

@@ -203,24 +203,6 @@ describe('date picker component', function() {
       expect(datePicker.refs.input.props.validators).to.deep.equal(TestCustomValidation.prototype.validators);
       expect(datePicker.validator).to.equal(datePicker.refs.input.validator);
     });
-
-    it('should trigger input validator when clicking on date', function() {
-      testData.component = React.render(<TestCustomValidation />, div);
-      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
-      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
-
-      expect(datePicker.validator.valid).to.be.false;
-
-      reactTestUtils.Simulate.focus(input);
-
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
-
-      reactTestUtils.Simulate.click(days[10], {
-        target: days[10].getDOMNode()
-      });
-
-      expect(datePicker.validator.valid).to.be.true;
-    });
   });
 
   describe('general', function() {
@@ -340,6 +322,16 @@ describe('date picker component', function() {
       expect(testData.component.state.isCalendarActive).to.be.true;
     });
 
+    it('should not enable calendar when input is focused if disabled', function() {
+      testData.component = React.render(<DatePicker disabled={true} />, div);
+
+      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
+
+      reactTestUtils.Simulate.focus(input);
+
+      expect(testData.component.state.isCalendarActive).to.be.false;
+    });
+
     it('should not close calendar when the calendar itself is clicked on ', function() {
       testData.component = React.render(<DatePicker />, div);
 
@@ -430,7 +422,6 @@ describe('date picker component', function() {
       expect(input.props.value).to.equal('01/08/2014');
       expect(datePicker.state.isCalendarActive).to.be.false;
     });
-
 
     it('toggle calendar when clicking svg icon', function() {
       testData.component = React.render(<TestWeekMode />, div);

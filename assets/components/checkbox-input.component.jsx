@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
+var SvgIcon = require('./svg-icon.component.jsx');
 
 var checkboxInput = {};
 
@@ -62,7 +63,20 @@ checkboxInput.cleanValue = function checkboxInputCleanValue(value) {
 };
 
 checkboxInput.renderInput = function checkboxInputRenderInput() {
+  var icon = null;
+  var iconProperties = {
+    fragment: 'checkbox-empty',
+    outerClassName: 'm-left'
+  };
+
+  if (this.props.value === true) {
+    iconProperties.fragment = 'checkbox-checked';
+  }
+
   if (this.props.displayPosition === 'right') {
+    iconProperties.outerClassName = 'm-right';
+    icon = React.createElement(SvgIcon, iconProperties);
+
     return (
       <label className="form-element__input-container m-toggle">
         <input
@@ -71,14 +85,18 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
           onChange={this.onChange}
           {...this.getInputPassThroughProps()}
         />
+        {icon}
         {this.props.label}
       </label>
     );
   }
 
+  icon = React.createElement(SvgIcon, iconProperties);
+
   return (
     <label className="form-element__input-container m-toggle">
       {this.props.label}
+      {icon}
       <input
         className="form-element__input m-checkbox m-left"
         type="checkbox"

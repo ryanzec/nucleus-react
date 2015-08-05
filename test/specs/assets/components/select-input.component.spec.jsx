@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var SelectInput = require('../../../../assets/components/select-input.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var iconData = require('nucleus-icons');
 var _ = require('lodash');
@@ -26,208 +27,227 @@ var getOptions = function() {
 };
 
 var FormExample = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions()
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput options={getOptions()} value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleWithDefaultValue = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
+      form: {
         prop: 'two'
+      },
+      initialform: {
+        prop: 'two'
+      },
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions()
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput options={getOptions()} value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput
-        options={getOptions()}
-        renderValidation="both"
-        validators={[{validator: validateTrue}]}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBothOnLoad = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}],
+            validateOnLoad: true
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput
-        options={getOptions()}
-        renderValidation="both"
-        validateOnLoad={true}
-        validators={[{validator: validateFalse}]}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationTrueInvalid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'invalid',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput
-        options={getOptions()}
-        renderValidation="invalid"
-        validators={[{validator: validateTrue}]}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput
-        options={getOptions()}
-        renderValidation="both"
-        validators={[{validator: validateFalse}]}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
 var FormExampleValidationFalseValid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'valid',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <SelectInput
-        options={getOptions()}
-        renderValidation="valid"
-        validators={[{validator: validateFalse}]}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-      />
-    );
+    return this.getInputs('form').prop.render();
   }
 });
 
@@ -392,7 +412,7 @@ describe('select input component', function() {
         }
       });
 
-      expect(testData.component.state.formData.prop).to.equal(1);
+      expect(testData.component.state.form.prop).to.equal(1);
     });
 
     it('should be able to configure custom empty option text', function() {

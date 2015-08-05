@@ -2,6 +2,7 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var InputAutoSizer = require('../../../../assets/components/input-auto-sizer.component.jsx');
+var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var iconData = require('nucleus-icons');
 var _ = require('lodash');
@@ -17,208 +18,234 @@ var validateFalse = function() {
 };
 
 var FormExample = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
+    var inputs = this.getInputs('form');
+
     return (
-      <TextboxInput placeholder="Prop" value={this.state.formData.prop} onChange={this.onFormDataChange} />
+      <span>
+        {inputs.prop.render()}
+      </span>
     );
   }
 });
 
 var FormExampleValidationTrueBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'both',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <TextboxInput
-        placeholder="Prop"
-        renderValidation="both"
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
 var FormExampleValidationFalseBoth = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'both',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <TextboxInput
-        placeholder="Prop"
-        renderValidation="both"
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
 var FormExampleValidationFalseValid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'valid',
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <TextboxInput
-        placeholder="Prop"
-        renderValidation="valid"
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
 var FormExampleValidationTrueInvalid = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'invalid',
+            validators: [{validator: validateTrue}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <TextboxInput
-        placeholder="Prop"
-        renderValidation="invalid"
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        validators={[{validator: validateTrue}]}
-      />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
 var FormExampleValidationFalseBothOnLoad = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
-        prop: null
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'both',
+            validateOnLoad: true,
+            validators: [{validator: validateFalse}]
+          }
+        }
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
-  },
-
   render: function() {
-    return (
-      <TextboxInput
-        placeholder="Prop"
-        renderValidation="both"
-        validateOnLoad={true}
-        value={this.state.formData.prop}
-        onChange={this.onFormDataChange}
-        validators={[{validator: validateFalse}]}
-      />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
 var FormExampleWithDefaultValue = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
   getInitialState: function() {
     return {
-      formData: {
+      form: {
+        prop: 'default'
+      },
+      initialForm: {
         prop: 'default'
       }
     };
   },
 
-  onFormDataChange: function(value, event) {
-    var formData = _.clone(this.state.formData);
-    formData.prop = value;
-
-    this.setState({
-      formData: formData
-    });
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput
+        }
+      }
+    };
   },
 
   render: function() {
-    return (
-      <TextboxInput placeholder="Prop" value={this.state.formData.prop} onChange={this.onFormDataChange} />
-    );
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
   }
 });
 
@@ -432,7 +459,7 @@ describe('textbox input component', function() {
         }
       });
 
-      expect(testData.component.state.formData.prop).to.equal('test');
+      expect(testData.component.state.form.prop).to.equal('test');
     });
 
     it('should be able to click trigger click event when clicking on prepend element', function() {

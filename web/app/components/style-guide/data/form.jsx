@@ -143,6 +143,20 @@ var FormExmplePlaceholders = React.createClass({
             }]
           }
         },
+        liveIn2: {
+          component: RadioInput,
+          props: {
+            label: 'Testing',
+            ref: 'liveIn',
+            name: 'liveIn',
+            className: 'm-inline',
+            options: this.getRadioOptions2(),
+            renderValidation: 'both',
+            validators: [{
+              validator: this.validateLiveIn
+            }]
+          }
+        },
         date: {
           component: DatePicker,
           valueProperty: 'selectedDay',
@@ -221,7 +235,12 @@ var FormExmplePlaceholders = React.createClass({
           {inputs.over21.render()}
           {inputs.agreeToTermsAndConditions.render()}
         </InputGroup>
-        {inputs.liveIn.render()}
+        <div>
+          {inputs.liveIn.render()}
+        </div>
+        <div>
+          {inputs.liveIn2.render()}
+        </div>
         {inputs.date.render()}
         {inputs.extendText.render()}
         {inputs.tagging.render()}
@@ -259,6 +278,17 @@ var FormExmplePlaceholders = React.createClass({
   },
 
   getRadioOptions: function() {
+    return [{
+      display: 'I live outside the US',
+      value: 'OTHER'
+    }, {
+      display: 'I live in the US',
+      value: 'US',
+      displayPosition: 'left'
+    }];
+  },
+
+  getRadioOptions2: function() {
     return [{
       display: 'I live outside the US',
       value: 'OTHER',

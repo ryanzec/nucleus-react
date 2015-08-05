@@ -40,9 +40,9 @@ inputGroup.renderInputGroupItems = function inputGroupRenderInputGroupItems() {
 
 inputGroup.render = function inputGroupRender() {
   return (
-    <span className={this.getCssClasses().join(' ')}>
+    <div className={this.getCssClasses().join(' ')}>
       {this.renderInputGroupItems()}
-    </span>
+    </div>
   );
 };
 

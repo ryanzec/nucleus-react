@@ -60,7 +60,12 @@ formMixin.onChangeFormInput = function formMixinOnChangeFormInput(formName, fiel
     var newData = {};
     newData[formName] = _.clone(this.state[formName]);
     newData[formName][field] = value;
-    this.setState(newData);
+    this.setState(newData, function formMixinOnChangeFormInputSetStateCallback() {
+      if (this.refs[field] && this.refs[field].validator) {
+        this.refs[field].validator.validate(this.refs[field].cleanValue(value));
+        this.refs[field].forceUpdate();
+      }
+    });
   }.bind(this);
 };
 

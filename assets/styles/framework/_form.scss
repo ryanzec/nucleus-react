@@ -5,9 +5,29 @@ $component-identifier: '.form-element';
     display: inline-block;
   }
 
-  &.m-inline.m-radio #{$component-identifier}__field-container {
-    display: inline-block;
-    margin-left: 8px;
+
+  .svg-icon__outer-container.checkbox-empty-icon,
+  .svg-icon__outer-container.checkbox-checked-icon,
+  .svg-icon__outer-container.radio-empty-icon,
+  .svg-icon__outer-container.radio-checked-icon {
+    &.m-left {
+      margin: 5px 0 5px 5px;
+    }
+
+    &.m-right {
+      margin: 5px 5px 5px 0;
+    }
+  }
+
+  &.m-inline.m-radio {
+    @include display(inline-flex);
+    @include align-items(center);
+
+    #{$component-identifier}__field-container {
+      @include display(inline-flex);
+
+      margin-left: 8px;
+    }
   }
 
   &__input.m-text,
@@ -31,13 +51,9 @@ $component-identifier: '.form-element';
 
   &__input.m-checkbox,
   &__input.m-radio {
-    &.m-left {
-      margin: 5px 0 5px 5px;
-    }
-
-    &.m-right {
-      margin: 5px 5px 5px 0;
-    }
+    opacity: 0;
+    height: 0;
+    width: 0;
   }
 
   &__input.m-text.m-has-prepend {
@@ -54,7 +70,6 @@ $component-identifier: '.form-element';
     @include display(flex);
     @include flex-wrap(wrap);
     @include justify-content(space-between);
-
 
     &-item {
       @include flexbox-value-width(100%);
@@ -78,6 +93,11 @@ $component-identifier: '.form-element';
       @include flex(0 0 20px);
       margin: 0 5px;
       height: 20px;
+    }
+
+    .m-toggle {
+      @include display(flex);
+      @include align-items(center);
     }
   }
 
@@ -110,7 +130,11 @@ $component-identifier: '.form-element';
       background-color: $color-light-safe;
     }
 
-    #{$component-identifier}__validation-icon {
+    #{$component-identifier}__validation-icon,
+    .svg-icon__outer-container.checkbox-empty-icon .svg-icon__container,
+    .svg-icon__outer-container.checkbox-checked-icon .svg-icon__container,
+    .svg-icon__outer-container.radio-empty-icon .svg-icon__container,
+    .svg-icon__outer-container.radio-checked-icon .svg-icon__container {
       fill: $color-safe;
     }
   }
@@ -123,7 +147,11 @@ $component-identifier: '.form-element';
       background-color: $color-light-danger;
     }
 
-    #{$component-identifier}__validation-icon {
+    #{$component-identifier}__validation-icon,
+    .svg-icon__outer-container.checkbox-empty-icon .svg-icon__container,
+    .svg-icon__outer-container.checkbox-checked-icon .svg-icon__container,
+    .svg-icon__outer-container.radio-empty-icon .svg-icon__container,
+    .svg-icon__outer-container.radio-checked-icon .svg-icon__container {
       fill: $color-danger;
     }
   }
@@ -131,7 +159,7 @@ $component-identifier: '.form-element';
 
 form.m-inline {
   #{$component-identifier} {
-    @include display(flex);
+    @include display(inline-flex);
     @include align-items(center);
 
     &__field-container {
@@ -154,6 +182,11 @@ form.m-inline {
 
         #{$component-identifier}__input-group-item {
           @include flex(0 1 auto);
+        }
+
+        //NOTE: this fixes some issues in IE 10+
+        label {
+          @include flex-basis(auto);
         }
       }
 

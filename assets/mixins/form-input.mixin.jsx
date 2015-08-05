@@ -24,10 +24,6 @@ formInputMixin.onChange = function formInputMixinOnChange(event) {
 };
 
 formInputMixin.changeValue = function formInputMixinChangeValue(value) {
-  if (this.validator && this.cleanValue(this.initialValue) !== this.cleanValue(value)) {
-    this.validator.validate(this.cleanValue(value));
-  }
-
   /* istanbul ignore else */
   if (this.props.onChange) {
     this.props.onChange(value);

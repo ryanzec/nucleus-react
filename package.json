@@ -61,7 +61,7 @@
     "mocha": "2.2.1",
     "mochify": "2.7.0",
     "nock": "1.4.0",
-    "nucleus-icons": "0.2.2",
+    "nucleus-icons": "0.2.5",
     "react": "0.13.1",
     "react-router": "0.13.2",
     "react-tools": "0.13.1",
