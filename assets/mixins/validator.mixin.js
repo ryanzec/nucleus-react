@@ -21,30 +21,53 @@ validatorMixin.getDefaultProps = function validatorMixinGetDefaultProps() {
 };
 
 validatorMixin.componentWillMount = function validatorMixinComponentWillMount() {
-  if (this.props.renderValidation) {
-    var renderIcon = true;
+  var renderIcon = true;
 
-    if (this.constructor.displayName === 'CheckboxInput' || this.constructor.displayName === 'RadioInput') {
-      renderIcon = false;
+  if (this.constructor.displayName === 'CheckboxInput' || this.constructor.displayName === 'RadioInput') {
+    renderIcon = false;
+  }
+
+  var validatorConfiguration = {
+    isActive: this.props.renderValidation ? true : false,
+    renderValidation: this.props.renderValidation,
+    validators: this.props.validators,
+    allowEmpty: this.props.validatorAllowEmpty,
+    renderIcon: renderIcon
+  };
+
+  if (this.props.validateOnLoad === true) {
+    validatorConfiguration.validateValueOnCreate = this.getValidationInitialValue ? this.getValidationInitialValue() : this.props.value;
+
+    //NOTE: makes sure validation happen initially on uninitialize form elements
+    if (!validatorConfiguration.validateValueOnCreate) {
+      validatorConfiguration.validateValueOnCreate = '';
     }
+  }
 
-    var validatorConfiguration = {
+  this.validator = validator.create(validatorConfiguration);
+};
+
+validatorMixin.componentDidUpdate = function validatorMixinComponentDidUpdate(previousProps, previousState) {
+  if (
+    this.validator
+    && (
+      this.props.renderValidation !== previousProps.renderValidation
+      || this.props.validators !== previousProps.validators
+      || this.props.validatorAllowEmpty !== previousProps.validatorAllowEmpty
+    )
+  ) {
+    this.validator.updateOptions({
+      isActive: this.props.renderValidation ? true : false,
       renderValidation: this.props.renderValidation,
       validators: this.props.validators,
-      allowEmpty: this.props.validatorAllowEmpty,
-      renderIcon: renderIcon
-    };
+      allowEmpty: this.props.validatorAllowEmpty
+    });
 
-    if (this.props.validateOnLoad === true) {
-      validatorConfiguration.validateValueOnCreate = this.getValidationInitialValue ? this.getValidationInitialValue() : this.props.value;
-
-      //NOTE: makes sure validation happen initially on uninitialize form elements
-      if (!validatorConfiguration.validateValueOnCreate) {
-        validatorConfiguration.validateValueOnCreate = '';
-      }
+    if (this.validator.validationHasHappened === true) {
+      this.validator.validate(this.validator.lastValidatedValue);
     }
 
-    this.validator = validator.create(validatorConfiguration);
+    this.forceUpdate();
   }
 };
 

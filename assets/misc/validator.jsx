@@ -18,47 +18,51 @@ module.exports = {
       validators: [],
       initialValue: null,
       renderIcon: true,
-      allowEmpty: false
+      allowEmpty: false,
+      isActive: true
     }, options);
 
     if (options.validators && !_.isArray(options.validators)) {
       throw new Error('You must pass validators as an array');
     }
 
-    var validationHasHappened = false;
-
     var myValidator = {
+      validationHasHappened: false,
+
       lastValidatedValue: null,
 
-      valid: true,
+      _valid: true,
 
       validationErrors: [],
 
       validate: function validatorValidate(value) {
-        this.validationErrors = [];
-        this.valid = true;
-        this.lastValidatedValue = value;
+        if (options.isActive) {
+          this.validationErrors = [];
+          this.valid = true;
+          this.lastValidatedValue = value;
 
-        if (options.validators.length > 0) {
-          if (!isValueEmpty(value) || options.allowEmpty !== true) {
-            options.validators.forEach(function validatorValidateValidatorsLoop(validator) {
-              if (validator.validator(value, validator.options) !== true) {
-                this.valid = false;
+          if (options.validators.length > 0) {
+            if (!isValueEmpty(value) || options.allowEmpty !== true) {
+              options.validators.forEach(function validatorValidateValidatorsLoop(validator) {
+                if (validator.validator(value, validator.options) !== true) {
+                  this.valid = false;
 
-                if (validator.message) {
-                  this.validationErrors.push(validator.message.replace('%%value%%', value));
+                  if (validator.message) {
+                    this.validationErrors.push(validator.message.replace('%%value%%', value));
+                  }
                 }
-              }
-            }.bind(this));
+              }.bind(this));
+            }
           }
-        }
 
-        validationHasHappened = true;
+          this.validationHasHappened = true;
+        }
       },
 
       shouldRenderValidation: function validatorShouldRenderValidation() {
         return (
-          validationHasHappened === true
+          options.isActive
+          && this.validationHasHappened === true
           && (
             this.valid && options.renderValidation !== 'invalid'
             || !this.valid && options.renderValidation !== 'valid'
@@ -82,12 +86,26 @@ module.exports = {
       },
 
       reset: function validatorReset() {
-        validationHasHappened = false;
+        this.validationHasHappened = false;
         this.lastValidatedValue = null;
         this.valid = true;
         this.validationErrors = [];
+      },
+
+      updateOptions: function validatorUpdateOptions(newOptions) {
+        options = _.extend(options, newOptions);
       }
     };
+
+    Object.defineProperty(myValidator, 'valid', {
+      get: function myValidatorCustomPropertyValueGet() {
+        return myValidator._valid || options.isActive === false;
+      },
+
+      set: function myValidatorCustomPropertyValueSet(newValue) {
+        myValidator._valid = newValue;
+      }
+    });
 
     if (options.validateValueOnCreate !== undefined) {
       myValidator.validate(options.validateValueOnCreate);

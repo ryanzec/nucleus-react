@@ -89,7 +89,9 @@ formMixin.updateFormInputProperty = function formMixinUpdateFormInputProperty(fo
     }
 
     this.formInputs[formName][fieldName].props[propertyName] = newValue;
-    this.refs[fieldName].forceUpdate();
+
+    //NOTE: need to force update parent as we are not modifying the rendered component, just the object that is used to generate it
+    this.forceUpdate();
   }
 };
 

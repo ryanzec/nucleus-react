@@ -21,8 +21,6 @@ module.exports = {
         _.forEach(validatorsObject, function validatorCollectionGetValidationErrorsValidatorsObjectLoop(validator, field) {
           if (validator.validationErrors.length > 0) {
             errorMessages[field] = validator.validationErrors;
-          } else {
-            errorMessages[field] = null;
           }
         });
 

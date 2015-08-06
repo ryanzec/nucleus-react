@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [validator] added ability to modify options after creation
+- [validator] added option to be able to disable validator
+- [form] fixed issue with components properly updating after updating one of its properties
+- [validator-mixin] fixed bug where validator was not updating if it properties changed
 - [forms] added support for modifying input properties after creation
 - [forms] added support for validating a specific field
 - [extend-text] fixed issue with it validating on load incorrectly

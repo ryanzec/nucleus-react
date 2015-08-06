@@ -377,4 +377,15 @@ describe('validator', function() {
     expect(myValidator.validationErrors).to.deep.equal([]);
     expect(myValidator.shouldRenderValidation()).to.be.false;
   });
+
+  it('should return valid if the validator is turn off', function() {
+    var myValidator = validator.create(validatorConfigMinMaxLength);
+    myValidator.validate('testtestt');
+
+    myValidator.updateOptions({
+      isActive: false
+    });
+
+    expect(myValidator.valid).to.be.true;
+  });
 });

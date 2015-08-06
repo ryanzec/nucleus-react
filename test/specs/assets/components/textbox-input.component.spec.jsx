@@ -2,6 +2,7 @@ var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var InputAutoSizer = require('../../../../assets/components/input-auto-sizer.component.jsx');
+var Button = require('../../../../assets/components/button.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var iconData = require('nucleus-icons');
@@ -45,6 +46,45 @@ var FormExample = React.createClass({
     return (
       <span>
         {inputs.prop.render()}
+      </span>
+    );
+  }
+});
+
+var FormExampleAddValidation = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    return {
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput
+        }
+      }
+    };
+  },
+
+  addValidation: function() {
+    this.updateFormInputProperty('form', 'prop', 'renderValidation', 'both');
+    this.updateFormInputProperty('form', 'prop', 'validators', [{validator: validateTrue}]);
+  },
+
+  render: function() {
+    var inputs = this.getInputs('form');
+
+    return (
+      <span>
+        {inputs.prop.render()}
+        <Button onClick={this.addValidation}>add validation</Button>
       </span>
     );
   }
@@ -283,6 +323,28 @@ describe('textbox input component', function() {
 
     it('should show valid validation', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
+      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
+
+      reactTestUtils.Simulate.change(input, {
+        target: {
+          value: 'test'
+        }
+      });
+
+      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
+      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
+
+      expect(formElement.props.className).to.equal('form-element m-text m-valid');
+      expect(validationIcon.length).to.equal(1);
+      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
+    });
+
+    it('should be able to add validator after intial render', function() {
+      testData.component = React.render(<FormExampleAddValidation />, div);
+      var button = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'button');
+
+      reactTestUtils.Simulate.click(button);
+
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
