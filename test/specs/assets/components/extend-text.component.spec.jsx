@@ -2322,7 +2322,7 @@ describe('extend text component', function() {
 
         var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
+        TestUtils.Simulate.mouseUp(tagRemoveElements[0]);
 
         expect(testData.component.state.extendTextValue).to.deep.equal([{
           display: 'tes',
@@ -2332,7 +2332,7 @@ describe('extend text component', function() {
 
         var tagRemoveElement = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseDown(tagRemoveElement);
+        TestUtils.Simulate.mouseUp(tagRemoveElement);
         //TODO: investigate: not sure why this give me an error but the above works fine
         // TestUtils.Simulate.click(tagRemoveElements[1]);
 
@@ -2381,7 +2381,7 @@ describe('extend text component', function() {
 
         var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
+        TestUtils.Simulate.mouseUp(tagRemoveElements[0]);
 
         expect(document.activeElement).to.not.equal(input.getDOMNode());
         expect(extendTextComponent.state.isActive).to.be.false;

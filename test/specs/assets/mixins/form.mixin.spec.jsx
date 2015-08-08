@@ -710,13 +710,7 @@ describe('form mixin', function() {
       var validatorCollection = this.component.getFormValidatorCollection('test');
       var errorMessages = validatorCollection.getValidationErrors();
 
-      expect(errorMessages.firstName).to.be.null;
-      expect(errorMessages.password).to.be.null;
-      expect(errorMessages.receiveNewletters).to.be.null;
-      expect(errorMessages.over21).to.be.null;
-      expect(errorMessages.radio).to.be.null;
-      expect(errorMessages.date).to.be.null;
-      expect(errorMessages.tags).to.be.null;
+      expect(errorMessages).to.deep.equal({});
       expect(validatorCollection.isValid()).to.be.true;
     });
 

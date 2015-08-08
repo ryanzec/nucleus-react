@@ -485,11 +485,12 @@ extendText.validate = function extendTextValidate(value) {
   }
 };
 
-extendText.onMouseDownRemoveTag = function extendTextOnMouseDownRemoveTag(valueIndex) {
-  return function extendTextOnMouseDownRemoveTagGeneratedCallback(event) {
+extendText.onMouseUpRemoveTag = function extendTextOnMouseUpRemoveTag(valueIndex) {
+  return function extendTextOnMouseUpRemoveTagGeneratedCallback(event) {
     this.skipNextDataPull = true;
     event.stopPropagation();
     this.removeValue(valueIndex);
+    //this.getInputElement().focus();
   }.bind(this);
 };
 
@@ -618,7 +619,7 @@ extendText.renderTags = function extendTextRenderTags() {
           key={key}
         >
           {item.display}
-          <SvgIcon isClickable={true} isQuiet={true} onMouseDown={this.onMouseDownRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
+          <SvgIcon isClickable={true} isQuiet={true} onMouseUp={this.onMouseUpRemoveTag(key)} className="extend-text__tag-remove" fragment="x" />
         </div>
       );
     }.bind(this));
