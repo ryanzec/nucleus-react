@@ -70,10 +70,7 @@ $component-identifier: '.form-element';
     @include display(flex);
     @include flex-wrap(wrap);
     @include justify-content(space-between);
-
-    &-item {
-      @include flexbox-value-width(100%);
-    }
+    @include flex-direction(column);
   }
 
   &__radio-group {
@@ -180,6 +177,8 @@ form.m-inline {
 @media #{$medium-screen-media-query} {
   #{$component-identifier} {
     &__input-group {
+      @include flex-direction(row);
+
       &.m-align-start {
         @include justify-content(flex-start);
 
