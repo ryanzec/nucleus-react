@@ -23,7 +23,7 @@ extendText.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   value: React.PropTypes.any,
   autoHeightResize: React.PropTypes.bool,
-  emptyIndicator: React.PropTypes.node,
+  emptyIndicatorNode: React.PropTypes.node,
   getData: React.PropTypes.func,
   allowFreeForm: React.PropTypes.bool,
   newIndicatorNode: React.PropTypes.node,
@@ -47,12 +47,11 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     onChange: null,
     value: null,
     autoHeightResize: true,
-    emptyIndicator: (
+    emptyIndicatorNode: (
       <span>No Options Found</span>
     ),
     allowFreeForm: false,
     newIndicatorNode: ' (New)',
-
     displayProperty: 'display',
     characterThreshold: 0,
     debounce: 0,
@@ -87,7 +86,8 @@ extendText.getInitialState = function extendTextGetInitialState() {
     isLoading: false,
     focusedAutoCompleteItem: null,
     displayInputValue: displayInputValue,
-    searchAttempted: false
+    searchAttempted: false,
+    isFocused: false
   };
 };
 
@@ -105,48 +105,50 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   this.setAutoCompletePosition();
 
   this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
-    //certain actions should not trigger data pull (like if the input has been blurred or you remove a value)
-    if (this.skipNextDataPull === true) {
-      this.skipNextDataPull = false;
-      return;
-    }
-
-    if (this.props.staticData.length > 0) {
-      this.setState({
-        autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
-        isActive: true,
-        searchAttempted: true
-      });
-    } else {
-      if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
-        var newState = {
-          isLoading: true
-        };
-
-        if (this.state.searchAttempted === true || this.props.preloadData === false) {
-          newState.isActive = true;
-        }
-
-        this.setState(newState);
+    if (this.state.isFocused || (this.props.preloadData && this.state.searchAttempted === false)) {
+      //certain actions should not trigger data pull (like if the input has been blurred or you remove a value)
+      if (this.skipNextDataPull === true) {
+        this.skipNextDataPull = false;
+        return;
       }
 
-      this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
-        /* istanbul ignore next */
-        if (this.isMounted()) {
+      if (this.props.staticData.length > 0) {
+        this.setState({
+          autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
+          isActive: true,
+          searchAttempted: true
+        });
+      } else {
+        if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
+          var newState = {
+            isLoading: true
+          };
+
+          if (this.state.searchAttempted === true || this.props.preloadData === false) {
+            newState.isActive = true;
+          }
+
+          this.setState(newState);
+        }
+
+        this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
+          /* istanbul ignore next */
+          if (this.isMounted()) {
+            this.setState({
+              autoCompleteItems: this.filterSelectedValues(items),
+              isLoading: false,
+              searchAttempted: true
+            });
+          }
+        }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
+          //TODO: do we need to do anythign specific if it is an error?
           this.setState({
-            autoCompleteItems: this.filterSelectedValues(items),
+            autoCompleteItems: [],
             isLoading: false,
             searchAttempted: true
           });
-        }
-      }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
-        //TODO: do we need to do anythign specific if it is an error?
-        this.setState({
-          autoCompleteItems: [],
-          isLoading: false,
-          searchAttempted: true
-        });
-      }.bind(this));
+        }.bind(this));
+      }
     }
   }.bind(this), this.props.debounce);
 
@@ -294,9 +296,13 @@ extendText.onFocus = function extendTextOnFocus() {
   this.valueHasChanged = false;
   var inputElement = this.getInputElement();
 
-  if (this.isOverCharacterThreshold(inputElement.value)) {
-    this.getData(inputElement.value);
-  }
+  this.setState({
+    isFocused: true
+  }, function() {
+    if (this.isOverCharacterThreshold(inputElement.value)) {
+      this.getData(inputElement.value);
+    }
+  });
 };
 
 extendText.onBlur = function extendTextOnBlur() {
@@ -310,11 +316,13 @@ extendText.onBlur = function extendTextOnBlur() {
     }
 
     this.skipNextDataPull = true;
-    this.setState({
-      focusedAutoCompleteItem: null,
-      isActive: false
-    });
   }
+
+  this.setState({
+    focusedAutoCompleteItem: null,
+    isActive: false,
+    isFocused: false
+  });
 };
 
 extendText.onMouseEnterAutoCompleteItem = function extendTextOnMouseEnterAutoCompleteItem(event) {
@@ -490,7 +498,6 @@ extendText.onMouseUpRemoveTag = function extendTextOnMouseUpRemoveTag(valueIndex
     this.skipNextDataPull = true;
     event.stopPropagation();
     this.removeValue(valueIndex);
-    //this.getInputElement().focus();
   }.bind(this);
 };
 
@@ -667,7 +674,7 @@ extendText.renderAutoComplete = function extendTextRenderAutoComplete() {
     );
   } else {
     autoCompleteDom = (
-      <div className="extend-text__empty-indicator">{this.props.emptyIndicator}</div>
+      <div className="extend-text__empty-indicator">{this.props.emptyIndicatorNode}</div>
     );
   }
 
@@ -717,9 +724,9 @@ extendText.renderLabel = function extendTextRenderLabel() {
   if (this.props.label) {
     label = (
       <label className="extend-text__label">
-          {this.props.label}
-        </label>
-      );
+        {this.props.label}
+      </label>
+    );
   }
 
   return label;

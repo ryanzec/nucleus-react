@@ -197,7 +197,7 @@ module.exports = {
   examples: [{
     description: 'Standard',
     example: (
-      <ExtendText label="My Label" placeholder="My Placeholder" onChange={noop} getData={getData} debounce={200} characterThreshold={3} />
+      <ExtendText label="My Label" placeholder="My Placeholder" onChange={noop} getData={getData} debounce={500} characterThreshold={3} />
     ),
     exampleString: '<Code\n  language="css"\n  lineNumberStart={-1}>{codeContent}</Code>'
   }, {

@@ -1649,7 +1649,7 @@ describe('extend text component', function() {
 
     it('should be able to define custom empty indicator', function(done) {
       Fiber(function() {
-        testData.component = React.render(<ExtendText onChange={testHelper.noop} emptyIndicator={customEmptyIndicator} getData={getDataEmpty} />, div);
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} emptyIndicatorNode={customEmptyIndicator} getData={getDataEmpty} />, div);
         var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
         TestUtils.Simulate.focus(input);
