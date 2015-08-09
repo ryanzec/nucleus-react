@@ -15,6 +15,7 @@ module.exports = {
   ExtendText: require('./extend-text.component.jsx'),
   FlexCell: require('./flex-cell.component.jsx'),
   FlexRow: require('./flex-row.component.jsx'),
+  FormValidationMessages: require('./form-validation-messages.component.jsx'),
   GlobalNotification: require('./global-notification.component.jsx'),
   GlobalNotificationItem: require('./global-notification-item.component.jsx'),
   InputAutoSizer: require('./input-auto-sizer.component.jsx'),

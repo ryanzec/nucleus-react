@@ -5,6 +5,7 @@ var domUtilities = require('dom-utilities');
 var SvgIcon = require('./svg-icon.component.jsx');
 var InputAutoSizer = require('./input-auto-sizer.component.jsx');
 var validatorMixin = require('../mixins/validator.mixin');
+var FormValidationMessages = require('./form-validation-messages.component.jsx');
 
 var loadingSvg;
 /*eslint-disable*/
@@ -16,7 +17,8 @@ var extendText = {};
 extendText.displayName = 'ExtendText';
 
 extendText.mixins = [
-  validatorMixin
+  validatorMixin,
+  React.addons.PureRenderMixin
 ];
 
 extendText.propTypes = {
@@ -103,54 +105,64 @@ extendText.componentDidMount = function extendTextComponentDidMount() {
   }
 
   this.setAutoCompletePosition();
+  this.getDataTimeout = null;
 
-  this.getData = _.debounce(function extendTextComponentDidMountGeneratedGetDataMethod(value) {
-    if (this.state.isFocused || (this.props.preloadData && this.state.searchAttempted === false)) {
-      //certain actions should not trigger data pull (like if the input has been blurred or you remove a value)
-      if (this.skipNextDataPull === true) {
-        this.skipNextDataPull = false;
-        return;
-      }
+  this.getData = function extendTextComponentDidMountGeneratedGetDataMethod(value) {
+    if (this.getDataTimeout) {
+      clearTimeout(this.getDataTimeout);
+      this.getDataTimeout = null;
+    }
 
-      if (this.props.staticData.length > 0) {
-        this.setState({
-          autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
-          isActive: true,
-          searchAttempted: true
-        });
-      } else {
-        if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
-          var newState = {
-            isLoading: true
-          };
+    this.getDataTimeout = setTimeout(function() {
+      this.getDataTimeout = null;
 
-          if (this.state.searchAttempted === true || this.props.preloadData === false) {
-            newState.isActive = true;
-          }
-
-          this.setState(newState);
+      if (this.state.isFocused || (this.props.preloadData && this.state.searchAttempted === false)) {
+        //certain actions should not trigger data pull (like if the input has been blurred or you remove a value)
+        if (this.skipNextDataPull === true) {
+          this.skipNextDataPull = false;
+          return;
         }
 
-        this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
-          /* istanbul ignore next */
-          if (this.isMounted()) {
+        if (this.props.staticData.length > 0) {
+          this.setState({
+            autoCompleteItems: this.filterSelectedValues(this.props.staticDataFilter(value, this.props.staticData)),
+            isActive: true,
+            searchAttempted: true
+          });
+        } else {
+          if (this.props.loadingIndicatorEnabled === true && this.isMounted()) {
+            var newState = {
+              isLoading: true
+            };
+
+            if (this.state.searchAttempted === true || this.props.preloadData === false) {
+              newState.isActive = true;
+            }
+
+            this.setState(newState);
+          }
+
+          this.props.getData.apply(this, [value]).then(function extendTextComponentDidMountPropsGetDataSuccess(items) {
+            /* istanbul ignore next */
+            if (this.isMounted()) {
+              this.setState({
+                autoCompleteItems: this.filterSelectedValues(items),
+                isLoading: false,
+                searchAttempted: true
+              });
+            }
+          }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
+            //TODO: do we need to do anythign specific if it is an error?
             this.setState({
-              autoCompleteItems: this.filterSelectedValues(items),
+              autoCompleteItems: [],
               isLoading: false,
               searchAttempted: true
             });
-          }
-        }.bind(this), function extendTextComponentDidMountPropsGetDataError(error) {
-          //TODO: do we need to do anythign specific if it is an error?
-          this.setState({
-            autoCompleteItems: [],
-            isLoading: false,
-            searchAttempted: true
-          });
-        }.bind(this));
+          }.bind(this));
+        }
       }
-    }
-  }.bind(this), this.props.debounce);
+    }.bind(this), this.props.debounce);
+  }.bind(this);
 
   if (this.props.preloadData === true) {
     this.getData(this.props.value);
@@ -557,6 +569,11 @@ extendText.selectCurrentValue = function extendTextSelectCurrentValue() {
   if (this.props.taggingEnabled === true) {
     this.updateDisplayValue('');
   }
+
+  if (this.getDataTimeout) {
+    clearTimeout(this.getDataTimeout);
+    this.getDataTimeout = null;
+  }
 };
 
 extendText.increaseFocusedAutoCompleteItem = function extendTextIncreaseFocusedAutoCompleteItem() {
@@ -733,8 +750,6 @@ extendText.renderLabel = function extendTextRenderLabel() {
 };
 
 extendText.render = function extendTextRender() {
-  var validationIcon = this.validator ? this.validator.renderValidationIcon('extend-text__validation-icon') : null;
-
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
@@ -759,8 +774,8 @@ extendText.render = function extendTextRender() {
           {this.renderStatusIndicator()}
           {this.renderDropDownIndicator()}
         </div>
-        {validationIcon}
       </div>
+      <FormValidationMessages messages={this.getFormValidationMessages()} />
     </div>
   );
 };

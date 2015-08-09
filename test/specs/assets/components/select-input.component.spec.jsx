@@ -3,7 +3,6 @@ var reactTestUtils = React.addons.TestUtils;
 var SelectInput = require('../../../../assets/components/select-input.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
-var iconData = require('nucleus-icons');
 var _ = require('lodash');
 
 var testData = {};
@@ -142,7 +141,41 @@ var FormExampleValidationFalseBothOnLoad = React.createClass({
           props: {
             options: getOptions(),
             renderValidation: 'both',
-            validators: [{validator: validateFalse}],
+            validators: [{validator: validateFalse, message: 'test validation message'}],
+            validateOnLoad: true
+          }
+        }
+      }
+    };
+  },
+
+  render: function() {
+    return this.getInputs('form').prop.render();
+  }
+});
+
+var FormExampleValidationFalseBothOnLoadNoValidationMessages = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    return {
+      form: {},
+      initialform: {},
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: SelectInput,
+          props: {
+            options: getOptions(),
+            renderValidation: 'both',
+            renderValidationMessages: false,
+            validators: [{validator: validateFalse, message: 'test validation message'}],
             validateOnLoad: true
           }
         }
@@ -267,20 +300,27 @@ describe('select input component', function() {
     it('should not show validation on initial load by default', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-select');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should run and be able to show validation on initial load', function() {
       testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
+      var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message')
 
       expect(formElement.props.className).to.equal('form-element m-select m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
+      expect(validationMessages.length).to.equal(1);
+      expect(validationMessages[0].props.children).to.equal('test validation message');
+    });
+
+    it('should not show the validation messages', function() {
+      testData.component = React.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
+      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
+      var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message')
+
+      expect(formElement.props.className).to.equal('form-element m-select m-invalid');
+      expect(validationMessages.length).to.equal(0);
     });
 
     it('should show valid validation', function() {
@@ -294,11 +334,8 @@ describe('select input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-select m-valid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
 
     it('should not show valid validation if configued for invalid only', function() {
@@ -312,10 +349,8 @@ describe('select input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-select');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should show invalid validation', function() {
@@ -329,11 +364,8 @@ describe('select input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-select m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should not show invalid validation if configured for valid only', function() {
@@ -347,10 +379,8 @@ describe('select input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-select');
-      expect(validationIcon.length).to.equal(0);
     });
   });
 

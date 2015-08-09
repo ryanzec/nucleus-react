@@ -5,7 +5,6 @@ $component-identifier: '.form-element';
     display: inline-block;
   }
 
-
   .svg-icon__outer-container.checkbox-empty-icon,
   .svg-icon__outer-container.checkbox-checked-icon,
   .svg-icon__outer-container.radio-empty-icon,
@@ -26,7 +25,7 @@ $component-identifier: '.form-element';
     #{$component-identifier}__field-container {
       @include display(inline-flex);
 
-      margin-left: 8px;
+      margin-left: 5px;
     }
   }
 
@@ -89,12 +88,6 @@ $component-identifier: '.form-element';
       max-width: 100%;
     }
 
-    #{$component-identifier}__validation-icon {
-      @include flex(0 0 20px);
-      margin: 0 5px;
-      height: 20px;
-    }
-
     .m-toggle {
       @include display(flex);
       @include align-items(center);
@@ -129,14 +122,6 @@ $component-identifier: '.form-element';
       border-color: $color-safe;
       background-color: $color-light-safe;
     }
-
-    #{$component-identifier}__validation-icon,
-    .svg-icon__outer-container.checkbox-empty-icon .svg-icon__container,
-    .svg-icon__outer-container.checkbox-checked-icon .svg-icon__container,
-    .svg-icon__outer-container.radio-empty-icon .svg-icon__container,
-    .svg-icon__outer-container.radio-checked-icon .svg-icon__container {
-      fill: $color-safe;
-    }
   }
 
   &.m-invalid {
@@ -146,14 +131,11 @@ $component-identifier: '.form-element';
       border-color: $color-danger;
       background-color: $color-light-danger;
     }
+  }
 
-    #{$component-identifier}__validation-icon,
-    .svg-icon__outer-container.checkbox-empty-icon .svg-icon__container,
-    .svg-icon__outer-container.checkbox-checked-icon .svg-icon__container,
-    .svg-icon__outer-container.radio-empty-icon .svg-icon__container,
-    .svg-icon__outer-container.radio-checked-icon .svg-icon__container {
-      fill: $color-danger;
-    }
+  &__validation-messages {
+    padding: 0 5px 5px 5px;
+    color: $color-danger;
   }
 }
 

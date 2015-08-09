@@ -1,9 +1,4 @@
-var React = require('react/addons');
 var _ = require('lodash');
-var SvgIcon = require('../components/svg-icon.component.jsx');
-
-var validIconFragment = 'checkmark';
-var invalidIconFragment = 'x';
 
 var isValueEmpty = function isValueEmpty(value) {
   return value === '' || value === null || value === undefined || value.length === 0;
@@ -17,7 +12,6 @@ module.exports = {
       validateValueOnCreate: undefined,
       validators: [],
       initialValue: null,
-      renderIcon: true,
       allowEmpty: false,
       isActive: true
     }, options);
@@ -68,21 +62,6 @@ module.exports = {
             || !this.valid && options.renderValidation !== 'valid'
           )
         );
-      },
-
-      renderValidationIcon: function validatorRenderValidationIcon(className) {
-        var validationIcon = null;
-
-        if (options.renderIcon === true && this.shouldRenderValidation()) {
-          validationIcon = (
-            <SvgIcon
-              className={className}
-              fragment={this.valid ? validIconFragment : invalidIconFragment}
-            />
-          );
-        }
-
-        return validationIcon;
       },
 
       reset: function validatorReset() {

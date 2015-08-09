@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [forms] removed validation icon
+- [forms] added for validation messages components (using in select input, textbox input, and extend-text components)
+- [extend-text] fixed bug where selecting a value before the get data was trigger from timeout was not properly clearing that timeout
+- [extend-text] added pure render mixin to increase performance
 - [validator] added ability to modify options after creation
 - [validator] added option to be able to disable validator
 - [form] fixed issue with components properly updating after updating one of its properties

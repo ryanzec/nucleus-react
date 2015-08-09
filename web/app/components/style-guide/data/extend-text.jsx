@@ -129,6 +129,7 @@ var ExtendsTextTaggingAllowFreeFormThreshold = React.createClass({
         onChange={this.onExtendTextChange}
         value={this.state.extendTextValue}
         getData={getDataDelayed}
+        debounce={500}
         taggingEnabled={true}
         allowFreeForm={true}
         characterThreshold={1}

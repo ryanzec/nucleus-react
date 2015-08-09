@@ -15,7 +15,6 @@ var testHelper = require('../../../test-helper');
 var Fiber = require('fibers');
 var _ = require('lodash');
 var bluebird = require('bluebird');
-var iconData = require('nucleus-icons');
 var testData = {};
 var div;
 
@@ -251,6 +250,34 @@ var PageTestTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var PageTestTaggingAllowFreeFormThresholdDebouce = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getData}
+        taggingEnabled={true}
+        allowFreeForm={true}
+        characterThreshold={1}
+        debounce={500}
+      />
+    );
+  }
+});
+
 var PageTestTaggingAllowFreeFormThreshold1 = React.createClass({
   getInitialState: function() {
     return {
@@ -416,7 +443,45 @@ var FormExampleValidationFalseBothOnLoad = React.createClass({
           [{
             validator: function(value) {
               return false;
-            }
+            },
+            message: 'test validation message'
+          }]
+        }
+      />
+    );
+  }
+});
+
+var FormExampleValidationFalseBothOnLoadNoValidationMessages = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: null
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    var value = this.props.value || this.state.extendTextValue;
+
+    return (
+      <ExtendText
+        onChange={this.onExtendTextChange}
+        value={value}
+        getData={getData}
+        renderValidation="both"
+        renderValidationMessages={false}
+        validateOnLoad={true}
+        validators={
+          [{
+            validator: function(value) {
+              return false;
+            },
+            message: 'test validation message'
           }]
         }
       />
@@ -2447,27 +2512,73 @@ describe('extend text component', function() {
         done();
       }).run();
     });
+
+    it('should should not pull data if value is selected before the get data is triggered by debouce', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormThresholdDebouce />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(200);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.ENTER
+        });
+
+        testHelper.sleep(1000);
+
+        expect(extendTextComponent.state.isActive).to.be.false;
+        expect(extendTextComponent.state.isLoading).to.be.false;
+        expect(extendTextComponent.state.autoCompleteItems.length).to.equal(0);
+        expect(testData.component.state.extendTextValue).to.deep.equal([{
+          display: 'tes',
+          value: 'tes'
+        }]);
+        expect(input.getDOMNode().value).to.equal('');
+        done();
+      }).run();
+    });
   });
 
   describe('validation', function() {
     it('should not show validation on initial load by default', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
       var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
 
       expect(extendText.props.className).to.equal('extend-text m-display-no-results');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should run and be able to show validation on initial load', function(done) {
       Fiber(function() {
         testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
+        var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
 
         expect(extendText.props.className).to.equal('extend-text m-display-no-results m-invalid');
-        expect(validationIcon.length).to.equal(1);
-        expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
+        expect(validationMessages.length).to.equal(1);
+        expect(validationMessages[0].props.children).to.equal('test validation message');
+        done();
+      }).run();
+    });
+
+    it('should not show validation messages', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
+        var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
+        var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
+
+        expect(extendText.props.className).to.equal('extend-text m-display-no-results m-invalid');
+        expect(validationMessages.length).to.equal(0);
         done();
       }).run();
     });
@@ -2490,11 +2601,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
-
         expect(extendText.props.className).to.equal('extend-text m-valid');
-        expect(validationIcon.length).to.equal(1);
-        expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
         done();
       }).run();
     });
@@ -2517,10 +2624,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
-
         expect(extendText.props.className).to.equal('extend-text');
-        expect(validationIcon.length).to.equal(0);
         done();
       }).run();
     });
@@ -2543,11 +2647,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
-
         expect(extendText.props.className).to.equal('extend-text m-invalid');
-        expect(validationIcon.length).to.equal(1);
-        expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
         done();
       }).run();
     });
@@ -2570,10 +2670,7 @@ describe('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
-
         expect(extendText.props.className).to.equal('extend-text');
-        expect(validationIcon.length).to.equal(0);
         done();
       }).run();
     });
@@ -2594,10 +2691,8 @@ describe('extend text component', function() {
 
 
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var validationIcon = testData.component.getDOMNode().querySelectorAll('.extend-text__validation-icon');
 
         expect(extendText.props.className).to.equal('extend-text');
-        expect(validationIcon.length).to.equal(0);
         done();
       }).run();
     });

@@ -2,6 +2,7 @@ var React = require('react/addons');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
 var InputAutoSizer = require('./input-auto-sizer.component.jsx');
+var FormValidationMessages = require('./form-validation-messages.component.jsx');
 
 var textboxInput = {};
 
@@ -169,8 +170,6 @@ textboxInput.renderInput = function textboxInputRenderInput() {
 };
 
 textboxInput.render = function textboxInputRender() {
-  var validationIcon = this.validator ? this.validator.renderValidationIcon('form-element__validation-icon') : null;
-
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
@@ -178,8 +177,8 @@ textboxInput.render = function textboxInputRender() {
         {this.renderPrepend()}
         {this.renderInput()}
         {this.renderAppend()}
-        {validationIcon}
       </div>
+      <FormValidationMessages messages={this.getFormValidationMessages()} />
     </div>
   );
 };

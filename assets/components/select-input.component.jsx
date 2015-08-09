@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
+var FormValidationMessages = require('./form-validation-messages.component.jsx');
 
 var selectInput = {};
 
@@ -111,15 +112,13 @@ selectInput.renderInput = function selectInputRenderInput() {
 };
 
 selectInput.render = function selectInputRender() {
-  var validationIcon = this.validator ? this.validator.renderValidationIcon('form-element__validation-icon') : null;
-
   return (
     <div className={this.getCssClasses().join(' ')}>
       {this.renderLabel()}
       <div className="form-element__field-container">
         {this.renderInput()}
-        {validationIcon}
       </div>
+      <FormValidationMessages messages={this.getFormValidationMessages()} />
     </div>
   );
 };

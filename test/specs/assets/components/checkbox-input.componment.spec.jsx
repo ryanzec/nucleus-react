@@ -4,7 +4,6 @@ var CheckboxInput = require('../../../../assets/components/checkbox-input.compon
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
-var iconData = require('nucleus-icons');
 
 var testData = {};
 

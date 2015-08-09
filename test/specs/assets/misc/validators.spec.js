@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var validator = require('../../../../assets/misc/validator.jsx');
+var validator = require('../../../../assets/misc/validator');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
 
@@ -203,45 +203,6 @@ describe('validator', function() {
       }));
 
       expect(myValidator.shouldRenderValidation()).to.be.true;
-    });
-  });
-
-  describe('renderValidationIcon', function() {
-    it('should return null if it should not render validation', function() {
-      var myValidator = validator.create(validatorConfigMinLength);
-
-      expect(myValidator.renderValidationIcon()).to.be.null;
-    });
-
-    it('should return success icon if valid and it should render validation', function() {
-      var myValidator = validator.create(_.extend(_.clone(validatorConfigMinLength, true), {
-        validateValueOnCreate: 'test'
-      }));
-
-      var svgIconComponent = myValidator.renderValidationIcon();
-      var div =  document.createElement('div');
-
-      expect(React.render(svgIconComponent, div).props.fragment).to.equal('checkmark');
-    });
-
-    it('should return error icon if valid and it should render validation', function() {
-      var myValidator = validator.create(_.extend(_.clone(validatorConfigMinLength, true), {
-        validateValueOnCreate: 'tes'
-      }));
-
-      var svgIconComponent = myValidator.renderValidationIcon();
-      var div =  document.createElement('div');
-
-      expect(React.render(svgIconComponent, div).props.fragment).to.equal('x');
-    });
-
-    it('should not return icon if configured not to ', function() {
-      var myValidator = validator.create(_.extend(_.clone(validatorConfigMinLength, true), {
-        validateValueOnCreate: 'tes',
-        renderIcon: false
-      }));
-
-      expect(myValidator.renderValidationIcon()).to.be.null;
     });
   });
 

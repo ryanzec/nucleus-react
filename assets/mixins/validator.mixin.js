@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var validator = require('../misc/validator.jsx');
+var validator = require('../misc/validator');
 
 var validatorMixin = {};
 
@@ -8,7 +8,8 @@ validatorMixin.propTypes = {
   validateOnLoad: React.PropTypes.bool,
   validators: React.PropTypes.array,
   valueProperty: React.PropTypes.string,
-  validatorAllowEmpty: React.PropTypes.bool
+  validatorAllowEmpty: React.PropTypes.bool,
+  renderValidationMessages: React.PropTypes.bool
 };
 
 validatorMixin.getDefaultProps = function validatorMixinGetDefaultProps() {
@@ -16,23 +17,17 @@ validatorMixin.getDefaultProps = function validatorMixinGetDefaultProps() {
     renderValidation: false,
     validateOnLoad: false,
     validators: [],
-    validatorAllowEmpty: false
+    validatorAllowEmpty: false,
+    renderValidationMessages: true
   };
 };
 
 validatorMixin.componentWillMount = function validatorMixinComponentWillMount() {
-  var renderIcon = true;
-
-  if (this.constructor.displayName === 'CheckboxInput' || this.constructor.displayName === 'RadioInput') {
-    renderIcon = false;
-  }
-
   var validatorConfiguration = {
     isActive: this.props.renderValidation ? true : false,
     renderValidation: this.props.renderValidation,
     validators: this.props.validators,
     allowEmpty: this.props.validatorAllowEmpty,
-    renderIcon: renderIcon
   };
 
   if (this.props.validateOnLoad === true) {
@@ -69,6 +64,20 @@ validatorMixin.componentDidUpdate = function validatorMixinComponentDidUpdate(pr
 
     this.forceUpdate();
   }
+};
+
+validatorMixin.getFormValidationMessages = function validatorMixinGetValidationMessages() {
+  var messages = [];
+
+  if (this.props.renderValidationMessages === true && this.validator.validationErrors && this.validator.validationErrors.length > 0) {
+    this.validator.validationErrors.forEach(function(validationError) {
+      messages.push({
+        message: validationError
+      });
+    })
+  }
+
+  return messages;
 };
 
 module.exports = validatorMixin;

@@ -108,13 +108,10 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
 };
 
 checkboxInput.render = function checkboxInputRender() {
-  var validationIcon = this.validator ? this.validator.renderValidationIcon('form-element__validation-icon') : null;
-
   return (
     <div className={this.getCssClasses().join(' ')}>
       <div className="form-element__field-container">
         {this.renderInput()}
-        {validationIcon}
       </div>
     </div>
   );

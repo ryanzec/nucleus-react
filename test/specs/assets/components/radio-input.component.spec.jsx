@@ -3,7 +3,6 @@ var reactTestUtils = React.addons.TestUtils;
 var RadioInput = require('../../../../assets/components/radio-input.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
-var iconData = require('nucleus-icons');
 var _ = require('lodash');
 
 var testData = {};

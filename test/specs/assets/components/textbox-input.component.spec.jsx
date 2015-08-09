@@ -5,7 +5,6 @@ var InputAutoSizer = require('../../../../assets/components/input-auto-sizer.com
 var Button = require('../../../../assets/components/button.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
-var iconData = require('nucleus-icons');
 var _ = require('lodash');
 
 var testData = {};
@@ -242,7 +241,42 @@ var FormExampleValidationFalseBothOnLoad = React.createClass({
           props: {
             renderValidation: 'both',
             validateOnLoad: true,
-            validators: [{validator: validateFalse}]
+            validators: [{validator: validateFalse, message: 'test validation message'}]
+          }
+        }
+      }
+    };
+  },
+
+  render: function() {
+    var inputs = this.getInputs('form');
+
+    return inputs.prop.render();
+  }
+});
+
+var FormExampleValidationFalseBothOnLoadNoValidationMessages = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    return {
+      form: {},
+      initialForm: {}
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      form: {
+        prop: {
+          component: TextboxInput,
+          props: {
+            renderValidation: 'both',
+            renderValidationMessages: false,
+            validateOnLoad: true,
+            validators: [{validator: validateFalse, message: 'test validation message'}]
           }
         }
       }
@@ -305,20 +339,27 @@ describe('textbox input component', function() {
     it('should not show validation on initial load by default', function() {
       testData.component = React.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should run and be able to show validation on initial load', function() {
       testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
+      var formMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
 
       expect(formElement.props.className).to.equal('form-element m-text m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
+      expect(formMessages.length).to.equal(1);
+      expect(formMessages[0].props.children).to.equal('test validation message');
+    });
+
+    it('should not show validation messages', function() {
+      testData.component = React.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
+      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
+      var formMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
+
+      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
+      expect(formMessages.length).to.equal(0);
     });
 
     it('should show valid validation', function() {
@@ -332,11 +373,8 @@ describe('textbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text m-valid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
 
     it('should be able to add validator after intial render', function() {
@@ -354,11 +392,8 @@ describe('textbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text m-valid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.checkmark);
     });
 
     it('should not show valid validation if configued for invalid only', function() {
@@ -372,10 +407,8 @@ describe('textbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text');
-      expect(validationIcon.length).to.equal(0);
     });
 
     it('should show invalid validation', function() {
@@ -389,11 +422,8 @@ describe('textbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text m-invalid');
-      expect(validationIcon.length).to.equal(1);
-      expect(validationIcon[0].innerHTML).to.equal(iconData.small.x);
     });
 
     it('should not show invalid validation if configured for valid only', function() {
@@ -407,10 +437,8 @@ describe('textbox input component', function() {
       });
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationIcon = testData.component.getDOMNode().querySelectorAll('.form-element__validation-icon');
 
       expect(formElement.props.className).to.equal('form-element m-text');
-      expect(validationIcon.length).to.equal(0);
     });
   });
 

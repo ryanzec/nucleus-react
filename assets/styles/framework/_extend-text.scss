@@ -29,10 +29,6 @@
       border-color: $color-safe;
       background-color: $color-light-safe;
     }
-
-    .extend-text__validation-icon {
-      fill: $color-safe;
-    }
   }
 
   &.m-invalid {
@@ -44,10 +40,6 @@
     .extend-text__value-container {
       border-color: $color-danger;
       background-color: $color-light-danger;
-    }
-
-    .extend-text__validation-icon {
-      fill: $color-danger;
     }
   }
 
@@ -62,11 +54,6 @@
     background-color: transparent;
   }
 
-  .extend-text__input-container {
-    @include display(flex);
-    @include align-items(center);
-  }
-
   .extend-text__value-container {
     @include flex(1);
 
@@ -77,14 +64,6 @@
     padding: 4px 20px 4px 6px;
     background-color: $color-white;
     cursor: text;
-  }
-
-  .extend-text__validation-icon {
-    @include flexbox-value-width(0 0 20px);
-
-    height: 20px;
-    width: 20px;
-    margin: 0 5px;
   }
 
   .extend-text__tag-container {
