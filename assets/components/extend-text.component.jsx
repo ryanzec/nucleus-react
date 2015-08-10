@@ -435,7 +435,7 @@ extendText.autoCompleteItemExists = function extendTextAutoCompleteItemExists(it
   var count = this.state.autoCompleteItems.length;
 
   for (var x = 0; x < count; x += 1) {
-    if (this.state.autoCompleteItems[x].display === item.display) {
+    if (this.state.autoCompleteItems[x].isNew !== true && this.state.autoCompleteItems[x].display === item.display) {
       return true;
     }
   }

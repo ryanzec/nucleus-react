@@ -99,6 +99,16 @@ var getDataDelay = function() {
   return defer.promise;
 };
 
+var getDataBigDelay = function() {
+  var defer = bluebird.defer();
+
+  setTimeout(function() {
+    defer.resolve(testAutoCompleteItems);
+  }, 200);
+
+  return defer.promise;
+};
+
 var PageTest = React.createClass({
   getInitialState: function() {
     return {
@@ -269,6 +279,34 @@ var PageTestTaggingAllowFreeFormThresholdDebouce = React.createClass({
         onChange={this.onExtendTextChange}
         value={this.state.extendTextValue}
         getData={getData}
+        taggingEnabled={true}
+        allowFreeForm={true}
+        characterThreshold={1}
+        debounce={500}
+      />
+    );
+  }
+});
+
+var PageTestTaggingAllowFreeFormThresholdDebouceDataDeley = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getDataBigDelay}
         taggingEnabled={true}
         allowFreeForm={true}
         characterThreshold={1}
@@ -1902,6 +1940,52 @@ describe('extend text component', function() {
           value: 3
         });
         expect(extendTextComponent.props.value.display).to.equal('test 3');
+        done();
+      }).run();
+    });
+
+    it('should not remove new value if typing during the retrieval of remote data that is delayed', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormThresholdDebouceDataDeley />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(600);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'test'
+          }
+        });
+
+        testHelper.sleep(750);
+
+        expect(extendTextComponent.state.autoCompleteItems).to.deep.equal([{
+          display: 'test 1',
+          value: 1
+        }, {
+          display: 'test 2',
+          value: 2
+        }, {
+          display: 'test 3',
+          value: 3
+        }, {
+          display: 'test',
+          value: 'test',
+          isNew: true
+        }]);
         done();
       }).run();
     });

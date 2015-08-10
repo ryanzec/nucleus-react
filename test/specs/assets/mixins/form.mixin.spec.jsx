@@ -680,6 +680,65 @@ var MultipleForms = React.createClass({
   }
 });
 
+var ResetForm = React.createClass({
+  mixins: [
+    formMixin
+  ],
+
+  getInitialState: function() {
+    var initialFormData = {
+      firstName: '',
+      password: 'test'
+    };
+    return {
+      initialTest: _.clone(initialFormData),
+      test: _.clone(initialFormData)
+    };
+  },
+
+  componentWillMount: function() {
+    this.formInputs = {
+      test: {
+        firstName: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'First Name'
+          }
+        },
+
+        password: {
+          component: TextboxInput,
+          props: {
+            placeholder: 'Password',
+            maskValue: true
+          }
+        }
+      }
+    };
+  },
+
+  renderForm: function() {
+    var inputs = this.getInputs('test');
+
+    return (
+      <form>
+        <InputGroup>
+          {inputs.firstName.render()}
+          {inputs.password.render()}
+        </InputGroup>
+      </form>
+    );
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.renderForm()}
+      </div>
+    );
+  }
+});
+
 describe('form mixin', function() {
   var div;
 
@@ -1049,6 +1108,33 @@ describe('form mixin', function() {
       expect(this.component.refs.agreeToTerms.validator.valid).to.be.true;
       expect(this.component.refs.under21.validator.valid).to.be.true;
       expect(this.component.refs.radio2.validator.valid).to.be.true;
+    });
+  });
+
+  it('should be able to reset a form with custom data', function() {
+    this.component = React.render(<ResetForm />, div);
+
+    expect(this.component.state.test).to.deep.equal({
+      firstName: '',
+      password: 'test'
+    });
+    expect(this.component.state.initialTest).to.deep.equal({
+      firstName: '',
+      password: 'test'
+    });
+
+    this.component.resetForm('test', {
+      firstName: 'test',
+      password: ''
+    });
+
+    expect(this.component.state.test).to.deep.equal({
+      firstName: 'test',
+      password: ''
+    });
+    expect(this.component.state.initialTest).to.deep.equal({
+      firstName: 'test',
+      password: ''
     });
   });
 });

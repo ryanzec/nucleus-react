@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- [forms] added ability to reset form with override reset data
+- [extend-text] fixed bug where free form value was being removed from the auto complete if typing during the retrieval of remote data
 - [forms] removed validation icon
 - [forms] added for validation messages components (using in select input, textbox input, and extend-text components)
 - [extend-text] fixed bug where selecting a value before the get data was trigger from timeout was not properly clearing that timeout

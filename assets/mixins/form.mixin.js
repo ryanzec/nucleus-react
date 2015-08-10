@@ -4,11 +4,24 @@ var _ = require('lodash');
 
 var formMixin = {};
 
-formMixin.resetForm = function formMixinResetForm(formName) {
+formMixin.resetForm = function formMixinResetForm(formName, overrideResetData) {
   //first reset the data
+  var resetFormData;
   var initialDataKey = 'initial' + _.capitalize(formName);
+
+  if (overrideResetData) {
+    resetFormData = _.clone(overrideResetData, true);
+  } else {
+    resetFormData = _.clone(this.state[initialDataKey], true);
+  }
+
   var resetData = {};
-  resetData[formName] = this.state[initialDataKey];
+  resetData[formName] = resetFormData;
+
+  if (overrideResetData) {
+    resetData[initialDataKey] = _.clone(overrideResetData, true);
+  }
+
   this.setState(resetData);
 
   //then clear the validation
