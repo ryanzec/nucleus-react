@@ -24,7 +24,7 @@ datePicker.propTypes = {
   validateOnLoad: React.PropTypes.bool,
   validators: React.PropTypes.array,
   closeOnClick: React.PropTypes.bool,
-  selectionUnit: React.PropTypes.oneOf(['day', 'week']),
+  selectionUnit: React.PropTypes.oneOf(['day', 'week', 'month']),
   label: React.PropTypes.string,
   className: React.PropTypes.string,
   renderInputs: React.PropTypes.bool,
@@ -132,7 +132,7 @@ datePicker.onClickDate = function datePickerOnClickDate(value) {
     this.props.onClickDate(value);
   }
 
-  if (this.props.closeOnClick === true) {
+  if (this.props.closeOnClick === true && this.props.selectionUnit !== 'month') {
     this.setState({
       isCalendarActive: false
     });

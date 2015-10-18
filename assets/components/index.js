@@ -1,5 +1,6 @@
 module.exports = {
   Badge: require('./badge.component.jsx'),
+  BadgeGroup: require('./badge-group.component.jsx'),
   Button: require('./button.component.jsx'),
   Calendar: require('./calendar.component.jsx'),
   Callout: require('./callout.component.jsx'),

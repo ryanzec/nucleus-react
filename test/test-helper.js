@@ -1,25 +1,26 @@
 var _ = require('lodash');
-var storeLocations = {
-  Application: '../web/app/components/core/application.store'
-};
-var initialStoreValues = {};
+var storeLocations = {};
+var initialStoresCachedData = {};
 var Router = require('react-router');
+var Link = Router.Link;
 var Route = Router.Route;
 var React = require('react/addons');
 var reactTestUtils = React.addons.TestUtils;
 var TestLocation = require('react-router/lib/locations/TestLocation');
-var Fiber = require('fibers');
+var fibers = require('fibers');
+var mockedData = require('../web/app/mock/data/index');
+var mockedRequests = require('../web/app/mock/requests/index');
+var applicationReact = require('../web/app/react/index');
+var Header = applicationReact.components.Header;
 var sinon = require('sinon');
-var mockedData = require('../web/mocked-api/data/index');
-var mockedRequests = require('../web/mocked-api/requests/index');
 
 //store the original state of all the stores
 _.forEach(storeLocations, function(path, storeName) {
-  initialStoreValues[storeName] = _.clone(require(path), true);
+  initialStoresCachedData[storeName] = _.clone(require(path)._cachedData, true);
 });
 
 module.exports = {
-  resetStores: function() {
+  resetStoresCachedData: function() {
     var storeNames = Array.prototype.slice.call(arguments);
 
     storeNames.forEach(function(storeName) {
@@ -27,37 +28,12 @@ module.exports = {
       var store = require(storeLocations[storeName]);
 
       //reset all the initial store properties
-      store = _.extend(store, _.clone(initialStoreValues[storeName], true));
+      store._cachedData = _.clone(initialStoresCachedData[storeName], true);
     });
   },
 
-  testPage: function(initialPath, steps) {
-    if (!_.isArray(steps)) {
-      steps = [steps];
-    };
-
-    var component;
-    var routerMainComponent;
-    var div = document.createElement('div');
-    var routes = require('../web/app/components/core/routes.jsx');
-    var location = new TestLocation([initialPath]);
-
-    Router.run(routes, location, function (Handler, routerState) {
-      var step = steps.shift();
-
-      //TODO: research: not sure why or if I need this here (https://github.com/rackt/react-router/issues/991)
-      this.unmountComponent(routerMainComponent);
-
-      routerMainComponent = React.render(React.createFactory(Handler)({
-        routerState: routerState
-      }), div);
-      step(routerMainComponent);
-    }.bind(this));
-  },
-
   unmountComponent: function(component) {
-    //TODO: investigate: is this going to mask any issue that the code might have?
-    if(component.isMounted()) {
+    if(component && component.isMounted()) {
       React.unmountComponentAtNode(component.getDOMNode().parentNode);
     }
   },
@@ -89,13 +65,13 @@ module.exports = {
   noop: function() {},
 
   sleep: function(ms) {
-    var fiber = Fiber.current;
+    var fiber = fibers.current;
 
     setTimeout(function() {
-        fiber.run();
+      fiber.run();
     }, ms);
 
-    Fiber.yield();
+    fibers.yield();
   },
 
   keyCodes: {
@@ -131,6 +107,8 @@ module.exports = {
 
   mockedData: mockedData,
 
+  mockedRequests: mockedRequests,
+
   mockNockRequest: function(scope, resource, verb, key, options) {
     var mockedRequestMetaData = mockedRequests[resource][verb][key];
     var body = mockedRequestMetaData.requestPayload ? mockedRequestMetaData.requestPayload : undefined;
@@ -158,27 +136,5 @@ module.exports = {
     }
 
     mock.reply(mockedRequestMetaData.httpCode, mockedRequestMetaData.response, replyHeaders);
-  },
-
-  scryRenderedDOMComponentsWithProp: function scryRenderedDOMComponentsWithProp(root, propName, propValue) {
-    return reactTestUtils.findAllInRenderedTree(root, function(inst) {
-      var instancePropValue = inst.props[propName];
-
-      return (
-        reactTestUtils.isDOMComponent(inst)
-        && instancePropValue
-        && (' ' + instancePropValue + ' ').indexOf(' ' + propValue + ' ') !== -1
-      );
-    });
-  },
-
-  findRenderedDOMComponentWithProp: function findRenderedDOMComponentWithProp(root, propName, propValue) {
-    var all = this.scryRenderedDOMComponentsWithProp(root, propName, propValue);
-
-    if (all.length !== 1) {
-      throw new Error('Did not find exactly one match (found: ' + all.length + ') for prop  ' + propName + ' : ' + propValue);
-    }
-
-    return all[0];
   }
 };

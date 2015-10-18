@@ -13,8 +13,10 @@ require('./class-list-shim.js');
 global.chai = require('chai');
 global.expect = chai.expect;
 global.sinonChai = require('sinon-chai');
+var chaiAsPromised = require('chai-as-promised');
 
 chai.use(sinonChai);
+chai.use(chaiAsPromised);
 chai.config.includeStack = true;
 
 //need the i18n object when testing

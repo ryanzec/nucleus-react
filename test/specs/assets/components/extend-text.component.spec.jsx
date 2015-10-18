@@ -260,6 +260,58 @@ var PageTestTaggingAllowFreeForm = React.createClass({
   }
 });
 
+var PageTestTaggingAllowFreeFormCommaTagging = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getData}
+        taggingEnabled={true}
+        allowFreeForm={true}
+        addTagKeyCodes={[testHelper.keyCodes.COMMA]}
+      />
+    );
+  }
+});
+
+var PageTestAllowFreeFormNoFilter = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText
+        onChange={this.onExtendTextChange}
+        value={this.state.extendTextValue}
+        getData={getDataNoFilter}
+        allowFreeForm={true}
+      />
+    );
+  }
+});
+
 var PageTestTaggingAllowFreeFormThresholdDebouce = React.createClass({
   getInitialState: function() {
     return {
@@ -332,6 +384,26 @@ var PageTestTaggingAllowFreeFormThreshold1 = React.createClass({
   render: function() {
     return (
       <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} characterThreshold={1} />
+    );
+  }
+});
+
+var PageTestTaggingAllowFreeFormThreshold2 = React.createClass({
+  getInitialState: function() {
+    return {
+      extendTextValue: []
+    };
+  },
+
+  onExtendTextChange: function(value) {
+    this.setState({
+      extendTextValue: value
+    });
+  },
+
+  render: function() {
+    return (
+      <ExtendText onChange={this.onExtendTextChange} value={this.state.extendTextValue} getData={getData} taggingEnabled={true} allowFreeForm={true} characterThreshold={2} />
     );
   }
 });
@@ -821,6 +893,20 @@ describe('extend text component', function() {
         done();
       }).run();
     });
+
+    it('should not try to load data when getData is not passed', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<ExtendText onChange={testHelper.noop} />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.isLoading).to.be.false;
+        done();
+      }).run();
+    });
   });
 
   describe('events', function() {
@@ -1009,7 +1095,7 @@ describe('extend text component', function() {
         }).run();
       });
 
-      it('should not select focused item when bluring input', function(done) {
+      it('should not select focused item when bluring input if free form not allowed', function(done) {
         Fiber(function() {
           testData.component = React.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
@@ -1266,6 +1352,40 @@ describe('extend text component', function() {
           TestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
+
+          testHelper.sleep(5);
+
+          expect(extendTextComponent.state.isActive).to.be.false;
+          expect(testData.component.state.extendTextValue).to.deep.equal({
+            display: 'test 2',
+            value: 2
+          });
+          done();
+        }).run();
+      });
+
+      it('should select item when blurring input if value exactly matches an auto complete item', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTest />, div);
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+
+          testHelper.sleep(5);
+
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'test 2'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
 
           testHelper.sleep(5);
 
@@ -1990,6 +2110,45 @@ describe('extend text component', function() {
       }).run();
     });
 
+    it('should not have new item after click on an exist one and then focus input again', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestAllowFreeFormNoFilter />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteItems = TestUtils.scryRenderedDOMComponentsWithTag(autoCompleteContainer, 'li');
+
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[0]);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        expect(extendTextComponent.state.autoCompleteItems).to.deep.equal([{
+          display: 'test 1',
+          value: 1
+        }, {
+          display: 'test 2',
+          value: 2
+        }, {
+          display: 'test 3',
+          value: 3
+        }]);
+        done();
+      }).run();
+    });
+
     // it.only('should set focused item when mousing over one', function(done) {
     //   Fiber(function() {
     //     testData.component = React.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
@@ -2034,6 +2193,41 @@ describe('extend text component', function() {
           testHelper.sleep(5);
 
           expect(extendTextComponent.state.isActive).to.be.false;
+          done();
+        }).run();
+      });
+
+      it('should select item when blurring input if value exactly matches an auto complete item', function(done) {
+        Fiber(function() {
+          testData.component = React.render(<PageTestTaggingAllowFreeForm />, div);
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+
+          testHelper.sleep(5);
+
+          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+          TestUtils.Simulate.focus(input);
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.change(input, {
+            target: {
+              value: 'test'
+            }
+          });
+
+          testHelper.sleep(5);
+
+          TestUtils.Simulate.blur(input);
+
+          testHelper.sleep(5);
+
+          expect(extendTextComponent.state.isActive).to.be.false;
+          expect(testData.component.state.extendTextValue).to.deep.equal([{
+            display: 'test',
+            value: 'test',
+            isNew: true
+          }]);
           done();
         }).run();
       });
@@ -2165,6 +2359,39 @@ describe('extend text component', function() {
           value: 'tes',
           isNew: true
         }]);
+        done();
+      }).run();
+    });
+
+    it('should be able to configure key codes that will trigger adding the tag', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormCommaTagging />, div);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 'tes'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.keyDown(input, {
+          which: testHelper.keyCodes.COMMA
+        });
+
+        testHelper.sleep(5);
+
+        expect(testData.component.state.extendTextValue).to.deep.equal([{
+          display: 'tes',
+          value: 'tes',
+          isNew: true
+        }]);
+        expect(input.getDOMNode().value).to.equal('');
         done();
       }).run();
     });
@@ -2629,6 +2856,33 @@ describe('extend text component', function() {
           value: 'tes'
         }]);
         expect(input.getDOMNode().value).to.equal('');
+        done();
+      }).run();
+    });
+
+    it('should clear input when blurring input if get data call has not been made', function(done) {
+      Fiber(function() {
+        testData.component = React.render(<PageTestTaggingAllowFreeFormThreshold2 />, div);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+
+        TestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.change(input, {
+          target: {
+            value: 't'
+          }
+        });
+
+        testHelper.sleep(5);
+
+        TestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+        expect(extendTextComponent.state.displayInputValue).to.equal('');
         done();
       }).run();
     });

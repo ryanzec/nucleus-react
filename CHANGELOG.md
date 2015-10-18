@@ -2,10 +2,27 @@
 
 There are some key used within the changelog which are as following:
 
-- [breaking]: mean there is a change that might break existing code
+- [BREAKING]: means there is a change that is known to break existing code
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+- added framework for new documentation system (only some components are documented)
+- upgrade prism code to include support for react syntax
+- misc style tweaks
+- [code] added support for inline display
+- [drop-down] added ability to keep active when clicking outside of the component
+- [extend-text] added readOnly property
+- [textbox-input] added unmanaged property
+- [textbox-input] removed maskValue property in favor of using type property
+- [extend-text] converted to use single panel mixin to prevent closing issues when clicking on scrollbar in windows
+- [calendar] added ability for month / year selection
+- [calendar] switch month / year selection to use extend text component
+- [calendar] made default to current date configurable
+- [date-picker] added ability for month / year selection
+- [extend-text] made auto selecting auto complete item configurable
+- [extend-text] fixed bug with dealing with not string static data values
+- [extend-text] no longer select highlighted item if you click outside of the input / auto complete list
+- [input auto-sizer] fixed text sifting issue in IE 10+
 - [forms] added ability to reset form with override reset data
 - [extend-text] fixed bug where free form value was being removed from the auto complete if typing during the retrieval of remote data
 - [forms] removed validation icon

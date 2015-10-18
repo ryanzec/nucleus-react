@@ -16,22 +16,24 @@ textboxInput.mixins = [
 textboxInput.propTypes = {
   className: React.PropTypes.string,
   label: React.PropTypes.string,
-  maskValue: React.PropTypes.bool,
+  type: React.PropTypes.string,
   multiLined: React.PropTypes.bool,
   append: React.PropTypes.node,
   prepend: React.PropTypes.node,
-  autoSize: React.PropTypes.bool
+  autoSize: React.PropTypes.bool,
+  unmanaged: React.PropTypes.bool
 };
 
 textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
   return {
     className: null,
     label: null,
-    maskValue: false,
+    type: 'text',
     multiLined: false,
     append: null,
     prepend: null,
-    autoSize: false
+    autoSize: false,
+    unmanaged: false
   };
 };
 
@@ -81,7 +83,8 @@ textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThrough
 };
 
 textboxInput.cleanValue = function textboxInputCleanValue(value) {
-  return value || '';
+  var defaultValue = this.props.unmanaged === true ? null : '';
+  return value || defaultValue;
 };
 
 textboxInput.onClickPend = function textboxInputOnClickPend() {
@@ -136,8 +139,6 @@ textboxInput.renderLabel = function textboxInputRenderLabel() {
 };
 
 textboxInput.renderInput = function textboxInputRenderInput() {
-  var type = this.props.maskValue ? 'password' : 'text';
-
   if (this.props.multiLined) {
     return (
       <textarea
@@ -150,7 +151,6 @@ textboxInput.renderInput = function textboxInputRenderInput() {
     return (
       <InputAutoSizer
         ref="input"
-        type={type}
         inputClassName={this.getInputCssClasses().join(' ')}
         onChange={this.onChange}
         {...this.getInputPassThroughProps()}
@@ -162,7 +162,6 @@ textboxInput.renderInput = function textboxInputRenderInput() {
     <input
       ref="input"
       className={this.getInputCssClasses().join(' ')}
-      type={type}
       onChange={this.onChange}
       {...this.getInputPassThroughProps()}
     />

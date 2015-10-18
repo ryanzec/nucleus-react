@@ -479,19 +479,10 @@ describe('textbox input component', function() {
       expect(textarea.length).to.equal(1);
     });
 
-    it('should render password', function() {
-      testData.component = React.render(<TextboxInput maskValue={true} />, div);
-      var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
+    it('should be able to specify the type', function() {
+      testData.component = React.render(<TextboxInput type="password" />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
-      var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
-      var inputContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__field-container');
-      var textarea = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'textarea');
 
-      expect(mainComponent.length).to.equal(1);
-      expect(inputContainer.length).to.equal(1);
-      expect(input.length).to.equal(1);
-      expect(label.length).to.equal(0);
-      expect(textarea.length).to.equal(0);
       expect(input[0].props.type).to.equal('password');
     });
 

@@ -21,4 +21,9 @@
   input[type=text]::-ms-clear {
     display: none;
   }
+
+  input {
+    //HACK: without this, IE 10+ does can get into a situation where the input text jumps up an down and gets cuttoff at the bottom
+    line-height: 1.5rem;
+  }
 }

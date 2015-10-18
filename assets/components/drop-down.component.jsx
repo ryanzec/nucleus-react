@@ -16,7 +16,8 @@ dropDown.propTypes = {
   handleNode: React.PropTypes.node.isRequired,
   contentNode: React.PropTypes.node.isRequired,
   align: React.PropTypes.oneOf(['left', 'right']),
-  closeOnContentClick: React.PropTypes.bool
+  closeOnContentClick: React.PropTypes.bool,
+  keepActive: React.PropTypes.bool
 };
 
 dropDown.getDefaultProps = function dropDownGetDefaultProps() {
@@ -25,18 +26,43 @@ dropDown.getDefaultProps = function dropDownGetDefaultProps() {
     handleNode: null,
     contentNode: null,
     align: 'left',
-    closeOnContentClick: true
+    closeOnContentClick: true,
+    keepActive: false
   };
 };
 
 dropDown.getInitialState = function dropDownGetInitialState() {
   return {
-    isActive: false
+    isActive: false,
+    keepActive: this.props.keepActive
   };
 };
 
 dropDown.componentWillUpdate = function dropDownComponentWillUpdate() {
   this.positionContent();
+};
+
+dropDown.componentWillReceiveProps = function dropDownComponentWillReceiveProps(nextProps) {
+  //NOTE: the keep active functionality should only trigger is the state is currently active that way we don't show the drop down unless it was specifically
+  //NOTE: trigger but can keep it open if something else happen outside of this component that would normally deactivate the drop down
+  if (
+    this.state.isActive === true
+    && nextProps.keepActive !== this.props.keepActive
+    && nextProps.keepActive === true
+    && this.state.keepActive !== true
+  ) {
+    this.setState({
+      keepActive: true
+    });
+  } else if (nextProps.keepActive === false) {
+    this.setState({
+      keepActive: false
+    });
+  }
+};
+
+dropDown.isActive = function dropDownIsActive() {
+  return this.state.isActive === true || this.state.keepActive === true;
 };
 
 dropDown.positionContent = function dropDownPositionContent() {
@@ -57,7 +83,7 @@ dropDown.getCssClasses = function dropDownGetCssClasses() {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.state.isActive === true) {
+  if (this.isActive() === true) {
     cssClasses.push('is-active');
   }
 

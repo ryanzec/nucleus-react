@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var moment = require('moment');
-var SelectInput = require('./select-input.component.jsx');
+var ExtendText = require('./extend-text.component.jsx');
 
 var calendar = {};
 
@@ -19,7 +19,8 @@ calendar.propTypes = {
   onClickDate: React.PropTypes.func,
   showControls: React.PropTypes.bool,
   headerText: React.PropTypes.string,
-  selectionUnit: React.PropTypes.oneOf(['day', 'week'])
+  selectionUnit: React.PropTypes.oneOf(['day', 'week', 'month']),
+  defaultToCurrentDate: React.PropTypes.bool
 };
 
 calendar.getDefaultProps = function calendarGetDefaultProps() {
@@ -32,7 +33,8 @@ calendar.getDefaultProps = function calendarGetDefaultProps() {
     onClickDate: null,
     showControls: false,
     headerText: null,
-    selectionUnit: 'day'
+    selectionUnit: 'day',
+    defaultToCurrentDate: true
   };
 };
 
@@ -50,6 +52,21 @@ calendar.componentWillMount = function calendarComponentWillMount() {
     month: momentDate.month() + 1,
     year: momentDate.year()
   });
+
+  if (this.props.defaultToCurrentDate || this.props.selectedDay) {
+    var momentDate = this.props.selectedDay ? moment(this.props.selectedDay, this.props.format) : moment();
+
+    this.setState({
+      month: {
+        display: this.months[momentDate.month()],
+        value: momentDate.month() + 1
+      },
+      year: {
+        display: momentDate.year(),
+        value: momentDate.year()
+      }
+    });
+  }
 };
 
 calendar.monthDays = [
@@ -162,19 +179,35 @@ calendar.getYearOptions = function calendarGetYearOptions() {
     });
   }
 
+  years.reverse();
+
   return years;
 };
 
 calendar.onChangeMonth = function calendarOnChangeMonth(value) {
   this.setState({
     month: value
+  }, function calendarOnChangeMonthSetStateCallback() {
+    this.onClickDateMonthUnit();
   });
 };
 
 calendar.onChangeYear = function calendarOnChangeYear(value) {
   this.setState({
     year: value
+  }, function calendarOnChangeYearSetStateCallback() {
+    this.onClickDateMonthUnit();
   });
+};
+
+calendar.onClickDateMonthUnit = function calendarOnClickDateMonthUnit() {
+  /* istanbul ignore else */
+  if (this.props.selectionUnit === 'month' && this.state.month.value && this.state.year.value) {
+    var month = this.state.month.value.length === 1 ? '0' + this.state.month.value : this.state.month.value;
+    var date = moment(this.state.year.value + '-' + month + '-01', 'YYYY-MM-DD');
+
+    this.props.onClickDate(date.format(this.props.format));
+  }
 };
 
 calendar.onClickDate = function calendarOnClickDate(event) {
@@ -186,7 +219,7 @@ calendar.onClickDate = function calendarOnClickDate(event) {
       clickedDate.startOf('week');
     }
 
-    this.props.onClickDate(clickedDate.format(this.props.format), event);
+    this.props.onClickDate(clickedDate.format(this.props.format));
   }
 };
 
@@ -209,19 +242,27 @@ calendar.renderControls = function calendarRenderControls() {
 
   if (this.props.showControls === true) {
     controls = (
-      <div className="calendar__controls">
-        <div>
-          <SelectInput
-            className="calendar__controls-month"
-            emptyOption={false}
-            options={this.getMonthOptions()}
+      <div className="calendar__controls" hasGutter={false}>
+        <div className="calendar__control">
+          <ExtendText
+            placeholder="Select month"
+            dropDownIconFragment="chevron-down"
+            staticDataFilter={function formInputsProfileAvailabilityStaticDataFilter(value, data) {
+                return data;
+            }}
+            staticData={this.getMonthOptions()}
             value={this.state.month}
             onChange={this.onChangeMonth}
           />
-          <SelectInput
-            className="calendar__controls-year"
-            emptyOption={false}
-            options={this.getYearOptions()}
+        </div>
+        <div className="calendar__control">
+          <ExtendText
+            placeholder="Select year"
+            dropDownIconFragment="chevron-down"
+            staticDataFilter={function formInputsProfileAvailabilityStaticDataFilter(value, data) {
+                return data;
+            }}
+            staticData={this.getYearOptions()}
             value={this.state.year}
             onChange={this.onChangeYear}
           />
@@ -234,9 +275,9 @@ calendar.renderControls = function calendarRenderControls() {
 };
 
 calendar.renderWeeks = function calendarRenderWeeks() {
-  var daysInPreviousMonth = this.getDaysInPreviousMonth(this.state.month, this.state.year);
-  var daysInMonth = this.getDaysInMonth(this.state.month, this.state.year);
-  var momentDateObject = this.getMomentCompatibleDate(1, this.state.month, this.state.year);
+  var daysInPreviousMonth = this.getDaysInPreviousMonth(this.state.month.value, this.state.year.value);
+  var daysInMonth = this.getDaysInMonth(this.state.month.value, this.state.year.value);
+  var momentDateObject = this.getMomentCompatibleDate(1, this.state.month.value, this.state.year.value);
   var firstDayOfMonth = (moment(momentDateObject.date, momentDateObject.format).day());
   var currentMomentDateObject;
   var extraDayCssClass = '';
@@ -261,7 +302,7 @@ calendar.renderWeeks = function calendarRenderWeeks() {
         </div>
       );
     } else {
-      currentMomentDateObject = this.getMomentCompatibleDate(x + 1 - firstDayOfMonth, this.state.month, this.state.year);
+      currentMomentDateObject = this.getMomentCompatibleDate(x + 1 - firstDayOfMonth, this.state.month.value, this.state.year.value);
 
       extraDayCssClass = '';
 
@@ -319,20 +360,26 @@ calendar.renderWeeks = function calendarRenderWeeks() {
 };
 
 calendar.renderCalendar = function calendarRenderCalendar() {
-  return (
-    <div className="calendar__calendar">
-      <div className="calendar__days-of-week">
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].sundayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].mondayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].tuesdayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].wednesdayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].thursdayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].fridayFirstLetter()}</div>
-        <div className="calendar__day-of-week">{window.i18n['components/calendar'].saturdayFirstLetter()}</div>
-      </div>
-      {this.renderWeeks()}
-    </div>
-  );
+    var calendar = null;
+
+    if (this.state.month && this.state.year && this.props.selectionUnit !== 'month') {
+      calendar = (
+        <div className="calendar__calendar">
+          <div hasGutter={false} className="calendar__days-of-week">
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].sundayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].mondayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].tuesdayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].wednesdayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].thursdayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].fridayFirstLetter()}</div>
+            <div className="calendar__day-of-week">{window.i18n['components/calendar'].saturdayFirstLetter()}</div>
+          </div>
+          {this.renderWeeks()}
+        </div>
+      );
+    }
+
+    return calendar;
 };
 
 calendar.render = function calendarRender() {

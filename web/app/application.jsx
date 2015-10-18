@@ -1,3 +1,2 @@
 //load some modules that will load the startup code for our application
-require('./components/core/router.jsx');
-require('./application-setup');
+require('./router.jsx');

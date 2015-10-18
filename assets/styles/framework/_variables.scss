@@ -27,8 +27,12 @@ $color-transparent1: hsla(0, 0%, 0%, .05) !default;
 $color-transparent2: hsla(0, 0%, 0%, .3) !default;
 
 //text colors
-$color-text: hsla(0, 0%, 20%, 1) !default;
-$color-light-text: hsla(0, 0%, 90%, 1) !default;
+$color-text: hsla(0, 0%, 0%, .80) !default;
+$color-secondary-text: hsla(0, 0%, 0%, .55) !default;
+$color-disabled-text: hsla(0, 0%, 0%, .30) !default;
+$color-light-text: hsla(0, 0%, 100%, .80) !default;
+$color-light-secondary-text: hsla(0, 0%, 100%, .55) !default;
+$color-light-disabled-text: hsla(0, 0%, 100%, .30) !default;
 
 //neutral colors
 $color-neutral: $color-gray4 !default;
@@ -82,7 +86,7 @@ $border-radius-rounded-sides: 999px;
 //break points
 $small-break-point: 640px !default;
 $medium-break-point: 1023px !default;
-$large-break-point: 1920px !default;
+$large-break-point: 1600px !default;
 
 //media queries
 $small-screen-media-query: "only screen" !default;

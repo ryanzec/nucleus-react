@@ -5,10 +5,11 @@ var code = {};
 code.displayName = 'Code';
 
 code.propTypes = {
-  language: React.PropTypes.string.isRequired,
+  language: React.PropTypes.string,
   showLineNumbers: React.PropTypes.bool,
   lineNumberStart: React.PropTypes.number,
-  highlightLines: React.PropTypes.string
+  highlightLines: React.PropTypes.string,
+  isInline: React.PropTypes.bool
 };
 
 code.getDefaultProps = function codeGetDefaultProps() {
@@ -16,16 +17,25 @@ code.getDefaultProps = function codeGetDefaultProps() {
     language: null,
     showLineNumbers: true,
     lineNumberStart: null,
-    hightlightLines: null
+    hightlightLines: null,
+    isInline: false
   };
 };
 
 code.componentDidMount = function codeComponentDidMount() {
-  window.Prism.highlightElement(this.getDOMNode().querySelector('code'));
+  window.Prism.highlightElement(this.getCodeElement());
 };
 
 code.componentDidUpdate = function codeComponentDidUpdate() {
-  window.Prism.highlightElement(this.getDOMNode().querySelector('code'));
+  window.Prism.highlightElement(this.getCodeElement());
+};
+
+code.getCodeElement = function codeGetCodeElement() {
+  if (this.props.isInline === true) {
+    return this.getDOMNode();
+  } else {
+    return this.getDOMNode().querySelector('code');
+  }
 };
 
 //TODO: simplify this method
@@ -54,11 +64,17 @@ code.render = function codeRender() {
   codeAttributes.className = codeCssClasses.join(' ');
   preAttributes.className = preCssClasses.join(' ');
 
-  return (
-    React.createElement('pre', preAttributes,
+  if (this.props.isInline !== true) {
+    return (
+      React.createElement('pre', preAttributes,
+        React.createElement('code', codeAttributes, this.props.children)
+      )
+    );
+  } else {
+    return (
       React.createElement('code', codeAttributes, this.props.children)
-    )
-  );
+    );
+  }
 };
 
 module.exports = React.createClass(code);

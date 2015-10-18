@@ -55,14 +55,22 @@ inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
   var dimensions = domUtilities.getDimensions(this.refs.input.getDOMNode());
   var sizerElement = this.props.value ? this.refs.sizer : this.refs.placeholder;
 
-  return (
+  //HACK: this with the one at the end of the method fixes issue in IE with the scroll being shown becuase of the hidden sizer element
+  sizerElement.getDOMNode().style.display = 'block';
+
+  var newWidth = (
     Math.ceil(dimensions.paddings.left
     + dimensions.paddings.right
     + dimensions.borders.left
     + dimensions.borders.right
-    //the 1 is to make sure the cursor for the input is visible when the input value is empty
-    + sizerElement.getDOMNode().scrollWidth + 1) + 'px'
+    //HACK: I should only hvae to add 1 however I need 3 to keep IE from shifting the text in the input
+    + sizerElement.getDOMNode().scrollWidth + 3) + 'px'
   );
+
+  //HACK: this with the one at the top of the method fixes issue in IE with the scroll being shown becuase of the hidden sizer element
+  sizerElement.getDOMNode().style.display = 'none';
+
+  return newWidth;
 };
 
 inputAutoSizer.getInputCssClasses = function inputAutoSizerGetInputCssClasses() {
@@ -117,7 +125,9 @@ inputAutoSizer.renderPlaceholder = function inputAutoSizerRenderPlaceholder() {
 };
 
 inputAutoSizer.render = function inputAutoSizerRender() {
-  var htmlValue = (this.props.value || '').replace(/ /g, '&nbsp;');
+  var htmlValue = (this.props.value || '');
+  //HACK: using an _ instead of a &nbsp; make the text shift side to side less in IE 10+
+  (htmlValue + '').replace(/\s/g, '_');
 
   return (
     <span className="input-auto-sizer">

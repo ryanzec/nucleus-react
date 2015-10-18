@@ -7,8 +7,8 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: black;
-  text-shadow: 0 1px white;
+  color: white;
+  /*text-shadow: 0 1px white;*/
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
   direction: ltr;
   text-align: left;
@@ -16,6 +16,8 @@ pre[class*="language-"] {
   word-spacing: normal;
   word-break: normal;
   line-height: 1.5;
+  background-color: #353535;
+  border-radius: 3px;
 
   -moz-tab-size: 2;
   -o-tab-size: 2;
@@ -48,14 +50,14 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 2.5em 1em 1em 1em;
-  margin: .5em 0;
+  padding: 16px 10px 16px 10px;
+  margin: 0;
   overflow: auto;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #f5f2f0;
+  background-color: #353535;
 }
 
 /* Inline code */
@@ -86,7 +88,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  color: #C74F6D;
 }
 
 .token.selector,
@@ -95,7 +97,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #690;
+  color: #8BBD25;
 }
 
 .token.operator,
@@ -110,7 +112,7 @@ pre[class*="language-"] {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #07a;
+  color: #67A9C5;
 }
 
 .token.function {
@@ -143,7 +145,7 @@ pre[data-line] {
   padding: inherit 0;
   margin-top: 2.5em;
 
-  background: hsla(24, 20%, 50%, .08);
+  background: hsla(24, 20%, 50%, .15);
 
   pointer-events: none;
 
@@ -178,7 +180,7 @@ pre.line-numbers {
   position: relative;
   padding-left: 3.8em;
   counter-reset: linenumber;
-  padding-top: 30px;
+  padding-top: 16px;
 }
 
 pre.line-numbers > code {
@@ -188,7 +190,7 @@ pre.line-numbers > code {
 .line-numbers .line-numbers-rows {
   position: absolute;
   pointer-events: none;
-  top: 0;
+  top: -3px;
   font-size: 100%;
   left: -3.8em;
   width: 3em; /* works for line-numbers below 1000 lines */
@@ -203,7 +205,7 @@ pre.line-numbers > code {
 }
 
 pre.line-numbers .line-highlight {
-  margin-top: 30px;
+  margin-top: 16px;
 }
 
   .line-numbers-rows > span {
@@ -241,6 +243,6 @@ pre[class*='language-'] > code[data-language]::before {
 }
 
 pre.line-numbers[class*='language-'] > code[data-language]::before {
-  top: -30px;
+  top: -16px;
   left: -49px;
 }

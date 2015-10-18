@@ -21,7 +21,7 @@ characterCounter.getDefaultProps = function characterCounterGetDefaultProps() {
   return {
     input: null,
     maxLimit: null,
-    warningLimit: 50,
+    warningLimit: null,
     className: null,
     onOverLimit: null,
     onUnderLimit: null
@@ -60,7 +60,7 @@ characterCounter.componentDidUpdate = function characterCounterComponentDidUpdat
   }
 };
 
-characterCounter.getCssClasses = function chracterCounterGetCssClasses() {
+characterCounter.getCssClasses = function characterCounterGetCssClasses() {
   var cssClasses = ['character-counter'];
   var charactersLeft = this.getCharactersLeft();
 

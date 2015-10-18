@@ -5,26 +5,28 @@ $component-identifier: '.calendar';
     display: inline-block;
   }
 
-  .form-element__field-container {
-    display: inline-block;
-  }
-
-  .form-element__input.m-select {
-    cursor: pointer;
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    &::-ms-expand {
-      display: none;
-    }
-  }
-
   &__controls,
   &__week-row,
   &__days-of-week {
     @include display(flex);
     @include justify-content(space-around);
+  }
+
+  &__control {
+    display: inline-block;
+
+    &:nth-child(1) {
+      min-width: 100px;
+      margin-right: 8px;
+    }
+
+    &:nth-child(2) {
+      margin-left: 8px;
+    }
+  }
+
+  #{$component-identifier}__controls + #{$component-identifier}__calendar {
+    margin-top: 16px;
   }
 
   &__week-row {
@@ -41,7 +43,7 @@ $component-identifier: '.calendar';
   }
 
   &__calendar {
-    border: 1px solid $color-gray3;
+    border: 1px solid $color-gray2;
     border-right: none;
     border-bottom: none;
   }
@@ -55,7 +57,7 @@ $component-identifier: '.calendar';
     display: inline-block;
     padding: 5px;
     text-align: center;
-    border: 1px solid $color-gray3;
+    border: 1px solid $color-gray2;
     border-top: none;
     border-left: none;
     border-collapse: collapse;
@@ -76,13 +78,13 @@ $component-identifier: '.calendar';
 
   &.m-day-selection {
     #{$component-identifier}__week-day:hover {
-      background-color: $color-gray3;
+      background-color: $color-primary2;
     }
   }
 
   &.m-week-selection {
     #{$component-identifier}__week-row:hover {
-      background-color: $color-gray3;
+      background-color: $color-primary2;
     }
   }
 }

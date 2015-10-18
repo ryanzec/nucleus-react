@@ -20,8 +20,8 @@ $background-color-drop-down: $color-white !default;
   }
 
   &__content {
-    //NOTE: using fixed while hidden allows the javascript to get the correct width needed by the content
-    position: fixed;
+    //NOTE: using absolute while hidden allows the javascript to get the correct width needed by the content
+    position: absolute;
     visibility: hidden;
     z-index: -1;
     border-radius: $border-radius-small;

@@ -53,12 +53,14 @@ var gulpConfig = {
       manualDirectories: {},
       manualAssets: {
         'assets/javascript/prism.js': 'web/components/nucleus-react/assets/javascript/prism.js',
-        'assets/styles/prism.css': 'web/components/nucleus-react/assets/styles/prism.css'
+        'assets/styles/prism.css': 'web/components/nucleus-react/assets/styles/prism.css',
+        'web/app/misc/ua-parser.js': 'web/build/app/misc/ua-parser.js'
       }
     },
     browserify: {
       transformers: [
         'reactify',
+        'brfs',
         'envify'
       ],
       libraries: [{
@@ -93,6 +95,11 @@ var gulpConfig = {
     i18n: {
       languages: ['en'],
       nodeLanguage: 'en'
+    },
+    docgen: {
+      patterns: [
+        'web/app/pages/**/*.jsx'
+      ]
     }
   }
 };

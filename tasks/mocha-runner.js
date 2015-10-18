@@ -20,7 +20,7 @@ var runCoverageReports = commandArguments.indexOf('--coverage') !== -1;
 var mochaReporter = 'spec';
 
 if(commandArguments.indexOf('-R') !== -1) {
-  mochaReporter = commandArguments[commandArguments.indexOf('-R') + 1];
+   mochaReporter = commandArguments[commandArguments.indexOf('-R') + 1];
 }
 
 var Mocha = require('mocha');

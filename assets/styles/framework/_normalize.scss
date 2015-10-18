@@ -18,6 +18,7 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
   font-size: 62.5%; /* 3 */
+  color: $color-text;
 }
 
 /**
@@ -226,6 +227,8 @@ hr {
   //-moz-box-sizing: content-box;
   //box-sizing: content-box;
   height: 0;
+  border: none;
+  border-bottom: 1px solid $color-gray4;
 }
 
 /**
