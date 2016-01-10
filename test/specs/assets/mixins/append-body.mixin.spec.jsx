@@ -188,7 +188,7 @@ describe('append body mixin', function() {
 
     expect(document.querySelectorAll('body div.append-body-wrapper div')[0].outerHTML).to.not.contain('(updated)');
 
-    React.addons.TestUtils.Simulate.click(ReactDOM.findDOMNode(this.component));
+    reactTestUtils.Simulate.click(ReactDOM.findDOMNode(this.component));
 
     expect(document.querySelectorAll('body div.append-body-wrapper div')[0].outerHTML).to.contain('(updated)');
   });

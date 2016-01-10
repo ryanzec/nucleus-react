@@ -8,7 +8,6 @@
  */
 var React = require('react');
 var ReactDOM = require('react-dom');
-var TestUtils = React.addons.TestUtils;
 var reactTestUtils = require('react-addons-test-utils');
 var ExtendText = require('../../../../assets/components/extend-text.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin');
@@ -702,7 +701,7 @@ var FormExampleValidationFalseValid = React.createClass({
   }
 });
 
-describe.only('extend text component', function() {
+describe('extend text component', function() {
   beforeEach(function() {
     div = document.createElement('div');
   });
@@ -723,13 +722,13 @@ describe.only('extend text component', function() {
     it('should update value', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -737,7 +736,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
@@ -753,7 +752,7 @@ describe.only('extend text component', function() {
 
     it('should be able to add custom css class', function() {
         testData.component = ReactDOM.render(<ExtendText className="m-safe" onChange={testHelper.noop} getData={getData} />, div);
-        var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
+        var renderedComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
 
         expect(renderedComponent.className).to.contain('m-safe');
     });
@@ -761,8 +760,8 @@ describe.only('extend text component', function() {
     it('should be able to set initial value', function() {
       var initialValue = {display: 'initial', value: 'initial'};
       testData.component = ReactDOM.render(<PageTest value={initialValue} />, div);
-      var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-      var input = TestUtils.findRenderedDOMComponentWithClass(extendTextComponent, 'extend-text__display-input');
+      var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(extendTextComponent, 'extend-text__display-input');
 
       expect(ReactDOM.findDOMNode(input).value).to.equal('initial');
       expect(testData.component.state.extendTextValue).to.deep.equal(initialValue);
@@ -771,13 +770,13 @@ describe.only('extend text component', function() {
     it('should be able to pass onChange property', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -785,7 +784,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
@@ -802,10 +801,10 @@ describe.only('extend text component', function() {
     it('should add css class when activating', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var renderedComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -817,7 +816,7 @@ describe.only('extend text component', function() {
 
     it('should add loading class if loading is active', function() {
       testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-      var renderedComponent = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
+      var renderedComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
 
       testData.component.setState({
         isActive: true,
@@ -867,7 +866,7 @@ describe.only('extend text component', function() {
     it('should not show drop down indicator indicator if it is not enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} />, div);
-        var indicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
+        var indicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
 
         expect(indicator.length).to.equal(0);
         done();
@@ -877,7 +876,7 @@ describe.only('extend text component', function() {
     it('should show drop down indicator indicator if it is enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText dropDownIconFragment="chevron-down" onChange={testHelper.noop} getData={getDataDelay} />, div);
-        var indicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
+        var indicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__drop-down-indicator');
 
         expect(indicator.length).to.equal(1);
         done();
@@ -887,7 +886,7 @@ describe.only('extend text component', function() {
     it('should show label', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText label="Extend Text" dropDownIconFragment="chevron-down" onChange={testHelper.noop} getData={getDataDelay} />, div);
-        var label = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__label');
+        var label = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__label');
 
         expect(label.length).to.equal(1);
         expect(label[0].textContent).to.equal('Extend Text');
@@ -898,9 +897,9 @@ describe.only('extend text component', function() {
     it('should not try to load data when getData is not passed', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -915,9 +914,9 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
         extendTextComponent.singlePanelClose();
 
         expect(testData.component.state.isActive).to.be.false;
@@ -930,9 +929,9 @@ describe.only('extend text component', function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
 
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -956,9 +955,9 @@ describe.only('extend text component', function() {
       it('should decrease focused item when pressing the up arrow', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -968,9 +967,9 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.UP
           });
 
@@ -984,9 +983,9 @@ describe.only('extend text component', function() {
       it('should increase focused item when pressing the down arrow', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -996,9 +995,9 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.DOWN
           });
 
@@ -1013,9 +1012,9 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -1025,7 +1024,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
@@ -1045,13 +1044,13 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -1059,7 +1058,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
@@ -1078,16 +1077,16 @@ describe.only('extend text component', function() {
       it('should set to active on keypress for any key without special functionality (like enter, up arrow, etc...)', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
           testData.component.setState({
             focusedAutoCompleteItem: 2
           });
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.SHIFT
           });
 
@@ -1102,9 +1101,9 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -1126,13 +1125,13 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -1144,11 +1143,11 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
 
           expect(testData.component.state.isActive).to.be.true;
           expect(autoCompleteContainer.className).to.equal('extend-text__auto-complete-container');
@@ -1159,14 +1158,14 @@ describe.only('extend text component', function() {
       it('should select item on mouse click', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
-          var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(15);
 
-          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
           var autoCompleteItems = Array.prototype.slice.call(
             ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
           );
@@ -1189,9 +1188,9 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -1201,9 +1200,9 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'f'
             }
@@ -1211,7 +1210,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ESCAPE
           });
 
@@ -1228,9 +1227,9 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -1240,9 +1239,9 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 3'
             }
@@ -1250,7 +1249,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ESCAPE
           });
 
@@ -1267,13 +1266,13 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'f'
             }
@@ -1295,11 +1294,11 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTest />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -1307,7 +1306,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.TAB
           });
 
@@ -1317,7 +1316,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -1341,13 +1340,13 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -1355,7 +1354,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
@@ -1377,13 +1376,13 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test 2'
             }
@@ -1409,11 +1408,11 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1436,11 +1435,11 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1448,7 +1447,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -1464,11 +1463,11 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestAllowFreeForm />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1476,7 +1475,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
@@ -1507,13 +1506,13 @@ describe.only('extend text component', function() {
     it('should show empty indicator when not items are found', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataEmpty} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(15);
 
-        var loadingIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__empty-indicator');
+        var loadingIndicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__empty-indicator');
 
         expect(testData.component.state.isActive).to.be.true;
         expect(loadingIndicator.length).to.equal(1);
@@ -1524,15 +1523,15 @@ describe.only('extend text component', function() {
     it('should trigger loading indicator if it is enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(15);
 
         expect(testData.component.state.isLoading).to.be.true;
 
-        var emptyIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__loading-indicator');
+        var emptyIndicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__loading-indicator');
 
         expect(emptyIndicator.length).to.equal(1);
 
@@ -1547,15 +1546,15 @@ describe.only('extend text component', function() {
     it('should not trigger loading indicator if it is not enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataDelay} loadingIndicatorEnabled={false} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(15);
 
         expect(testData.component.state.isLoading).to.be.false;
 
-        var emptyIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__loading-indicator');
+        var emptyIndicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__loading-indicator');
 
         expect(emptyIndicator.length).to.equal(0);
         done();
@@ -1565,13 +1564,13 @@ describe.only('extend text component', function() {
     it('should set items based on pass getData property', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -1591,13 +1590,13 @@ describe.only('extend text component', function() {
     it('should add new indicator to top', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1605,7 +1604,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -1629,13 +1628,13 @@ describe.only('extend text component', function() {
     it('should add new indicator when allow free form is set to true', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} allowFreeForm={true} newPosition="top" />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1643,7 +1642,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -1667,13 +1666,13 @@ describe.only('extend text component', function() {
     it('should work like no data was returned if getData is rejected', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataRejected} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -1688,9 +1687,9 @@ describe.only('extend text component', function() {
     it('should add is focused class when focused item is set', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1700,7 +1699,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -1715,9 +1714,9 @@ describe.only('extend text component', function() {
     it('should focus first item when increasing and none is already focused', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1735,9 +1734,9 @@ describe.only('extend text component', function() {
     it('should focus next item when increasing and already focused on one', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1757,9 +1756,9 @@ describe.only('extend text component', function() {
     it('should focus first item when increasing and already focused on the last', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1777,9 +1776,9 @@ describe.only('extend text component', function() {
     it('should focus last item when decreasing and none is already focused', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1799,8 +1798,8 @@ describe.only('extend text component', function() {
     it('should focus previous item when decreasing and already focused on one', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
-        TestUtils.Simulate.focus(input);
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
         testData.component.setState({
@@ -1817,8 +1816,8 @@ describe.only('extend text component', function() {
     it('should focus last item when decreasing and already focused on the first', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
-        TestUtils.Simulate.focus(input);
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -1838,16 +1837,16 @@ describe.only('extend text component', function() {
     it('should be able to set value in component that is using extend text', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
-        TestUtils.Simulate.focus(input);
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+        var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
         extendTextComponent.setState({
           focusedAutoCompleteItem: 2
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
@@ -1864,13 +1863,13 @@ describe.only('extend text component', function() {
     it('should show empty indicator when no items are found', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getDataEmpty} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1878,7 +1877,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var emptyIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__empty-indicator');
+        var emptyIndicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__empty-indicator');
 
         expect(testData.component.state.isActive).to.be.true;
         expect(emptyIndicator.length).to.equal(1);
@@ -1889,13 +1888,13 @@ describe.only('extend text component', function() {
     it('should be able to define custom empty indicator', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} emptyIndicatorNode={customEmptyIndicator} getData={getDataEmpty} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1903,7 +1902,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var emptyIndicator = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'custom-empty');
+        var emptyIndicator = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'custom-empty');
 
         expect(testData.component.state.isActive).to.be.true;
         expect(emptyIndicator.length).to.equal(1);
@@ -1914,14 +1913,14 @@ describe.only('extend text component', function() {
     it('should not activate/pull data until character threshold is meet', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} characterThreshold={3} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
-        var autoCompleteContainerElement = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var autoCompleteContainerElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'te'
           }
@@ -1933,7 +1932,7 @@ describe.only('extend text component', function() {
         expect(testData.component.state.autoCompleteItems.length).to.equal(0);
         expect(autoCompleteContainerElement.className).to.equal('extend-text__auto-complete-container u-hide');
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1951,13 +1950,13 @@ describe.only('extend text component', function() {
     it('should be able to set custom debounce wait for data pulling', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} debounce={50} />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(3);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1965,7 +1964,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(8);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -1990,22 +1989,22 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestNoFilter />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
         extendTextComponent.setState({
           focusedAutoCompleteItem: 2
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -2037,15 +2036,15 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTest />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2053,19 +2052,19 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.DOWN
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.DOWN
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.DOWN
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.TAB
         });
 
@@ -2084,15 +2083,15 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormThresholdDebouceDataDeley />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2100,7 +2099,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(600);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test'
           }
@@ -2130,13 +2129,13 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestAllowFreeFormNoFilter />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -2149,7 +2148,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -2170,21 +2169,21 @@ describe.only('extend text component', function() {
     // it.only('should set focused item when mousing over one', function(done) {
     //   Fiber(function() {
     //     testData.component = ReactDOM.render(<ExtendText onChange={testHelper.noop} getData={getData} />, div);
-    //     var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+    //     var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-    //     TestUtils.Simulate.focus(input);
+    //     reactTestUtils.Simulate.focus(input);
 
     //     testHelper.sleep(5);
 
-    //     var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+    //     var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
     //     var autoCompleteItems = Array.prototype.slice.call(
     //       ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
     //     );
 
     //     //TestUtils.Simulate.mouseEnter(autoCompleteItems[2]);
 
-    //     TestUtils.Simulate.mouseDown(ReactDOM.findDOMNode(autoCompleteItems[2]));
-    //     TestUtils.Simulate.mouseOver(ReactDOM.findDOMNode(autoCompleteItems[2]));
+    //     reactTestUtils.Simulate.mouseDown(ReactDOM.findDOMNode(autoCompleteItems[2]));
+    //     reactTestUtils.Simulate.mouseOver(ReactDOM.findDOMNode(autoCompleteItems[2]));
 
     //     expect(testData.component.state.focusedAutoCompleteItem).to.equal(2);
     //     done();
@@ -2197,14 +2196,14 @@ describe.only('extend text component', function() {
       it('should deactivate the auto complete when when selecting with mouse click', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-          var extendTextComponent = TestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
           var autoCompleteItems = Array.prototype.slice.call(
             ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
           );
@@ -2226,13 +2225,13 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'test'
             }
@@ -2297,13 +2296,13 @@ describe.only('extend text component', function() {
         }];
         testData.component = ReactDOM.render(<PageTestTagging value={tags} />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2329,13 +2328,13 @@ describe.only('extend text component', function() {
     it('should not add value if it is not in auto complete list and free form is not enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTagging />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2343,7 +2342,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2357,13 +2356,13 @@ describe.only('extend text component', function() {
     it('should add value if it is not in auto complete list and free form is enabled', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2371,7 +2370,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2389,13 +2388,13 @@ describe.only('extend text component', function() {
     it('should be able to configure key codes that will trigger adding the tag', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormCommaTagging />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2403,7 +2402,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.COMMA
         });
 
@@ -2422,13 +2421,13 @@ describe.only('extend text component', function() {
     it('should not add value if it is in selected tags', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2436,13 +2435,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2450,7 +2449,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2468,13 +2467,13 @@ describe.only('extend text component', function() {
     it('should add value if it is in selected tags if duplicates are allowed', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormAllowDuplicates />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2482,13 +2481,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2496,7 +2495,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2518,13 +2517,13 @@ describe.only('extend text component', function() {
     it('should display auto complete list automatically after adding in tag when threshold is 0', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2532,14 +2531,14 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -2557,13 +2556,13 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormThreshold1 />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2571,14 +2570,14 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2586,10 +2585,10 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -2601,13 +2600,13 @@ describe.only('extend text component', function() {
     it('should not filter out already selected values for remote data', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormNoFilter />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2615,15 +2614,15 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -2640,13 +2639,13 @@ describe.only('extend text component', function() {
     it('should be able to add multiple values', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2654,13 +2653,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2668,7 +2667,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2689,13 +2688,13 @@ describe.only('extend text component', function() {
     it('should delete tag when clicking the tag remove elements', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2703,13 +2702,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2717,15 +2716,15 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
+        var tagRemoveElements = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseUp(tagRemoveElements[0]);
+        reactTestUtils.Simulate.mouseUp(tagRemoveElements[0]);
 
         expect(testData.component.state.extendTextValue).to.deep.equal([{
           display: 'tes',
@@ -2733,11 +2732,11 @@ describe.only('extend text component', function() {
           isNew: true
         }]);
 
-        var tagRemoveElement = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__tag-remove');
+        var tagRemoveElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseUp(tagRemoveElement);
+        reactTestUtils.Simulate.mouseUp(tagRemoveElement);
         //TODO: investigate: not sure why this give me an error but the above works fine
-        // TestUtils.Simulate.click(tagRemoveElements[1]);
+        // reactTestUtils.Simulate.click(tagRemoveElements[1]);
 
         expect(testData.component.state.extendTextValue).to.deep.equal([]);
         done();
@@ -2748,13 +2747,13 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2762,13 +2761,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2776,15 +2775,15 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
+        var tagRemoveElements = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-        TestUtils.Simulate.mouseUp(tagRemoveElements[0]);
+        reactTestUtils.Simulate.mouseUp(tagRemoveElements[0]);
 
         expect(document.activeElement).to.not.equal(ReactDOM.findDOMNode(input));
         expect(extendTextComponent.state.isActive).to.be.false;
@@ -2795,13 +2794,13 @@ describe.only('extend text component', function() {
     it('should delete the latest tag when clicking pressing the backspace', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeForm />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'test 1'
           }
@@ -2809,13 +2808,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2823,13 +2822,13 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.BACKSPACE
         });
 
@@ -2840,7 +2839,7 @@ describe.only('extend text component', function() {
           value: 1
         }]);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.BACKSPACE
         });
 
@@ -2855,13 +2854,13 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormThresholdDebouce />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'tes'
           }
@@ -2869,7 +2868,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(200);
 
-        TestUtils.Simulate.keyDown(input, {
+        reactTestUtils.Simulate.keyDown(input, {
           which: testHelper.keyCodes.ENTER
         });
 
@@ -2891,13 +2890,13 @@ describe.only('extend text component', function() {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestTaggingAllowFreeFormThreshold2 />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 't'
           }
@@ -2953,18 +2952,18 @@ describe.only('extend text component', function() {
         testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
 
-        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         extendTextComponent.singlePanelClose();
 
         testHelper.sleep(5);
@@ -2979,18 +2978,18 @@ describe.only('extend text component', function() {
         testData.component = ReactDOM.render(<FormExampleValidationTrueInvalid />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
 
-        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         extendTextComponent.singlePanelClose();
 
         testHelper.sleep(5);
@@ -3005,18 +3004,18 @@ describe.only('extend text component', function() {
         testData.component = ReactDOM.render(<FormExampleValidationFalseBoth />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
 
-        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         extendTextComponent.singlePanelClose();
 
         testHelper.sleep(5);
@@ -3031,18 +3030,18 @@ describe.only('extend text component', function() {
         testData.component = ReactDOM.render(<FormExampleValidationFalseValid />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
         var extendText = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text');
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-options');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
 
-        TestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
         extendTextComponent.singlePanelClose();
 
         testHelper.sleep(5);
@@ -3057,9 +3056,9 @@ describe.only('extend text component', function() {
         var initialValue = [];
         testData.component = ReactDOM.render(<PageTestTaggingValidation value={initialValue} />, div);
         var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
@@ -3081,13 +3080,13 @@ describe.only('extend text component', function() {
       it('should be able to add multiple values', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'static 1'
             }
@@ -3095,13 +3094,13 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'stat'
             }
@@ -3109,7 +3108,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
@@ -3130,13 +3129,13 @@ describe.only('extend text component', function() {
       it('should filter out already selected values', function(done) {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.change(input, {
+          reactTestUtils.Simulate.change(input, {
             target: {
               value: 'static 1'
             }
@@ -3144,15 +3143,15 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.keyDown(input, {
+          reactTestUtils.Simulate.keyDown(input, {
             which: testHelper.keyCodes.ENTER
           });
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
           var autoCompleteItems = Array.prototype.slice.call(
             ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
           );
@@ -3173,13 +3172,13 @@ describe.only('extend text component', function() {
         Fiber(function() {
           testData.component = ReactDOM.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
           var extendTextComponent = reactTestUtils.findRenderedComponentWithType(testData.component, ExtendText);
-          var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+          var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
-          var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+          var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
           var autoCompleteItems = Array.prototype.slice.call(
             ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
           );
@@ -3189,7 +3188,7 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          TestUtils.Simulate.focus(input);
+          reactTestUtils.Simulate.focus(input);
 
           testHelper.sleep(5);
 
@@ -3201,9 +3200,9 @@ describe.only('extend text component', function() {
 
           testHelper.sleep(5);
 
-          var tagRemoveElements = TestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
+          var tagRemoveElements = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'extend-text__tag-remove');
 
-          TestUtils.Simulate.mouseDown(tagRemoveElements[0]);
+          reactTestUtils.Simulate.mouseDown(tagRemoveElements[0]);
 
           expect(document.activeElement).to.not.equal(ReactDOM.findDOMNode(input));
           expect(extendTextComponent.state.isActive).to.be.false;
@@ -3215,15 +3214,15 @@ describe.only('extend text component', function() {
       // it('should not render placeholder if there are tags values', function(done) {
       //   Fiber(function() {
       //     testData.component = ReactDOM.render(<PageTestStaticDataTaggingEnabledAllowFreeForm />, div);
-      //     var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+      //     var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
       //     expect(parseInt(input.getAttribute('placeholder'))).to.equal('Test');
 
-      //     TestUtils.Simulate.focus(input);
+      //     reactTestUtils.Simulate.focus(input);
 
       //     testHelper.sleep(5);
 
-      //     TestUtils.Simulate.change(input, {
+      //     reactTestUtils.Simulate.change(input, {
       //       target: {
       //         value: 'static 1'
       //       }
@@ -3231,7 +3230,7 @@ describe.only('extend text component', function() {
 
       //     testHelper.sleep(5);
 
-      //     TestUtils.Simulate.keyDown(input, {
+      //     reactTestUtils.Simulate.keyDown(input, {
       //       which: testHelper.keyCodes.ENTER
       //     });
 
@@ -3246,13 +3245,13 @@ describe.only('extend text component', function() {
     it('should be able to define data', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestStaticData />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItems = Array.prototype.slice.call(
           ReactDOM.findDOMNode(testData.component).querySelectorAll('.extend-text__auto-complete-container li')
         );
@@ -3272,13 +3271,13 @@ describe.only('extend text component', function() {
     it('should be able to filter by display value', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestStaticData />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'unique display'
           }
@@ -3286,7 +3285,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(15);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItem = ReactDOM.findDOMNode(testData.component).querySelector('.extend-text__auto-complete-container li');
 
         expect(autoCompleteItem.textContent).to.equal('unique display');
@@ -3297,13 +3296,13 @@ describe.only('extend text component', function() {
     it('should be able to filter by value value', function(done) {
       Fiber(function() {
         testData.component = ReactDOM.render(<PageTestStaticData />, div);
-        var input = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
+        var input = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__display-input');
 
-        TestUtils.Simulate.focus(input);
+        reactTestUtils.Simulate.focus(input);
 
         testHelper.sleep(5);
 
-        TestUtils.Simulate.change(input, {
+        reactTestUtils.Simulate.change(input, {
           target: {
             value: 'unique value'
           }
@@ -3311,7 +3310,7 @@ describe.only('extend text component', function() {
 
         testHelper.sleep(5);
 
-        var autoCompleteContainer = TestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
+        var autoCompleteContainer = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'extend-text__auto-complete-container');
         var autoCompleteItem = ReactDOM.findDOMNode(testData.component).querySelector('.extend-text__auto-complete-container li');
 
         expect(autoCompleteItem.textContent).to.equal('uv');

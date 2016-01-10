@@ -118,7 +118,7 @@ describe('tooltip mixin', function() {
     it('should show when mouse enters handle', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -135,7 +135,7 @@ describe('tooltip mixin', function() {
     it('should hide when the mouse leaves handle', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -157,7 +157,7 @@ describe('tooltip mixin', function() {
     it('should be able to delay the display', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip tooltipShowDelay={50} />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -177,7 +177,7 @@ describe('tooltip mixin', function() {
     it('should be able to deplay the hiding', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip tooltipHideDelay={50} />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -203,7 +203,7 @@ describe('tooltip mixin', function() {
     it('should keep element visible when mouse leaves handle and mouse enter tooltip content element', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip tooltipHideDelay={50} />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -233,7 +233,7 @@ describe('tooltip mixin', function() {
     it('should hide when the mouse leaves the tooltip content element', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip tooltipShowDelay={50} />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -267,7 +267,7 @@ describe('tooltip mixin', function() {
     it('should not hide when clicking on the tooltip content element', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<SimpleTooltip tooltipHideDelay={50} />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -301,7 +301,7 @@ describe('tooltip mixin', function() {
     it('should display when the handle is clicked', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -323,7 +323,7 @@ describe('tooltip mixin', function() {
     it('should hide when the handle is clicked and tooltip content is already showing', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -350,7 +350,7 @@ describe('tooltip mixin', function() {
     it('should not hide when mouse leaves the handle', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -378,7 +378,7 @@ describe('tooltip mixin', function() {
     it('should not hide when clicking sticky tooltip content', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -410,7 +410,7 @@ describe('tooltip mixin', function() {
     it('should hide when pressing the escape key', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
@@ -429,7 +429,7 @@ describe('tooltip mixin', function() {
     it('should hide sticky and regular content element when clicking the document', function(done) {
       Fiber(function() {
         testGlobals.component = ReactDOM.render(<TooltipWithSticky />, div);
-        var handle = React.addons.TestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
+        var handle = reactTestUtils.findRenderedDOMComponentWithClass(testGlobals.component, 'tooltip__handle');
 
         ReactDOM.findDOMNode(handle).dispatchEvent(testHelper.createNativeMouseEvent({
           action: 'mouseenter'
