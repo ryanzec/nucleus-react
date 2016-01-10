@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var _ = require('lodash');
 
 var button = {};
@@ -6,7 +7,7 @@ var button = {};
 button.displayName = 'Button';
 
 button.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 button.propTypes = {

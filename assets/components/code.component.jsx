@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactDOM = require('react-dom');
 
 var code = {};
 
@@ -32,9 +33,9 @@ code.componentDidUpdate = function codeComponentDidUpdate() {
 
 code.getCodeElement = function codeGetCodeElement() {
   if (this.props.isInline === true) {
-    return this.getDOMNode();
+    return ReactDOM.findDOMNode(this);
   } else {
-    return this.getDOMNode().querySelector('code');
+    return ReactDOM.findDOMNode(this).querySelector('code');
   }
 };
 

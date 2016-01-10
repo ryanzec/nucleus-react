@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactDOM = require('react-dom');
 
 var appendBodyMixin = {};
 
@@ -34,9 +35,9 @@ appendBodyMixin.updateAppendElement = function appendBodyMixinUpdateAppendElemen
   var appendContent = this.getAppendBodyContent();
 
   if (appendContent) {
-    React.render(appendContent, this._bodyAppendContent);
+    ReactDOM.render(appendContent, this._bodyAppendContent);
   } else {
-    React.render(<noscript />, this._bodyAppendContent);
+    ReactDOM.render(<noscript />, this._bodyAppendContent);
   }
 };
 

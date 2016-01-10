@@ -1,8 +1,11 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var Calendar = require('../../../../assets/components/calendar.component.jsx');
+var ExtendText = require('../../../../assets/components/extend-text.component.jsx');
 var testHelper = require('../../../test-helper');
 var moment = require('moment');
+var fibers = require('fibers');
 
 var currentDate = moment();
 var currentMonth = currentDate.month();
@@ -65,63 +68,63 @@ var expectedDaysOfWeek = [
   'S',
 ];
 var expectedYears = [
-  2005,
-  2006,
-  2007,
-  2008,
-  2009,
-  2010,
-  2011,
-  2012,
-  2013,
-  2014,
-  2015,
-  2016,
-  2017,
-  2018,
-  2019,
-  2020,
-  2021,
-  2022,
-  2023,
-  2024,
-  2025,
+  currentYear + 10,
+  currentYear + 9,
+  currentYear + 8,
+  currentYear + 7,
+  currentYear + 6,
+  currentYear + 5,
+  currentYear + 4,
+  currentYear + 3,
+  currentYear + 2,
+  currentYear + 1,
+  currentYear,
+  currentYear - 1,
+  currentYear - 2,
+  currentYear - 3,
+  currentYear - 4,
+  currentYear - 5,
+  currentYear - 6,
+  currentYear - 7,
+  currentYear - 8,
+  currentYear - 9,
+  currentYear - 10
 ];
 var expectedYearsCustomPlus = [
-  2005,
-  2006,
-  2007,
-  2008,
-  2009,
-  2010,
-  2011,
-  2012,
-  2013,
-  2014,
-  2015,
-  2016,
-  2017,
-  2018,
-  2019,
-  2020
+  currentYear + 5,
+  currentYear + 4,
+  currentYear + 3,
+  currentYear + 2,
+  currentYear + 1,
+  currentYear,
+  currentYear - 1,
+  currentYear - 2,
+  currentYear - 3,
+  currentYear - 4,
+  currentYear - 5,
+  currentYear - 6,
+  currentYear - 7,
+  currentYear - 8,
+  currentYear - 9,
+  currentYear - 10
 ];
 var expectedYearsCustomMinus = [
-  2010,
-  2011,
-  2012,
-  2013,
-  2014,
-  2015,
-  2016,
-  2017,
-  2018,
-  2019,
-  2020,
-  2021,
-  2022,
-  2023,
-  2024,
-  2025,
+  currentYear + 10,
+  currentYear + 9,
+  currentYear + 8,
+  currentYear + 7,
+  currentYear + 6,
+  currentYear + 5,
+  currentYear + 4,
+  currentYear + 3,
+  currentYear + 2,
+  currentYear + 1,
+  currentYear,
+  currentYear - 1,
+  currentYear - 2,
+  currentYear - 3,
+  currentYear - 4,
+  currentYear - 5
 ];
 
 var Test = React.createClass({
@@ -193,64 +196,64 @@ describe('calendar component', function() {
 
   describe('week mode', function() {
     it('should be add unit selection modifier class', function() {
-      this.component = React.render(<Calendar selectionUnit="week" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+      this.component = ReactDOM.render(<Calendar selectionUnit="week" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
       var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
 
-      expect(calendar.props.className).to.contain('m-week-selection');
+      expect(calendar.className).to.contain('m-week-selection');
     });
 
     it('select the first day or the week when clicking on any first for that week', function() {
-      this.component = React.render(<TestWeekMode />, div);
+      this.component = ReactDOM.render(<TestWeekMode />, div);
 
       expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
 
       var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[3], 'calendar__week-day');
+      var days = weekRows[3].childNodes;
 
       reactTestUtils.Simulate.click(days[4], {
-        target: days[4].getDOMNode()
+        target: ReactDOM.findDOMNode(days[4])
       });
 
       expect(this.component.state.selectedStartOfWeek).to.equal(expectedChangeDayWeekMode);
     });
 
     it('should not add selected class to selected day', function() {
-      this.component = React.render(<TestWeekMode />, div);
+      this.component = ReactDOM.render(<TestWeekMode />, div);
 
       expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
 
       var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+      var days = weekRows[2].childNodes;
 
-      expect(days[0].props['data-date']).to.equal(selectedDayWeekMode);
-      expect(days[0].props.className).to.not.contain('is-selected');
-      expect(days[1].props.className).to.not.contain('is-selected');
-      expect(days[2].props.className).to.not.contain('is-selected');
-      expect(days[3].props.className).to.not.contain('is-selected');
-      expect(days[4].props.className).to.not.contain('is-selected');
-      expect(days[5].props.className).to.not.contain('is-selected');
-      expect(days[6].props.className).to.not.contain('is-selected');
+      expect(days[0].getAttribute('data-date')).to.equal(selectedDayWeekMode);
+      expect(days[0].className).to.not.contain('is-selected');
+      expect(days[1].className).to.not.contain('is-selected');
+      expect(days[2].className).to.not.contain('is-selected');
+      expect(days[3].className).to.not.contain('is-selected');
+      expect(days[4].className).to.not.contain('is-selected');
+      expect(days[5].className).to.not.contain('is-selected');
+      expect(days[6].className).to.not.contain('is-selected');
     });
 
     it('should add selected class to selected week', function() {
-      this.component = React.render(<TestWeekMode />, div);
+      this.component = ReactDOM.render(<TestWeekMode />, div);
 
       expect(this.component.state.selectedStartOfWeek).to.equal(selectedDayWeekMode);
 
       var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+      var days = weekRows[2].childNodes;
 
-      expect(days[0].props['data-date']).to.equal(selectedDayWeekMode);
-      expect(weekRows[0].props.className).to.not.contain('is-selected');
-      expect(weekRows[1].props.className).to.not.contain('is-selected');
-      expect(weekRows[2].props.className).to.contain('is-selected');
-      expect(weekRows[3].props.className).to.not.contain('is-selected');
-      expect(weekRows[4].props.className).to.not.contain('is-selected');
+      expect(days[0].getAttribute('data-date')).to.equal(selectedDayWeekMode);
+      expect(weekRows[0].className).to.not.contain('is-selected');
+      expect(weekRows[1].className).to.not.contain('is-selected');
+      expect(weekRows[2].className).to.contain('is-selected');
+      expect(weekRows[3].className).to.not.contain('is-selected');
+      expect(weekRows[4].className).to.not.contain('is-selected');
     });
   });
 
   it('should render', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+    this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
 
     var daysOfWeekContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__days-of-week');
     var daysOfWeek = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__day-of-week');
@@ -264,208 +267,252 @@ describe('calendar component', function() {
     expect(header.length).to.equal(0);
 
     weekRows.forEach(function(weekRow, key) {
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRow, 'calendar__week-day');
+      var days = weekRow.childNodes;
 
       expect(days.length).to.equal(7);
-      expect(days[0].props.children).to.equal(expectedDays[key][0][0]);
-      expect(days[1].props.children).to.equal(expectedDays[key][1][0]);
-      expect(days[2].props.children).to.equal(expectedDays[key][2][0]);
-      expect(days[3].props.children).to.equal(expectedDays[key][3][0]);
-      expect(days[4].props.children).to.equal(expectedDays[key][4][0]);
-      expect(days[5].props.children).to.equal(expectedDays[key][5][0]);
-      expect(days[6].props.children).to.equal(expectedDays[key][6][0]);
+      expect(parseInt(days[0].textContent)).to.equal(expectedDays[key][0][0]);
+      expect(parseInt(days[1].textContent)).to.equal(expectedDays[key][1][0]);
+      expect(parseInt(days[2].textContent)).to.equal(expectedDays[key][2][0]);
+      expect(parseInt(days[3].textContent)).to.equal(expectedDays[key][3][0]);
+      expect(parseInt(days[4].textContent)).to.equal(expectedDays[key][4][0]);
+      expect(parseInt(days[5].textContent)).to.equal(expectedDays[key][5][0]);
+      expect(parseInt(days[6].textContent)).to.equal(expectedDays[key][6][0]);
 
       if (key === 0) {
-        expect(days[2].props['data-date']).to.equal(expectedDays[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDays[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDays[key][4][1]);
-        expect(days[5].props['data-date']).to.equal(expectedDays[key][5][1]);
-        expect(days[6].props['data-date']).to.equal(expectedDays[key][6][1]);
-        expect(days[0].props.className).to.match(/m-previous-month/);
-        expect(days[1].props.className).to.match(/m-previous-month/);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDays[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDays[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDays[key][4][1]);
+        expect(days[5].getAttribute('data-date')).to.equal(expectedDays[key][5][1]);
+        expect(days[6].getAttribute('data-date')).to.equal(expectedDays[key][6][1]);
+        expect(days[0].className).to.match(/m-previous-month/);
+        expect(days[1].className).to.match(/m-previous-month/);
       } else if (key === 4) {
-        expect(days[0].props['data-date']).to.equal(expectedDays[key][0][1]);
-        expect(days[1].props['data-date']).to.equal(expectedDays[key][1][1]);
-        expect(days[2].props['data-date']).to.equal(expectedDays[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDays[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDays[key][4][1]);
-        expect(days[5].props.className).to.match(/m-next-month/);
-        expect(days[6].props.className).to.match(/m-next-month/);
+        expect(days[0].getAttribute('data-date')).to.equal(expectedDays[key][0][1]);
+        expect(days[1].getAttribute('data-date')).to.equal(expectedDays[key][1][1]);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDays[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDays[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDays[key][4][1]);
+        expect(days[5].className).to.match(/m-next-month/);
+        expect(days[6].className).to.match(/m-next-month/);
       } else {
-        expect(days[0].props['data-date']).to.equal(expectedDays[key][0][1]);
-        expect(days[1].props['data-date']).to.equal(expectedDays[key][1][1]);
-        expect(days[2].props['data-date']).to.equal(expectedDays[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDays[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDays[key][4][1]);
-        expect(days[5].props['data-date']).to.equal(expectedDays[key][5][1]);
-        expect(days[6].props['data-date']).to.equal(expectedDays[key][6][1]);
+        expect(days[0].getAttribute('data-date')).to.equal(expectedDays[key][0][1]);
+        expect(days[1].getAttribute('data-date')).to.equal(expectedDays[key][1][1]);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDays[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDays[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDays[key][4][1]);
+        expect(days[5].getAttribute('data-date')).to.equal(expectedDays[key][5][1]);
+        expect(days[6].getAttribute('data-date')).to.equal(expectedDays[key][6][1]);
       }
-    });
+    }.bind(this));
 
     daysOfWeek.forEach(function(dayOfWeek, key) {
-      expect(dayOfWeek.props.children).to.equal(expectedDaysOfWeek[key]);
+      expect(dayOfWeek.textContent).to.equal(expectedDaysOfWeek[key]);
     });
   });
 
   it('should be able to add custom class', function() {
-    this.component = React.render(<Calendar className="m-safe" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+    this.component = ReactDOM.render(<Calendar className="m-safe" selectedDay={selectedDay} showControls={false} headerText={null} />, div);
     var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
 
-    expect(calendar.props.className).to.contain('m-safe');
+    expect(calendar.className).to.contain('m-safe');
   });
 
   it('should be add unit selection modifier class', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
+    this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={false} headerText={null} />, div);
     var calendar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'calendar');
 
-    expect(calendar.props.className).to.contain('m-day-selection');
+    expect(calendar.className).to.contain('m-day-selection');
   });
 
   it('should render controls', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
+    this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
 
     var controls = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls');
-    var monthControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-month');
-    var yearControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-year');
+    var controlInputs = reactTestUtils.scryRenderedComponentsWithType(this.component, ExtendText);
 
     expect(controls.length).to.equal(1);
-    expect(monthControl.length).to.equal(1);
-    expect(yearControl.length).to.equal(1);
-
-    var monthYearOptions = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'option');
-
-    expect(monthYearOptions.length).to.equal(33);
+    expect(controlInputs.length).to.equal(2);
+    expect(controlInputs[0].props.staticData.length).to.equal(12);
+    expect(controlInputs[1].props.staticData.length).to.equal(21);
 
     expectedMonths.forEach(function(month, key) {
-      expect(monthYearOptions[key].props.children).to.equal(month);
-      expect(monthYearOptions[key].props.value).to.equal(key + 1);
+      expect(controlInputs[0].props.staticData[key].display).to.equal(month);
+      expect(controlInputs[0].props.staticData[key].value).to.equal(key + 1);
     });
 
     expectedYears.forEach(function(year, key) {
-      expect(monthYearOptions[key + 12].props.children).to.equal(year);
-      expect(monthYearOptions[key + 12].props.value).to.equal(year);
+      expect(controlInputs[1].props.staticData[key].display).to.equal(year);
+      expect(controlInputs[1].props.staticData[key].value).to.equal(year);
     });
   });
 
   it('should render header', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} headerText="Header" />, div);
+    this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} headerText="Header" />, div);
 
     var header = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__header');
 
     expect(header.length).to.equal(1);
-    expect(header[0].props.children).to.equal('Header');
+    expect(header[0].textContent).to.equal('Header');
   });
 
-  it('should be able to change month', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
+  it('should be able to change month', function(done) {
+    fibers(function() {
+      this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
 
-    var selects = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'select');
+      var controlInputs = reactTestUtils.scryRenderedComponentsWithType(this.component, ExtendText);
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(controlInputs[0], 'extend-text__display-input');
 
-    reactTestUtils.Simulate.change(selects[0], {
-      target: {
+      reactTestUtils.Simulate.focus(input);
+
+      testHelper.sleep(5);
+
+      reactTestUtils.Simulate.change(input, {
+          target: {
+              value: ''
+          }
+      });
+
+      testHelper.sleep(5);
+
+      var autoCompleteItems = reactTestUtils.scryRenderedDOMComponentsWithTag(controlInputs[0], 'li');
+
+      reactTestUtils.Simulate.mouseDown(autoCompleteItems[1]);
+      reactTestUtils.Simulate.blur(input);
+
+      testHelper.sleep(5);
+
+      expect(this.component.state.month).to.deep.equal({
+        display: 'February',
         value: 2
-      }
-    });
+      });
 
-    expect(this.component.state.month).to.equal(2);
+      var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
 
-    var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+      //weeks
+      weekRows.forEach(function(weekRow, key) {
+        var days = weekRow.childNodes;
 
-    //weeks
-    weekRows.forEach(function(weekRow, key) {
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRow, 'calendar__week-day');
+        expect(days.length).to.equal(7);
+        expect(parseInt(days[0].textContent)).to.equal(expectedDaysFeb2013[key][0]);
+        expect(parseInt(days[1].textContent)).to.equal(expectedDaysFeb2013[key][1]);
+        expect(parseInt(days[2].textContent)).to.equal(expectedDaysFeb2013[key][2]);
+        expect(parseInt(days[3].textContent)).to.equal(expectedDaysFeb2013[key][3]);
+        expect(parseInt(days[4].textContent)).to.equal(expectedDaysFeb2013[key][4]);
+        expect(parseInt(days[5].textContent)).to.equal(expectedDaysFeb2013[key][5]);
+        expect(parseInt(days[6].textContent)).to.equal(expectedDaysFeb2013[key][6]);
+      });
 
-      expect(days.length).to.equal(7);
-      expect(days[0].props.children).to.equal(expectedDaysFeb2013[key][0]);
-      expect(days[1].props.children).to.equal(expectedDaysFeb2013[key][1]);
-      expect(days[2].props.children).to.equal(expectedDaysFeb2013[key][2]);
-      expect(days[3].props.children).to.equal(expectedDaysFeb2013[key][3]);
-      expect(days[4].props.children).to.equal(expectedDaysFeb2013[key][4]);
-      expect(days[5].props.children).to.equal(expectedDaysFeb2013[key][5]);
-      expect(days[6].props.children).to.equal(expectedDaysFeb2013[key][6]);
-    });
+      done();
+    }).run();
   });
 
-  it('should be able to change year', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
+  it('should be able to change year', function(done) {
+    fibers(function() {
+      this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={true} />, div);
 
-    var selects = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'select');
+      var yearChangeCount = 0;
+      var controlInputs = reactTestUtils.scryRenderedComponentsWithType(this.component, ExtendText);
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(controlInputs[1], 'extend-text__display-input');
 
-    reactTestUtils.Simulate.change(selects[1], {
-      target: {
+      do {
+        yearChangeCount += 1;
+        reactTestUtils.Simulate.focus(input);
+
+        testHelper.sleep(5);
+
+        reactTestUtils.Simulate.change(input, {
+            target: {
+                value: ''
+            }
+        });
+
+        testHelper.sleep(5);
+
+        var autoCompleteItems = reactTestUtils.scryRenderedDOMComponentsWithTag(controlInputs[1], 'li');
+
+        reactTestUtils.Simulate.mouseDown(autoCompleteItems[10 + yearChangeCount]);
+        reactTestUtils.Simulate.blur(input);
+
+        testHelper.sleep(5);
+
+      } while (currentYear - yearChangeCount !== 2014)
+
+
+      expect(this.component.state.year).to.deep.equal({
+        display: 2014,
         value: 2014
-      }
-    });
+      });
 
-    expect(this.component.state.year).to.equal(2014);
+      var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
 
-    var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
+      //weeks
+      weekRows.forEach(function(weekRow, key) {
+        var days = weekRow.childNodes;
 
-    //weeks
-    weekRows.forEach(function(weekRow, key) {
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRow, 'calendar__week-day');
+        expect(parseInt(days[0].textContent)).to.equal(expectedDaysJan2014[key][0]);
+        expect(parseInt(days[1].textContent)).to.equal(expectedDaysJan2014[key][1]);
+        expect(parseInt(days[2].textContent)).to.equal(expectedDaysJan2014[key][2]);
+        expect(parseInt(days[3].textContent)).to.equal(expectedDaysJan2014[key][3]);
+        expect(parseInt(days[4].textContent)).to.equal(expectedDaysJan2014[key][4]);
+        expect(parseInt(days[5].textContent)).to.equal(expectedDaysJan2014[key][5]);
+        expect(parseInt(days[6].textContent)).to.equal(expectedDaysJan2014[key][6]);
+      });
 
-      expect(days[0].props.children).to.equal(expectedDaysJan2014[key][0]);
-      expect(days[1].props.children).to.equal(expectedDaysJan2014[key][1]);
-      expect(days[2].props.children).to.equal(expectedDaysJan2014[key][2]);
-      expect(days[3].props.children).to.equal(expectedDaysJan2014[key][3]);
-      expect(days[4].props.children).to.equal(expectedDaysJan2014[key][4]);
-      expect(days[5].props.children).to.equal(expectedDaysJan2014[key][5]);
-      expect(days[6].props.children).to.equal(expectedDaysJan2014[key][6]);
-    });
+      done();
+    }).run();
   });
 
   it('should trigger onClickDate event', function() {
-    this.component = React.render(<Test />, div);
+    this.component = ReactDOM.render(<Test />, div);
 
     expect(this.component.state.selectedDay).to.equal(selectedDay);
 
     var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[3], 'calendar__week-day');
+    var days = weekRows[3].childNodes;
 
     reactTestUtils.Simulate.click(days[4], {
-      target: days[4].getDOMNode()
+      target: ReactDOM.findDOMNode(days[4])
     });
 
     expect(this.component.state.selectedDay).to.equal(expectedChangedDay);
   });
 
   it('should add selected class to selected day', function() {
-    this.component = React.render(<Test />, div);
+    this.component = ReactDOM.render(<Test />, div);
 
     expect(this.component.state.selectedDay).to.equal(selectedDay);
 
     var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+    var days = weekRows[2].childNodes;
 
-    expect(days[0].props['data-date']).to.equal(selectedDay);
-    expect(days[0].props.className).to.contain('is-selected');
-    expect(days[1].props.className).to.not.contain('is-selected');
-    expect(days[2].props.className).to.not.contain('is-selected');
-    expect(days[3].props.className).to.not.contain('is-selected');
-    expect(days[4].props.className).to.not.contain('is-selected');
-    expect(days[5].props.className).to.not.contain('is-selected');
-    expect(days[6].props.className).to.not.contain('is-selected');
+    expect(days[0].getAttribute('data-date')).to.equal(selectedDay);
+    expect(days[0].className).to.contain('is-selected');
+    expect(days[1].className).to.not.contain('is-selected');
+    expect(days[2].className).to.not.contain('is-selected');
+    expect(days[3].className).to.not.contain('is-selected');
+    expect(days[4].className).to.not.contain('is-selected');
+    expect(days[5].className).to.not.contain('is-selected');
+    expect(days[6].className).to.not.contain('is-selected');
   });
 
   it('should add selected class to selected week', function() {
-    this.component = React.render(<Test />, div);
+    this.component = ReactDOM.render(<Test />, div);
 
     expect(this.component.state.selectedDay).to.equal(selectedDay);
 
     var weekRows = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__week-row');
-    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[2], 'calendar__week-day');
+    var days = weekRows[2].childNodes;
 
-    expect(days[0].props['data-date']).to.equal(selectedDay);
-    expect(weekRows[0].props.className).to.not.contain('is-selected');
-    expect(weekRows[1].props.className).to.not.contain('is-selected');
-    expect(weekRows[2].props.className).to.not.contain('is-selected');
-    expect(weekRows[3].props.className).to.not.contain('is-selected');
-    expect(weekRows[4].props.className).to.not.contain('is-selected');
+    expect(days[0].getAttribute('data-date')).to.equal(selectedDay);
+    expect(weekRows[0].className).to.not.contain('is-selected');
+    expect(weekRows[1].className).to.not.contain('is-selected');
+    expect(weekRows[2].className).to.not.contain('is-selected');
+    expect(weekRows[3].className).to.not.contain('is-selected');
+    expect(weekRows[4].className).to.not.contain('is-selected');
   });
 
   it('should be able to use custom format', function() {
-    this.component = React.render(<TestCustomFormat />, div);
+    this.component = ReactDOM.render(<TestCustomFormat />, div);
 
     expect(this.component.state.selectedDay).to.equal(selectedDayCustomFormat);
 
@@ -473,77 +520,111 @@ describe('calendar component', function() {
 
     //weeks
     weekRows.forEach(function(weekRow, key) {
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRow, 'calendar__week-day');
+      var days = weekRow.childNodes;
 
       if (key === 0) {
-        expect(days[2].props['data-date']).to.equal(expectedDaysCustomFormat[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDaysCustomFormat[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDaysCustomFormat[key][4][1]);
-        expect(days[5].props['data-date']).to.equal(expectedDaysCustomFormat[key][5][1]);
-        expect(days[6].props['data-date']).to.equal(expectedDaysCustomFormat[key][6][1]);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][4][1]);
+        expect(days[5].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][5][1]);
+        expect(days[6].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][6][1]);
       } else if (key === 4) {
-        expect(days[0].props['data-date']).to.equal(expectedDaysCustomFormat[key][0][1]);
-        expect(days[1].props['data-date']).to.equal(expectedDaysCustomFormat[key][1][1]);
-        expect(days[2].props['data-date']).to.equal(expectedDaysCustomFormat[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDaysCustomFormat[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDaysCustomFormat[key][4][1]);
+        expect(days[0].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][0][1]);
+        expect(days[1].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][1][1]);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][4][1]);
       } else {
-        expect(days[0].props['data-date']).to.equal(expectedDaysCustomFormat[key][0][1]);
-        expect(days[1].props['data-date']).to.equal(expectedDaysCustomFormat[key][1][1]);
-        expect(days[2].props['data-date']).to.equal(expectedDaysCustomFormat[key][2][1]);
-        expect(days[3].props['data-date']).to.equal(expectedDaysCustomFormat[key][3][1]);
-        expect(days[4].props['data-date']).to.equal(expectedDaysCustomFormat[key][4][1]);
-        expect(days[5].props['data-date']).to.equal(expectedDaysCustomFormat[key][5][1]);
-        expect(days[6].props['data-date']).to.equal(expectedDaysCustomFormat[key][6][1]);
+        expect(days[0].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][0][1]);
+        expect(days[1].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][1][1]);
+        expect(days[2].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][2][1]);
+        expect(days[3].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][3][1]);
+        expect(days[4].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][4][1]);
+        expect(days[5].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][5][1]);
+        expect(days[6].getAttribute('data-date')).to.equal(expectedDaysCustomFormat[key][6][1]);
       }
     });
 
-    var days = reactTestUtils.scryRenderedDOMComponentsWithClass(weekRows[3], 'calendar__week-day');
+    var days = weekRows[3].childNodes;
 
     reactTestUtils.Simulate.click(days[4], {
-      target: days[4].getDOMNode()
+      target: ReactDOM.findDOMNode(days[4])
     });
 
     expect(this.component.state.selectedDay).to.equal(expectedChangedDayCustomFormat);
   });
 
-  it('should be able to set minus years', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={true} minusYears={5} />, div);
+  it('should be able to set minus years', function(done) {
+    fibers(function() {
+      this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={true} minusYears={5} />, div);
 
-    var controls = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls');
-    var monthControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-month');
-    var yearControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-year');
-    var monthYearOptions = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'option');
+      var controlInputs = reactTestUtils.scryRenderedComponentsWithType(this.component, ExtendText);
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(controlInputs[1], 'extend-text__display-input');
 
-    expectedYearsCustomMinus.forEach(function(year, key) {
-      expect(monthYearOptions[key + 12].props.children).to.equal(year);
-      expect(monthYearOptions[key + 12].props.value).to.equal(year);
-    });
+      reactTestUtils.Simulate.focus(input);
+
+      testHelper.sleep(5);
+
+      reactTestUtils.Simulate.change(input, {
+        target: {
+          value: ''
+        }
+      });
+
+      testHelper.sleep(5);
+
+      var autoCompleteItems = reactTestUtils.scryRenderedDOMComponentsWithTag(controlInputs[1], 'li');
+
+      expect(autoCompleteItems.length).to.equal(expectedYearsCustomMinus.length);
+
+      expectedYearsCustomMinus.forEach(function(year, key) {
+        expect(parseInt(ReactDOM.findDOMNode(autoCompleteItems[key]).textContent)).to.equal(year);
+      });
+
+      done();
+    }).run();
   });
 
   it('should be able to set plus years', function() {
-    this.component = React.render(<Calendar selectedDay={selectedDay} showControls={true} plusYears={5} />, div);
+    fibers(function() {
+      this.component = ReactDOM.render(<Calendar selectedDay={selectedDay} showControls={true} plusYears={5} />, div);
 
-    var controls = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls');
-    var monthControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-month');
-    var yearControl = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'calendar__controls-year');
-    var monthYearOptions = reactTestUtils.scryRenderedDOMComponentsWithTag(this.component, 'option');
+      var controlInputs = reactTestUtils.scryRenderedComponentsWithType(this.component, ExtendText);
+      var input = reactTestUtils.findRenderedDOMComponentWithClass(controlInputs[1], 'extend-text__display-input');
 
-    expectedYearsCustomPlus.forEach(function(year, key) {
-      expect(monthYearOptions[key + 12].props.children).to.equal(year);
-      expect(monthYearOptions[key + 12].props.value).to.equal(year);
-    });
+      reactTestUtils.Simulate.focus(input);
+
+      testHelper.sleep(5);
+
+      reactTestUtils.Simulate.change(input, {
+        target: {
+          value: ''
+        }
+      });
+
+      testHelper.sleep(5);
+
+      var autoCompleteItems = reactTestUtils.scryRenderedDOMComponentsWithTag(controlInputs[1], 'li');
+
+      expect(autoCompleteItems.length).to.equal(expectedYearsCustomMinus.length);
+
+      expectedYearsCustomPlus.forEach(function(year, key) {
+        expect(parseInt(ReactDOM.findDOMNode(autoCompleteItems[key]).textContent)).to.equal(year);
+      });
+
+      done();
+    }).run();
   });
 
   it('should correctly detect leap years', function() {
-    this.component = React.render(<Calendar />, div);
+    this.component = ReactDOM.render(<Calendar />, div);
 
     expect(this.component.getDaysInMonth(2, 2014)).to.equal(28);
     expect(this.component.getDaysInMonth(2, 2016)).to.equal(29);
   });
 
   it('should be able to generate moment compatible dates', function() {
-    this.component = React.render(<Calendar />, div);
+    this.component = ReactDOM.render(<Calendar />, div);
 
     expect(this.component.getMomentCompatibleDate(1, 2, 2014)).to.deep.equal({
       date: '01022014',

@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var TextboxInput = require('./textbox-input.component.jsx');
 var Calendar = require('./calendar.component.jsx');
 var SvgIcon = require('./svg-icon.component.jsx');
@@ -10,7 +12,7 @@ var datePicker = {};
 datePicker.displayName = 'DatePicker';
 
 datePicker.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   singlePanelMixin
 ];
 
@@ -84,7 +86,7 @@ datePicker.cleanValue = function datePickerCleanValue(value) {
 
 datePicker.singlePanelClose = function datePickerClose() {
   if (this.refs.input) {
-    this.refs.input.refs.input.getDOMNode().blur();
+    ReactDOM.findDOMNode(this.refs.input.refs.input).blur();
   }
 
   this.setState({

@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var _ = require('lodash');
 var equals = require('deep-equal');
 var domUtilities = require('dom-utilities');
@@ -20,7 +22,7 @@ extendText.displayName = 'ExtendText';
 extendText.mixins = [
   validatorMixin,
   singlePanelMixin,
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 extendText.propTypes = {
@@ -86,7 +88,7 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
       return value;
     },
     resetCursorPosition: null,
-    autoSelectAutoComplete: true,
+    autoSelectAutoComplete: false,
     addTagKeyCodes: [],
     readOnly: false
   };
@@ -385,7 +387,7 @@ extendText.onMouseDownAutoCompleteItem = function extendTextOnMouseDownAutoCompl
 };
 
 extendText.onClickInputContainer = function extendTextOnInputContainerClick() {
-  this.refs.input.refs.input.getDOMNode().focus();
+  ReactDOM.findDOMNode(this.refs.input.refs.input).focus();
 };
 
 extendText.onClickAutoCompleteContainer = function extendTextOnClickAutoCompleteContainer() {
@@ -415,7 +417,7 @@ extendText.getCssClasses = function extendTextGetCssClasses() {
 };
 
 extendText.getInputElement = function extendTextGetInputElement() {
-  return this.refs.input.refs.input.getDOMNode();
+  return ReactDOM.findDOMNode(this.refs.input.refs.input);
 };
 
 extendText.getAutoCompleteIndexMatchOnly = function extendTextGetAutoCompleteIndexMatchOnly(displayValue, autoCompleteItems) {
@@ -602,14 +604,14 @@ extendText.removeValue = function extendTextRemoveValue(valueIndex) {
 };
 
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
-  var autoCompleteElement = this.getDOMNode().querySelector('.extend-text__auto-complete-container');
+  var autoCompleteElement = ReactDOM.findDOMNode(this).querySelector('.extend-text__auto-complete-container');
 
   if (autoCompleteElement) {
     //this call is wrapped in a timeout of 0 to allow for the input auto sizer to set correct initial size which is needed to position the auto complete items
     setTimeout(function extendTextSetAutoCompletePositionSetTimeout() {
       /* istanbul ignore else */
       if (this.isMounted()) {
-        var valueContainerDimensions = domUtilities.getDimensions(this.getDOMNode().querySelector('.extend-text__value-container'));
+        var valueContainerDimensions = domUtilities.getDimensions(ReactDOM.findDOMNode(this).querySelector('.extend-text__value-container'));
 
         autoCompleteElement.style.top = valueContainerDimensions.height - valueContainerDimensions.borders.bottom + 'px';
         autoCompleteElement.style.left = valueContainerDimensions.margins.left - valueContainerDimensions.borders.left + 'px';

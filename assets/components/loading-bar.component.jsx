@@ -1,11 +1,12 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 
 var loadingBar = {};
 
 loadingBar.displayName = 'LoadingBar';
 
 loadingBar.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 loadingBar.propTypes = {

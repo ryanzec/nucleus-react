@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var validator = require('../misc/validator');
 
 var validatorMixin = {};

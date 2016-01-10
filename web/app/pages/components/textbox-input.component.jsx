@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var fs = require('fs');
@@ -50,12 +50,12 @@ textboxInputPage.render = function() {
   return (
     <div className="p-components-textbox-input">
       <div className="u-headline">Textbox Input</div>
-      <p>
+      <div>
         Textbox input is a component for working with the textbox and textarea input fields.  This component uses the <Link to="/mixins/form-input">Form Input</Link> mixin, please be should to read that documentation too.
-      </p>
+      </div>
       <div>
         <div className="u-title">Textbox</div>
-        <p>The default out of the <InlineCode langauge="jsx">{'<TextboxInput />'}</InlineCode> component is your standard text box.</p>
+        <div>The default out of the <InlineCode langauge="jsx">{'<TextboxInput />'}</InlineCode> component is your standard text box.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/textbox.jsx', 'utf8')}>
           <TextboxInput
             placeholder="Input Field"
@@ -65,7 +65,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Managed</div>
-        <p>For a managed input element, you will want to pass the <InlineCode>value</InlineCode> and <InlineCode>onChange</InlineCode> properties.</p>
+        <div>For a managed input element, you will want to pass the <InlineCode>value</InlineCode> and <InlineCode>onChange</InlineCode> properties.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/managed.jsx', 'utf8')}>
           <TextboxInput
             placeholder="Managed"
@@ -76,7 +76,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Unmanaged</div>
-        <p>If you want the input element to be unmanaged, you can set the <InlineCode>unmanaged</InlineCode> property to <InlineCode>true</InlineCode>.</p>
+        <div>If you want the input element to be unmanaged, you can set the <InlineCode>unmanaged</InlineCode> property to <InlineCode>true</InlineCode>.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/unmanaged.jsx', 'utf8')}>
           <TextboxInput
             placeholder="Unmanaged"
@@ -86,7 +86,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Types</div>
-        <p>You can specify the type of the input by passing the <InlineCode>type</InlineCode> property which can be any value that the HTML standard supports.</p>
+        <div>You can specify the type of the input by passing the <InlineCode>type</InlineCode> property which can be any value that the HTML standard supports.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/types.jsx', 'utf8')}>
           <TextboxInput
             type="password"
@@ -97,7 +97,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Append / Prepend Content</div>
-        <p>Sometimes you want to have a static content before and / or after the the input to better indicate to the user want they should be typing and that is what the <InlineCode>append</InlineCode> and <InlineCode>prepend</InlineCode> properties are for. You can pass in an renderable content for those properties that you want.</p>
+        <div>Sometimes you want to have a static content before and / or after the the input to better indicate to the user want they should be typing and that is what the <InlineCode>append</InlineCode> and <InlineCode>prepend</InlineCode> properties are for. You can pass in an renderable content for those properties that you want.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/append-prepend.jsx', 'utf8')}>
           <TextboxInput
             append=".com"
@@ -109,7 +109,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Auto Size</div>
-        <p>If you set the <InlineCode>autoSize</InlineCode> property to <InlineCode>true</InlineCode>, this component will makes use of the <Link to="/components/input-auto-sizer">Input Auto Sizer</Link> component which makes the input grow and shrink with the size of the content.</p>
+        <div>If you set the <InlineCode>autoSize</InlineCode> property to <InlineCode>true</InlineCode>, this component will makes use of the <Link to="/components/input-auto-sizer">Input Auto Sizer</Link> component which makes the input grow and shrink with the size of the content.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/auto-size.jsx', 'utf8')}>
           <TextboxInput
             autoSize={true}
@@ -117,7 +117,7 @@ textboxInputPage.render = function() {
             onChange={this.onChangeAutoSizeValue1}
           />
         </FrameworkExample>
-        <p>It also properly works with placeholder content.</p>
+        <div>It also properly works with placeholder content.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/auto-size-placeholder.jsx', 'utf8')}>
           <TextboxInput
             autoSize={true}
@@ -129,7 +129,7 @@ textboxInputPage.render = function() {
       </div>
       <div>
         <div className="u-title">Textarea</div>
-        <p>You wish to have a textarea instead of an input, you can set the <InlineCode>multiLined</InlineCode> property to <InlineCode>true</InlineCode>.</p>
+        <div>You wish to have a textarea instead of an input, you can set the <InlineCode>multiLined</InlineCode> property to <InlineCode>true</InlineCode>.</div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/textbox-input/textarea.jsx', 'utf8')}>
           <TextboxInput
             multiLined={true}
@@ -141,7 +141,7 @@ textboxInputPage.render = function() {
       <hr />
       <div className="framework-properties">
         <div className="u-title">Properties</div>
-        <p><strong>NOTE: any properties that are passed and not specfied here will be passed through in the input element so things like <InlineCode>placeholder</InlineCode> will work</strong></p>
+        <div><strong>NOTE: any properties that are passed and not specfied here will be passed through in the input element so things like <InlineCode>placeholder</InlineCode> will work</strong></div>
         <FrameworkProperty
           name="className"
           type="string"
@@ -160,8 +160,8 @@ textboxInputPage.render = function() {
           defaultValue="text"
           descriptionNode={
             <span>
-              <p>Any of the supported types of the textbox input.</p>
-              <p><strong>This does not work the multiLined</strong></p>
+              <div>Any of the supported types of the textbox input.</div>
+              <div><strong>This does not work the multiLined</strong></div>
             </span>
           }
         />
@@ -177,8 +177,8 @@ textboxInputPage.render = function() {
           defaultValue="null"
           descriptionNode={
             <span>
-              <p>A renderable node that is appended to the input.</p>
-              <p><strong>This does not work the multiLined</strong></p>
+              <div>A renderable node that is appended to the input.</div>
+              <div><strong>This does not work the multiLined</strong></div>
             </span>
           }
         />
@@ -188,8 +188,8 @@ textboxInputPage.render = function() {
           defaultValue="null"
           descriptionNode={
             <span>
-              <p>A renderable node that is appended to the input.</p>
-              <p><strong>This does not work the multiLined</strong></p>
+              <div>A renderable node that is appended to the input.</div>
+              <div><strong>This does not work the multiLined</strong></div>
             </span>
           }
         />
@@ -199,8 +199,8 @@ textboxInputPage.render = function() {
           defaultValue="false"
           descriptionNode={
             <span>
-              <p>Set this to true if you want the input to auto resize based on the content.</p>
-              <p><strong>This does not work the multiLined</strong></p>
+              <div>Set this to true if you want the input to auto resize based on the content.</div>
+              <div><strong>This does not work the multiLined</strong></div>
             </span>
           }
         />

@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var domUtilities = require('dom-utilities');
 
@@ -7,7 +9,7 @@ var modal = {};
 modal.displayName = 'Modal';
 
 modal.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   domEventManagerMixin
 ];
 
@@ -24,7 +26,7 @@ modal.getDefaultProps = function modalGetDefaultProps() {
 /* istanbul ignore next */
 modal.componentDidMount = function modalComponentDidMount() {
   //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
-  this.getDOMNode().querySelector('.modal__content').classList.add('u-invisible');
+  ReactDOM.findDOMNode(this).querySelector('.modal__content').classList.add('u-invisible');
 
   this.addDomEvent(window, 'resize', this.reposition);
   this.addDomEvent(window, 'orientationchange', this.reposition);
@@ -40,11 +42,11 @@ modal.componentDidUpdate = function modalComponentDidUpdate() {
       this.centerPosition();
 
       //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
-      this.getDOMNode().querySelector('.modal__content').classList.remove('u-invisible');
+      ReactDOM.findDOMNode(this).querySelector('.modal__content').classList.remove('u-invisible');
     }.bind(this), 100);
   } else {
     //NOTE: this is needed to not display the content out of place since we need to delay the setting of the dimensions
-    this.getDOMNode().querySelector('.modal__content').classList.add('u-invisible');
+    ReactDOM.findDOMNode(this).querySelector('.modal__content').classList.add('u-invisible');
   }
 };
 
@@ -70,7 +72,7 @@ modal.setTrueDimensions = function modalSetTrueDimensions() {
     modalContentElement.style.height = Math.ceil(trueDimensions.height) + 'px';
   };
 
-  var modalContentElement = this.getDOMNode().querySelector('.modal__content');
+  var modalContentElement = ReactDOM.findDOMNode(this).querySelector('.modal__content');
   var originalStyles = {
     display: modalContentElement.style.display,
     top: modalContentElement.style.top,
@@ -94,13 +96,13 @@ modal.reposition = function modalReposition() {
 /* istanbul ignore next */
 modal.setMaxDimensions = function modalSetMaxDimensions() {
   //.9 match the scss max-height: 90%, this value needs to be kept in sync with the sass code
-  this.getDOMNode().querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * 0.9) + 'px';
-  this.getDOMNode().querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * 0.9) + 'px';
+  ReactDOM.findDOMNode(this).querySelector('.modal__content').style.maxHeight = Math.floor(window.innerHeight * 0.9) + 'px';
+  ReactDOM.findDOMNode(this).querySelector('.modal__content').style.maxWidth = Math.floor(window.innerWidth * 0.9) + 'px';
 };
 
 /* istanbul ignore next */
 modal.centerPosition = function modalCenterPosition() {
-  var modalContent = this.getDOMNode().querySelector('.modal__content');
+  var modalContent = ReactDOM.findDOMNode(this).querySelector('.modal__content');
   var dimensions = domUtilities.getDimensions(modalContent);
 
   modalContent.style.marginTop = Math.floor(dimensions.height / 2) * -1 + 'px';

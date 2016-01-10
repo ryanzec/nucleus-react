@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var applicationReact = require('./react/index');
 var Application = applicationReact.components.Application;
 var IntroductionPage = require('./pages/introduction/introduction.component.jsx');

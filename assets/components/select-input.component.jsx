@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
 var FormValidationMessages = require('./form-validation-messages.component.jsx');
@@ -8,7 +9,7 @@ var selectInput = {};
 selectInput.displayName = 'SelectInput';
 
 selectInput.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   formInputMixin
 ];
 

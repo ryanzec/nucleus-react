@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var moment = require('moment');
 var ExtendText = require('./extend-text.component.jsx');
 
@@ -7,7 +8,7 @@ var calendar = {};
 calendar.displayName = 'Calendar';
 
 calendar.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 calendar.propTypes = {
@@ -243,7 +244,7 @@ calendar.renderControls = function calendarRenderControls() {
   if (this.props.showControls === true) {
     controls = (
       <div className="calendar__controls" hasGutter={false}>
-        <div className="calendar__control">
+        <div className="calendar__control months">
           <ExtendText
             placeholder="Select month"
             dropDownIconFragment="chevron-down"
@@ -255,7 +256,7 @@ calendar.renderControls = function calendarRenderControls() {
             onChange={this.onChangeMonth}
           />
         </div>
-        <div className="calendar__control">
+        <div className="calendar__control years">
           <ExtendText
             placeholder="Select year"
             dropDownIconFragment="chevron-down"

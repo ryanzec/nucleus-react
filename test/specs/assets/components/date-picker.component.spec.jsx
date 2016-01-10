@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
 var SvgIcon = require('../../../../assets/components/svg-icon.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin');
@@ -195,7 +196,7 @@ describe('date picker component', function() {
 
   describe('validation', function() {
     it('should properly set the internal inputs validation props to utilize its validation code', function() {
-      testData.component = React.render(<TestCustomValidation />, div);
+      testData.component = ReactDOM.render(<TestCustomValidation />, div);
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
 
       expect(datePicker.refs.input.props.renderValidation).to.equal('both');
@@ -207,7 +208,7 @@ describe('date picker component', function() {
 
   describe('general', function() {
     it('should render', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
 
       var datePicker = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'date-picker');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
@@ -216,13 +217,13 @@ describe('date picker component', function() {
 
       expect(datePicker.length).to.equal(1);
       expect(input.length).to.equal(1);
-      expect(input[0].props.placeholder).to.equal('Click to select date');
+      expect(input[0].getAttribute('placeholder')).to.equal('Click to select date');
       expect(calendar.length).to.equal(0);
       expect(label.length).to.equal(0);
     });
 
     it('should render week mode', function() {
-      testData.component = React.render(<DatePicker selectionUnit="week" />, div);
+      testData.component = ReactDOM.render(<DatePicker selectionUnit="week" />, div);
 
       var datePicker = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'date-picker');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
@@ -231,13 +232,13 @@ describe('date picker component', function() {
 
       expect(datePicker.length).to.equal(1);
       expect(input.length).to.equal(1);
-      expect(input[0].props.placeholder).to.equal('Click to select date');
+      expect(input[0].getAttribute('placeholder')).to.equal('Click to select date');
       expect(calendar.length).to.equal(0);
       expect(label.length).to.equal(0);
     });
 
     it('should not render inputs', function() {
-      testData.component = React.render(<DatePicker renderInputs={false}/>, div);
+      testData.component = ReactDOM.render(<DatePicker renderInputs={false}/>, div);
 
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
@@ -245,21 +246,21 @@ describe('date picker component', function() {
     });
 
     it('should be able to add custom css classes', function() {
-      testData.component = React.render(<DatePicker className="m-safe" />, div);
+      testData.component = ReactDOM.render(<DatePicker className="m-safe" />, div);
       var datePicker = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'date-picker');
 
-      expect(datePicker.props.className).to.contain('m-safe');
+      expect(datePicker.className).to.contain('m-safe');
     });
 
     it('should render label', function() {
-      testData.component = React.render(<DatePicker label="test" />, div);
+      testData.component = ReactDOM.render(<DatePicker label="test" />, div);
       var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
 
-      expect(label.props.children).to.equal('test');
+      expect(label.textContent).to.equal('test');
     });
 
     it('should render calendar when active', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
 
       testData.component.setState({
         isCalendarActive: true
@@ -269,11 +270,11 @@ describe('date picker component', function() {
       var calendarHeader = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'calendar__header');
 
       expect(calendar.length).to.equal(1);
-      expect(calendarHeader.props.children).to.equal('Select Date');
+      expect(calendarHeader.textContent).to.equal('Select Date');
     });
 
     it('should disable calendar when signlePanelClose is called', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
 
       testData.component.setState({
         isCalendarActive: true
@@ -285,15 +286,15 @@ describe('date picker component', function() {
     });
 
     it('should be able to set selected day', function() {
-      testData.component = React.render(<Test />, div);
+      testData.component = ReactDOM.render(<Test />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.value).to.equal(selectedDay);
+      expect(input.value).to.equal(selectedDay);
     });
 
     it('should be able to set custom calendar header', function() {
-      testData.component = React.render(<DatePicker calendarHeaderText="Pick Date" />, div);
+      testData.component = ReactDOM.render(<DatePicker calendarHeaderText="Pick Date" />, div);
 
       testData.component.setState({
         isCalendarActive: true
@@ -301,19 +302,19 @@ describe('date picker component', function() {
 
       var calendarHeader = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'calendar__header');
 
-      expect(calendarHeader.props.children).to.equal('Pick Date');
+      expect(calendarHeader.textContent).to.equal('Pick Date');
     });
 
     it('should be able to set custom placeholder text', function() {
-      testData.component = React.render(<DatePicker placeholder="click me" />, div);
+      testData.component = ReactDOM.render(<DatePicker placeholder="click me" />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.placeholder).to.equal('click me');
+      expect(input.getAttribute('placeholder')).to.equal('click me');
     });
 
     it('should enable calendar when input is focused', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
@@ -323,7 +324,7 @@ describe('date picker component', function() {
     });
 
     it('should not enable calendar when input is focused if disabled', function() {
-      testData.component = React.render(<DatePicker disabled={true} />, div);
+      testData.component = ReactDOM.render(<DatePicker disabled={true} />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
@@ -333,7 +334,7 @@ describe('date picker component', function() {
     });
 
     it('should not close calendar when the calendar itself is clicked on ', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
@@ -347,7 +348,7 @@ describe('date picker component', function() {
     });
 
     it('should blur input when single panel close occurs', function() {
-      testData.component = React.render(<DatePicker />, div);
+      testData.component = ReactDOM.render(<DatePicker />, div);
       var append = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element__input-append');
 
       reactTestUtils.Simulate.click(append);
@@ -356,85 +357,85 @@ describe('date picker component', function() {
         which: 27
       }));
 
-      expect(document.activeElement).to.not.equal(testData.component.refs.input.refs.input.getDOMNode());
+      expect(document.activeElement).to.not.equal(ReactDOM.findDOMNode(testData.component.refs.input.refs.input));
     });
 
     it('should work within the form system', function() {
-      testData.component = React.render(<TestFormSystem />, div);
+      testData.component = ReactDOM.render(<TestFormSystem />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.value).to.equal(selectedDay);
+      expect(input.value).to.equal(selectedDay);
 
       reactTestUtils.Simulate.focus(input);
 
       var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
 
       reactTestUtils.Simulate.click(days[10], {
-        target: days[10].getDOMNode()
+        target: ReactDOM.findDOMNode(days[10])
       });
 
       input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.value).to.equal('01/08/2014');
+      expect(input.value).to.equal('01/08/2014');
     });
 
     it('should not close calendar when clicking date', function() {
-      testData.component = React.render(<TestCloseOnClick />, div);
+      testData.component = ReactDOM.render(<TestCloseOnClick />, div);
 
-      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
+      var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input')[0];
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
 
-      expect(input.props.value).to.equal(selectedDay);
+      expect(input.value).to.equal(selectedDay);
 
       reactTestUtils.Simulate.focus(input);
 
       var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
 
       reactTestUtils.Simulate.click(days[10], {
-        target: days[10].getDOMNode()
+        target: ReactDOM.findDOMNode(days[10])
       });
 
-      input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
+      input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input')[0];
 
-      expect(input.props.value).to.equal('01/08/2014');
+      expect(input.value).to.equal('01/08/2014');
       expect(datePicker.state.isCalendarActive).to.be.true;
     });
 
     it('should close calendar when clicking date', function() {
-      testData.component = React.render(<TestFormSystem />, div);
+      testData.component = ReactDOM.render(<TestFormSystem />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
 
-      expect(input.props.value).to.equal(selectedDay);
+      expect(input.value).to.equal(selectedDay);
 
       reactTestUtils.Simulate.focus(input);
 
       var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
 
       reactTestUtils.Simulate.click(days[10], {
-        target: days[10].getDOMNode()
+        target: ReactDOM.findDOMNode(days[10])
       });
 
       input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.value).to.equal('01/08/2014');
+      expect(input.value).to.equal('01/08/2014');
       expect(datePicker.state.isCalendarActive).to.be.false;
     });
 
     it('toggle calendar when clicking svg icon', function() {
-      testData.component = React.render(<TestWeekMode />, div);
+      testData.component = ReactDOM.render(<TestWeekMode />, div);
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
       var svgIcon = reactTestUtils.findRenderedComponentWithType(datePicker, SvgIcon);
 
       expect(datePicker.state.isCalendarActive).to.be.false;
 
-      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+      reactTestUtils.Simulate.click(ReactDOM.findDOMNode(svgIcon));
 
       expect(datePicker.state.isCalendarActive).to.be.true;
 
-      reactTestUtils.Simulate.click(svgIcon.getDOMNode());
+      reactTestUtils.Simulate.click(ReactDOM.findDOMNode(svgIcon));
 
       expect(datePicker.state.isCalendarActive).to.be.false;
     });

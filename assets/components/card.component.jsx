@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var clickableMixin = require('../mixins/clickable.mixin');
 
 var card = {};
@@ -6,7 +7,7 @@ var card = {};
 card.displayName = 'Card';
 
 card.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   clickableMixin
 ];
 

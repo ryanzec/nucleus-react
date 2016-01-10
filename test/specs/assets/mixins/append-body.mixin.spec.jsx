@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var appendBodyMixin = require('../../../../assets/mixins/append-body.mixin.jsx');
 var testHelper = require('../../../test-helper');
 
@@ -162,14 +163,14 @@ describe('append body mixin', function() {
   });
 
   it('should append an element to the body', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     expect(document.querySelectorAll('body div.append-body-wrapper').length).to.equal(1);
     expect(document.querySelectorAll('body div.append-body-wrapper div')[0].outerHTML).to.match(/<div data-reactid="([a-zA-Z0-9\.]*)">Append Content<\/div>/);
   });
 
   it('should remove the appended element from the body', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     testHelper.unmountComponent(this.component);
 
@@ -177,24 +178,24 @@ describe('append body mixin', function() {
   });
 
   it('should be able to define the tag used to append the element to the body', function() {
-    this.component = React.render(<TestComponentWithDeclaredTag />, div);
+    this.component = ReactDOM.render(<TestComponentWithDeclaredTag />, div);
 
     expect(document.querySelectorAll('body ul.append-body-wrapper').length).to.equal(1);
   });
 
   it('should update append element when component is updated', function() {
-    this.component = React.render(<TestComponentUpdatable />, div);
+    this.component = ReactDOM.render(<TestComponentUpdatable />, div);
 
     expect(document.querySelectorAll('body div.append-body-wrapper div')[0].outerHTML).to.not.contain('(updated)');
 
-    React.addons.TestUtils.Simulate.click(this.component.getDOMNode());
+    React.addons.TestUtils.Simulate.click(ReactDOM.findDOMNode(this.component));
 
     expect(document.querySelectorAll('body div.append-body-wrapper div')[0].outerHTML).to.contain('(updated)');
   });
 
   it('should throw error if attempting to create append element multiple times for one component', function() {
     expect(function() {
-      this.component = React.render(<TestComponentAlreadyAppendedError />, div);
+      this.component = ReactDOM.render(<TestComponentAlreadyAppendedError />, div);
     }).to.throw('Component has already append an element to the body');
 
     //need to manually cleanup since the error was thrown
@@ -202,13 +203,13 @@ describe('append body mixin', function() {
   });
 
   it('should render noscript if not content is returned to render in appended element', function() {
-    this.component = React.render(<TestComponentNoAppendContent />, div);
+    this.component = ReactDOM.render(<TestComponentNoAppendContent />, div);
 
     expect(document.querySelectorAll('body div.append-body-wrapper')[0].innerHTML).to.match(/<noscript data-reactid="([a-zA-Z0-9\.]*)"><\/noscript>/);
   });
 
   it('should be able to retrieve the append dom element', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     expect(document.querySelectorAll('body div.append-body-wrapper')[0]).to.deep.equal(this.component.getAppendElement());
   });

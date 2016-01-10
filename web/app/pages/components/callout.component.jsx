@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var utilities = require('../../utilities/index');
@@ -23,32 +23,32 @@ calloutPage.render = function() {
   return (
     <div className="p-components-callout">
       <div className="u-headline">Callout</div>
-      <p>
+      <div>
         The callout component is used to bring attention to a particular element.
-      </p>
+      </div>
       <div>
         <div className="u-title">Standard</div>
-        <p>
+        <div>
           All you need to create a standard callout is to use the <Code language="jsx" isInline={true}>{'<Callout />'}</Code> component.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/callout/standard.jsx', 'utf8')}>
           <Callout>Look at me!!!</Callout>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Header</div>
-        <p>
+        <div>
           This component comes with a built-in header element that can be used by passing a <Code isInline={true}>headerText</Code> property.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/callout/header.jsx', 'utf8')}>
           <Callout headerText="Header">Look at me!!!</Callout>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Color Types</div>
-        <p>
+        <div>
           This component supports for 4 different color types with the <Code isInline={true}>m-safe</Code>, <Code isInline={true}>m-notice</Code>, <Code isInline={true}>m-warning</Code>, and <Code isInline={true}>m-danger</Code> classes.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/callout/color-types.jsx', 'utf8')}>
           <Callout className="m-safe" headerText="Safe">Look at me!!!</Callout>
           <Callout className="m-notice" headerText="Notice">Look at me!!!</Callout>

@@ -66,6 +66,12 @@ var gulpConfig = {
       libraries: [{
         name: 'react/addons'
       }, {
+        name: 'react'
+      }, {
+        name: 'react-addons-pure-render-mixin'
+      }, {
+        name: 'react-dom'
+      }, {
         name: 'lodash'
       }, {
         name: 'superagent'

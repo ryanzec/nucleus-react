@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var iconData = require('nucleus-icons');
 var clickableMixin = require('../mixins/clickable.mixin');
 
@@ -7,7 +8,7 @@ var svgIcon = {};
 svgIcon.displayName = 'SvgIcon';
 
 svgIcon.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   clickableMixin
 ];
 

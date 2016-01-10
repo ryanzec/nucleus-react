@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var Modal = require('./modal.component.jsx');
 var Button = require('./button.component.jsx');
 
@@ -7,7 +8,7 @@ var confirmationModal = {};
 confirmationModal.displayName = 'ConfirmationModal';
 
 confirmationModal.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 confirmationModal.propTypes = {

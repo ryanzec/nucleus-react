@@ -1,9 +1,11 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var CharacterCounter = require('../../../../assets/components/character-counter.component.jsx');
 var testHelper = require('../../../test-helper');
 var sinon = require('sinon');
 
+var warningLimit = 50;
 var maxLimit = 100;
 var input0 = '';
 var input50 = '12345678901234567890123456789012345678901234567890';
@@ -67,79 +69,79 @@ describe('character counter component', function() {
 
   describe('output text', function() {
     it('should be able to handle when you have 2 or more characters left', function() {
-      this.component = React.render(<CharacterCounter input={input0} maxLimit={maxLimit} />, div);
+      this.component = ReactDOM.render(<CharacterCounter input={input0} maxLimit={maxLimit} />, div);
       var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-      expect(characterCounter.props.children).to.equal('You have 100 characters left');
+      expect(characterCounter.textContent).to.equal('You have 100 characters left');
     });
 
     it('should be able to handle when you have 1 character left', function() {
-      this.component = React.render(<CharacterCounter input={input99} maxLimit={maxLimit} />, div);
+      this.component = ReactDOM.render(<CharacterCounter input={input99} maxLimit={maxLimit} />, div);
       var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-      expect(characterCounter.props.children).to.equal('You have 1 character left');
+      expect(characterCounter.textContent).to.equal('You have 1 character left');
     });
 
     it('should be able to handle when you have 0 characters left', function() {
-      this.component = React.render(<CharacterCounter input={input100} maxLimit={maxLimit} />, div);
+      this.component = ReactDOM.render(<CharacterCounter input={input100} maxLimit={maxLimit} />, div);
       var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-      expect(characterCounter.props.children).to.equal('You have 0 characters left');
+      expect(characterCounter.textContent).to.equal('You have 0 characters left');
     });
 
     it('should be able to handle when you are 1 character over the limit', function() {
-      this.component = React.render(<CharacterCounter input={input101} maxLimit={maxLimit} />, div);
+      this.component = ReactDOM.render(<CharacterCounter input={input101} maxLimit={maxLimit} />, div);
       var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-      expect(characterCounter.props.children).to.equal('You are 1 character over the limit');
+      expect(characterCounter.textContent).to.equal('You are 1 character over the limit');
     });
 
     it('should be able to handle when you are 2 characters or more over the limit', function() {
-      this.component = React.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
+      this.component = ReactDOM.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
       var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-      expect(characterCounter.props.children).to.equal('You are 10 characters over the limit');
+      expect(characterCounter.textContent).to.equal('You are 10 characters over the limit');
     });
   });
 
   it('should be able to render character counter', function() {
-    this.component = React.render(<CharacterCounter input={input0} maxLimit={maxLimit} />, div);
+    this.component = ReactDOM.render(<CharacterCounter input={input0} maxLimit={maxLimit} />, div);
     var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-    expect(characterCounter.props.className).to.equal('character-counter');
+    expect(characterCounter.className).to.equal('character-counter');
     expect(this.component.state.previousStatus).to.equal('under');
   });
 
   it('should set previous status to over if the initial input is over the limit', function() {
-    this.component = React.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
+    this.component = ReactDOM.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
     var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
     expect(this.component.state.previousStatus).to.equal('over');
   });
 
   it('should be able to add custom classes', function() {
-    this.component = React.render(<CharacterCounter input={""} maxLimit={maxLimit} className="m-safe" />, div);
+    this.component = ReactDOM.render(<CharacterCounter input={""} maxLimit={maxLimit} className="m-safe" />, div);
     var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-    expect(characterCounter.props.className).to.equal('character-counter m-safe');
+    expect(characterCounter.className).to.equal('character-counter m-safe');
   });
 
   it('should add m-warning class when the input in over the warning limit', function() {
-    this.component = React.render(<CharacterCounter input={input75} maxLimit={maxLimit} />, div);
+    this.component = ReactDOM.render(<CharacterCounter input={input75} warningLimit={warningLimit} maxLimit={maxLimit} />, div);
     var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-    expect(characterCounter.props.className).to.equal('character-counter m-warning');
+    expect(characterCounter.className).to.equal('character-counter m-warning');
   });
 
-  it('should add m-over class when the input in over the warning limit', function() {
-    this.component = React.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
+  it('should add m-over class when the input in over the max limit', function() {
+    this.component = ReactDOM.render(<CharacterCounter input={input110} maxLimit={maxLimit} />, div);
     var characterCounter = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'character-counter');
 
-    expect(characterCounter.props.className).to.equal('character-counter m-over');
+    expect(characterCounter.className).to.equal('character-counter m-over');
   });
 
   it('should transition from under to over when the going over the limit', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var characterCounter = reactTestUtils.findRenderedComponentWithType(this.component, CharacterCounter);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
 
@@ -153,7 +155,7 @@ describe('character counter component', function() {
   });
 
   it('should transition from over to under when coming under the limit', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var characterCounter = reactTestUtils.findRenderedComponentWithType(this.component, CharacterCounter);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
 
@@ -173,7 +175,7 @@ describe('character counter component', function() {
   });
 
   it('should execute onOverLimit callback when the text transitions from under to over status', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
     var button = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'button');
 
@@ -183,11 +185,11 @@ describe('character counter component', function() {
       }
     });
 
-    expect(button.props.disabled).to.be.true;
+    expect(button.disabled).to.be.true;
   });
 
   it('should execute onOverLimit callback when the text transitions from under to over status just once', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var spy = sinon.spy(this.component, 'onOverLimit');
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
     var button = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'button');
@@ -210,7 +212,7 @@ describe('character counter component', function() {
   });
 
   it('should execute onUnderLimit callback when the text transitions from over to under status', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
     var button = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'button');
 
@@ -226,11 +228,11 @@ describe('character counter component', function() {
       }
     });
 
-    expect(button.props.disabled).to.be.false;
+    expect(button.disabled).to.be.false;
   });
 
   it('should execute onUnderLimit callback when the text transitions from over to under status just once', function() {
-    this.component = React.render(<TextComponent />, div);
+    this.component = ReactDOM.render(<TextComponent />, div);
     var spy = sinon.spy(this.component, 'onUnderLimit');
     var input = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'input');
     var button = reactTestUtils.findRenderedDOMComponentWithTag(this.component, 'button');

@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var _ = require('lodash');
 

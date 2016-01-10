@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var singlePanelComponent = require('../../../../assets/mixins/single-panel.mixin');
 var testHelper = require('../../../test-helper');
 
@@ -35,7 +36,7 @@ describe('single panel mixin', function() {
   });
 
   it('should add correct methods to component', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     expect(this.component.componentWillMount).is.a('function');
     expect(this.component.onKeyUpDocument).is.a('function');
@@ -43,7 +44,7 @@ describe('single panel mixin', function() {
   });
 
   it('should trigger singlePanelClose method on escape key press', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     this.component.setState({
       isActive: true
@@ -59,7 +60,7 @@ describe('single panel mixin', function() {
   });
 
   it('should not trigger singlePanelClose method on any key press other then escape', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     this.component.setState({
       isActive: true
@@ -73,7 +74,7 @@ describe('single panel mixin', function() {
   });
 
   it('should trigger singlePanelClose method on click', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     this.component.setState({
       isActive: true
@@ -90,7 +91,7 @@ describe('single panel mixin', function() {
   });
 
   it('should not trigger singlePanelClose method if dontCloseOnClick is set to true and click event triggers', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     this.component.setState({
       isActive: true
@@ -109,7 +110,7 @@ describe('single panel mixin', function() {
   });
 
   it('should set dontCloseOnClick to false on click event', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     this.component.setState({
       isActive: true

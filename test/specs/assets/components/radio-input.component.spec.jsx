@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var RadioInput = require('../../../../assets/components/radio-input.component.jsx');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
@@ -278,21 +279,21 @@ describe('radio input component', function() {
 
   describe('validation', function() {
     it('should not show validation on initial load by default', function() {
-      testData.component = React.render(<FormExampleValidationTrueBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio');
+      expect(formElement.className).to.equal('form-element m-radio');
     });
 
     it('should run and be able to show validation on initial load', function() {
-      testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio m-invalid');
+      expect(formElement.className).to.equal('form-element m-radio m-invalid');
     });
 
     it('should show valid validation', function() {
-      testData.component = React.render(<FormExampleValidationTrueBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input[1], {
@@ -303,11 +304,11 @@ describe('radio input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio m-valid');
+      expect(formElement.className).to.equal('form-element m-radio m-valid');
     });
 
     it('should not show valid validation if configued for invalid only', function() {
-      testData.component = React.render(<FormExampleValidationTrueInvalid />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueInvalid />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input[1], {
@@ -318,11 +319,11 @@ describe('radio input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio');
+      expect(formElement.className).to.equal('form-element m-radio');
     });
 
     it('should show invalid validation', function() {
-      testData.component = React.render(<FormExampleValidationFalseBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseBoth />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input[1], {
@@ -333,11 +334,11 @@ describe('radio input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio m-invalid');
+      expect(formElement.className).to.equal('form-element m-radio m-invalid');
     });
 
     it('should not show invalid validation if configured for valid only', function() {
-      testData.component = React.render(<FormExampleValidationFalseValid />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseValid />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input[1], {
@@ -348,71 +349,71 @@ describe('radio input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-radio');
+      expect(formElement.className).to.equal('form-element m-radio');
     });
   });
 
   describe('general', function() {
     it('should render', function() {
-      testData.component = React.render(<RadioInput name={radioName} options={getOptions()} />, div);
+      testData.component = ReactDOM.render(<RadioInput name={radioName} options={getOptions()} />, div);
       var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
       var radioGroup = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__radio-group');
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
-      var checkedRadio = testData.component.getDOMNode().querySelectorAll('option:checked');
+      var checkedRadio = ReactDOM.findDOMNode(testData.component).querySelectorAll('option:checked');
 
       expect(mainComponent.length).to.equal(1);
       expect(radioGroup.length).to.equal(1);
       expect(label.length).to.equal(2);
       expect(input.length).to.equal(2);
-      expect(label[0].props.children[2]).to.equal('Option 1');
-      expect(input[0].props.value).to.equal(1);
-      expect(input[0].props.type).to.equal('radio');
-      expect(input[0].props.className).to.equal('form-element__input m-radio m-right');
-      expect(label[1].props.children[2]).to.equal('Option 2');
-      expect(input[1].props.value).to.equal('two');
-      expect(input[1].props.type).to.equal('radio');
-      expect(input[1].props.type).to.equal('radio');
-      expect(input[1].props.className).to.equal('form-element__input m-radio m-right');
+      expect(label[0].childNodes[2].textContent).to.equal('Option 1');
+      expect(input[0].value).to.equal('1');
+      expect(input[0].type).to.equal('radio');
+      expect(input[0].className).to.equal('form-element__input m-radio m-right');
+      expect(label[1].childNodes[2].textContent).to.equal('Option 2');
+      expect(input[1].value).to.equal('two');
+      expect(input[1].type).to.equal('radio');
+      expect(input[1].type).to.equal('radio');
+      expect(input[1].className).to.equal('form-element__input m-radio m-right');
       expect(checkedRadio.length).to.equal(0);
     });
 
     it('should be able to render content to the left of the input', function() {
-      testData.component = React.render(<RadioInput name={radioName} options={getOptionsLeft()} />, div);
+      testData.component = ReactDOM.render(<RadioInput name={radioName} options={getOptionsLeft()} />, div);
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
-      expect(label[0].props.children[0]).to.equal('Option 1');
-      expect(input[0].props.className).to.equal('form-element__input m-radio m-left');
-      expect(label[1].props.children[0]).to.equal('Option 2');
-      expect(input[1].props.className).to.equal('form-element__input m-radio m-left');
+      expect(label[0].childNodes[0].textContent).to.equal('Option 1');
+      expect(input[0].className).to.equal('form-element__input m-radio m-left');
+      expect(label[1].childNodes[0].textContent).to.equal('Option 2');
+      expect(input[1].className).to.equal('form-element__input m-radio m-left');
     });
 
     it('should be able to set default value', function() {
-      testData.component = React.render(<FormExampleWithDefaultValue />, div);
-      var checkedRadio = testData.component.getDOMNode().querySelectorAll('input:checked');
+      testData.component = ReactDOM.render(<FormExampleWithDefaultValue />, div);
+      var checkedRadio = ReactDOM.findDOMNode(testData.component).querySelectorAll('input:checked');
 
       expect(checkedRadio.length).to.equal(1);
       expect(checkedRadio[0].value).to.equal('two');
     });
 
     it('should be able to render label', function() {
-      testData.component = React.render(<RadioInput name={radioName} options={getOptions()} label="Label" className="m-safe" />, div);
+      testData.component = ReactDOM.render(<RadioInput name={radioName} options={getOptions()} label="Label" className="m-safe" />, div);
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
 
       expect(label.length).to.equal(3)
-      expect(label[0].props.children).to.equal('Label');
+      expect(label[0].textContent).to.equal('Label');
     });
 
     it('should be able to add custom classes', function() {
-      testData.component = React.render(<RadioInput name={radioName} options={getOptions()} className="m-safe" />, div);
+      testData.component = ReactDOM.render(<RadioInput name={radioName} options={getOptions()} className="m-safe" />, div);
       var mainComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(mainComponent.props.className).to.equal('form-element m-radio m-safe');
+      expect(mainComponent.className).to.equal('form-element m-radio m-safe');
     });
 
     it('should be able to attach onChange event', function() {
-      testData.component = React.render(<FormExample />, div);
+      testData.component = ReactDOM.render(<FormExample />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input[1], {

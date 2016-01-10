@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 
 var maxSmallColumns = 12;
 var maxMediumColumns = 12;
@@ -9,7 +10,7 @@ var flexCell = {};
 flexCell.displayName = 'FlexCell';
 
 flexCell.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 flexCell.propTypes = {

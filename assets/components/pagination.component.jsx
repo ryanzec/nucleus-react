@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var SvgIcon = require('./svg-icon.component.jsx');
 
 var pagination = {};
@@ -6,7 +7,7 @@ var pagination = {};
 pagination.displayName = 'Pagination';
 
 pagination.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 pagination.propTypes = {

@@ -1,11 +1,12 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 
 var progressBar = {};
 
 progressBar.displayName = 'ProgressBar';
 
 progressBar.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 progressBar.propTypes = {

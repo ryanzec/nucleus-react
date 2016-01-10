@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var debounceMixin = require('../../../../assets/mixins/debounce.mixin');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
@@ -49,7 +50,7 @@ describe('debounce mixin', function() {
   });
 
   it('should add methods to component', function() {
-    this.component = React.render(<TestComponent />, div);
+    this.component = ReactDOM.render(<TestComponent />, div);
 
     expect(_.isFunction(this.component.increase)).to.be.true;
     expect(_.isFunction(this.component.decrease)).to.be.true;
@@ -57,7 +58,7 @@ describe('debounce mixin', function() {
 
   it('should debounce the added methods', function(done) {
     Fiber(function() {
-      this.component = React.render(<TestComponent />, div);
+      this.component = ReactDOM.render(<TestComponent />, div);
 
       expect(this.component.testValue).to.equal(0);
 

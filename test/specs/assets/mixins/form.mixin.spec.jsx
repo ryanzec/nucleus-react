@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var CheckboxInput = require('../../../../assets/components/checkbox-input.component.jsx');
@@ -748,7 +749,7 @@ describe('form mixin', function() {
 
   describe('validator collection', function() {
     it('should be able to get', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
 
       this.component.setState({
         test: {
@@ -774,7 +775,7 @@ describe('form mixin', function() {
     });
 
     it('should return error messages', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
 
       this.component.setState({
         test: {
@@ -802,7 +803,7 @@ describe('form mixin', function() {
     });
 
     it('should validate to false', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
 
       this.component.setState({
         test: {
@@ -829,7 +830,7 @@ describe('form mixin', function() {
 
   describe('single form', function() {
     it('should be able to reset form values to initial values', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
       var inputs = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input');
 
       var firstNameInput = inputs[0];
@@ -871,25 +872,25 @@ describe('form mixin', function() {
 
       this.component.refs.date.onClickDate('01/01/2015');
 
-      expect(firstNameInput.getDOMNode().value).to.equal('123');
-      expect(passwordInput.getDOMNode().value).to.equal('234');
-      expect(receiveNewlettersInput.getDOMNode().checked).to.be.false;
-      expect(over21Input.getDOMNode().checked).to.be.true;
-      expect(radioTrueInput.getDOMNode().checked).to.be.true;
-      expect(dateInput.getDOMNode().value).to.equal('01/01/2015');
+      expect(ReactDOM.findDOMNode(firstNameInput).value).to.equal('123');
+      expect(ReactDOM.findDOMNode(passwordInput).value).to.equal('234');
+      expect(ReactDOM.findDOMNode(receiveNewlettersInput).checked).to.be.false;
+      expect(ReactDOM.findDOMNode(over21Input).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(radioTrueInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(dateInput).value).to.equal('01/01/2015');
 
       this.component.resetForm('test');
 
-      expect(firstNameInput.getDOMNode().value).to.equal('');
-      expect(passwordInput.getDOMNode().value).to.equal('test');
-      expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
-      expect(over21Input.getDOMNode().checked).to.be.false;
-      expect(radioTrueInput.getDOMNode().checked).to.be.false;
-      expect(dateInput.getDOMNode().value).to.equal('');
+      expect(ReactDOM.findDOMNode(firstNameInput).value).to.equal('');
+      expect(ReactDOM.findDOMNode(passwordInput).value).to.equal('test');
+      expect(ReactDOM.findDOMNode(receiveNewlettersInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(over21Input).checked).to.be.false;
+      expect(ReactDOM.findDOMNode(radioTrueInput).checked).to.be.false;
+      expect(ReactDOM.findDOMNode(dateInput).value).to.equal('');
     });
 
     it('should be able to validate all form fields', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
 
       this.component.setState({
         test: {
@@ -938,7 +939,7 @@ describe('form mixin', function() {
     });
 
     it('should be able to validate to true is allow empty is set (except checkboxes)', function() {
-      this.component = React.render(<SingleFormAllowEmpty />, div);
+      this.component = ReactDOM.render(<SingleFormAllowEmpty />, div);
 
       this.component.setState({
         test: {
@@ -963,7 +964,7 @@ describe('form mixin', function() {
     });
 
     it('should keep validation active on form reset if validateOnLoad is set to true', function() {
-      this.component = React.render(<SingleForm />, div);
+      this.component = ReactDOM.render(<SingleForm />, div);
 
       expect(this.component.refs.firstName.validator.shouldRenderValidation()).to.be.true;
       expect(this.component.refs.password.validator.shouldRenderValidation()).to.be.false;
@@ -987,7 +988,7 @@ describe('form mixin', function() {
 
   describe('multiple forms', function() {
     it('should be able to reset form values to initial values', function() {
-      this.component = React.render(<MultipleForms />, div);
+      this.component = ReactDOM.render(<MultipleForms />, div);
       var inputs = reactTestUtils.scryRenderedDOMComponentsWithClass(this.component, 'form-element__input');
 
       var firstNameInput = inputs[0];
@@ -1037,31 +1038,31 @@ describe('form mixin', function() {
 
       this.component.refs.date2.onClickDate('01/01/2015');
 
-      expect(firstNameInput.getDOMNode().value).to.equal('');
-      expect(passwordInput.getDOMNode().value).to.equal('test');
-      expect(receiveNewlettersInput.getDOMNode().checked).to.be.true;
-      expect(over21Input.getDOMNode().checked).to.be.false;
-      expect(radioFalseInput.getDOMNode().checked).to.be.true;
-      expect(dateInput.getDOMNode().value).to.equal('');
-      expect(lastNameInput.getDOMNode().value).to.equal('123');
-      expect(emailInput.getDOMNode().value).to.equal('234');
-      expect(agreeToTermsInput.getDOMNode().checked).to.be.flase;
-      expect(under21Input.getDOMNode().checked).to.be.true;
-      expect(radio2TrueInput.getDOMNode().checked).to.be.true;
-      expect(date2Input.getDOMNode().value).to.equal('01/01/2015');
+      expect(ReactDOM.findDOMNode(firstNameInput).value).to.equal('');
+      expect(ReactDOM.findDOMNode(passwordInput).value).to.equal('test');
+      expect(ReactDOM.findDOMNode(receiveNewlettersInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(over21Input).checked).to.be.false;
+      expect(ReactDOM.findDOMNode(radioFalseInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(dateInput).value).to.equal('');
+      expect(ReactDOM.findDOMNode(lastNameInput).value).to.equal('123');
+      expect(ReactDOM.findDOMNode(emailInput).value).to.equal('234');
+      expect(ReactDOM.findDOMNode(agreeToTermsInput).checked).to.be.flase;
+      expect(ReactDOM.findDOMNode(under21Input).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(radio2TrueInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(date2Input).value).to.equal('01/01/2015');
 
       this.component.resetForm('test2');
 
-      expect(lastNameInput.getDOMNode().value).to.equal('');
-      expect(emailInput.getDOMNode().value).to.equal('test');
-      expect(agreeToTermsInput.getDOMNode().checked).to.be.true;
-      expect(under21Input.getDOMNode().checked).to.be.false;
-      expect(radio2FalseInput.getDOMNode().checked).to.be.true;
-      expect(date2Input.getDOMNode().value).to.equal('');
+      expect(ReactDOM.findDOMNode(lastNameInput).value).to.equal('');
+      expect(ReactDOM.findDOMNode(emailInput).value).to.equal('test');
+      expect(ReactDOM.findDOMNode(agreeToTermsInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(under21Input).checked).to.be.false;
+      expect(ReactDOM.findDOMNode(radio2FalseInput).checked).to.be.true;
+      expect(ReactDOM.findDOMNode(date2Input).value).to.equal('');
     });
 
     it('should be able to validate all form fields', function() {
-      this.component = React.render(<MultipleForms />, div);
+      this.component = ReactDOM.render(<MultipleForms />, div);
 
       this.component.setState({
         test2: {
@@ -1112,7 +1113,7 @@ describe('form mixin', function() {
   });
 
   it('should be able to reset a form with custom data', function() {
-    this.component = React.render(<ResetForm />, div);
+    this.component = ReactDOM.render(<ResetForm />, div);
 
     expect(this.component.state.test).to.deep.equal({
       firstName: '',

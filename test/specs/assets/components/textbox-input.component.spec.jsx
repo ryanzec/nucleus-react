@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var TextboxInput = require('../../../../assets/components/textbox-input.component.jsx');
 var InputAutoSizer = require('../../../../assets/components/input-auto-sizer.component.jsx');
 var Button = require('../../../../assets/components/button.component.jsx');
@@ -337,33 +338,33 @@ describe('textbox input component', function() {
 
   describe('validation', function() {
     it('should not show validation on initial load by default', function() {
-      testData.component = React.render(<FormExampleValidationTrueBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text');
+      expect(formElement.className).to.equal('form-element m-text');
     });
 
     it('should run and be able to show validation on initial load', function() {
-      testData.component = React.render(<FormExampleValidationFalseBothOnLoad />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseBothOnLoad />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var formMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
 
-      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
+      expect(formElement.className).to.equal('form-element m-text m-invalid');
       expect(formMessages.length).to.equal(1);
-      expect(formMessages[0].props.children).to.equal('test validation message');
+      expect(formMessages[0].textContent).to.equal('test validation message');
     });
 
     it('should not show validation messages', function() {
-      testData.component = React.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
       var formMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message');
 
-      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
+      expect(formElement.className).to.equal('form-element m-text m-invalid');
       expect(formMessages.length).to.equal(0);
     });
 
     it('should show valid validation', function() {
-      testData.component = React.render(<FormExampleValidationTrueBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
@@ -374,11 +375,11 @@ describe('textbox input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text m-valid');
+      expect(formElement.className).to.equal('form-element m-text m-valid');
     });
 
     it('should be able to add validator after intial render', function() {
-      testData.component = React.render(<FormExampleAddValidation />, div);
+      testData.component = ReactDOM.render(<FormExampleAddValidation />, div);
       var button = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'button');
 
       reactTestUtils.Simulate.click(button);
@@ -393,11 +394,11 @@ describe('textbox input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text m-valid');
+      expect(formElement.className).to.equal('form-element m-text m-valid');
     });
 
     it('should not show valid validation if configued for invalid only', function() {
-      testData.component = React.render(<FormExampleValidationTrueInvalid />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationTrueInvalid />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
@@ -408,11 +409,11 @@ describe('textbox input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text');
+      expect(formElement.className).to.equal('form-element m-text');
     });
 
     it('should show invalid validation', function() {
-      testData.component = React.render(<FormExampleValidationFalseBoth />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseBoth />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
@@ -423,11 +424,11 @@ describe('textbox input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text m-invalid');
+      expect(formElement.className).to.equal('form-element m-text m-invalid');
     });
 
     it('should not show invalid validation if configured for valid only', function() {
-      testData.component = React.render(<FormExampleValidationFalseValid />, div);
+      testData.component = ReactDOM.render(<FormExampleValidationFalseValid />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
@@ -438,13 +439,13 @@ describe('textbox input component', function() {
 
       var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(formElement.props.className).to.equal('form-element m-text');
+      expect(formElement.className).to.equal('form-element m-text');
     });
   });
 
   describe('general', function() {
     it('should render', function() {
-      testData.component = React.render(<TextboxInput />, div);
+      testData.component = ReactDOM.render(<TextboxInput />, div);
       var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
@@ -460,12 +461,12 @@ describe('textbox input component', function() {
       expect(textarea.length).to.equal(0);
       expect(prepend.length).to.equal(0);
       expect(append.length).to.equal(0);
-      expect(input[0].props.type).to.equal('text');
-      expect(input[0].getDOMNode().value).to.equal('');
+      expect(input[0].type).to.equal('text');
+      expect(ReactDOM.findDOMNode(input[0]).value).to.equal('');
     });
 
     it('should render textarea', function() {
-      testData.component = React.render(<TextboxInput multiLined={true} />, div);
+      testData.component = ReactDOM.render(<TextboxInput multiLined={true} />, div);
       var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
       var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
@@ -480,58 +481,58 @@ describe('textbox input component', function() {
     });
 
     it('should be able to specify the type', function() {
-      testData.component = React.render(<TextboxInput type="password" />, div);
+      testData.component = ReactDOM.render(<TextboxInput type="password" />, div);
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input');
 
-      expect(input[0].props.type).to.equal('password');
+      expect(input[0].type).to.equal('password');
     });
 
     it('should render prepend', function() {
-      testData.component = React.render(<TextboxInput prepend="pre" />, div);
+      testData.component = ReactDOM.render(<TextboxInput prepend="pre" />, div);
       var prepend = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__input-prepend');
 
       expect(prepend.length).to.equal(1);
-      expect(prepend[0].props.children).to.equal('pre');
+      expect(prepend[0].textContent).to.equal('pre');
     });
 
     it('should render append', function() {
-      testData.component = React.render(<TextboxInput append="app" />, div);
+      testData.component = ReactDOM.render(<TextboxInput append="app" />, div);
       var append = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__input-append');
 
       expect(append.length).to.equal(1);
-      expect(append[0].props.children).to.equal('app');
+      expect(append[0].textContent).to.equal('app');
     });
 
     it('should be able to set default value', function() {
-      testData.component = React.render(<FormExampleWithDefaultValue />, div);
+      testData.component = ReactDOM.render(<FormExampleWithDefaultValue />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.getDOMNode().value).to.equal('default');
+      expect(ReactDOM.findDOMNode(input).value).to.equal('default');
     });
 
     it('should be able to set place holder', function() {
-      testData.component = React.render(<TextboxInput placeholder="Placeholder" />, div);
+      testData.component = ReactDOM.render(<TextboxInput placeholder="Placeholder" />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
-      expect(input.props.placeholder).to.equal('Placeholder');
+      expect(input.getAttribute('placeholder')).to.equal('Placeholder');
     });
 
     it('should be able to render label', function() {
-      testData.component = React.render(<TextboxInput label="Label" className="m-safe" />, div);
+      testData.component = ReactDOM.render(<TextboxInput label="Label" className="m-safe" />, div);
       var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
 
-      expect(label.props.children).to.equal('Label');
+      expect(label.textContent).to.equal('Label');
     });
 
     it('should be able to add custom classes', function() {
-      testData.component = React.render(<TextboxInput className="m-safe" />, div);
+      testData.component = ReactDOM.render(<TextboxInput className="m-safe" />, div);
       var mainComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
 
-      expect(mainComponent.props.className).to.equal('form-element m-text m-safe');
+      expect(mainComponent.className).to.equal('form-element m-text m-safe');
     });
 
     it('should be able to attach onChange event', function() {
-      testData.component = React.render(<FormExample />, div);
+      testData.component = ReactDOM.render(<FormExample />, div);
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
 
       reactTestUtils.Simulate.change(input, {
@@ -545,7 +546,7 @@ describe('textbox input component', function() {
 
     it('should be able to click trigger click event when clicking on prepend element', function() {
       var spy = testHelper.getSpyForEventHandler(TextboxInput, 'onClickPend');
-      testData.component = React.render(<TextboxInput prepend="pre" />, div);
+      testData.component = ReactDOM.render(<TextboxInput prepend="pre" />, div);
       var prepend = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element__input-prepend');
 
       reactTestUtils.Simulate.click(prepend);
@@ -557,7 +558,7 @@ describe('textbox input component', function() {
 
     it('should be able to click trigger click event when clicking on append element', function() {
       var spy = testHelper.getSpyForEventHandler(TextboxInput, 'onClickPend');
-      testData.component = React.render(<TextboxInput append="app" />, div);
+      testData.component = ReactDOM.render(<TextboxInput append="app" />, div);
       var append = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element__input-append');
 
       reactTestUtils.Simulate.click(append);
@@ -568,7 +569,7 @@ describe('textbox input component', function() {
     });
 
     it('should work with input auto resizer element', function() {
-      testData.component = React.render(<TextboxInput append="app" autoSize={true}/>, div);
+      testData.component = ReactDOM.render(<TextboxInput append="app" autoSize={true}/>, div);
       var inputAutoSizer = reactTestUtils.scryRenderedComponentsWithType(testData.component, InputAutoSizer);
 
       expect(inputAutoSizer.length).to.equal(1);

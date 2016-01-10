@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commoneReact = require('../../../../assets/index');
 
 var menuStore = require('../../stores/menu.store');

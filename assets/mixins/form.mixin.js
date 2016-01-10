@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var validatorCollection = require('../misc/validator-collection');
 var _ = require('lodash');
 

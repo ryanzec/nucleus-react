@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var domUtilities = require('dom-utilities');
 var domEventManagerMixin = require('../mixins/dom-event-manager.mixin');
 var _ = require('lodash');
@@ -8,7 +10,7 @@ var inputAutoSizer = {};
 inputAutoSizer.displayName = 'InputAutoSizer';
 
 inputAutoSizer.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   domEventManagerMixin
 ];
 
@@ -52,11 +54,11 @@ inputAutoSizer.setSize = function inputAutoSizerSetSize() {
 };
 
 inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
-  var dimensions = domUtilities.getDimensions(this.refs.input.getDOMNode());
+  var dimensions = domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.input));
   var sizerElement = this.props.value ? this.refs.sizer : this.refs.placeholder;
 
   //HACK: this with the one at the end of the method fixes issue in IE with the scroll being shown becuase of the hidden sizer element
-  sizerElement.getDOMNode().style.display = 'block';
+  ReactDOM.findDOMNode(sizerElement).style.display = 'block';
 
   var newWidth = (
     Math.ceil(dimensions.paddings.left
@@ -64,11 +66,11 @@ inputAutoSizer.getNewWidth = function inputAutoSizerGetNetWidth() {
     + dimensions.borders.left
     + dimensions.borders.right
     //HACK: I should only hvae to add 1 however I need 3 to keep IE from shifting the text in the input
-    + sizerElement.getDOMNode().scrollWidth + 3) + 'px'
+    + ReactDOM.findDOMNode(sizerElement).scrollWidth + 3) + 'px'
   );
 
   //HACK: this with the one at the top of the method fixes issue in IE with the scroll being shown becuase of the hidden sizer element
-  sizerElement.getDOMNode().style.display = 'none';
+  ReactDOM.findDOMNode(sizerElement).style.display = 'none';
 
   return newWidth;
 };

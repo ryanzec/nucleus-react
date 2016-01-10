@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var commonReact = require('../../../../assets/index');
 var _ = require('lodash');
 
@@ -156,7 +157,7 @@ mainNavigation.contextTypes = {
 };
 
 mainNavigation.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 mainNavigation.getInitialState = function() {

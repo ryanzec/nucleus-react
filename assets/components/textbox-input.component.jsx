@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var _ = require('lodash');
 var formInputMixin = require('../mixins/form-input.mixin.jsx');
 var InputAutoSizer = require('./input-auto-sizer.component.jsx');
@@ -9,7 +11,7 @@ var textboxInput = {};
 textboxInput.displayName = 'TextboxInput';
 
 textboxInput.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   formInputMixin
 ];
 
@@ -89,7 +91,7 @@ textboxInput.cleanValue = function textboxInputCleanValue(value) {
 
 textboxInput.onClickPend = function textboxInputOnClickPend() {
   //NOTE: append/prepend only work for regular inputs so no need to check for refs.input.refs.input
-  this.refs.input.getDOMNode().focus();
+  ReactDOM.findDOMNode(this.refs.input).focus();
 };
 
 textboxInput.renderPrepend = function textboxInputRenderPrepend() {

@@ -1,11 +1,12 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 
 var badge = {};
 
 badge.displayName = 'Badge';
 
 badge.mixins = [
-  React.addons.PureRenderMixin
+  ReactPureRenderMixin
 ];
 
 badge.propTypes = {

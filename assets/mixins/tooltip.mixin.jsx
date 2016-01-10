@@ -1,7 +1,9 @@
 /**
  * @todo: look into replacing tooltipSpacing with pure css
  */
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var appendBodyMixin = require('./append-body.mixin.jsx');
 var _ = require('lodash');
 var singlePanelMixin = require('../mixins/single-panel.mixin');
@@ -10,7 +12,7 @@ var domUtilities = require('dom-utilities');
 var tooltipMixin = {};
 
 tooltipMixin.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   appendBodyMixin,
   singlePanelMixin
 ];
@@ -49,7 +51,7 @@ tooltipMixin.componentWillMount = function tooltipMixinComponentWillMount() {
 tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
   this.createAppendElement();
   var appendBody = this.getAppendElement();
-  var node = this.getDOMNode();
+  var node = ReactDOM.findDOMNode(this);
   var handle = node.getElementsByClassName('tooltip__handle')[0];
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
 
@@ -68,7 +70,7 @@ tooltipMixin.componentDidMount = function tooltipMixinComponentDidMount() {
 };
 
 tooltipMixin.componentWillUnmount = function tooltipMixinComponentWillUnmount() {
-  var node = this.getDOMNode();
+  var node = ReactDOM.findDOMNode(this);
   var handle = node.getElementsByClassName('tooltip__handle')[0];
   var appendBody = this.getAppendElement();
   var tooltipContent = appendBody.getElementsByClassName('tooltip__content')[0];
@@ -153,7 +155,7 @@ tooltipMixin.fixHiddenTooltip = function tooltipMixinFixHiddenTooltip(tooltipNod
 /* istanbul ignore next */
 tooltipMixin.setTooltipPosition = function tooltipMixinSetTooltipPosition() {
   var tooltipNode = this.getAppendElement().getElementsByClassName('tooltip__content')[0];
-  var tooltipHandleNode = this.getDOMNode().getElementsByClassName('tooltip__handle')[0];
+  var tooltipHandleNode = ReactDOM.findDOMNode(this).getElementsByClassName('tooltip__handle')[0];
   var tooltipCurrentDisplay = tooltipNode.style.display;
 
   //setting these values will make sure the getDimensions retrieves the correct values by allow the content to flow naturally

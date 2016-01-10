@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var utilities = require('../../utilities/index');
@@ -24,30 +24,30 @@ badgePage.render = function() {
   return (
     <div className="p-components-badge">
       <div className="u-headline">Badge</div>
-      <p>
+      <div>
         Badges are a way to add extra inline styling to element in order to make them stand out.
-      </p>
+      </div>
       <div>
         <div className="u-title">Standard</div>
-        <p>
+        <div>
           All you need to create a standard badge is to use the <Code language="jsx" isInline={true}>{'<Badge />'}</Code> component.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/badge/standard.jsx', 'utf8')}>
           <Badge>Badge</Badge>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Pills</div>
-        <p>
+        <div>
           By default, badges have a small border radius.  If you wish for your badge to look like a pill, you can add the <Code isInline={true}>m-pill</Code> class.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/badge/pill.jsx', 'utf8')}>
           <Badge className="m-pill">Pill Form</Badge>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Grouping</div>
-        <p>
+        <div>
           If you wish to group multiplebadge together, you will want to use the <Code language="jsx" isInline={true}>{'<BadgeGroup />'}</Code> component.
           <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/badge/grouping.jsx', 'utf8')}>
             <BadgeGroup>
@@ -55,13 +55,13 @@ badgePage.render = function() {
               <Badge className="m-pill">Pill Form</Badge>
             </BadgeGroup>
           </FrameworkExample>
-        </p>
+        </div>
       </div>
       <div>
         <div className="u-title">Color Types</div>
-        <p>
+        <div>
           This component supports for 4 different color types with the <Code isInline={true}>m-safe</Code>, <Code isInline={true}>m-notice</Code>, <Code isInline={true}>m-warning</Code>, and <Code isInline={true}>m-danger</Code> classes.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/badge/color-types.jsx', 'utf8')}>
           <BadgeGroup>
             <Badge className="m-safe">Safe</Badge>

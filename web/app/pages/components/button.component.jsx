@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var utilities = require('../../utilities/index');
@@ -23,32 +23,32 @@ buttonPage.render = function() {
   return (
     <div className="p-components-button">
       <div className="u-headline">Button</div>
-      <p>
+      <div>
         This component will display a button.
-      </p>
+      </div>
       <div>
         <div className="u-title">Standard</div>
-        <p>
+        <div>
           All you need to create a standard button is to use the <Code language="jsx" isInline={true}>{'<Button />'}</Code> component.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/button/standard.jsx', 'utf8')}>
           <Button>My Button</Button>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Disabled</div>
-        <p>
+        <div>
           The button component will pass through all properties to the native button component so you can pass properties like <Code language="jsx" isInline={true}>disabled</Code>.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/button/disabled.jsx', 'utf8')}>
           <Button disabled={true}>My Disabled Button</Button>
         </FrameworkExample>
       </div>
       <div>
         <div className="u-title">Color Types</div>
-        <p>
+        <div>
           This component supports for 4 different color types with the <Code isInline={true}>m-safe</Code>, <Code isInline={true}>m-notice</Code>, <Code isInline={true}>m-warning</Code>, and <Code isInline={true}>m-danger</Code> classes.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/button/color-types.jsx', 'utf8')}>
           <Button className="m-safe">My Safe Button</Button>
           <Button className="m-notice">My Notice Button</Button>

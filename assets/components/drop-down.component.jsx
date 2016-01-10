@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+var ReactDOM = require('react-dom');
 var singlePanelMixin = require('../mixins/single-panel.mixin');
 var domUtilities = require('dom-utilities');
 
@@ -7,7 +9,7 @@ var dropDown = {};
 dropDown.displayName = 'DropDown';
 
 dropDown.mixins = [
-  React.addons.PureRenderMixin,
+  ReactPureRenderMixin,
   singlePanelMixin
 ];
 
@@ -66,14 +68,14 @@ dropDown.isActive = function dropDownIsActive() {
 };
 
 dropDown.positionContent = function dropDownPositionContent() {
-  var handleHeight = Math.ceil(domUtilities.getDimensions(this.refs.handle.getDOMNode()).height);
-  var handleWidth = Math.ceil(domUtilities.getDimensions(this.refs.handle.getDOMNode()).width);
-  var contentWidth = Math.ceil(domUtilities.getDimensions(this.refs.content.getDOMNode()).width);
-  this.refs.content.getDOMNode().style.minWidth = contentWidth + 'px';
-  this.refs.content.getDOMNode().style.top = handleHeight + 10 + 'px';
+  var handleHeight = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.handle)).height);
+  var handleWidth = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.handle)).width);
+  var contentWidth = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.content)).width);
+  ReactDOM.findDOMNode(this.refs.content).style.minWidth = contentWidth + 'px';
+  ReactDOM.findDOMNode(this.refs.content).style.top = handleHeight + 10 + 'px';
 
   //NOTE: 26 is based off the css for the triangle
-  this.refs.content.getDOMNode().style[this.props.align] = (handleWidth / 2) - 26 + 'px';
+  ReactDOM.findDOMNode(this.refs.content).style[this.props.align] = (handleWidth / 2) - 26 + 'px';
 };
 
 dropDown.getCssClasses = function dropDownGetCssClasses() {

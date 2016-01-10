@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var utilities = require('../../utilities/index');
@@ -25,14 +25,14 @@ cardPage.render = function() {
   return (
     <div className="p-components-card">
       <div className="u-headline">Card</div>
-      <p>
+      <div>
         A card is a standard component to put content into.  A card is made of 3 main components: <Code language="jsx" isInline={true}>{'<Card />'}</Code>, <Code language="jsx" isInline={true}>{'<CardContent />'}</Code>, and <Code language="jsx" isInline={true}>{'<CardHeader />'}</Code>.
-      </p>
+      </div>
       <div>
         <div className="u-title">Standard</div>
-        <p>
+        <div>
           All you need to create a standard card is to use the <Code language="jsx" isInline={true}>{'<Card />'}</Code> and <Code language="jsx" isInline={true}>{'<CardContent />'}</Code> components.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/card/standard.jsx', 'utf8')}>
           <Card>
             <CardContent>I am the card content</CardContent>
@@ -41,9 +41,9 @@ cardPage.render = function() {
       </div>
       <div>
         <div className="u-title">Header</div>
-        <p>
+        <div>
           You can also add a header by using the <Code language="jsx" isInline={true}>{'<CardHeader />'}</Code> component.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/card/header.jsx', 'utf8')}>
           <Card>
             <CardHeader>Header</CardHeader>
@@ -54,9 +54,9 @@ cardPage.render = function() {
       <hr />
       <div className="framework-properties">
         <div className="u-title">Properties</div>
-        <p>
+        <div>
           All three components, <Code language="jsx" isInline={true}>{'<Card />'}</Code>, <Code language="jsx" isInline={true}>{'<CardContent />'}</Code>, and <Code language="jsx" isInline={true}>{'<CardHeader />'}</Code>, have the same properties.
-        </p>
+        </div>
         <FrameworkProperty
           name="className"
           type="string"

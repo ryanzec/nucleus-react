@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var commonReact = require('../../../../assets/index');
 var applicationReact = require('../../react/index');
 var utilities = require('../../utilities/index');
@@ -17,7 +17,8 @@ characterCounterPage.displayName = 'ComponentsCharacterCounterPage';
 
 characterCounterPage.getInitialState = function() {
   return {
-    value1: ''
+    value1: '',
+    value2: ''
   };
 };
 
@@ -49,14 +50,14 @@ characterCounterPage.render = function() {
   return (
     <div className="p-components-character-counter">
       <div className="u-headline">Character Counter</div>
-      <p>
+      <div>
         The character counter component it used to let the user know how many characters they have types with-in an input.
-      </p>
+      </div>
       <div>
         <div className="u-title">Standard</div>
-        <p>
+        <div>
           All you need to create a standard card is to use the <Code language="jsx" isInline={true}>{'<Card />'}</Code> and <Code language="jsx" isInline={true}>{'<CardContent />'}</Code> components.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/character-counter/standard.jsx', 'utf8')}>
           <input type="text" value={this.state.value2} onChange={this.onChangeValue2} />
           <CharacterCounter
@@ -68,9 +69,9 @@ characterCounterPage.render = function() {
       </div>
       <div>
         <div className="u-title">Limit Hooks</div>
-        <p>
+        <div>
           There are 2 event callbacks that you can attached to the component as properties.  This first is the <Code isInline={true}>onOverLimit</Code> which is executed when the state of the character counter goes from under limit to over limit.  This second is the <Code isInline={true}>onUnderLimit</Code> which is executed when the state of the character counter goes from over limit to under limit.  These callbacks are only executed when the state change so if you go over the limit and continue typing, the callback in only executed once on the initial overage.
-        </p>
+        </div>
         <FrameworkExample exampleCode={fs.readFileSync(__dirname + '/assets/examples/character-counter/limit-hooks.jsx', 'utf8')}>
           <input type="text" value={this.state.value1} onChange={this.onChangeValue1} />
           <CharacterCounter
@@ -102,7 +103,7 @@ characterCounterPage.render = function() {
           type="number"
           defaultValue="null"
           descriptionNode={
-            <p>Once the input goes over this length, the <Code isInline={true}>m-safe</Code> class is added to the character counter test.</p>
+            <div>Once the input goes over this length, the <Code isInline={true}>m-safe</Code> class is added to the character counter test.</div>
           }
         />
         <FrameworkProperty
@@ -110,7 +111,7 @@ characterCounterPage.render = function() {
           type="number"
           defaultValue="null"
           descriptionNode={
-            <p>Once the input goes over this length, the <Code isInline={true}>m-warning</Code> class is added to the character counter test.</p>
+            <div>Once the input goes over this length, the <Code isInline={true}>m-warning</Code> class is added to the character counter test.</div>
           }
         />
         <FrameworkProperty

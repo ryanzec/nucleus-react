@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var validator = require('../../../../assets/misc/validator');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');

@@ -1,5 +1,6 @@
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var ProgressBar = require('../../../../assets/components/progress-bar.component.jsx');
 var testHelper = require('../../../test-helper');
 
@@ -11,36 +12,32 @@ describe('progress bar component', function() {
   });
 
   it('should be able to render progress bar', function() {
-    this.component = React.render(<ProgressBar />, div);
+    this.component = ReactDOM.render(<ProgressBar />, div);
     var progressBar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'progress-bar');
     var progressBarIndicator = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'progress-bar__indicator');
 
-    expect(progressBar.props.className).to.equal('progress-bar');
-    expect(progressBarIndicator.props.className).to.equal('progress-bar__indicator');
+    expect(progressBar.className).to.equal('progress-bar');
+    expect(progressBarIndicator.className).to.equal('progress-bar__indicator');
   });
 
   it('should be able to add custom classes', function() {
-    this.component = React.render(<ProgressBar className="m-safe" />, div);
+    this.component = ReactDOM.render(<ProgressBar className="m-safe" />, div);
     var progressBar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'progress-bar');
 
-    expect(progressBar.props.className).to.equal('progress-bar m-safe');
+    expect(progressBar.className).to.equal('progress-bar m-safe');
   });
 
   it('should be able to add custom styles', function() {
-    this.component = React.render(<ProgressBar style={{width: '100px'}} />, div);
+    this.component = ReactDOM.render(<ProgressBar style={{width: '100px'}} />, div);
     var progressBar = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'progress-bar');
 
-    expect(progressBar.props.style).to.deep.equal({
-      width: '100px'
-    });
+    expect(progressBar.style.width).to.equal('100px');
   });
 
   it('should set indicator width properly', function() {
-    this.component = React.render(<ProgressBar percentageDone={50} />, div);
+    this.component = ReactDOM.render(<ProgressBar percentageDone={50} />, div);
     var progressBarIndicator = reactTestUtils.findRenderedDOMComponentWithClass(this.component, 'progress-bar__indicator');
 
-    expect(progressBarIndicator.props.style).to.deep.equal({
-      width: '50%'
-    });
+    expect(progressBarIndicator.style.width).to.equal('50%');
   });
 });

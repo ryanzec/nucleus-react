@@ -4,8 +4,9 @@ var initialStoresCachedData = {};
 var Router = require('react-router');
 var Link = Router.Link;
 var Route = Router.Route;
-var React = require('react/addons');
-var reactTestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var reactTestUtils = require('react-addons-test-utils');
 var TestLocation = require('react-router/lib/locations/TestLocation');
 var fibers = require('fibers');
 var mockedData = require('../web/app/mock/data/index');
@@ -34,7 +35,7 @@ module.exports = {
 
   unmountComponent: function(component) {
     if(component && component.isMounted()) {
-      React.unmountComponentAtNode(component.getDOMNode().parentNode);
+      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(component).parentNode);
     }
   },
 
