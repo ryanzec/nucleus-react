@@ -6,9 +6,7 @@ var equals = require('deep-equal');
 var domUtilities = require('dom-utilities');
 var SvgIcon = require('./svg-icon.component.jsx');
 var InputAutoSizer = require('./input-auto-sizer.component.jsx');
-var validatorMixin = require('../mixins/validator.mixin');
 var singlePanelMixin = require('../mixins/single-panel.mixin');
-var FormValidationMessages = require('./form-validation-messages.component.jsx');
 
 var loadingSvg;
 /*eslint-disable*/
@@ -20,7 +18,6 @@ var extendText = {};
 extendText.displayName = 'ExtendText';
 
 extendText.mixins = [
-  validatorMixin,
   singlePanelMixin,
   ReactPureRenderMixin
 ];
@@ -43,7 +40,6 @@ extendText.propTypes = {
   dropDownIconFragment: React.PropTypes.string,
   className: React.PropTypes.string,
   placeholder: React.PropTypes.string,
-  label: React.PropTypes.string,
   allowDuplicates: React.PropTypes.bool,
   newPosition: React.PropTypes.oneOf(['top', 'bottom']),
   formatDisplayValue: React.PropTypes.func,
@@ -81,7 +77,6 @@ extendText.getDefaultProps = function extendTextGetDefaultProps() {
     dropDownIconFragment: null,
     className: null,
     placeholder: null,
-    label: null,
     allowDuplicates: false,
     newPosition: 'bottom',
     formatDisplayValue: function extendTextDefaultFormatDisplayValue(value) {
@@ -261,10 +256,6 @@ extendText.cleanValue = function extendTextCleanValue(value) {
   return value;
 };
 
-extendText.getValidationInitialValue = function extendTextGetValidationInitialValue() {
-  return this.props.value;
-};
-
 extendText.onChange = function extendTextOnChange(event) {
   this.valueHasChanged = true;
   this.updateDisplayValue(event.target.value);
@@ -403,10 +394,6 @@ extendText.getCssClasses = function extendTextGetCssClasses() {
 
   if (this.state.isLoading === true || this.state.searchAttempted === false) {
     cssClasses.push('m-display-no-results');
-  }
-
-  if (this.validator && this.validator.shouldRenderValidation()) {
-    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   if (this.props.className) {
@@ -575,13 +562,6 @@ extendText.updateValue = function extendTextUpdateValue(newValue, updateDisplayV
   }
 
   this.setState(updatedState);
-  this.validate(newFullValue);
-};
-
-extendText.validate = function extendTextValidate(value) {
-  if (this.validator) {
-    this.validator.validate(value);
-  }
 };
 
 extendText.onMouseUpRemoveTag = function extendTextOnMouseUpRemoveTag(valueIndex) {
@@ -599,8 +579,6 @@ extendText.removeValue = function extendTextRemoveValue(valueIndex) {
   if (this.props.onChange) {
     this.props.onChange(newValue);
   }
-
-  this.validate(newValue);
 };
 
 extendText.setAutoCompletePosition = function extendTextSetAutoCompletePosition() {
@@ -821,24 +799,9 @@ extendText.renderDropDownIndicator = function extendTextRenderDropDownIndicator(
   return dropDownIndicator;
 };
 
-extendText.renderLabel = function extendTextRenderLabel() {
-  var label = null;
-
-  if (this.props.label) {
-    label = (
-      <label className="extend-text__label">
-        {this.props.label}
-      </label>
-    );
-  }
-
-  return label;
-};
-
 extendText.render = function extendTextRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
-      {this.renderLabel()}
       <div
         className="extend-text__input-container"
         onClick={this.onClickInputContainer}
@@ -851,6 +814,7 @@ extendText.render = function extendTextRender() {
             inputClassName="extend-text__display-input"
             onFocus={this.onFocus}
             onChange={this.onChange}
+            onBlur={this.props.onBlur}
             value={this.state.displayInputValue}
             onKeyDown={this.onKeyDown}
             placeholder={this.getPlaceholder()}
@@ -861,7 +825,6 @@ extendText.render = function extendTextRender() {
           {this.renderDropDownIndicator()}
         </div>
       </div>
-      <FormValidationMessages messages={this.getFormValidationMessages()} />
     </div>
   );
 };

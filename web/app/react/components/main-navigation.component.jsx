@@ -18,6 +18,12 @@ var navigationData = [{
     href: 'https://github.com/ryanzec/nucleus-react'
   }]
 }, {
+  display: 'Complex Examples',
+  items: [{
+    display: 'Forms',
+    to: '/complex/forms'
+  }]
+}, {
   display: 'Foundation',
   items: [{
     display: 'Colors',

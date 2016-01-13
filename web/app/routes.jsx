@@ -15,6 +15,7 @@ module.exports = (
     {require('./pages/foundation/module.jsx').routes}
     {require('./pages/components/module.jsx').routes}
     {require('./pages/mixins/module.jsx').routes}
+    {require('./pages/complex/module.jsx').routes}
     <NotFoundRoute handler={NotFound} />
   </Route>
 );

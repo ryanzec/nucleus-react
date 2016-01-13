@@ -2,7 +2,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var reactTestUtils = require('react-addons-test-utils');
 var SelectInput = require('../../../../assets/components/select-input.component.jsx');
-var formMixin = require('../../../../assets/mixins/form.mixin.js');
 var testHelper = require('../../../test-helper');
 var _ = require('lodash');
 
@@ -26,265 +25,6 @@ var getOptions = function() {
   }];
 };
 
-var FormExample = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions()
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleWithDefaultValue = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {
-        prop: 'two'
-      },
-      initialform: {
-        prop: 'two'
-      },
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions()
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationTrueBoth = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'both',
-            validators: [{validator: validateTrue}]
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationFalseBothOnLoad = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'both',
-            validators: [{validator: validateFalse, message: 'test validation message'}],
-            validateOnLoad: true
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationFalseBothOnLoadNoValidationMessages = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'both',
-            renderValidationMessages: false,
-            validators: [{validator: validateFalse, message: 'test validation message'}],
-            validateOnLoad: true
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationTrueInvalid = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'invalid',
-            validators: [{validator: validateTrue}]
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationFalseBoth = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'both',
-            validators: [{validator: validateFalse}]
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
-var FormExampleValidationFalseValid = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      form: {},
-      initialform: {},
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      form: {
-        prop: {
-          component: SelectInput,
-          props: {
-            options: getOptions(),
-            renderValidation: 'valid',
-            validators: [{validator: validateFalse}]
-          }
-        }
-      }
-    };
-  },
-
-  render: function() {
-    return this.getInputs('form').prop.render();
-  }
-});
-
 describe('select input component', function() {
   var div;
 
@@ -297,107 +37,15 @@ describe('select input component', function() {
     testData.component = null;
   });
 
-  describe('validation', function() {
-    it('should not show validation on initial load by default', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-
-      expect(formElement.className).to.equal('form-element m-select');
-    });
-
-    it('should run and be able to show validation on initial load', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationFalseBothOnLoad />, div);
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message')
-
-      expect(formElement.className).to.equal('form-element m-select m-invalid');
-      expect(validationMessages.length).to.equal(1);
-      expect(validationMessages[0].textContent).to.equal('test validation message');
-    });
-
-    it('should not show the validation messages', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationFalseBothOnLoadNoValidationMessages />, div);
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-      var validationMessages = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__validation-message')
-
-      expect(formElement.className).to.equal('form-element m-select m-invalid');
-      expect(validationMessages.length).to.equal(0);
-    });
-
-    it('should show valid validation', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationTrueBoth />, div);
-      var select = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
-
-      reactTestUtils.Simulate.change(select, {
-        target: {
-          value: 'two'
-        }
-      });
-
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-
-      expect(formElement.className).to.equal('form-element m-select m-valid');
-    });
-
-    it('should not show valid validation if configued for invalid only', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationTrueInvalid />, div);
-      var select = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
-
-      reactTestUtils.Simulate.change(select, {
-        target: {
-          value: 'two'
-        }
-      });
-
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-
-      expect(formElement.className).to.equal('form-element m-select');
-    });
-
-    it('should show invalid validation', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationFalseBoth />, div);
-      var select = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
-
-      reactTestUtils.Simulate.change(select, {
-        target: {
-          value: 'two'
-        }
-      });
-
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-
-      expect(formElement.className).to.equal('form-element m-select m-invalid');
-    });
-
-    it('should not show invalid validation if configured for valid only', function() {
-      testData.component = ReactDOM.render(<FormExampleValidationFalseValid />, div);
-      var select = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
-
-      reactTestUtils.Simulate.change(select, {
-        target: {
-          value: 'two'
-        }
-      });
-
-      var formElement = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
-
-      expect(formElement.className).to.equal('form-element m-select');
-    });
-  });
-
   describe('general', function() {
     it('should render', function() {
       testData.component = ReactDOM.render(<SelectInput options={getOptions()} />, div);
-      var mainComponent = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element');
-      var label = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'label');
-      var inputContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__field-container');
+      var fieldContainer = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'form-element__field-container');
       var select = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'select');
       var options = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'option');
       var selectedOption = ReactDOM.findDOMNode(testData.component).querySelectorAll('option:checked');
 
-      expect(mainComponent.length).to.equal(1);
-      expect(inputContainer.length).to.equal(1);
-      expect(label.length).to.equal(0);
+      expect(fieldContainer.length).to.equal(1);
       expect(select.length).to.equal(1);
       expect(options.length).to.equal(3);
       expect(options[0].textContent).to.equal('Select');
@@ -411,39 +59,18 @@ describe('select input component', function() {
     });
 
     it('should be able to set default value', function() {
-      testData.component = ReactDOM.render(<FormExampleWithDefaultValue />, div);
+      testData.component = ReactDOM.render(<SelectInput options={getOptions()} value="two" onChange={function(){}} />, div);
       var selectedOption = ReactDOM.findDOMNode(testData.component).querySelectorAll('option:checked');
 
       expect(selectedOption.length).to.equal(1);
       expect(selectedOption[0].value).to.equal('two');
     });
 
-    it('should be able to render label', function() {
-      testData.component = ReactDOM.render(<SelectInput options={getOptions()} label="Label" className="m-safe" />, div);
-      var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
-
-      expect(label.textContent).to.equal('Label');
-    });
-
     it('should be able to add custom classes', function() {
       testData.component = ReactDOM.render(<SelectInput options={getOptions()} className="m-safe" />, div);
-      var mainComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element');
+      var mainComponent = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'form-element__field-container');
 
-      expect(mainComponent.className).to.equal('form-element m-select m-safe');
-    });
-
-    it('should be able to attach onChange event', function() {
-      testData.component = ReactDOM.render(<FormExample />, div);
-      var select = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
-      var options = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'option');
-
-      reactTestUtils.Simulate.change(select, {
-        target: {
-          value: 1
-        }
-      });
-
-      expect(testData.component.state.form.prop).to.equal(1);
+      expect(mainComponent.className).to.contain('m-safe');
     });
 
     it('should be able to configure custom empty option text', function() {
@@ -458,6 +85,13 @@ describe('select input component', function() {
       var options = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'option');
 
         expect(options.length).to.equal(2);
+    });
+
+    it('should pass through props to input', function() {
+      testData.component = ReactDOM.render(<SelectInput data-test="test" />, div);
+      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'select');
+
+      expect(input.getAttribute('data-test')).to.equal('test');
     });
   });
 });

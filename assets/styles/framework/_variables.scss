@@ -43,6 +43,7 @@ $color-dark-neutral: darken($color-neutral, 10%) !default;
 $color-safe: $color-secondary1 !default;
 $color-light-safe: lighten($color-safe, 46%) !default;
 $color-dark-safe: darken($color-safe, 5%) !default;
+
 //notice colors
 $color-notice: $color-secondary2 !default;
 $color-light-notice: lighten($color-notice, 41%) !default;
@@ -106,3 +107,8 @@ $grid-medium-columns: 12 !default;
 $grid-large-columns: 12 !default;
 $grid-extra-large-columns: 12 !default;
 $grid-gutter: 24px !default;
+
+//forms
+$border-color-active-input: $color-primary1 !default;
+$border-color-input: $color-gray2 !default;
+$background-color-input: $color-white !default;

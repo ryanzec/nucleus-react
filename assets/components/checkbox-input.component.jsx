@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var _ = require('lodash');
-var formInputMixin = require('../mixins/form-input.mixin.jsx');
 var SvgIcon = require('./svg-icon.component.jsx');
 
 var checkboxInput = {};
@@ -9,8 +8,7 @@ var checkboxInput = {};
 checkboxInput.displayName = 'CheckboxInput';
 
 checkboxInput.mixins = [
-  ReactPureRenderMixin,
-  formInputMixin
+  ReactPureRenderMixin
 ];
 
 checkboxInput.propTypes = {
@@ -28,14 +26,10 @@ checkboxInput.getDefaultProps = function checkboxInputGetDefaultProps() {
 };
 
 checkboxInput.getCssClasses = function checkboxInputGetCssClasses() {
-  var cssClasses = ['form-element', 'm-checkbox'];
+  var cssClasses = ['form-element__field-container'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
-  }
-
-  if (this.validator && this.validator.shouldRenderValidation()) {
-    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -45,15 +39,9 @@ checkboxInput.getInputPassThroughProps = function checkboxInputgetInputPassThrou
   var props = _.clone(this.props);
 
   delete props.className;
-  delete props.label;
-  delete props.renderValidation;
-  delete props.validateOnLoad;
-  delete props.validators;
-
-  //we provide a custon onChange event handler so we need to remove it from here
-  delete props.onChange;
 
   props.checked = this.cleanValue(props.value);
+
   delete props.value;
 
   return props;
@@ -83,7 +71,6 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
         <input
           className="form-element__input m-checkbox m-right"
           type="checkbox"
-          onChange={this.onChange}
           {...this.getInputPassThroughProps()}
         />
         {icon}
@@ -101,7 +88,6 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
       <input
         className="form-element__input m-checkbox m-left"
         type="checkbox"
-        onChange={this.onChange}
         {...this.getInputPassThroughProps()}
       />
     </label>
@@ -111,9 +97,7 @@ checkboxInput.renderInput = function checkboxInputRenderInput() {
 checkboxInput.render = function checkboxInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
-      <div className="form-element__field-container">
-        {this.renderInput()}
-      </div>
+      {this.renderInput()}
     </div>
   );
 };

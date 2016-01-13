@@ -1,6 +1,21 @@
 $component-identifier: '.calendar';
 
 #{$component-identifier} {
+  .extend-text {
+    &.is-active .extend-text__value-container {
+      border-color: $border-color-active-input;
+    }
+
+    .extend-text__value-container {
+      background-color: $background-color-input;
+      border-color: $border-color-input;
+    }
+
+    .form-element__input.m-text {
+      background-color: $background-color-input;
+    }
+  }
+
   .form-element {
     display: inline-block;
   }

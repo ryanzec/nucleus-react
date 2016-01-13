@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var _ = require('lodash');
-var formInputMixin = require('../mixins/form-input.mixin.jsx');
 var SvgIcon = require('./svg-icon.component.jsx');
 
 var radioInput = {};
@@ -9,52 +8,39 @@ var radioInput = {};
 radioInput.displayName = 'RadioInput';
 
 radioInput.mixins = [
-  ReactPureRenderMixin,
-  formInputMixin
+  ReactPureRenderMixin
 ];
 
 radioInput.propTypes = {
   className: React.PropTypes.string,
-  label: React.PropTypes.string,
   options: React.PropTypes.array.isRequired
 };
 
 radioInput.getDefaultProps = function radioInputGetDefaultProps() {
   return {
     className: null,
-    label: null,
     options: []
   };
 };
 
+radioInput.getInputPassThroughProps = function() {
+  var props = _.clone(this.props);
+
+  delete props.className;
+  delete props.options;
+  delete props.value;
+
+  return props;
+};
+
 radioInput.getCssClasses = function radioInputGetCssClasses() {
-  var cssClasses = ['form-element', 'm-radio'];
+  var cssClasses = ['form-element__field-container'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
   }
 
-  if (this.validator && this.validator.shouldRenderValidation()) {
-    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
-  }
-
   return cssClasses;
-};
-
-radioInput.cleanValue = function radioInputCleanValue(value) {
-  return value;
-};
-
-radioInput.renderLabel = function radioInputRenderLabel() {
-  var label = null;
-
-  if (this.props.label) {
-    label = (
-      <label>{this.props.label}</label>
-    );
-  }
-
-  return label;
 };
 
 radioInput.renderInput = function radioInputRenderInput() {
@@ -84,8 +70,7 @@ radioInput.renderInput = function radioInputRenderInput() {
             type="radio"
             checked={checked}
             value={option.value}
-            name={this.props.name}
-            onChange={this.onChange}
+            {...this.getInputPassThroughProps()}
           />
         </label>
       );
@@ -103,8 +88,7 @@ radioInput.renderInput = function radioInputRenderInput() {
           type="radio"
           value={option.value}
           checked={checked}
-          name={this.props.name}
-          onChange={this.onChange}
+          {...this.getInputPassThroughProps()}
         />
         {option.display}
       </label>
@@ -121,10 +105,7 @@ radioInput.renderInput = function radioInputRenderInput() {
 radioInput.render = function radioInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
-      {this.renderLabel()}
-      <div className="form-element__field-container">
-        {this.renderInput()}
-      </div>
+      {this.renderInput()}
     </div>
   );
 };

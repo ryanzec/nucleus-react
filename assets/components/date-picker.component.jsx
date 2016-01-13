@@ -22,15 +22,10 @@ datePicker.propTypes = {
   onClickDate: React.PropTypes.func,
   placeholder: React.PropTypes.string,
   calendarHeaderText: React.PropTypes.string,
-  renderValidation: React.PropTypes.oneOf([false, 'both', 'valid', 'invalid']),
-  validateOnLoad: React.PropTypes.bool,
-  validators: React.PropTypes.array,
   closeOnClick: React.PropTypes.bool,
   selectionUnit: React.PropTypes.oneOf(['day', 'week', 'month']),
-  label: React.PropTypes.string,
   className: React.PropTypes.string,
   renderInputs: React.PropTypes.bool,
-  validatorAllowEmpty: React.PropTypes.bool,
   disabled: React.PropTypes.bool
 
 };
@@ -42,29 +37,22 @@ datePicker.getDefaultProps = function datePickerGetDefaultProps() {
     onClickDate: null,
     placeholder: window.i18n['components/date-picker'].placeholder(),
     calendarHeaderText: window.i18n['components/date-picker'].calendarHeaderText(),
-    renderValidation: false,
-    validateOnLoad: false,
-    validators: [],
     closeOnClick: true,
     selectionUnit: 'day',
-    label: null,
     className: null,
     renderInputs: true,
-    validatorAllowEmpty: false,
     disabled: false
   };
 };
 
 datePicker.getInitialState = function datePickerGetInitialState() {
+  this.inputAppendNode = (
+    <SvgIcon fragment="bell" />
+  );
+
   return {
     isCalendarActive: false
   };
-};
-
-datePicker.componentDidMount = function datePickerComponentDidMount() {
-  if (this.refs.input) {
-    this.validator = this.refs.input.validator;
-  }
 };
 
 datePicker.getCssClasses = function datePickerGetCssClasses() {
@@ -125,9 +113,9 @@ datePicker.onClickCalendar = function datePickerOnClickCalendar(event) {
 };
 
 datePicker.onClickDate = function datePickerOnClickDate(value) {
-  if (this.refs.input) {
-    this.refs.input.changeValue(this.cleanValue(value));
-  }
+  // if (this.refs.input) {
+  //   this.refs.input.changeValue(this.cleanValue(value));
+  // }
 
   /* istanbul ignore else */
   if (this.props.onClickDate) {
@@ -178,15 +166,8 @@ datePicker.renderDisplay = function datePickerRenderDisplay() {
         placeholder={this.props.placeholder}
         value={this.props.selectedDay}
         readOnly={true}
-        append={
-          <SvgIcon fragment="calendar" />
-        }
-        renderValidation={this.props.renderValidation}
-        validateOnLoad={this.props.validateOnLoad}
-        validators={this.props.validators}
-        validatorAllowEmpty={this.props.validatorAllowEmpty}
+        appendNode={this.inputAppendNode}
         onFocus={this.onFocusInput}
-        label={this.props.label}
         disabled={this.props.disabled}
       />
     );

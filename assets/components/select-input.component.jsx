@@ -1,21 +1,17 @@
 var React = require('react');
 var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
 var _ = require('lodash');
-var formInputMixin = require('../mixins/form-input.mixin.jsx');
-var FormValidationMessages = require('./form-validation-messages.component.jsx');
 
 var selectInput = {};
 
 selectInput.displayName = 'SelectInput';
 
 selectInput.mixins = [
-  ReactPureRenderMixin,
-  formInputMixin
+  ReactPureRenderMixin
 ];
 
 selectInput.propTypes = {
   className: React.PropTypes.string,
-  label: React.PropTypes.string,
   emptyOption: React.PropTypes.any,
   options: React.PropTypes.array
 };
@@ -23,21 +19,16 @@ selectInput.propTypes = {
 selectInput.getDefaultProps = function selectInputGetDefaultProps() {
   return {
     className: null,
-    label: null,
     emptyOption: 'Select',
     options: []
   };
 };
 
 selectInput.getCssClasses = function selectInputGetCssClasses() {
-  var cssClasses = ['form-element', 'm-select'];
+  var cssClasses = ['form-element__field-container'];
 
   if (this.props.className) {
     cssClasses = cssClasses.concat(this.props.className.split(' '));
-  }
-
-  if (this.validator && this.validator.shouldRenderValidation()) {
-    cssClasses.push(this.validator.valid ? 'm-valid' : 'm-invalid');
   }
 
   return cssClasses;
@@ -50,12 +41,6 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
   delete props.label;
   delete props.emptyOption;
   delete props.options;
-  delete props.renderValidation;
-  delete props.validateOnLoad;
-  delete props.validators;
-
-  //we provide a custon onChange event handler so we need to remove it from here
-  delete props.onChange;
 
   props.value = this.cleanValue(props.value);
 
@@ -64,18 +49,6 @@ selectInput.getInputPassThroughProps = function selectInputGetInputPassThroughPr
 
 selectInput.cleanValue = function selectInputCleanValue(value) {
   return (value || value === false) ? value : '';
-};
-
-selectInput.renderLabel = function selectInputRenderLabel() {
-  var label = null;
-
-  if (this.props.label) {
-    label = (
-      <label>{this.props.label}</label>
-    );
-  }
-
-  return label;
 };
 
 selectInput.renderInput = function selectInputRenderInput() {
@@ -103,8 +76,7 @@ selectInput.renderInput = function selectInputRenderInput() {
 
   return (
     <select
-      className="form-element__input-container form-element__input m-select"
-      onChange={this.onChange}
+      className="form-element__input m-select"
       {...this.getInputPassThroughProps()}
     >
       {selectOptions}
@@ -115,11 +87,7 @@ selectInput.renderInput = function selectInputRenderInput() {
 selectInput.render = function selectInputRender() {
   return (
     <div className={this.getCssClasses().join(' ')}>
-      {this.renderLabel()}
-      <div className="form-element__field-container">
-        {this.renderInput()}
-      </div>
-      <FormValidationMessages messages={this.getFormValidationMessages()} />
+      {this.renderInput()}
     </div>
   );
 };

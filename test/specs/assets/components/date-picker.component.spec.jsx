@@ -3,7 +3,6 @@ var ReactDOM = require('react-dom');
 var reactTestUtils = require('react-addons-test-utils');
 var DatePicker = require('../../../../assets/components/date-picker.component.jsx');
 var SvgIcon = require('../../../../assets/components/svg-icon.component.jsx');
-var formMixin = require('../../../../assets/mixins/form.mixin');
 var testHelper = require('../../../test-helper');
 
 var testData = {};
@@ -30,6 +29,46 @@ var Test = React.createClass({
   }
 });
 
+var TestCloseOnClick = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedDay: selectedDay
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      selectedDay: value
+    });
+  },
+
+  render: function() {
+    return (
+      <DatePicker selectedDay={this.state.selectedDay} onClickDate={this.onClickDate} />
+    );
+  }
+});
+
+var TestDontCloseOnClick = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedDay: selectedDay
+    };
+  },
+
+  onClickDate: function(value) {
+    this.setState({
+      selectedDay: value
+    });
+  },
+
+  render: function() {
+    return (
+      <DatePicker selectedDay={this.state.selectedDay} onClickDate={this.onClickDate} closeOnClick={false} />
+    );
+  }
+});
+
 var TestWeekMode = React.createClass({
   getInitialState: function() {
     return {
@@ -47,91 +86,6 @@ var TestWeekMode = React.createClass({
     return (
       <DatePicker renderInputs={false} selectionUnit="week" selectedDay={this.state.selectedStartOfWeek} />
     );
-  }
-});
-
-var TestCloseOnClick = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      test: {
-        selectedDay: selectedDay
-      }
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      test: {
-        selectedDay: {
-          component: DatePicker,
-          valueProperty: 'selectedDay',
-          hasOnChange: false,
-          props: {
-            onClickDate: this.onClickDate,
-            closeOnClick: false
-          }
-        }
-      }
-    };
-  },
-
-  onClickDate: function(value) {
-    this.setState({
-      test: {
-        selectedDay: value
-      }
-    });
-  },
-
-  render: function() {
-    var inputs = this.getInputs('test');
-    return inputs.selectedDay.render();
-  }
-});
-
-var TestFormSystem = React.createClass({
-  mixins: [
-    formMixin
-  ],
-
-  getInitialState: function() {
-    return {
-      test: {
-        selectedDay: selectedDay
-      }
-    };
-  },
-
-  componentWillMount: function() {
-    this.formInputs = {
-      test: {
-        selectedDay: {
-          component: DatePicker,
-          valueProperty: 'selectedDay',
-          hasOnChange: false,
-          props: {
-            onClickDate: this.onClickDate,
-          }
-        }
-      }
-    };
-  },
-
-  onClickDate: function(value) {
-    this.setState({
-      test: {
-        selectedDay: value
-      }
-    });
-  },
-
-  render: function() {
-    var inputs = this.getInputs('test');
-    return inputs.selectedDay.render();
   }
 });
 
@@ -194,18 +148,6 @@ describe('date picker component', function() {
     div = document.createElement('div');
   });
 
-  describe('validation', function() {
-    it('should properly set the internal inputs validation props to utilize its validation code', function() {
-      testData.component = ReactDOM.render(<TestCustomValidation />, div);
-      var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
-
-      expect(datePicker.refs.input.props.renderValidation).to.equal('both');
-      expect(datePicker.refs.input.props.validateOnLoad).to.be.true;
-      expect(datePicker.refs.input.props.validators).to.deep.equal(TestCustomValidation.prototype.validators);
-      expect(datePicker.validator).to.equal(datePicker.refs.input.validator);
-    });
-  });
-
   describe('general', function() {
     it('should render', function() {
       testData.component = ReactDOM.render(<DatePicker />, div);
@@ -250,13 +192,6 @@ describe('date picker component', function() {
       var datePicker = reactTestUtils.findRenderedDOMComponentWithClass(testData.component, 'date-picker');
 
       expect(datePicker.className).to.contain('m-safe');
-    });
-
-    it('should render label', function() {
-      testData.component = ReactDOM.render(<DatePicker label="test" />, div);
-      var label = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'label');
-
-      expect(label.textContent).to.equal('test');
     });
 
     it('should render calendar when active', function() {
@@ -360,28 +295,8 @@ describe('date picker component', function() {
       expect(document.activeElement).to.not.equal(ReactDOM.findDOMNode(testData.component.refs.input.refs.input));
     });
 
-    it('should work within the form system', function() {
-      testData.component = ReactDOM.render(<TestFormSystem />, div);
-
-      var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
-
-      expect(input.value).to.equal(selectedDay);
-
-      reactTestUtils.Simulate.focus(input);
-
-      var days = reactTestUtils.scryRenderedDOMComponentsWithClass(testData.component, 'calendar__week-day');
-
-      reactTestUtils.Simulate.click(days[10], {
-        target: ReactDOM.findDOMNode(days[10])
-      });
-
-      input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
-
-      expect(input.value).to.equal('01/08/2014');
-    });
-
     it('should not close calendar when clicking date', function() {
-      testData.component = ReactDOM.render(<TestCloseOnClick />, div);
+      testData.component = ReactDOM.render(<TestDontCloseOnClick />, div);
 
       var input = reactTestUtils.scryRenderedDOMComponentsWithTag(testData.component, 'input')[0];
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);
@@ -403,7 +318,7 @@ describe('date picker component', function() {
     });
 
     it('should close calendar when clicking date', function() {
-      testData.component = ReactDOM.render(<TestFormSystem />, div);
+      testData.component = ReactDOM.render(<TestCloseOnClick />, div);
 
       var input = reactTestUtils.findRenderedDOMComponentWithTag(testData.component, 'input');
       var datePicker = reactTestUtils.findRenderedComponentWithType(testData.component, DatePicker);

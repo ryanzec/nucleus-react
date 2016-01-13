@@ -1,7 +1,20 @@
+.form-element.m-invalid {
+  .extend-text__value-container {
+    background-color: $color-light-danger;
+    border-color: $color-dark-danger;
+  }
+}
+
+.form-element.m-valid {
+  .extend-text__value-container {
+    background-color: $color-light-safe;
+    border-color: $color-dark-safe;
+  }
+}
+
 .extend-text {
   @include display(flex);
   @include flex-direction(column);
-  //@include align-items(center);
 
   position: relative;
 
@@ -16,30 +29,6 @@
 
     .extend-text__auto-complete-container {
       display: block;
-    }
-  }
-
-  &.m-valid {
-    .extend-text__auto-complete-container {
-      border-color: $color-safe;
-      background-color: $color-light-safe;
-    }
-
-    .extend-text__value-container {
-      border-color: $color-safe;
-      background-color: $color-light-safe;
-    }
-  }
-
-  &.m-invalid {
-    .extend-text__auto-complete-container {
-      border-color: $color-danger;
-      background-color: $color-light-danger;
-    }
-
-    .extend-text__value-container {
-      border-color: $color-danger;
-      background-color: $color-light-danger;
     }
   }
 

@@ -5,6 +5,71 @@ $component-identifier: '.form-element';
     display: inline-block;
   }
 
+  &.m-invalid {
+    #{$component-identifier}__input.m-text,
+    #{$component-identifier}__input.m-select,
+    #{$component-identifier}__input.m-textarea {
+      background-color: $color-light-danger;
+      border-color: $color-dark-danger;
+    }
+
+    .svg-icon__container.checkbox-empty-icon,
+    .svg-icon__container.checkbox-checked-icon,
+    .svg-icon__container.radio-empty-icon,
+    .svg-icon__container.radio-checked-icon {
+      fill: $color-dark-danger;
+    }
+
+    #{$component-identifier}__input-prepend,
+    #{$component-identifier}__input-append {
+      background-color: $color-light-danger;
+    }
+
+    #{$component-identifier}__input-prepend {
+      border: 1px solid $color-dark-danger;
+      border-right: none;
+    }
+
+    #{$component-identifier}__input-append {
+      border: 1px solid $color-dark-danger;
+      border-left: none;
+    }
+  }
+
+  &.m-valid {
+    #{$component-identifier}__input.m-text,
+    #{$component-identifier}__input.m-select,
+    #{$component-identifier}__input.m-textarea {
+      background-color: $color-light-safe;
+      border-color: $color-dark-safe;
+    }
+
+    .svg-icon__container.checkbox-checked-icon,
+    .svg-icon__container.radio-checked-icon {
+      fill: $color-dark-safe;
+    }
+
+    #{$component-identifier}__input-prepend,
+    #{$component-identifier}__input-append {
+      background-color: $color-light-safe;
+    }
+
+    #{$component-identifier}__input-prepend {
+      border: 1px solid $color-dark-safe;
+      border-right: none;
+    }
+
+    #{$component-identifier}__input-append {
+      border: 1px solid $color-dark-safe;
+      border-left: none;
+    }
+  }
+
+  &.m-inline {
+    @include display(flex);
+    @include align-items(center);
+  }
+
   .svg-icon__outer-container.checkbox-empty-icon,
   .svg-icon__outer-container.checkbox-checked-icon,
   .svg-icon__outer-container.radio-empty-icon,
@@ -34,18 +99,19 @@ $component-identifier: '.form-element';
   &__input.m-textarea {
     width: 100%;
     margin: 5px 0;
-    border: 1px solid $color-gray2;
+    border: 1px solid $border-color-input;
     border-radius: $border-radius-medium;
+    background-color: $background-color-input;
     padding: 4px 6px;
 
     &:focus {
       outline: none;
-      border-color: $color-primary1;
+      border-color: $border-color-active-input;
     }
   }
 
   &__input.m-select {
-    background-color: $color-white;
+    background-color: $background-color-input;
   }
 
   &__input.m-checkbox,
@@ -65,7 +131,7 @@ $component-identifier: '.form-element';
     border-bottom-right-radius: 0;
   }
 
-  &__input-group {
+  &__group {
     @include display(flex);
     @include flex-wrap(wrap);
     @include justify-content(space-between);
@@ -103,7 +169,7 @@ $component-identifier: '.form-element';
     @include justify-content(space-around);
 
     margin: 5px 0;
-    background-color: $color-gray2;
+    background-color: $border-color-input;
     padding: 3px 6px;
   }
 
@@ -114,30 +180,30 @@ $component-identifier: '.form-element';
   &__input-append {
     border-radius: 0 $border-radius-medium $border-radius-medium 0;
   }
-
-  &.m-valid {
-    #{$component-identifier}__input.m-text,
-    #{$component-identifier}__input.m-select,
-    #{$component-identifier}__input.m-textarea {
-      border-color: $color-safe;
-      background-color: $color-light-safe;
-    }
-  }
-
-  &.m-invalid {
-    #{$component-identifier}__input.m-text,
-    #{$component-identifier}__input.m-select,
-    #{$component-identifier}__input.m-textarea {
-      border-color: $color-danger;
-      background-color: $color-light-danger;
-    }
-  }
-
-  &__validation-messages {
-    padding: 0 5px 5px 5px;
-    color: $color-danger;
-  }
 }
+
+#{$component-identifier}__validation-messages {
+    padding: 0 5px 5px 5px;
+
+    #{$component-identifier}__validation-message {
+
+      &.m-safe {
+        color: $color-safe;
+      }
+
+      &.m-notice {
+        color: $color-notice;
+      }
+
+      &.m-warning {
+        color: $color-warning;
+      }
+
+      &.m-danger {
+        color: $color-danger;
+      }
+    }
+  }
 
 form.m-inline {
   #{$component-identifier} {
@@ -156,15 +222,20 @@ form.m-inline {
   }
 }
 
+input[disabled] {
+  background-color: $color-light-neutral;
+  cursor: not-allowed;
+}
+
 @media #{$medium-screen-media-query} {
   #{$component-identifier} {
-    &__input-group {
+    &__group {
       @include flex-direction(row);
 
       &.m-align-start {
         @include justify-content(flex-start);
 
-        #{$component-identifier}__input-group-item {
+        #{$component-identifier}__group-item {
           @include flex(0 1 auto);
         }
 

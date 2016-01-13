@@ -4,7 +4,7 @@ var reactTestUtils = require('react-addons-test-utils');
 var FormValidationMessages = require('../../../../assets/components/form-validation-messages.component.jsx');
 var testHelper = require('../../../test-helper');
 
-describe('for validation messages component', function() {
+describe('form validation messages component', function() {
     var div;
 
     beforeEach(function() {

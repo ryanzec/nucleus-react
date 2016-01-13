@@ -1,3 +1,15 @@
+.form-element.m-valid {
+  .date-picker .svg-icon__container.calendar-icon {
+    fill: $color-dark-safe;
+  }
+}
+
+.form-element.m-invalid {
+  .date-picker .svg-icon__container.calendar-icon {
+    fill: $color-dark-danger;
+  }
+}
+
 .date-picker {
   .form-element__input {
     cursor: pointer;
