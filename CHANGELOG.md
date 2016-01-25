@@ -6,6 +6,9 @@ There are some key used within the changelog which are as following:
 - [X]: anything else within brackets say what component that change is related t- o
 
 ## master
+
+## 0.6.0
+- refactored out validation based local logic out of input component and converted them to properties that are passed in from the outside
 - added framework for new documentation system (only some components are documented)
 - upgrade prism code to include support for react syntax
 - misc style tweaks
