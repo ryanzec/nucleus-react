@@ -28,6 +28,7 @@ module.exports = {
   Pagination: require('./pagination.component.jsx'),
   ProgressBar: require('./progress-bar.component.jsx'),
   RadioInput: require('./radio-input.component.jsx'),
+  RadioInputGroup: require('./radio-input-group.component.jsx'),
   SelectInput: require('./select-input.component.jsx'),
   SvgIcon: require('./svg-icon.component.jsx'),
   TextboxInput: require('./textbox-input.component.jsx')

@@ -19,6 +19,7 @@ var FormElement = commonReact.components.FormElement;
 var FormElementGroup = commonReact.components.FormElementGroup;
 var FormValidationMessages = commonReact.components.FormValidationMessages;
 var RadioInput = commonReact.components.RadioInput;
+var RadioInputGroup = commonReact.components.RadioInputGroup;
 var SelectInput = commonReact.components.SelectInput;
 var SvgIcon = commonReact.components.SvgIcon;
 var TextboxInput = commonReact.components.TextboxInput;
@@ -1423,15 +1424,46 @@ var AllInputTypes = React.createClass({
             isValid={formDataHelpers.isValid(this.state.form, 'gender')}
           >
             <label>Gender</label>
-            <RadioInput
-              data-form-name="form"
-              data-form-field="gender"
-              name="gender"
-              options={this.genderOptions}
-              value={this.state.form.getIn(['gender', 'value'])}
-              onChange={this.onChangeInputEvent}
-              onBlur={this.onBlurInputEvent}
-            />
+            <RadioInputGroup>
+              <RadioInput
+                data-form-name="form"
+                data-form-field="gender"
+                name="gender"
+                radioValue={this.genderOptions[0].value}
+                label={this.genderOptions[0].display}
+                labelPosition="left"
+                value={this.state.form.getIn(['gender', 'value'])}
+                onChange={this.onChangeInputEvent}
+                onBlur={this.onBlurInputEvent}
+              />
+              <RadioInput
+                data-form-name="form"
+                data-form-field="gender"
+                name="gender"
+                radioValue={this.genderOptions[1].value}
+                label={this.genderOptions[1].display}
+                value={this.state.form.getIn(['gender', 'value'])}
+                onChange={this.onChangeInputEvent}
+                onBlur={this.onBlurInputEvent}
+              />
+              <RadioInput
+                data-form-name="form"
+                data-form-field="gender"
+                name="gender"
+                radioValue={this.genderOptions[2].value}
+                label={this.genderOptions[2].display}
+                value={this.state.form.getIn(['gender', 'value'])}
+                onChange={this.onChangeInputEvent}
+                onBlur={this.onBlurInputEvent}
+              />
+              <TextboxInput
+                data-form-name="form"
+                data-form-field="email"
+                value={this.state.form.getIn(['email', 'value'])}
+                onChange={this.onChangeInputEvent}
+                onBlur={this.onBlurInputEvent}
+              />
+            </RadioInputGroup>
             <FormValidationMessages messages={arrayToValidationErrors(formDataHelpers.getValidationMessages(this.state.form, 'gender'))} />
           </FormElement>
           <FormElement

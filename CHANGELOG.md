@@ -7,6 +7,8 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- broke out RadioInput into 2 components for more flexibility in use
+
 ## 0.6.0
 - refactored out validation based local logic out of input component and converted them to properties that are passed in from the outside
 - added framework for new documentation system (only some components are documented)
