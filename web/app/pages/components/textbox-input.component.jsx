@@ -28,7 +28,6 @@ textboxInputPage.getInitialState = function() {
 };
 
 textboxInputPage.onChangeAutoSizeValue1 = function(value, event) {
-  console.log(event);
   this.setState({
     autoSizeValue1: value
   });

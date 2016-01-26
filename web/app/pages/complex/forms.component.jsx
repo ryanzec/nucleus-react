@@ -7,6 +7,9 @@ var formDataHelpers = formDataValidation.helpers;
 var dataValidation = require('data-validation');
 var immutable = require('immutable');
 var fs = require('fs');
+var inputHelper = commonReact.helpers.input;
+
+var menuStore = require('../../stores/menu.store');
 
 var Button = commonReact.components.Button;
 var CheckboxInput = commonReact.components.CheckboxInput;
@@ -19,15 +22,6 @@ var RadioInput = commonReact.components.RadioInput;
 var SelectInput = commonReact.components.SelectInput;
 var SvgIcon = commonReact.components.SvgIcon;
 var TextboxInput = commonReact.components.TextboxInput;
-
-
-
-
-
-
-
-
-
 
 //NOTE: general helper methods
 var arrayToValidationErrors = function(messages) {
@@ -82,11 +76,6 @@ var onBlurInputEventHandler = function(options) {
   return formDataHelpers.markFieldAsDirty(newFormData, options.fieldName);
 };
 
-
-
-
-
-
 //NOTE: this provide performance gains
 var DynamicEmail = React.createClass({
   mixins: [
@@ -112,12 +101,6 @@ var DynamicEmail = React.createClass({
     );
   }
 });
-
-
-
-
-
-
 
 var BasicForm = React.createClass({
   getInitialState: function() {
@@ -1208,6 +1191,16 @@ var AllInputTypes = React.createClass({
                 message: 'Must have 3 tags entered'
               }]
             }
+          },
+          uploadFile: {
+            validatorOptions: {
+              validators: [{
+                validator: function(value) {
+                  return document.querySelector('input[type="file"]').files.length > 0;
+                },
+                message: 'Must select a file'
+              }]
+            }
           }
         }
       })
@@ -1223,7 +1216,7 @@ var AllInputTypes = React.createClass({
       formName: formName,
       fieldName: fieldName,
       value: value,
-      markAsDirty: event.target.getAttribute('type') === 'checkbox' || event.target.getAttribute('type') === 'radio'
+      markAsDirty: event.target.getAttribute('type') === 'checkbox' || event.target.getAttribute('type') === 'radio' || event.target.getAttribute('type') === 'file'
     });
 
     if (fieldName === 'optInNewsletter') {
@@ -1384,6 +1377,20 @@ var AllInputTypes = React.createClass({
           </FormElement>
           <FormElement
             renderValidation="both"
+            isValid={formDataHelpers.isValid(this.state.form, 'uploadFile')}
+          >
+            <label>UploadFile</label>
+            <TextboxInput
+              data-form-name="form"
+              data-form-field="uploadFile"
+              type="file"
+              value={this.state.form.getIn(['uploadFile', 'value'])}
+              onChange={this.onChangeInputEvent}
+            />
+            <FormValidationMessages messages={arrayToValidationErrors(formDataHelpers.getValidationMessages(this.state.form, 'uploadFile'))} />
+          </FormElement>
+          <FormElement
+            renderValidation="both"
             isValid={formDataHelpers.isValid(this.state.form, 'agreeToTerms')}
           >
             <CheckboxInput
@@ -1471,49 +1478,6 @@ var AllInputTypes = React.createClass({
     );
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var inputHelper = commonReact.helpers.input;
-
-var menuStore = require('../../stores/menu.store');
 
 var formsPage = {};
 
