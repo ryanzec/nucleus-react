@@ -7,6 +7,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- cleaned up some of the validation example code
 - broke out RadioInput into 2 components for more flexibility in use
 
 ## 0.6.0

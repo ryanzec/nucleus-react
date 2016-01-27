@@ -45,12 +45,12 @@ var onChangeInputEventHandler = function(options) {
   var newFormData = formDataHelpers.set(this.state[options.formName], options.fieldName, options.value, markAsDirty);
   var validateParameters = [newFormData, options.fieldName];
 
-  if (options.validationWith) {
-    var validatWithKeys = Object.keys(options.validationWith);
+  if (options.validateWith) {
+    var validatWithKeys = Object.keys(options.validateWith);
 
-    validatWithKeys.forEach(function(vlaidateionWithKey) {
-      if (options.fieldName === vlaidateionWithKey) {
-        options.validationWith[vlaidateionWithKey].forEach(function(fieldName) {
+    validatWithKeys.forEach(function(validateWithKey) {
+      if (options.fieldName === validateWithKey) {
+        options.validateWith[validateWithKey].forEach(function(fieldName) {
           if (
             formDataHelpers.isDirty(newFormData, fieldName) === true
             || formDataHelpers.isValid(newFormData, fieldName) !== null
@@ -73,7 +73,26 @@ var onChangeInputEventHandler = function(options) {
 };
 
 var onBlurInputEventHandler = function(options) {
-  var newFormData = formDataHelpers.validate(this.state[options.formName], options.fieldName);
+  var validateParameters = [this.state[options.formName], options.fieldName];
+
+  if (options.validateWith) {
+    var validateWithKeys = Object.keys(options.validateWith);
+
+    validateWithKeys.forEach(function(validateWithKey) {
+      if (options.fieldName === validateWithKey) {
+        options.validateWith[validateWithKey].forEach(function(fieldName) {
+          if (
+            formDataHelpers.isDirty(this.state[options.formName], fieldName) === true
+            || formDataHelpers.isValid(this.state[options.formName], fieldName) !== null
+          ) {
+            validateParameters.push(fieldName);
+          }
+        }.bind(this));
+      }
+    }.bind(this));
+  }
+
+  var newFormData = formDataHelpers.validate.apply(null, validateParameters);
   return formDataHelpers.markFieldAsDirty(newFormData, options.fieldName);
 };
 
@@ -349,7 +368,7 @@ var MultipleInputValidationGrouped = React.createClass({
       formName: formName,
       fieldName: event.target.getAttribute('data-form-field'),
       value: inputHelper.getValueFromEvent(event),
-      validationWith: {
+      validateWith: {
         password: ['confirmPassword'],
         confirmPassword: ['password']
       }
@@ -490,7 +509,7 @@ var InstantValidation = React.createClass({
       fieldName: event.target.getAttribute('data-form-field'),
       value: inputHelper.getValueFromEvent(event),
       markAsDirty: true,
-      validationWith: {
+      validateWith: {
         password: ['confirmPassword'],
         confirmPassword: ['password']
       }
