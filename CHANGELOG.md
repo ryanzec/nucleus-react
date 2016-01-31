@@ -7,6 +7,7 @@ There are some key used within the changelog which are as following:
 
 ## master
 
+- updated position code for modal to not use negative margins (can cause issues in mobile safari)
 - cleaned up some of the validation example code
 - broke out RadioInput into 2 components for more flexibility in use
 
