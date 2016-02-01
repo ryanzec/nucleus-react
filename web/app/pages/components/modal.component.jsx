@@ -283,6 +283,13 @@ modalPage.render = function() {
       <ModalExample />
       <hr />
       <ConfirmationModalExample />
+      <div>NOTE: it is recommended to add the following styles to the html tag in order to prevent some mobile styling issues when using form fields in the modal window:
+        <ul>
+          <li>overflow: hidden;</li>
+          <li>margin: 0;</li>
+          <li>height: 100%;</li>
+        </ul>
+      </div>
     </div>
   );
 };

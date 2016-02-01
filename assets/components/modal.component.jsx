@@ -105,8 +105,8 @@ modal.centerPosition = function modalCenterPosition() {
   var modalContent = ReactDOM.findDOMNode(this).querySelector('.modal__content');
   var dimensions = domUtilities.getDimensions(modalContent);
 
-  modalContent.style.marginTop = Math.floor((window.innerHeight - dimensions.height) / 2) + 'px';
-  modalContent.style.marginLeft = Math.floor((window.innerWidth - dimensions.width) / 2) + 'px';
+  modalContent.style.top = Math.floor((window.innerHeight - dimensions.height) / 2) + 'px';
+  modalContent.style.left = Math.floor((window.innerWidth - dimensions.width) / 2) + 'px';
 };
 
 modal.getCssClasses = function modalGetCssClasses() {

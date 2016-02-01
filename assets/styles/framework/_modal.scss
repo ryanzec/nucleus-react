@@ -35,7 +35,7 @@ $component-identifier: '.modal';
   }
 
   #{$component-identifier}__content {
-    position: absolute;
+    position: fixed;
     z-index: $z-index-content-modal;
     background-color: $color-white;
     overflow: auto;
