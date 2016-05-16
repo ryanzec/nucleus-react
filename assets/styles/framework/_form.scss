@@ -1,259 +1,55 @@
-$component-identifier: '.form-element';
+// .form-inline {
+//   label {
+//     margin-right: 5px;
+//   }
+// }
 
-#{$component-identifier} {
-  label {
-    display: inline-block;
-  }
-
-  &.m-invalid {
-    #{$component-identifier}__input.m-text,
-    #{$component-identifier}__input.m-select,
-    #{$component-identifier}__input.m-textarea {
-      background-color: $color-light-danger;
-      border-color: $color-dark-danger;
-    }
-
-    .svg-icon__container.checkbox-empty-icon,
-    .svg-icon__container.checkbox-checked-icon,
-    .svg-icon__container.radio-empty-icon,
-    .svg-icon__container.radio-checked-icon {
-      fill: $color-dark-danger;
-    }
-
-    #{$component-identifier}__input-prepend,
-    #{$component-identifier}__input-append {
-      background-color: $color-light-danger;
-    }
-
-    #{$component-identifier}__input-prepend {
-      border: 1px solid $color-dark-danger;
-      border-right: none;
-    }
-
-    #{$component-identifier}__input-append {
-      border: 1px solid $color-dark-danger;
-      border-left: none;
-    }
-  }
-
-  &.m-valid {
-    #{$component-identifier}__input.m-text,
-    #{$component-identifier}__input.m-select,
-    #{$component-identifier}__input.m-textarea {
-      background-color: $color-light-safe;
-      border-color: $color-dark-safe;
-    }
-
-    .svg-icon__container.checkbox-checked-icon,
-    .svg-icon__container.radio-checked-icon {
-      fill: $color-dark-safe;
-    }
-
-    #{$component-identifier}__input-prepend,
-    #{$component-identifier}__input-append {
-      background-color: $color-light-safe;
-    }
-
-    #{$component-identifier}__input-prepend {
-      border: 1px solid $color-dark-safe;
-      border-right: none;
-    }
-
-    #{$component-identifier}__input-append {
-      border: 1px solid $color-dark-safe;
-      border-left: none;
-    }
-  }
-
-  &.m-inline {
-    @include display(flex);
-    @include align-items(center);
-  }
-
-  .svg-icon__outer-container.checkbox-empty-icon,
-  .svg-icon__outer-container.checkbox-checked-icon,
-  .svg-icon__outer-container.radio-empty-icon,
-  .svg-icon__outer-container.radio-checked-icon {
-    &.m-left {
-      margin: 5px 0 5px 5px;
-    }
-
-    &.m-right {
-      margin: 5px 5px 5px 0;
-    }
-  }
-
-  &.m-inline.m-radio {
-    @include display(inline-flex);
-    @include align-items(center);
-
-    #{$component-identifier}__field-container {
-      @include display(inline-flex);
-
-      margin-left: 5px;
-    }
-  }
-
-  &__input.m-text,
-  &__input.m-select,
-  &__input.m-textarea {
-    width: 100%;
-    margin: 5px 0;
-    border: 1px solid $border-color-input;
-    border-radius: $border-radius-medium;
-    background-color: $background-color-input;
-    padding: 4px 6px;
-
-    &:focus {
-      outline: none;
-      border-color: $border-color-active-input;
-    }
-  }
-
-  &__input.m-select {
-    background-color: $background-color-input;
-  }
-
-  &__input.m-checkbox,
-  &__input.m-radio {
-    opacity: 0;
-    height: 0;
-    width: 0;
-  }
-
-  &__input.m-text.m-has-prepend {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  &__input.m-text.m-has-append {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  &__group {
-    @include display(flex);
-    @include flex-wrap(wrap);
-    @include justify-content(space-between);
-    @include flex-direction(column);
-  }
-
-  &__radio-group {
-    @include display(flex);
-    @include flex-wrap(wrap);
-  }
-
-  &__field-container {
-    @include display(flex);
-    @include align-items(center);
-
-    #{$component-identifier}__input-container {
-      @include flex(1);
-
-      //NOTE: this for whatever reason fixes a display issue in FireFox
-      max-width: 100%;
-    }
-
-    .m-toggle {
-      @include display(flex);
-      @include align-items(center);
-    }
-  }
-
-  &__input-prepend,
-  &__input-append {
-    @include align-self(stretch);
-    @include flex(0 1 auto);
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(space-around);
-
-    margin: 5px 0;
-    background-color: $border-color-input;
-    padding: 3px 6px;
-  }
-
-  &__input-prepend {
-    border-radius: $border-radius-medium 0 0 $border-radius-medium;
-  }
-
-  &__input-append {
-    border-radius: 0 $border-radius-medium $border-radius-medium 0;
-  }
+.input-group {
+  width: 100%;
 }
 
-#{$component-identifier}__validation-messages {
-    padding: 0 5px 5px 5px;
-
-    #{$component-identifier}__validation-message {
-
-      &.m-safe {
-        color: $color-safe;
-      }
-
-      &.m-notice {
-        color: $color-notice;
-      }
-
-      &.m-warning {
-        color: $color-warning;
-      }
-
-      &.m-danger {
-        color: $color-danger;
-      }
-    }
-  }
-
-form.m-inline {
-  #{$component-identifier} {
-    @include display(inline-flex);
-    @include align-items(center);
-
-    &__field-container {
-      @include flex(1);
-    }
-  }
-
-  label:not(.m-toggle) {
-    width: auto;
-    text-align: right;
-    padding-right: 10px;
-  }
+.form-inline .input-group-vertical .input-group-addon {
+  display: inline-block;
+  width: 100%;
 }
 
-input[disabled] {
-  background-color: $color-light-neutral;
-  cursor: not-allowed;
-}
+.form-inline .input-group-vertical,
+.input-group-vertical {
+  display: block;
 
-@media #{$medium-screen-media-query} {
-  #{$component-identifier} {
-    &__group {
-      @include flex-direction(row);
+  .form-control:first-child {
+    border-radius: 4px 4px 0 0;
+  }
 
-      &.m-align-start {
-        @include justify-content(flex-start);
+  .form-control:last-child {
+    border-radius: 0 0 4px 4px;
+  }
 
-        #{$component-identifier}__group-item {
-          @include flex(0 1 auto);
-        }
+  .input-group-addon {
+    overflow: hidden;
 
-        //NOTE: this fixes some issues in IE 10+
-        label {
-          @include flex-basis(auto);
-        }
-      }
+    &:first-child {
+      border-bottom: none;
+      border-right: $input-btn-border-width solid $input-group-addon-border-color;;
+      border-radius: 4px 4px 0 0;
+    }
 
-      &-item {
-        @include flex(1);
-
-        &:not(:first-child) {
-          margin-left: 10px;
-        }
-      }
+    &:last-child {
+      border-top: none;
+      border-left: $input-btn-border-width solid $input-group-addon-border-color;;
+      border-radius: 0 0 4px 4px;
     }
   }
 }
 
-$component-identifier: '';
+.form-textbox-counter {
+  &-right {
+    .form-textbox-counter__counter {
+      text-align: right;
+    }
+  }
+
+  &__counter {
+    font-size: 11px;
+  }
+}

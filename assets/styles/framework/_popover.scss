@@ -1,0 +1,8 @@
+//NOTE: this is needed otherwise tether can't get the deminsions (I think) for proper positioning
+.popover {
+  position: relative;
+}
+
+.popover-toggle {
+  display: inline-block;
+}

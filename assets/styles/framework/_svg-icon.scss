@@ -1,0 +1,64 @@
+.svg-icon {
+  &__outer-container {
+    display: inline-flex;
+    user-select: none;
+
+    &.is-clickable {
+      cursor: pointer;
+    }
+  }
+
+  &__container {
+    display: inline-flex;
+
+    position: relative;
+    width: 16px;
+    height: 16px;
+    fill: $body-color;
+
+    &.m-success {
+      fill: $brand-success;
+    }
+
+    &.m-info {
+      fill: $brand-info;
+    }
+
+    &.m-warning {
+      fill: $brand-warning;
+    }
+
+    &.m-danger {
+      fill: $brand-danger;
+    }
+  }
+
+  &__indicator {
+    height: .9rem;
+    width: .9rem;
+    border-radius: 50%;
+    border: 1px solid $white;
+    position: absolute;
+    right: 0;
+    background-color: $body-color;
+
+    &.m-success {
+      fill: $brand-success;
+    }
+
+    &.m-info {
+      fill: $brand-info;
+    }
+
+    &.m-warning {
+      fill: $brand-warning;
+    }
+
+    &.m-danger {
+      fill: $brand-danger;
+    }
+  }
+
+  height: 100%;
+  width: 100%;
+}

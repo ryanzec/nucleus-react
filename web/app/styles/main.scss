@@ -1,5 +1,6 @@
-@import "../../../node_modules/bourbon/app/assets/stylesheets/_bourbon";
+@import "./_variables";
+
 @import "../../../assets/styles/_framework";
 
-@import "../react/assets/styles/_styles";
-@import "../pages/components/assets/styles/_styles";
+@import "../react/styles/_styles";
+@import "../pages/style-guide/assets/styles/_styles";

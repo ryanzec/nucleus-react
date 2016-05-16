@@ -1,59 +1,47 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-var cardHeader = {};
-
-cardHeader.displayName = 'Card';
-
-cardHeader.mixins = [
-  ReactPureRenderMixin
-];
-
-cardHeader.propTypes = {
-  className: React.PropTypes.string,
-  renderArrow: React.PropTypes.bool,
-  arrowPosition: React.PropTypes.oneOf(['top', 'bottom'])
-};
-
-cardHeader.getDefaultProps = function cardHeaderGetDefaultProps() {
-  return {
-    className: null,
-    renderArrow: false,
-    arrowPosition: 'bottom'
-  };
-};
-
-cardHeader.getCssClasses = function cardHeaderGetCssClasses() {
-  var cssClasses = ['card__header'];
-
-  cssClasses.push();
-
-  if (this.props.className) {
-    cssClasses = cssClasses.concat(this.props.className.split(' '));
+class CardHeader extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return cssClasses;
-};
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
 
-cardHeader.renderArrow = function cardHeaderRenderArrow() {
-  var arrow = null;
+  getCssClasses() {
+    let cssClasses = ['card-header'];
 
-  if (this.props.renderArrow === true) {
-    arrow = (
-      <div className={'card__header-arrow m-' + this.props.arrowPosition}></div>
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    return cssClasses;
+  }
+
+  render() {
+    return React.createElement(
+      this.props.elementType,
+      Object.assign({
+        className: this.getCssClasses().join(' ')
+      }, getPassThroughProperties(this.props, 'className', 'elementType')),
+      this.props.children
     );
   }
+}
 
-  return arrow;
+CardHeader.displayName = 'CardHeader';
+
+CardHeader.propTypes = {
+  className: React.PropTypes.string,
+  elementType: React.PropTypes.string
 };
 
-cardHeader.render = function cardHeaderRender() {
-  return (
-    <div className={this.getCssClasses().join(' ')}>
-      {this.props.children}
-      {this.renderArrow()}
-    </div>
-  );
+CardHeader.defaultProps = {
+  className: null,
+  elementType: 'div'
 };
 
-module.exports = React.createClass(cardHeader);
+export default CardHeader;

@@ -1,37 +1,57 @@
-var React = require('react');
-var commoneReact = require('../../../../assets/index');
+import React from 'react';
+import {connect} from 'react-redux';
 
-var menuStore = require('../../stores/menu.store');
+import MainNavigation from './main-navigation.component.jsx';
+import MainNavigationSection from './main-navigation-section.component.jsx';
 
-var MainNavigation = require('./main-navigation.component.jsx');
-var RouteHandler = require('react-router').RouteHandler;
-var SvgIcon = commoneReact.components.SvgIcon;
+class Application extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-var application = {};
+  renderMenu() {
+    var menuNode = null;
+    var menuSectionNodes = [];
 
-application.displayName = 'Application';
+    if (this.props.menu.length > 0) {
+      this.props.menu.forEach(function(menuSection, key) {
+        menuSectionNodes.push(
+          <MainNavigationSection
+            key={key}
+            headerNode={menuSection.display}
+            items={menuSection.items}
+          />
+        );
+      });
 
-application.onClickMenuToggle = function() {
-  menuStore.activate();
-};
+      var menuNode = (
+        <MainNavigation>
+          {menuSectionNodes}
+        </MainNavigation>
+      );
+    }
 
-application.render = function() {
-  return (
-    <div className="application">
-      <MainNavigation />
-      <div className="main-application">
-        <div className="top-navigation u-hide-large u-hide-extra-large">
-          <span
-            className="menu-toggle"
-            onClick={this.onClickMenuToggle}
-          >
-            <SvgIcon fragment="four-corners" />
-          </span>
+    return menuNode;
+  }
+
+  render() {
+    return (
+      <div className="application-container">
+        {this.renderMenu()}
+        <div className="main-application">
+          {this.props.children}
         </div>
-        <RouteHandler routerState={this.props.routerState} />
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+Application.displayName = 'Application';
+
+let mapStateToProps = function(state) {
+  return {
+    menu: state.menu.getIn(['menu']).toJS()
+  };
 };
 
-module.exports = React.createClass(application);
+export default connect(mapStateToProps)(Application);

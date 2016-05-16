@@ -1,0 +1,37 @@
+$component-identifier: '.main-navigation';
+
+#{$component-identifier} {
+  @include flexbox-value-width(250px);
+
+  background-color: $color-blue1;
+  color: $color-light-text;
+
+  .svg-icon__container {
+    fill: $color-light-text;
+  }
+
+  &__section {
+    padding: 0 8px;
+
+    &-header {
+      padding: 4px 0;
+    }
+  }
+
+  &__item {
+    display: flex;
+    padding: 4px 0 4px 8px;
+
+    &:hover {
+      background-color: $color-blue2;
+      cursor: pointer;
+    }
+
+    .svg-icon__outer-container {
+      padding-right: 8px;
+      align-self: center;
+    }
+  }
+}
+
+$component-identifier: '';

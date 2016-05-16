@@ -1,0 +1,4 @@
+{
+  "textboxCounterLeftCount": "You have {CHARACTERS_LEFT, plural, one{1 character} zero{no characters} other{# characters}} left",
+  "textboxCounterOverCount": "You are {CHARACTERS_OVER, plural, one{1 character} other{# characters}} over the limit"
+}

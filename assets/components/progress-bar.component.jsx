@@ -1,52 +1,60 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-var progressBar = {};
-
-progressBar.displayName = 'ProgressBar';
-
-progressBar.mixins = [
-  ReactPureRenderMixin
-];
-
-progressBar.propTypes = {
-  className: React.PropTypes.string,
-  percentageDone: React.PropTypes.number,
-  style: React.PropTypes.object
-};
-
-progressBar.getDefaultProps = function progressBarGetDefaultProps() {
-  return {
-    className: null,
-    percentageDone: 0,
-    style: {}
-  };
-};
-
-progressBar.getCssClasses = function progressBarGetCssClasses() {
-  var cssClasses = ['progress-bar'];
-
-  if (this.props.className) {
-    cssClasses = cssClasses.concat(this.props.className.split(' '));
+class ProgressBar extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return cssClasses;
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
+  getCssClasses() {
+    let cssClasses = ['progress'];
+
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    if (this.props.styleType) {
+      cssClasses.push('progress-' + this.props.styleType);
+    }
+
+    if (this.props.isStriped) {
+      cssClasses.push('progress-striped');
+    }
+
+    return cssClasses;
+  }
+
+  render() {
+    return (
+      <progress
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isStriped', 'isAnimated')}
+      >{this.props.value / this.props.max}%}</progress>
+    );
+  }
+}
+
+ProgressBar.displayName = 'ProgressBar';
+
+ProgressBar.propTypes = {
+  className: React.PropTypes.string,
+  value: React.PropTypes.number,
+  max: React.PropTypes.number,
+  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  isStriped: React.PropTypes.bool
 };
 
-progressBar.render = function progressBarRender() {
-  return (
-    <span
-      style={this.props.style}
-      className={this.getCssClasses().join(' ')}
-    >
-      <span
-        className="progress-bar__indicator"
-        style={{
-          width: this.props.percentageDone + '%'
-        }}
-      />
-    </span>
-  );
+ProgressBar.defaultProps = {
+  className: null,
+  value: 0,
+  max: 100,
+  styleType: null,
+  isStriped: false
 };
 
-module.exports = React.createClass(progressBar);
+export default ProgressBar;

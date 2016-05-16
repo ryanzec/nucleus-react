@@ -1,7 +1,4 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router');
+import {render} from 'react-dom';
+import routes from './routes.jsx';
 
-Router.run(require('./routes.jsx'), Router.HistoryLocation, function routerRun(Handler, routerState) {
-  ReactDOM.render(<Handler routerState={routerState} />, document.querySelector('.react-bootstrap-element'));
-});
+render(routes, document.querySelector('.react-bootstrap-element'));

@@ -1,141 +1,80 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
-var ReactDOM = require('react-dom');
-var singlePanelMixin = require('../mixins/single-panel.mixin');
-var domUtilities = require('dom-utilities');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import DomEventManager from '../utilities/dom/dom-event-manager';
 
-var dropDown = {};
+class DropDown extends React.Component {
+  constructor(props) {
+    super(props);
 
-dropDown.displayName = 'DropDown';
-
-dropDown.mixins = [
-  ReactPureRenderMixin,
-  singlePanelMixin
-];
-
-dropDown.propTypes = {
-  className: React.PropTypes.string,
-  handleNode: React.PropTypes.node.isRequired,
-  contentNode: React.PropTypes.node.isRequired,
-  align: React.PropTypes.oneOf(['left', 'right']),
-  closeOnContentClick: React.PropTypes.bool,
-  keepActive: React.PropTypes.bool
-};
-
-dropDown.getDefaultProps = function dropDownGetDefaultProps() {
-  return {
-    className: null,
-    handleNode: null,
-    contentNode: null,
-    align: 'left',
-    closeOnContentClick: true,
-    keepActive: false
-  };
-};
-
-dropDown.getInitialState = function dropDownGetInitialState() {
-  return {
-    isActive: false,
-    keepActive: this.props.keepActive
-  };
-};
-
-dropDown.componentWillUpdate = function dropDownComponentWillUpdate() {
-  this.positionContent();
-};
-
-dropDown.componentWillReceiveProps = function dropDownComponentWillReceiveProps(nextProps) {
-  //NOTE: the keep active functionality should only trigger is the state is currently active that way we don't show the drop down unless it was specifically
-  //NOTE: trigger but can keep it open if something else happen outside of this component that would normally deactivate the drop down
-  if (
-    this.state.isActive === true
-    && nextProps.keepActive !== this.props.keepActive
-    && nextProps.keepActive === true
-    && this.state.keepActive !== true
-  ) {
-    this.setState({
-      keepActive: true
-    });
-  } else if (nextProps.keepActive === false) {
-    this.setState({
-      keepActive: false
-    });
-  }
-};
-
-dropDown.isActive = function dropDownIsActive() {
-  return this.state.isActive === true || this.state.keepActive === true;
-};
-
-dropDown.positionContent = function dropDownPositionContent() {
-  var handleHeight = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.handle)).height);
-  var handleWidth = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.handle)).width);
-  var contentWidth = Math.ceil(domUtilities.getDimensions(ReactDOM.findDOMNode(this.refs.content)).width);
-  ReactDOM.findDOMNode(this.refs.content).style.minWidth = contentWidth + 'px';
-  ReactDOM.findDOMNode(this.refs.content).style.top = handleHeight + 10 + 'px';
-
-  //NOTE: 26 is based off the css for the triangle
-  ReactDOM.findDOMNode(this.refs.content).style[this.props.align] = (handleWidth / 2) - 26 + 'px';
-};
-
-dropDown.getCssClasses = function dropDownGetCssClasses() {
-  var cssClasses = ['drop-down'];
-
-  if (this.props.className) {
-    cssClasses = cssClasses.concat(this.props.className.split(' '));
+    this.domEventManager = new DomEventManager();
   }
 
-  if (this.isActive() === true) {
-    cssClasses.push('is-active');
+  componentDidMount() {
+    this.domEventManager.add(document, 'click', this.outsideClickHandler.bind(this));
   }
 
-  return cssClasses;
-};
-
-dropDown.singlePanelClose = function dropDownSinglePanelClose() {
-  this.setState({
-    isActive: false
-  });
-};
-
-dropDown.onClickHandle = function dropDownOnClickHandle(event) {
-  event.stopPropagation();
-
-  this.dontCloseOnClick = true;
-  this.setState({
-    isActive: !this.state.isActive
-  });
-};
-
-dropDown.onClickContent = function dropDownOnClickContent(event) {
-  event.stopPropagation();
-
-  if (this.props.closeOnContentClick !== true) {
-    this.dontCloseOnClick = true;
+  componentWillUnmount() {
+    this.domEventManager.clear();
   }
-};
 
-dropDown.render = function dropDownRender() {
-  return (
-    <span className={this.getCssClasses().join(' ')}>
-      <span
-        ref="handle"
-        className="drop-down__handle"
-        onClick={this.onClickHandle}
-      >
-        {this.props.handleNode}
-      </span>
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
+  getCssClasses() {
+    let cssClasses = ['dropdown'];
+
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    if (this.props.isActive) {
+      cssClasses.push('open');
+    }
+
+    if (this.props.align === 'top') {
+      cssClasses.push('dropup');
+    }
+
+    return cssClasses;
+  }
+
+  outsideClickHandler(event) {
+    var containerNode = ReactDOM.findDOMNode(this);
+
+    if (this.props.onClickOutside && !containerNode.contains(event.target)) {
+      this.props.onClickOutside();
+    }
+  }
+
+  render() {
+    return (
       <div
-        ref="content"
-        className="drop-down__content"
-        onClick={this.onClickContent}
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'isActive', 'align')}
       >
-        <div className={'drop-down__triangle m-' + this.props.align}></div>
-        <div className={'drop-down__triangle-inner m-' + this.props.align}></div>
-        {this.props.contentNode}
+        {this.props.children}
       </div>
-    </span>
-  );
+    );
+  }
+}
+
+DropDown.displayName = 'DropDown';
+
+DropDown.propTypes = {
+  className: React.PropTypes.string,
+  isActive: React.PropTypes.bool,
+  align: React.PropTypes.oneOf(['top', 'bottom']),
+  onClickOutside: React.PropTypes.func
 };
 
-module.exports = React.createClass(dropDown);
+DropDown.defaultProps = {
+  className: null,
+  isActive: false,
+  align: 'bottom',
+  onClickOutside: null
+};
+
+export default DropDown;

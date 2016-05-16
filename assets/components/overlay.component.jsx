@@ -1,58 +1,58 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-var overlay = {};
-
-overlay.displayName = 'Overlay';
-
-overlay.mixins = [
-  ReactPureRenderMixin
-];
-
-overlay.propTypes = {
-  absolutePositioned: React.PropTypes.bool.isRequired,
-  isActive: React.PropTypes.bool.isRequired,
-  topContent: React.PropTypes.node
-};
-
-overlay.getDefaultProps = function overlayGetDefaultProps() {
-  return {
-    absolutePositioned: false,
-    isActive: false,
-    topContent: null
-  };
-};
-
-overlay.getCssClasses = function overlayGetCssClasses() {
-  var cssClasses = ['overlay'];
-
-  if (this.props.absolutePositioned === true) {
-    cssClasses.push('m-absolute');
+class Overlay extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  if (this.props.isActive !== true) {
-    cssClasses.push('u-hide');
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  return cssClasses;
-};
+  getCssClasses() {
+    let cssClasses = ['overlay'];
 
-overlay.render = function overlayRender() {
-  var topContent = null;
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
 
-  if (this.props.topContent) {
-    topContent = (
-      <div className="overlay__content">
-        {this.props.topContent}
-      </div>
+    if (this.props.isActive) {
+      cssClasses.push('active');
+    }
+
+    if (this.props.isAbsolute) {
+      cssClasses.push('overlay-absolute');
+    }
+
+    return cssClasses;
+  }
+
+  render() {
+    return (
+      <span
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'isActive', 'isAbsolute')}
+      >
+        {this.props.children}
+      </span>
     );
   }
+}
 
-  return (
-    <div className={this.getCssClasses().join(' ')}>
-      {topContent}
-    </div>
-  );
+Overlay.displayName = 'Overlay';
+
+Overlay.propTypes = {
+  className: React.PropTypes.string,
+  isActive: React.PropTypes.bool,
+  isAbsolute: React.PropTypes.bool
 };
 
-module.exports = React.createClass(overlay);
+Overlay.defaultProps = {
+  className: null,
+  isActive: false,
+  isAbsolute: false
+};
+
+export default Overlay;

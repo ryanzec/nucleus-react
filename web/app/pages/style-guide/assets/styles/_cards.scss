@@ -1,0 +1,21 @@
+.p-style-guide-cards {
+  .card {
+    width: 318px;
+  }
+
+  .card-columns .card {
+    width: auto;
+  }
+}
+
+@include media-breakpoint-up('md') {
+  .p-style-guide-cards {
+    .card-columns {
+      width: 711px;
+    }
+
+    .manual-size {
+      width: 499px;
+    }
+  }
+}

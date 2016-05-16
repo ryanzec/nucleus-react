@@ -1,42 +1,15 @@
-var _ = require('lodash');
-var storeLocations = {};
-var initialStoresCachedData = {};
-var Router = require('react-router');
-var Link = Router.Link;
-var Route = Router.Route;
-var React = require('react');
-var ReactDOM = require('react-dom');
-var reactTestUtils = require('react-addons-test-utils');
-var TestLocation = require('react-router/lib/locations/TestLocation');
-var fibers = require('fibers');
-var mockedData = require('../web/app/mock/data/index');
-var mockedRequests = require('../web/app/mock/requests/index');
-var applicationReact = require('../web/app/react/index');
-var Header = applicationReact.components.Header;
-var sinon = require('sinon');
-
-//store the original state of all the stores
-_.forEach(storeLocations, function(path, storeName) {
-  initialStoresCachedData[storeName] = _.clone(require(path)._cachedData, true);
-});
+import * as _ from 'lodash';
+import * as mockedData from '../web/app/mock/data/index';
+import * as mockedRequests from '../web/app/mock/requests/index';
+import {defer} from 'bluebird';
 
 module.exports = {
-  resetStoresCachedData: function() {
-    var storeNames = Array.prototype.slice.call(arguments);
+  sleep: function(time) {
+    var myDefer = defer();
 
-    storeNames.forEach(function(storeName) {
-      //get the store
-      var store = require(storeLocations[storeName]);
+    setTimeout(function() {myDefer.resolve();}, time);
 
-      //reset all the initial store properties
-      store._cachedData = _.clone(initialStoresCachedData[storeName], true);
-    });
-  },
-
-  unmountComponent: function(component) {
-    if(component && component.isMounted()) {
-      ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(component).parentNode);
-    }
+    return myDefer.promise;
   },
 
   createNativeClickEvent: function() {
@@ -65,16 +38,6 @@ module.exports = {
 
   noop: function() {},
 
-  sleep: function(ms) {
-    var fiber = fibers.current;
-
-    setTimeout(function() {
-      fiber.run();
-    }, ms);
-
-    fibers.yield();
-  },
-
   keyCodes: {
     BACKSPACE: 8,
     TAB: 9,
@@ -94,16 +57,6 @@ module.exports = {
     SHIFT: 16,
     CTRL: 17,
     ALT: 18
-  },
-
-  getSpyForEventHandler: function(component, eventHandlerName) {
-    //using weird syntax here to prevent issue with ReactJS auto binding of events
-    return sinon.spy(component.prototype.__reactAutoBindMap, eventHandlerName);
-  },
-
-  restoreEventHandler: function(component, eventHandlerName) {
-    //using weird syntax here to prevent issue with ReactJS auto binding of events
-    component.prototype.__reactAutoBindMap[eventHandlerName].restore();
   },
 
   mockedData: mockedData,

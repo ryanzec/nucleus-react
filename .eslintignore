@@ -1,1 +1,5 @@
-assets/javascript/
+web/app/mock/*
+**/*.spec.*
+
+#third party libraries
+web/app/misc/ua-parser.js

@@ -1,21 +1,28 @@
-var React = require('react');
-var applicationReact = require('./react/index');
-var Application = applicationReact.components.Application;
-var IntroductionPage = require('./pages/introduction/introduction.component.jsx');
-var Router = require('react-router');
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
-var NotFoundRoute = Router.NotFoundRoute;
-var NotFound = applicationReact.components.NotFound;
+import React from 'react';
+import {
+  browserHistory,
+  IndexRoute,
+  Route,
+  Router
+} from 'react-router';
+import {Provider} from 'react-redux';
+import {syncHistoryWithStore} from 'react-router-redux';
+import store from './store/store';
+import Application from './react/components/application.component.jsx';
+import NotFoundPage from './react/components/not-found.page.jsx';
+import AlertPage from './pages/style-guide/alerts.page.jsx';
+import {routes as styleGuideRoutes} from './pages/style-guide/module.jsx';
 
-module.exports = (
-  <Route handler={Application}>
-    <DefaultRoute handler={IntroductionPage} />
-    {require('./pages/introduction/module.jsx').routes}
-    {require('./pages/foundation/module.jsx').routes}
-    {require('./pages/components/module.jsx').routes}
-    {require('./pages/mixins/module.jsx').routes}
-    {require('./pages/complex/module.jsx').routes}
-    <NotFoundRoute handler={NotFound} />
-  </Route>
+let history = syncHistoryWithStore(browserHistory, store);
+
+export default (
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={Application}>
+        <IndexRoute component={AlertPage} />
+        {styleGuideRoutes}
+        <Route path="*" component={NotFoundPage} />
+      </Route>
+    </Router>
+  </Provider>
 );

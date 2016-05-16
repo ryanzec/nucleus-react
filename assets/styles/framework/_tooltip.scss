@@ -1,19 +1,4 @@
+//NOTE: this is temp until animation are added in
 .tooltip {
-  &__content {
-    position: absolute;
-    display: none;
-    top: 0px;
-    left: 0px;
-    border: 1px solid black;
-    background-color: $color-white;
-    z-index: 1001;
-
-    &.m-fixed {
-      position: fixed;
-    }
-
-    &.is-active {
-      display: block;
-    }
-  }
+  opacity: .9;
 }

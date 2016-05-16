@@ -1,41 +1,24 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
-var ReactDOM = require('react-dom');
-var _ = require('lodash');
-var InputAutoSizer = require('./input-auto-sizer.component.jsx');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import lodashClone from 'lodash.clone';
 
-var textboxInput = {};
+import InputAutoSizer from './input-auto-sizer.component.jsx';
 
-textboxInput.displayName = 'TextboxInput';
+class TextboxInput extends React.Component {
+  constructor(props) {
+    super(props);
 
-textboxInput.mixins = [
-  ReactPureRenderMixin
-];
+    this.onClickPend = this.onClickPend.bind(this);
+  }
 
-textboxInput.propTypes = {
-  className: React.PropTypes.string,
-  type: React.PropTypes.string,
-  multiLined: React.PropTypes.bool,
-  appendNode: React.PropTypes.node,
-  prependNode: React.PropTypes.node,
-  autoSize: React.PropTypes.bool,
-  unmanaged: React.PropTypes.bool
-};
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
 
-textboxInput.getDefaultProps = function textboxInputGetDefaultProps() {
-  return {
-    className: null,
-    type: 'text',
-    multiLined: false,
-    appendNode: null,
-    prependNode: null,
-    autoSize: false,
-    unmanaged: false
-  };
-};
-
-textboxInput.getCssClasses = function textboxInputGetCssClasses() {
-    var cssClasses = ['form-element__field-container'];
+  getCssClasses() {
+    let cssClasses = ['form-element__field-container'];
 
     if (this.props.className) {
         cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -50,10 +33,10 @@ textboxInput.getCssClasses = function textboxInputGetCssClasses() {
     }
 
     return cssClasses;
-};
+  }
 
-textboxInput.getInputCssClasses = function textboxInputGetInputCssClasses() {
-    var cssClasses = ['form-element__input-container', 'form-element__input', 'm-text'];
+  getInputCssClasses() {
+    let cssClasses = ['form-element__input-container', 'form-element__input', 'm-text'];
     cssClasses.push('m-' + this.props.type);
 
     if (this.props.prependNode) {
@@ -65,97 +48,124 @@ textboxInput.getInputCssClasses = function textboxInputGetInputCssClasses() {
     }
 
     return cssClasses;
-};
-
-textboxInput.getInputPassThroughProps = function textboxInputGetInputPassThroughProps() {
-  var props = _.clone(this.props);
-
-  delete props.className;
-
-  props.value = this.cleanValue(props.value);
-
-  return props;
-};
-
-textboxInput.cleanValue = function textboxInputCleanValue(value) {
-  var defaultValue = this.props.unmanaged === true ? null : '';
-  return value || defaultValue;
-};
-
-textboxInput.onClickPend = function textboxInputOnClickPend() {
-  ReactDOM.findDOMNode(this.refs.input).focus();
-};
-
-textboxInput.renderPrepend = function textboxInputRenderPrepend() {
-  var prepend = null;
-
-  if (this.props.prependNode) {
-    prepend = (
-      <span
-        className="form-element__input-prepend"
-        onClick={this.onClickPend}
-      >
-        {this.props.prependNode}
-      </span>
-    );
   }
 
-  return prepend;
-};
+  getInputPassThroughProps() {
+    let props = lodashClone(this.props);
 
-textboxInput.renderAppend = function textboxInputRenderAppend() {
-  var append = null;
+    delete props.className;
 
-  if (this.props.appendNode) {
-    append = (
-      <span
-        className="form-element__input-append"
-        onClick={this.onClickPend}
-      >
-        {this.props.appendNode}
-      </span>
-    );
+    props.value = this.cleanValue(props.value);
+
+    return props;
   }
 
-  return append;
-};
+  cleanValue(value) {
+    let defaultValue = this.props.unmanaged === true ? null : '';
 
-textboxInput.renderInput = function textboxInputRenderInput() {
-  if (this.props.multiLined) {
+    return value || defaultValue;
+  }
+
+  onClickPend() {
+    ReactDOM.findDOMNode(this.refs.input).focus();
+  }
+
+  renderPrepend() {
+    let prepend = null;
+
+    if (this.props.prependNode) {
+      prepend = (
+        <span
+          className="form-element__input-prepend"
+          onClick={this.onClickPend}
+        >
+          {this.props.prependNode}
+        </span>
+      );
+    }
+
+    return prepend;
+  }
+
+  renderAppend() {
+    let append = null;
+
+    if (this.props.appendNode) {
+      append = (
+        <span
+          className="form-element__input-append"
+          onClick={this.onClickPend}
+        >
+          {this.props.appendNode}
+        </span>
+      );
+    }
+
+    return append;
+  }
+
+  renderInput() {
+    if (this.props.multiLined) {
+      return (
+        <textarea
+          ref="input"
+          className="form-element__input-container form-element__input m-textarea"
+          {...this.getInputPassThroughProps()}
+        />
+      );
+    } else if (this.props.autoSize) {
+      return (
+        <InputAutoSizer
+          ref="input"
+          inputClassName={this.getInputCssClasses().join(' ')}
+          {...this.getInputPassThroughProps()}
+        />
+      );
+    }
+
     return (
-      <textarea
+      <input
         ref="input"
-        className="form-element__input-container form-element__input m-textarea"
+        className={this.getInputCssClasses().join(' ')}
         {...this.getInputPassThroughProps()}
       />
     );
-  } else if (this.props.autoSize) {
-    return (
-      <InputAutoSizer
-        ref="input"
-        inputClassName={this.getInputCssClasses().join(' ')}
-        {...this.getInputPassThroughProps()}
-      />
-    );
   }
 
-  return (
-    <input
-      ref="input"
-      className={this.getInputCssClasses().join(' ')}
-      {...this.getInputPassThroughProps()}
-    />
-  );
+  render() {
+    return (
+      <div
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'type', 'multiLined', 'appendNode', 'prependNode', 'autoSize', 'unmanaged')}
+      >
+        {this.renderPrepend()}
+        {this.renderInput()}
+        {this.renderAppend()}
+      </div>
+    );
+  }
+}
+
+TextboxInput.displayName = 'TextboxInput';
+
+TextboxInput.propTypes = {
+  className: React.PropTypes.string,
+  type: React.PropTypes.string,
+  multiLined: React.PropTypes.bool,
+  appendNode: React.PropTypes.node,
+  prependNode: React.PropTypes.node,
+  autoSize: React.PropTypes.bool,
+  unmanaged: React.PropTypes.bool
 };
 
-textboxInput.render = function textboxInputRender() {
-  return (
-    <div className={this.getCssClasses().join(' ')}>
-      {this.renderPrepend()}
-      {this.renderInput()}
-      {this.renderAppend()}
-    </div>
-  );
+TextboxInput.defaultProps = {
+  className: null,
+  type: 'text',
+  multiLined: false,
+  appendNode: null,
+  prependNode: null,
+  autoSize: false,
+  unmanaged: false
 };
 
-module.exports = React.createClass(textboxInput);
+export default TextboxInput;

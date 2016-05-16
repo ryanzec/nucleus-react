@@ -1,95 +1,94 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
-var iconData = require('nucleus-icons');
-var clickableMixin = require('../mixins/clickable.mixin');
+import React from 'react';
+import iconData from 'nucleus-icons';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 
-var svgIcon = {};
-
-svgIcon.displayName = 'SvgIcon';
-
-svgIcon.mixins = [
-  ReactPureRenderMixin,
-  clickableMixin
-];
-
-svgIcon.propTypes = {
-  fragment: React.PropTypes.string,
-  size: React.PropTypes.string,
-  className: React.PropTypes.string,
-  outerClassName: React.PropTypes.string,
-  indicator: React.PropTypes.string
-};
-
-svgIcon.getDefaultProps = function svgIconGetDefaultProps() {
-  return {
-    fragment: null,
-    size: 'small',
-    className: null,
-    outerClassName: null,
-    indicator: null
-  };
-};
-
-svgIcon.getSvgHtml = function svgIconGetSvgHtml() {
-  return iconData[this.props.size][this.props.fragment];
-};
-
-svgIcon.getInnerCssClasses = function svgIconGetInnerCssClasses() {
-  var cssClasses = ['svg-icon__container', this.props.fragment + '-icon'];
-
-  if (this.props.className) {
-    cssClasses = cssClasses.concat(this.props.className.split(' '));
+class SvgIcon extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return cssClasses;
-};
-
-svgIcon.getOuterCssClasses = function svgIconGetOuterCssClasses() {
-  var cssClasses = ['svg-icon__outer-container', this.props.fragment + '-icon'];
-
-  if (this.props.outerClassName) {
-    cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  if (this.props.isClickable === true) {
-    cssClasses.push('has-clickability');
+  getInnerCssClasses() {
+    var cssClasses = ['svg-icon__container', this.props.fragment + '-icon'];
+
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    if (this.props.styleType) {
+      cssClasses.push('m-' + this.props.styleType);
+    }
+
+    return cssClasses;
   }
 
-  if (this.state.isPressed === true) {
-    cssClasses.push('is-pressed');
+  getOuterCssClasses() {
+    var cssClasses = ['svg-icon__outer-container', this.props.fragment + '-icon'];
+
+    if (this.props.outerClassName) {
+      cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
+    }
+
+    if (this.props.isClickable === true) {
+      cssClasses.push('has-clickability');
+    }
+
+    return cssClasses;
   }
 
-  if (this.props.isQuiet === true) {
-    cssClasses.push('m-quiet');
+  getIndicatorHtml() {
+    var indicator = '';
+
+    if (this.props.indicator) {
+      indicator = '<div class="svg-icon__indicator m-' + this.props.indicator + '"></div>';
+    }
+
+    return indicator;
   }
 
-  return cssClasses;
-};
-
-svgIcon.getIndicatorHtml = function svgIconGetIndicatorHtml() {
-  var indicator = '';
-
-  if (this.props.indicator) {
-    indicator = '<div class="svg-icon__indicator m-' + this.props.indicator + '"></div>';
+  getSvgHtml() {
+    return iconData[this.props.size][this.props.fragment];
   }
 
-  return indicator;
-};
-
-svgIcon.render = function svgIconRender() {
-  return (
-    <span
-      className={this.getOuterCssClasses().join(' ')}
-      {...this.getEventHandlerProps()}
-    >
+  render() {
+    return (
       <span
-        className={this.getInnerCssClasses().join(' ')}
-        dangerouslySetInnerHTML={{
-          __html: this.getSvgHtml() + this.getIndicatorHtml()
-        }}
-      ></span>
-    </span>
-  );
+        className={this.getOuterCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'fragment', 'indicator', 'outerClassName', 'size', 'styleType')}
+      >
+        <span
+          className={this.getInnerCssClasses().join(' ')}
+          dangerouslySetInnerHTML={{
+            __html: this.getSvgHtml() + this.getIndicatorHtml()
+          }}
+        ></span>
+      </span>
+    );
+  }
+}
+
+SvgIcon.displayName = 'SvgIcon';
+
+SvgIcon.propTypes = {
+  className: React.PropTypes.string,
+  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  fragment: React.PropTypes.string,
+  indicator: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  outerClassName: React.PropTypes.string,
+  size: React.PropTypes.string
 };
 
-module.exports = React.createClass(svgIcon);
+SvgIcon.defaultProps = {
+  className: null,
+  styleType: null,
+  fragment: null,
+  indicator: null,
+  outerClassName: null,
+  size: 'small'
+};
+
+export default SvgIcon;

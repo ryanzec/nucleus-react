@@ -3,13 +3,12 @@
 There are some key used within the changelog which are as following:
 
 - [BREAKING]: means there is a change that is known to break existing code
-- [X]: anything else within brackets say what component that change is related t- o
 
-## master
+## 0.7.0
 
-- updated position code for modal to not use negative margins (can cause issues in mobile safari)
-- cleaned up some of the validation example code
-- broke out RadioInput into 2 components for more flexibility in use
+- [BREAKING] Complete re-write of pretty much everything
+
+This release is almost a complete re-write of all the components and the introduction of 3rd party components. The base styling of the most of the components is using Bootstrap v4 alpha 2. All the components that use the bootstrap styling are custom built. Other 3rd party components that are use are react-tether, react-datepicker, and react-select.
 
 ## 0.6.0
 - refactored out validation based local logic out of input component and converted them to properties that are passed in from the outside

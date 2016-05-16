@@ -1,1 +1,5 @@
-module.exports = {};
+import * as authentication from './authentication';
+
+export {
+  authentication
+};

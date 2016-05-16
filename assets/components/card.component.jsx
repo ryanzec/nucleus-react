@@ -1,53 +1,58 @@
-var React = require('react');
-var ReactPureRenderMixin = require('react-addons-pure-render-mixin');
-var clickableMixin = require('../mixins/clickable.mixin');
+import React from 'react';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-var card = {};
-
-card.displayName = 'Card';
-
-card.mixins = [
-  ReactPureRenderMixin,
-  clickableMixin
-];
-
-card.propTypes = {
-  className: React.PropTypes.string
-};
-
-card.getDefaultProps = function cardGetDefaultProps() {
-  return {
-    className: null
-  };
-};
-
-card.getCssClasses = function cardGetCssClasses() {
-  var cssClasses = ['card'];
-
-  if (this.props.className) {
-    cssClasses = cssClasses.concat(this.props.className.split(' '));
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  if (this.props.isClickable === true) {
-    cssClasses.push('has-clickability');
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  if (this.state.isPressed === true) {
-    cssClasses.push('is-pressed');
+  getCssClasses() {
+    let cssClasses = ['card'];
+
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    if (this.props.isInverse) {
+      cssClasses.push('card-inverse');
+    }
+
+    if (this.props.styleType) {
+      cssClasses.push('card-' + this.props.styleType);
+    }
+
+    return cssClasses;
   }
 
-  return cssClasses;
+  render() {
+    return (
+      <div
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'isInverse', 'styleType')}
+      >
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+Card.displayName = 'Card';
+
+Card.propTypes = {
+  className: React.PropTypes.string,
+  isInverse: React.PropTypes.bool,
+  styleType: React.PropTypes.oneOf(['primary', 'success', 'info', 'warning', 'danger'])
 };
 
-card.render = function cardRender() {
-  return (
-    <div
-      className={this.getCssClasses().join(' ')}
-      {...this.getEventHandlerProps()}
-    >
-      {this.props.children}
-    </div>
-  );
+Card.defaultProps = {
+  className: null,
+  isInverse: false,
+  styleType: null
 };
 
-module.exports = React.createClass(card);
+export default Card;

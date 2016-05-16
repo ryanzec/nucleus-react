@@ -1,4 +1,0 @@
-{
-  "charactersLeft": "You have {CHARACTERS_LEFT, plural, one{1 character} other{# characters}} left",
-  "charactersOver": "You are {CHARACTERS_OVER, plural, one{1 character} other{# characters}} over the limit"
-}

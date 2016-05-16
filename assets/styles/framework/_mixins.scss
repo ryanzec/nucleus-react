@@ -1,15 +1,13 @@
 //HACK: There seems to be issue with FireFox and IE and setting the flex width to a specific value(50%, 25px) instead of just a size flex value. this mixin
 //HACK: resolves that issue by add a max-width.
 @mixin flexbox-value-width($width) {
-  @include flex(0 0 $width);
-
+  flex: 0 0 $width;
   max-width: $width;
 }
 
 //HACK: There seems to be issue with FireFox and IE and setting the flex width to a specific value(50%, 25px) instead of just a size flex value. this mixin
 //HACK: resolves that issue by add a max-width.
 @mixin flexbox-value-height($height) {
-  @include flex(0 0 $height);
-
+  flex: 0 0 $height;
   max-height: $height;
 }

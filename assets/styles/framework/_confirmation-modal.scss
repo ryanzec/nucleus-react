@@ -1,8 +1,0 @@
-.confirmation-modal {
-  &__actions {
-    @include display(flex);
-    @include justify-content(center);
-
-    margin-top: 16px;
-  }
-}

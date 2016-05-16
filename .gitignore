@@ -1,10 +1,6 @@
 .DS_Store
-.idea
-.sass-cache/*
-npm-debug.log
-/web/components/*
+/coverage/*
 /node_modules/*
 /web/build/*
+npm-debug.log
 /web/local-server
-/gulp/build-meta-data/*
-/coverage/*

@@ -1,21 +1,18 @@
-.overlay{
-  @include display(flex);
-  @include align-items(center);
-  @include justify-content(space-around);
-
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: transparentize($color-black, .5);
-  z-index: $z-index-overlay;
+  background-color: transparentize($black, .5);
+  z-index: 10000;
+  display: none;
 
-  &.m-absolute {
+  &-absolute {
     position: absolute;
   }
 
-  &__content {
-    color: $color-white;
+  &.active {
+    display: block;
   }
 }
