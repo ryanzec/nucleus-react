@@ -1,7 +1,6 @@
 {
-  "name": "nucleiapps",
-  "private": true,
-  "version": "0.0.1",
+  "name": "nucleus-react",
+  "version": "0.7.0",
   "dependencies": {
     "bluebird": "3.3.1",
     "bootstrap": "4.0.0-alpha.2",
