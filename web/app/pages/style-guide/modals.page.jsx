@@ -45,7 +45,7 @@ class ModalsPage extends React.Component {
     super(props);
     this.state = {
       isModalActive: false,
-      isFormModalActive: false,
+      isFormModalActive: true,
       date: moment(),
       selectValue: null
     };
@@ -111,74 +111,6 @@ class ModalsPage extends React.Component {
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <Button onClick={this.onClickOpenModal}>Show Modal</Button>
-        {/*<Modal isActive={this.state.isModalActive}>
-          <ModalContent>
-            <ModalHeader>
-              <Button className="close" onClick={this.onClickCloseModal}>
-                <span aria-hidden="true">&times;</span>
-              </Button>
-              <ModalTitle>Modal title</ModalTitle>
-            </ModalHeader>
-            <ModalBody>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button styleType="secondary" onClick={this.onClickCloseModal}>Close</Button>
-              <Button styleType="primary" onClick={this.onClickCloseModal}>Save changes</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>*/}
         <Modal isActive={this.state.isFormModalActive}>
           <ModalContent>
             <ModalHeader>
@@ -284,6 +216,74 @@ class ModalsPage extends React.Component {
             <ModalFooter>
               <Button styleType="secondary" onClick={this.onClickCloseFormModal}>Close</Button>
               <Button styleType="primary" onClick={this.onClickCloseFormModal}>Save changes</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+        <Modal isActive={this.state.isModalActive}>
+          <ModalContent>
+            <ModalHeader>
+              <Button className="close" onClick={this.onClickCloseModal}>
+                <span aria-hidden="true">&times;</span>
+              </Button>
+              <ModalTitle>Modal title</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+              <p>One fine body&hellip;</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button styleType="secondary" onClick={this.onClickCloseModal}>Close</Button>
+              <Button styleType="primary" onClick={this.onClickCloseModal}>Save changes</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

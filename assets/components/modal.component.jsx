@@ -18,6 +18,10 @@ class Modal extends AppendBodyComponent {
   }
 
   componentDidMount() {
+    if (this.props.isActive) {
+      document.querySelector('body').classList.add('modal-open');
+    }
+
     this.updateSelf();
   }
 
@@ -25,6 +29,15 @@ class Modal extends AppendBodyComponent {
     //NOTE: need to make sure when closing the modal, the scroll position is reset to the top incase it is opened again
     if (!this.props.isActive && oldProps.isActive) {
       this.appendedElement.querySelector('.modal').scrollTop = 0;
+    }
+
+    //NOTE we should only change the body call if the isActive has change incase there are multiple possible modals on the same page
+    if (this.props.isActive !== oldProps.isActive) {
+      if (this.props.isActive) {
+        document.querySelector('body').classList.add('modal-open');
+      } else if (!this.props.isActive) {
+        document.querySelector('body').classList.remove('modal-open');
+      }
     }
 
     this.updateSelf();
@@ -61,9 +74,6 @@ class Modal extends AppendBodyComponent {
 
     if (this.props.isActive) {
       styles.display = 'block';
-      document.querySelector('body').classList.add('modal-open');
-    } else {
-      document.querySelector('body').classList.remove('modal-open');
     }
 
     let modalNode = (
