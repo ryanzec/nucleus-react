@@ -18,6 +18,7 @@ import PopoversPage from './popovers.page.jsx';
 import BreadcrumbsPage from './breadcrumbs.page.jsx';
 import NavigationPage from './progress-bars.page.jsx';
 import OverlaysPage from './overlays.page.jsx';
+import CodePage from './code.page.jsx';
 
 export const routes = [
   <Route
@@ -127,5 +128,11 @@ export const routes = [
     name="style-guide-overlays"
     path="/style-guide/overlays"
     component={OverlaysPage}
+  />,
+  <Route
+    key="19"
+    name="style-guide-code"
+    path="/style-guide/code"
+    component={CodePage}
   />
 ];

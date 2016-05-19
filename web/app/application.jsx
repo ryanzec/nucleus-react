@@ -5,6 +5,8 @@ import './misc/holder';
 import './styles/main.scss';
 import '../../node_modules/react-datepicker/dist/react-datepicker.css';
 import '../../node_modules/react-select/dist/react-select.css';
+import '../../assets/styles/prism.css';
+import '../../assets/javascript/prism.js';
 
 //application bootstrap
 import './router.jsx';

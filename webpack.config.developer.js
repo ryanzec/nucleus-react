@@ -12,7 +12,8 @@ module.exports = {
       test: /\.jsx$/,
       loader: 'babel',
       query: {
-        presets: ['react', 'es2015-without-strict']
+        presets: ['react', 'es2015-without-strict'],
+        plugins: ['static-fs']
       }
     }, {
       test: /\.js$/,
@@ -21,7 +22,8 @@ module.exports = {
         path.resolve(__dirname, "node_modules")
       ],
       query: {
-        presets: ['es2015-without-strict']
+        presets: ['es2015-without-strict'],
+        plugins: ['static-fs']
       }
     }, {
       test: /\.scss$/,
@@ -36,8 +38,14 @@ module.exports = {
       test: /\/misc\/.*\.js$/,
       loader: 'file?name=/misc/[name].[ext]'
     }, {
+      test: /prism\.js$/,
+      loader: 'file?name=/misc/[name].[ext]'
+    }, {
       test: /\.(png|jpg|jpeg|)$/,
       loader: 'file?name=/images/[hash].[ext]'
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader'
     }]
   },
   postcss: function () {
@@ -60,6 +68,7 @@ module.exports = {
       'lodash.clone',
       'lodash.foreach',
       'moment',
+      'moment-timezone',
       'redux',
       'reselect',
       'store-cacheable',

@@ -25,6 +25,10 @@ let menuData = immutable.fromJS({
       display: 'Date Picker',
       to: '/style-guide/date-picker'
     }, {
+      id: 'style-guide-code',
+      display: 'Code',
+      to: '/style-guide/code'
+    }, {
       id: 'style-guide-drop-downs',
       display: 'Drop Downs',
       to: '/style-guide/drop-downs'

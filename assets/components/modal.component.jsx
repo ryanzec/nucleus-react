@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import AppendBodyComponent from './append-body-component.component.jsx';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
@@ -20,7 +21,12 @@ class Modal extends AppendBodyComponent {
     this.updateSelf();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(oldProps) {
+    //NOTE: need to make sure when closing the modal, the scroll position is reset to the top incase it is opened again
+    if (!this.props.isActive && oldProps.isActive) {
+      this.appendedElement.querySelector('.modal').scrollTop = 0;
+    }
+
     this.updateSelf();
   }
 
@@ -55,7 +61,6 @@ class Modal extends AppendBodyComponent {
 
     if (this.props.isActive) {
       styles.display = 'block';
-
       document.querySelector('body').classList.add('modal-open');
     } else {
       document.querySelector('body').classList.remove('modal-open');

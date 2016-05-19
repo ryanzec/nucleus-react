@@ -1,6 +1,8 @@
 $component-identifier: '.main-navigation';
 
 #{$component-identifier} {
+  //TODO: add better small screen support for menu
+  display: none;
   @include flexbox-value-width(250px);
 
   background-color: $color-blue1;
@@ -31,6 +33,12 @@ $component-identifier: '.main-navigation';
       padding-right: 8px;
       align-self: center;
     }
+  }
+}
+
+@include media-breakpoint-up('md') {
+  #{$component-identifier} {
+    display: block;
   }
 }
 

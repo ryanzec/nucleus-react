@@ -51,7 +51,7 @@ class DatePickerPage extends React.Component {
               selected={this.state.startDate}
               onChange={this.handleChange}
               className="form-control"
-                readOnly={true}
+              readOnly={true}
             />
             <FormInputGroupAddon>C</FormInputGroupAddon>
           </FormInputGroup>

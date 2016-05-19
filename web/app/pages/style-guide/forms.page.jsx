@@ -152,6 +152,16 @@ class FormsPage extends React.Component {
               </GridColumn>
             </FormGroup>
             <FormGroup useGrid={true}>
+              <FormLabel useControlStyle={true} smallSize={2}>Select menu</FormLabel>
+              <GridColumn smallSize={10}>
+                <FormSelect>
+                  <FormSelectOption>Option 1</FormSelectOption>
+                  <FormSelectOption>Option 2</FormSelectOption>
+                  <FormSelectOption>Option 3</FormSelectOption>
+                </FormSelect>
+              </GridColumn>
+            </FormGroup>
+            <FormGroup useGrid={true}>
               <FormLabel smallSize={2}>Radios</FormLabel>
               <GridColumn smallSize={10}>
                 <FormRadio name="gridRadios" value="option1" checked>Option one is this and that&mdash;be sure to include why it's great</FormRadio>

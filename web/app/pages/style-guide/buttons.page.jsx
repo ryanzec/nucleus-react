@@ -9,8 +9,25 @@ import getInputValueFromEvent from '../../../../assets/utilities/input/get-input
 import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
 import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
-import Button from '../../../../assets/components/button.component.jsx';
-import ButtonGroup from '../../../../assets/components/button-group.component.jsx';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+import Code from '../../../../assets/components/code.component.jsx';
+
+import StylesExample from './assets/examples/buttons/styles.jsx';
+import OutlinesExample from './assets/examples/buttons/outlines.jsx';
+import SizesExample from './assets/examples/buttons/sizes.jsx';
+import BlockExample from './assets/examples/buttons/block.jsx';
+import ActiveStatesExample from './assets/examples/buttons/active-states.jsx';
+import DisabledStatesExample from './assets/examples/buttons/disabled-states.jsx';
+import GroupsExample from './assets/examples/buttons/groups.jsx';
+import GroupSizesExample from './assets/examples/buttons/group-sizes.jsx';
+import ToolbarExample from './assets/examples/buttons/toolbar.jsx';
+import VerticalExample from './assets/examples/buttons/vertical.jsx';
+
+let stylesExampleContent = readFileSync(join(__dirname, 'assets/examples/buttons/styles.jsx'), 'utf8');
+
+import CodeExample from '../../react/components/code-example.component.jsx';
 
 class ButtonsPage extends React.Component {
   constructor(props) {
@@ -19,115 +36,34 @@ class ButtonsPage extends React.Component {
   }
 
   render() {
+    const Test = StylesExample;
     return (
       <div className="p-style-guide-buttons">
         <h1 className="test">Buttons</h1>
         <p>Buttons are used to trigger action by the user.</p>
         <h4>Styles</h4>
-        <div>
-          <Button>Default</Button>
-          <Button styleType="primary">Primary</Button>
-          <Button styleType="secondary">Secondary</Button>
-          <Button styleType="success">Success</Button>
-          <Button styleType="info">Info</Button>
-          <Button styleType="warning">Warning</Button>
-          <Button styleType="danger">Danger</Button>
-          <Button styleType="link">Link</Button>
-        </div>
+        <CodeExample
+          exampleComponent={StylesExample}
+          codeContent={stylesExampleContent}
+        />
         <h4>Outline</h4>
-        <div>
-          <Button isOutline={true}>Default</Button>
-          <Button styleType="primary" isOutline={true}>Primary</Button>
-          <Button styleType="secondary" isOutline={true}>Secondary</Button>
-          <Button styleType="success" isOutline={true}>Success</Button>
-          <Button styleType="info" isOutline={true}>Info</Button>
-          <Button styleType="warning" isOutline={true}>Warning</Button>
-          <Button styleType="danger" isOutline={true}>Danger</Button>
-          <Button styleType="link" isOutline={true}>Link</Button>
-        </div>
+        <OutlinesExample />
         <h4>Sizes</h4>
-        <div>
-          <Button styleType="primary" size="lg">Large</Button>
-          <Button styleType="primary">Default</Button>
-          <Button styleType="primary" size="sm">Small</Button>
-        </div>
+        <SizesExample />
         <h4>Block</h4>
-        <div>
-          <Button styleType="primary" isBlock={true}>Primary Block</Button>
-          <Button styleType="secondary" isBlock={true}>Secondary Block</Button>
-        </div>
+        <BlockExample />
         <h4>Active State</h4>
-        <div>
-          <Button isActive={true}>Default</Button>
-          <Button styleType="primary" isActive={true}>Primary</Button>
-          <Button styleType="secondary" isActive={true}>Secondary</Button>
-          <Button styleType="success" isActive={true}>Success</Button>
-          <Button styleType="info" isActive={true}>Info</Button>
-          <Button styleType="warning" isActive={true}>Warning</Button>
-          <Button styleType="danger" isActive={true}>Danger</Button>
-          <Button styleType="link" isActive={true}>Link</Button>
-        </div>
+        <ActiveStatesExample />
         <h4>Disabled State</h4>
-        <div>
-          <Button disabled={true}>Default</Button>
-          <Button styleType="primary" disabled={true}>Primary</Button>
-          <Button styleType="secondary" disabled={true}>Secondary</Button>
-          <Button styleType="success" disabled={true}>Success</Button>
-          <Button styleType="info" disabled={true}>Info</Button>
-          <Button styleType="warning" disabled={true}>Warning</Button>
-          <Button styleType="danger" disabled={true}>Danger</Button>
-          <Button styleType="link" disabled={true}>Link</Button>
-        </div>
+        <DisabledStatesExample />
         <h4>Group</h4>
-        <ButtonGroup>
-          <Button styleType="primary">Primary</Button>
-          <Button styleType="secondary" disabled={true}>Secondary</Button>
-          <Button styleType="success">Success</Button>
-        </ButtonGroup>
+        <GroupsExample />
         <h4>Group Sizes</h4>
-        <div>
-          <ButtonGroup size="lg">
-            <Button styleType="primary">Primary</Button>
-            <Button styleType="secondary" disabled={true}>Secondary</Button>
-            <Button styleType="success">Success</Button>
-          </ButtonGroup>
-        </div>
-        <div>
-          <ButtonGroup>
-            <Button styleType="primary">Primary</Button>
-            <Button styleType="secondary">Secondary</Button>
-            <Button styleType="success">Success</Button>
-          </ButtonGroup>
-        </div>
-        <div>
-          <ButtonGroup size="sm">
-            <Button styleType="primary">Primary</Button>
-            <Button styleType="secondary">Secondary</Button>
-            <Button styleType="success">Success</Button>
-          </ButtonGroup>
-        </div>
+        <GroupSizesExample />
         <h4>Toolbar</h4>
-        <ButtonGroup isToolbar={true}>
-          <ButtonGroup>
-            <Button styleType="primary">Primary</Button>
-            <Button styleType="secondary" disabled={true}>Secondary</Button>
-            <Button styleType="success">Success</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button styleType="primary">Primary</Button>
-            <Button styleType="secondary">Secondary</Button>
-            <Button styleType="success">Success</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button styleType="primary">Primary</Button>
-          </ButtonGroup>
-        </ButtonGroup>
+        <ToolbarExample />
         <h4>Vertical</h4>
-        <ButtonGroup isVertical={true}>
-          <Button styleType="primary">Primary</Button>
-          <Button styleType="secondary" disabled={true}>Secondary</Button>
-          <Button styleType="success">Success</Button>
-        </ButtonGroup>
+        <VerticalExample />
       </div>
     );
   }
