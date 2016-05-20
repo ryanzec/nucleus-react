@@ -12,7 +12,7 @@ class DropDown extends React.Component {
   }
 
   componentDidMount() {
-    this.domEventManager.add(document, 'click', this.outsideClickHandler.bind(this));
+    this.domEventManager.add(document, 'mousedown', this.outsideClickHandler.bind(this));
   }
 
   componentWillUnmount() {

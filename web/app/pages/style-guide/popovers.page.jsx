@@ -10,7 +10,6 @@ import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-cha
 import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
 import Popover from '../../../../assets/components/popover.component.jsx';
-import PopoverToggle from '../../../../assets/components/popover-toggle.component.jsx';
 import PopoverContentWrapper from '../../../../assets/components/popover-content-wrapper.component.jsx';
 import PopoverContent from '../../../../assets/components/popover-content.component.jsx';
 import PopoverTitle from '../../../../assets/components/popover-title.component.jsx';

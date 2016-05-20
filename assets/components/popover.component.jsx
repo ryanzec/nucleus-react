@@ -1,12 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import AppendBodyComponent from './append-body-component.component.jsx';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import DomEventManager from '../utilities/dom/dom-event-manager';
-
-import PopoverToggle from './popover-toggle.component.jsx';
-import PopoverContentWrapper from './popover-content-wrapper.component.jsx';
 
 import TetherComponent from 'react-tether';
 
@@ -80,7 +75,7 @@ class Popover extends React.Component {
         attachment={attachmentPositionMap[this.props.attachment]}
         classPrefix="bs-tether"
         constraints={[{
-          to: 'window',
+          to: 'scrollParent',
           attachment: 'together'
         }]}
       >
