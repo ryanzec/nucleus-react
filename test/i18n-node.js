@@ -27,24 +27,4 @@ var pluralFuncs = {
 var fmt = {};
 
 module.exports = {
-  "components/form": {
-    textboxCounterLeftCount: function(d) { return "You have " + plural(d.CHARACTERS_LEFT, 0, pluralFuncs.en, { one: function() { return "1 character";}, zero: function() { return "no characters";}, other: function() { return number(d.CHARACTERS_LEFT) + " characters";} }) + " left"; },
-    textboxCounterOverCount: function(d) { return "You are " + plural(d.CHARACTERS_OVER, 0, pluralFuncs.en, { one: function() { return "1 character";}, other: function() { return number(d.CHARACTERS_OVER) + " characters";} }) + " over the limit"; }
-  },
-  "desktop/desktop": {
-    header: function(d) { return "Desktop"; }
-  },
-  "desktop/prevent-double-click": {
-    header: function(d) { return "Prevent Double Click"; },
-    button1: function(d) { return "test"; },
-    button2: function(d) { return "Prevent Double Click Other Buttons"; }
-  },
-  "desktop/with-resolves": {
-    header: function(d) { return "With Resolves"; }
-  },
-  "menu/menu": {
-    desktop: function(d) { return "Desktop"; },
-    preventDoubleClick: function(d) { return "Prevent Double Click"; },
-    withResolves: function(d) { return "With Resolves"; }
-  }
 }

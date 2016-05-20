@@ -80,6 +80,7 @@ module.exports = {
       'react-router',
       'react-redux',
       'react-router-redux',
+      'react-router-scroll',
       'react-tether'
     ],
 

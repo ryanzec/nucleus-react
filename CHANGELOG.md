@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+- some minor infrastructure updates
 - added code components #137
 - added svg icon components #133
 - added overlay components #130
