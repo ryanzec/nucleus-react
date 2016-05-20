@@ -1,16 +1,6 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
 import Overlay from '../../../../assets/components/overlay.component.jsx';
-import Button from '../../../../assets/components/button.component.jsx';
 
 class OverlaysPage extends React.Component {
   constructor(props) {
@@ -52,10 +42,10 @@ class OverlaysPage extends React.Component {
     return (
       <div className="p-style-guide-overlays">
         <h1 className="test">Overlays</h1>
-        <Button onClick={this.onClickDefault}>Full Page</Button>
+        <button onClick={this.onClickDefault}>Full Page</button>
         <Overlay isActive={this.state.isOverlayActive} isAbsolute={true} />
-        <div style={{position: 'relative', border: '1ps solid black', padding: '30px', margin: '20px'}}>
-            <Button onClick={this.onClickAbsolute}>Specific Element Page</Button>
+        <div className="absolute-test">
+            <button onClick={this.onClickAbsolute}>Specific Element Page</button>
             <Overlay isActive={this.state.isAbsoluteOverlayActive} isAbsolute={true} />
         </div>
       </div>

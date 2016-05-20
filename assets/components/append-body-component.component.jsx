@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default class AppendBodyComponent extends React.Component {
+class AppendBodyComponent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -29,3 +29,7 @@ export default class AppendBodyComponent extends React.Component {
     this.appendedElement = null;
   }
 }
+
+AppendBodyComponent.displayName = 'AppendBodyComponent';
+
+export default AppendBodyComponent;

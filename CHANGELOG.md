@@ -4,6 +4,13 @@ There are some key used within the changelog which are as following:
 
 - [BREAKING]: means there is a change that is known to break existing code
 
+## IN PROGRESS
+
+- added code components #137
+- added svg icon components #133
+- added overlay components #130
+- [BREAKING] started 0.8.0 rewrite
+
 ## 0.7.0
 
 - [BREAKING] Complete re-write of pretty much everything

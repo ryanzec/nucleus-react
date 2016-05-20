@@ -70,8 +70,6 @@ module.exports = {
       'form-data-validation',
       'immutable',
       'jsuri',
-      'lodash.clone',
-      'lodash.foreach',
       'moment',
       'moment-timezone',
       'redux',
@@ -87,9 +85,7 @@ module.exports = {
       'react-router',
       'react-redux',
       'react-router-redux',
-      'react-tether',
-      'react-datepicker',
-      'react-select'
+      'react-tether'
     ],
 
     //application code

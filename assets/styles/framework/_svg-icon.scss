@@ -14,22 +14,22 @@
     position: relative;
     width: 16px;
     height: 16px;
-    fill: $body-color;
+    fill: $text-color;
 
     &.m-success {
-      fill: $brand-success;
+      fill: $success-color;
     }
 
     &.m-info {
-      fill: $brand-info;
+      fill: $info-color;
     }
 
     &.m-warning {
-      fill: $brand-warning;
+      fill: $warning-color;
     }
 
     &.m-danger {
-      fill: $brand-danger;
+      fill: $danger-color;
     }
   }
 
@@ -39,23 +39,24 @@
     border-radius: 50%;
     border: 1px solid $white;
     position: absolute;
-    right: 0;
-    background-color: $body-color;
+    top: -2px;
+    right: -2px;
+    background-color: $text-color;
 
     &.m-success {
-      fill: $brand-success;
+      background-color: $success-color;
     }
 
     &.m-info {
-      fill: $brand-info;
+      background-color: $info-color;
     }
 
     &.m-warning {
-      fill: $brand-warning;
+      background-color: $warning-color;
     }
 
     &.m-danger {
-      fill: $brand-danger;
+      background-color: $danger-color;
     }
   }
 

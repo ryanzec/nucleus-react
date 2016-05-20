@@ -2,7 +2,7 @@ $component-identifier: '.main-navigation';
 
 #{$component-identifier} {
   //TODO: add better small screen support for menu
-  display: none;
+  display: block;
   @include flexbox-value-width(250px);
 
   background-color: $color-blue1;
@@ -36,10 +36,11 @@ $component-identifier: '.main-navigation';
   }
 }
 
-@include media-breakpoint-up('md') {
-  #{$component-identifier} {
-    display: block;
-  }
-}
+//TODO: grid system
+// @include media-breakpoint-up('md') {
+//   #{$component-identifier} {
+//     display: block;
+//   }
+// }
 
 $component-identifier: '';
