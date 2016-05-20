@@ -16,7 +16,8 @@ import FormsPage from './forms.page.jsx';
 import TooltipsPage from './tooltips.page.jsx';
 import PopoversPage from './popovers.page.jsx';
 import BreadcrumbsPage from './breadcrumbs.page.jsx';
-import NavigationPage from './progress-bars.page.jsx';
+import NavigationPage from './navigation.page.jsx';
+import ProgressBarsPage from './progress-bars.page.jsx';
 import OverlaysPage from './overlays.page.jsx';
 import CodePage from './code.page.jsx';
 
@@ -121,7 +122,7 @@ export const routes = [
     key="17"
     name="style-guide-progress-bars"
     path="/style-guide/progress-bars"
-    component={NavigationPage}
+    component={ProgressBarsPage}
   />,
   <Route
     key="18"

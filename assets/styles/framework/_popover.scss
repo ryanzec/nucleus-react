@@ -1,6 +1,15 @@
 //NOTE: this is needed otherwise tether can't get the deminsions (I think) for proper positioning
 .popover {
   position: relative;
+
+  //this is needs for left positioning to work properly with tether
+  left: auto;
+  right: auto;
+}
+
+//NOTE: sure why I need this but aparently I do
+.popover.popover-left, .popover.bs-tether-element-attached-right {
+  margin-right: 10px
 }
 
 .popover-toggle {

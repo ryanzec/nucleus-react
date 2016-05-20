@@ -68,9 +68,7 @@ class PopoversPage extends React.Component {
           isActive={this.state.popoverIsActive}
           onClickOutside={this.onClickOutside}
         >
-          <PopoverToggle style={{position: 'relative', top: '200px', left: '150px'}}>
-            <Button onClick={this.onClick}>Test</Button>
-          </PopoverToggle>
+          <Button className="popover-toggle" onClick={this.onClick}>Test</Button>
           <PopoverContentWrapper>
             <PopoverArrow />
             <PopoverTitle>title</PopoverTitle>

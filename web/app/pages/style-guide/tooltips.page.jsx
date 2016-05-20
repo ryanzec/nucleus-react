@@ -61,7 +61,7 @@ class TooltipsPage extends React.Component {
           isActive={this.state.showTooltip}
           attachment={this.state.attachmentPosition}
         >
-          <Button onMouseOver={this.onMouseOverTooltipHandle} onMouseOut={this.onMouseOutTooltipHandle}>Handle</Button>
+          <Button className="tooltip-toggle" onMouseOver={this.onMouseOverTooltipHandle} onMouseOut={this.onMouseOutTooltipHandle}>Handle</Button>
           <span>
             <div className="tooltip-arrow"></div>
             <div className="tooltip-inner">Tooltip Content</div>

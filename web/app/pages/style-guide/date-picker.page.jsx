@@ -56,6 +56,7 @@ class DatePickerPage extends React.Component {
             <FormInputGroupAddon>C</FormInputGroupAddon>
           </FormInputGroup>
         </FormGroup>
+        <p>Note that when using the date picker in an inline form, the labels get moved to the top with the current implementation</p>
         <Form isInline={true}>
           <FormGroup>
             <FormLabel>Name</FormLabel>
@@ -63,8 +64,7 @@ class DatePickerPage extends React.Component {
               selected={this.state.startDate}
               onChange={this.handleChange}
               className="form-control"
-              popoverTargetOffset="22px 0"
-                readOnly={true}
+              readOnly={true}
             />
           </FormGroup>
           <FormGroup>
@@ -74,7 +74,6 @@ class DatePickerPage extends React.Component {
                 selected={this.state.startDate}
                 onChange={this.handleChange}
                 className="form-control"
-                popoverTargetOffset="48px 0"
                 readOnly={true}
               />
               <FormInputGroupAddon>C</FormInputGroupAddon>

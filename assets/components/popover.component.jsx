@@ -22,15 +22,13 @@ class Popover extends React.Component {
   constructor(props) {
     super(props);
 
-    this.processOutsideClick = true;
     this.domEventManager = new DomEventManager();
 
     this.outsideClickHandler = this.outsideClickHandler.bind(this);
-    this.onClickContentWrapper = this.onClickContentWrapper.bind(this);
   }
 
   componentDidMount() {
-    this.domEventManager.add(document, 'click', this.outsideClickHandler);
+    this.domEventManager.add(document, 'mousedown', this.outsideClickHandler);
   }
 
   componentWillUnmount() {
@@ -52,56 +50,41 @@ class Popover extends React.Component {
   }
 
   outsideClickHandler(event) {
-    if (this.processOutsideClick && this.props.onClickOutside) {
-      this.props.onClickOutside();
+    var closePopover = true;
+
+    if (document.querySelector('.bs-tether-target') && document.querySelector('.bs-tether-target').contains(event.target)) {
+      closePopover = false;
     }
 
-    this.processOutsideClick = true;
-  }
+    if (document.querySelector('.bs-tether-element') && document.querySelector('.bs-tether-element').contains(event.target)) {
+      closePopover = false;
+    }
 
-  onClickContentWrapper() {
-    this.processOutsideClick = false;
+    if (closePopover) {
+      console.log('cose popover')
+      this.props.onClickOutside();
+    }
   }
 
   render() {
-    //NOTE: it seems like by using tether, it breaks the ability to do basic Node.contains() checking in outsideClickHandler so I have to re-create the
-    //NOTE: toggle and content wrapper components with special functionality to be able to properly track outside clicks
-    let toggleNode = (
-      <PopoverToggle
-        onClick={this.onClickContentWrapper}
-        {...getPassThroughProperties(this.props.children[0].props)}
-      >
-        {this.props.children[0].props.children}
-      </PopoverToggle>
-    );
-
     if (!this.props.isActive) {
-      return toggleNode;
-    }
-
-    let children = [toggleNode];
-
-    if (this.props.children[1]) {
-      children.push(
-        <PopoverContentWrapper
-          onClick={this.onClickContentWrapper}
-        >
-          {this.props.children[1].props.children}
-        </PopoverContentWrapper>
+      return (
+        this.props.children[0]
       );
     }
 
     return (
       <TetherComponent
+        ref="tetherComponent"
         className={this.getCssClasses().join(' ')}
         attachment={attachmentPositionMap[this.props.attachment]}
         classPrefix="bs-tether"
         constraints={[{
-          to: 'scrollParent',
+          to: 'window',
           attachment: 'together'
         }]}
       >
-        {children}
+        {this.props.children}
       </TetherComponent>
     );
   }
