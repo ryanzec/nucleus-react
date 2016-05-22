@@ -1,0 +1,139 @@
+$component-identifier: '.card';
+
+$border-color-card: $color-gray;
+$border-width-card: 1px;
+$padding-card: 16px;
+$background-color-card: $color-white;
+$border-radius-card: 5px;
+$color-subtitle-card: $color-muted-text;
+$background-color-header-footer-card: $color-lighter-gray;
+$color-footer-header: $color-subtitle-card;
+$color-styled-card: $color-light-text;
+$background-color-success-card: $color-success;
+$border-color-success-card: $background-color-success-card;
+$background-color-info-card: $color-info;
+$border-color-info-card: $background-color-info-card;
+$background-color-warning-card: $color-warning;
+$border-color-warning-card: $background-color-warning-card;
+$background-color-danger-card: $color-danger;
+$border-color-danger-card: $background-color-danger-card;
+$margin-card-card-column: 8px;
+
+#{$component-identifier} {
+  position: relative;
+  display: inline-block;
+  border: $border-width-card solid $border-color-card;
+  background-color: $background-color-card;
+  border-radius: $border-radius-card;
+
+  //NOTE: this is needed so images don't push other content down
+  vertical-align: top;
+
+  &.m-success,
+  &.m-info,
+  &.m-warning,
+  &.m-danger {
+    color: $color-styled-card;
+  }
+
+  &.m-success {
+    background-color: $background-color-success-card;
+    border-color: $border-color-success-card;
+  }
+
+  &.m-info {
+    background-color: $background-color-info-card;
+    border-color: $border-color-info-card;
+  }
+
+  &.m-warning {
+    background-color: $background-color-warning-card;
+    border-color: $border-color-warning-card;
+  }
+
+  &.m-danger {
+    background-color: $background-color-danger-card;
+    border-color: $border-color-danger-card;
+  }
+
+  &__image {
+    &:first-child {
+      border-top-left-radius: $border-radius-card;
+      border-top-right-radius: $border-radius-card;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $border-radius-card;
+      border-bottom-right-radius: $border-radius-card;
+    }
+  }
+
+  &__header,
+  &__footer {
+    background-color: $background-color-header-footer-card;
+    padding: $padding-card;
+  }
+
+  &__header {
+    font-size: 1.8rem;
+    font-weight: 500;
+    border-top-left-radius: $border-radius-card;
+    border-top-right-radius: $border-radius-card;
+  }
+
+  &__footer {
+    color: $color-footer-header;
+    border-bottom-left-radius: $border-radius-card;
+    border-bottom-right-radius: $border-radius-card;
+  }
+
+  &__title {
+    padding: $padding-card $padding-card 0 $padding-card;
+    margin: 0;
+
+    &:first-child {
+      border-top-left-radius: $border-radius-card;
+      border-top-right-radius: $border-radius-card;
+    }
+  }
+
+  &__subtitle {
+    padding: ($padding-card / 4) $padding-card 0 $padding-card;
+    margin: 0;
+    color: $color-subtitle-card;
+  }
+
+  &__content {
+    padding: $padding-card;
+
+    &:first-child {
+      border-top-left-radius: $border-radius-card;
+      border-top-right-radius: $border-radius-card;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $border-radius-card;
+      border-bottom-right-radius: $border-radius-card;
+    }
+  }
+
+  &__actions {
+    padding:  0 $padding-card $padding-card $padding-card;
+
+    &:last-child {
+      border-bottom-left-radius: $border-radius-card;
+      border-bottom-right-radius: $border-radius-card;
+    }
+  }
+}
+
+$component-identifier: '.card-columns';
+
+#{$component-identifier} {
+  .card {
+    width: 100% !important;
+    margin-bottom: $margin-card-card-column;
+  }
+}
+
+$component-identifier: '';

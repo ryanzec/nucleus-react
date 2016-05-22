@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+- added button components #118
+- added card components #119
+- added css media queries #121
+- added grid components #125
 - some minor infrastructure updates
 - added code components #137
 - added svg icon components #133

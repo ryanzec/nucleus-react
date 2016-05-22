@@ -5,7 +5,7 @@ $component-identifier: '.main-navigation';
   display: block;
   @include flexbox-value-width(250px);
 
-  background-color: $color-blue1;
+  background-color: $color-darker-gray;
   color: $color-light-text;
 
   .svg-icon__container {
@@ -25,7 +25,7 @@ $component-identifier: '.main-navigation';
     padding: 4px 0 4px 8px;
 
     &:hover {
-      background-color: $color-blue2;
+      background-color: $color-blue;
       cursor: pointer;
     }
 

@@ -23,7 +23,27 @@
 }
 
 .u-margin-center-vertical {
-    margin: 0 auto;
+  margin: 0 auto !important;
+}
+
+.u-muted-text {
+  color: $color-muted-text !important;
+}
+
+.u-text-align-left {
+  text-align: left !important;
+}
+
+.u-text-align-center {
+  text-align: center !important;
+}
+
+.u-text-align-right {
+  text-align: right !important;
+}
+
+.u-text-align-justify {
+  text-align: justify !important;
 }
 
 //TODO: need grid in place to enable these

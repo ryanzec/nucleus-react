@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from '../../../../assets/components/button.component.jsx';
 import Overlay from '../../../../assets/components/overlay.component.jsx';
 
 class OverlaysPage extends React.Component {
@@ -41,11 +42,11 @@ class OverlaysPage extends React.Component {
   render() {
     return (
       <div className="p-style-guide-overlays">
-        <h1 className="test">Overlays</h1>
-        <button onClick={this.onClickDefault}>Full Page</button>
+        <h1>Overlays</h1>
+        <Button onClick={this.onClickDefault}>Full Page</Button>
         <Overlay isActive={this.state.isOverlayActive} isAbsolute={true} />
         <div className="absolute-test">
-            <button onClick={this.onClickAbsolute}>Specific Element Page</button>
+            <Button onClick={this.onClickAbsolute}>Specific Element Page</Button>
             <Overlay isActive={this.state.isAbsoluteOverlayActive} isAbsolute={true} />
         </div>
       </div>

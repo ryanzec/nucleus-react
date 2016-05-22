@@ -13,7 +13,7 @@ class CodePage extends React.Component {
   render() {
     return (
       <div className="p-style-guide-code">
-        <h1 className="test">Code</h1>
+        <h1>Code</h1>
         <Code language="css">
           {codeContent}
         </Code>

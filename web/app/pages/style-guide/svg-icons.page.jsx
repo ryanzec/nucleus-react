@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SvgIcon from '../../../../assets/components/svg-icon.component.jsx';
 import CodeExample from '../../react/components/code-example.component.jsx';
 
 import DefaultExample from './assets/examples/svg-icons/default.jsx';
@@ -23,7 +22,7 @@ class SvgIconsPage extends React.Component {
   render() {
     return (
       <div className="p-style-guide-svg-icons">
-        <h1 className="test">SVG Icons</h1>
+        <h1>SVG Icons</h1>
         <h4>Default</h4>
         <CodeExample
           exampleComponent={DefaultExample}

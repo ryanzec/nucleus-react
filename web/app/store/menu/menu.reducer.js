@@ -5,17 +5,37 @@ let menuData = immutable.fromJS({
   menu: [{
     display: 'Style Guide',
     items: [{
+      id: 'style-guide-buttons',
+      display: 'Buttons',
+      to: '/style-guide/buttons'
+    }, {
+      id: 'style-guide-cards',
+      display: 'Cards',
+      to: '/style-guide/cards'
+    }, {
       id: 'style-guide-code',
       display: 'Code',
       to: '/style-guide/code'
+    }, {
+      id: 'style-guide-colors',
+      display: 'Colors',
+      to: '/style-guide/colors'
     }, {
       id: 'style-guide-overlays',
       display: 'Overlays',
       to: '/style-guide/overlays'
     }, {
+      id: 'style-guide-grid',
+      display: 'Grid',
+      to: '/style-guide/grid'
+    }, {
       id: 'style-guide-svg-icons',
       display: 'SVG Icons',
       to: '/style-guide/svg-icons'
+    }, {
+      id: 'style-guide-typography',
+      display: 'Typography',
+      to: '/style-guide/typography'
     }]
   }],
   activeMenu: 'style-guide-alerts'

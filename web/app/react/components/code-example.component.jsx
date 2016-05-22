@@ -2,7 +2,9 @@ import React from 'react';
 import pureRenderShouldComponentUpdate from '../../../../assets/utilities/pure-render-should-component-update';
 
 import Code from '../../../../assets/components/code.component.jsx';
-//import Button from '../../../../assets/components/button.component.jsx';
+import Card from '../../../../assets/components/card.component.jsx';
+import CardContent from '../../../../assets/components/card-content.component.jsx';
+import Button from '../../../../assets/components/button.component.jsx';
 
 class CodeExample extends React.Component {
   constructor(props) {
@@ -48,18 +50,20 @@ class CodeExample extends React.Component {
     }
 
     return (
-      <div className={this.getCssClasses().join(' ')}>
-        <div>
-          <ExampleComponent />
-        </div>
-        <button
-            //styleType="link"
-            onClick={this.onClickToggleCodeExample}
-        >
-            Toogle Code Example
-        </button>
-        {codeExampleNode}
-      </div>
+      <Card className={this.getCssClasses().join(' ')}>
+        <CardContent>
+          <div>
+            <ExampleComponent />
+          </div>
+          <Button
+              styleType="link"
+              onClick={this.onClickToggleCodeExample}
+          >
+              Toggle Code Example
+          </Button>
+          {codeExampleNode}
+        </CardContent>
+      </Card>
     );
   }
 }

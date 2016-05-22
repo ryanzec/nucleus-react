@@ -1,4 +1,6 @@
-.svg-icon {
+$component-identifier: '.svg-icon';
+
+#{$component-identifier} {
   &__outer-container {
     display: inline-flex;
     user-select: none;
@@ -14,22 +16,22 @@
     position: relative;
     width: 16px;
     height: 16px;
-    fill: $text-color;
+    fill: $color-text;
 
     &.m-success {
-      fill: $success-color;
+      fill: $color-success-svg-icon;
     }
 
     &.m-info {
-      fill: $info-color;
+      fill: $color-info-svg-icon;
     }
 
     &.m-warning {
-      fill: $warning-color;
+      fill: $color-warning-svg-icon;
     }
 
     &.m-danger {
-      fill: $danger-color;
+      fill: $color-danger-svg-icon;
     }
   }
 
@@ -37,29 +39,31 @@
     height: .9rem;
     width: .9rem;
     border-radius: 50%;
-    border: 1px solid $white;
+    border: 1px solid $color-white;
     position: absolute;
     top: -2px;
     right: -2px;
-    background-color: $text-color;
+    background-color: $color-text;
 
     &.m-success {
-      background-color: $success-color;
+      background-color: $color-success-svg-icon;
     }
 
     &.m-info {
-      background-color: $info-color;
+      background-color: $color-info-svg-icon;
     }
 
     &.m-warning {
-      background-color: $warning-color;
+      background-color: $color-warning-svg-icon;
     }
 
     &.m-danger {
-      background-color: $danger-color;
+      background-color: $color-danger-svg-icon;
     }
   }
 
   height: 100%;
   width: 100%;
 }
+
+$component-identifier: '.svg-icon';

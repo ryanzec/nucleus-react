@@ -1,0 +1,27 @@
+.p-style-guide-grid {
+  .grid {
+    margin-bottom: 20px;
+    background-color: lighten($color-blue, 45%);
+  }
+
+  .grid__column {
+    background-color: $color-light-gray;
+    text-align: center;
+  }
+
+  .wrapping-test {
+    .grid__column {
+      @include flexbox-value-width(calc(33.3334% - 24px));
+    }
+  }
+
+  .max-width-test {
+    max-width: 700px;
+  }
+
+  .align-opposite {
+    .grid__column {
+      @include flexbox-value-width(100px);
+    }
+  }
+}

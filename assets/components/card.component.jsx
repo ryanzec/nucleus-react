@@ -1,8 +1,9 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Overlay extends React.Component {
+class Card extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,55 +13,41 @@ class Overlay extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['overlay'];
+    let cssClasses = ['card'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    if (this.props.isActive) {
-      cssClasses.push('active');
-    }
-
-    if (this.props.isAbsolute) {
-      cssClasses.push('overlay-absolute');
+    if (this.props.styleType) {
+      cssClasses.push('m-' + this.props.styleType)
     }
 
     return cssClasses;
   }
 
   render() {
-    var topContentNode = null;
-
-    if (this.props.children && this.props.children[0]) {
-      topContentNode = (
-        <div className="overlay__top-content">{this.props.children}</div>
-      );
-    }
-
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive', 'isAbsolute')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
-        {topContentNode}
+        {this.props.children}
       </div>
     );
   }
 }
 
-Overlay.displayName = 'Overlay';
+Card.displayName = 'Card';
 
-Overlay.propTypes = {
+Card.propTypes = {
   className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  isAbsolute: React.PropTypes.bool
+  styleType: customPropTypes.cardStyleTypes
 };
 
-Overlay.defaultProps = {
+Card.defaultProps = {
   className: null,
-  isActive: false,
-  isAbsolute: false
+  styleType: null
 };
 
-export default Overlay;
+export default Card;
