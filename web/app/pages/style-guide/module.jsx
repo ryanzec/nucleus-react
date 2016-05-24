@@ -10,6 +10,7 @@ import GridPage from './grid.page.jsx';
 import CardsPage from './cards.page.jsx';
 import TypographyPage from './typography.page.jsx';
 import ModalsPage from './modals.page.jsx';
+import ProgressBarsPage from './progress-bars.page.jsx';
 
 export const routes = [
   <Route
@@ -65,5 +66,11 @@ export const routes = [
     name="style-guide-modals"
     path="/style-guide/modals"
     component={ModalsPage}
+  />,
+  <Route
+    key="9"
+    name="style-guide-progress-bars"
+    path="/style-guide/progress-bars"
+    component={ProgressBarsPage}
   />
 ];

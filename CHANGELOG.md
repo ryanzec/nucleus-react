@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+- added progress bar components #132
 - added modal components #128
 - added button components #118
 - added card components #119

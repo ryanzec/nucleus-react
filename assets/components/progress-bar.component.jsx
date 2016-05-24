@@ -3,7 +3,7 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Button extends React.Component {
+class ProgressBar extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,7 +13,7 @@ class Button extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['button'];
+    let cssClasses = ['progress-bar'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -23,31 +23,41 @@ class Button extends React.Component {
       cssClasses.push('m-' + this.props.styleType);
     }
 
+    if (this.props.isStriped) {
+      cssClasses.push('m-striped');
+    }
+
     return cssClasses;
   }
 
   render() {
     return (
-      <button
+      <progress
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'styleType')}
       >
         {this.props.children}
-      </button>
+      </progress>
     );
   }
 }
 
-Button.displayName = 'Button';
+ProgressBar.displayName = 'ProgressBar';
 
-Button.propTypes = {
+ProgressBar.propTypes = {
   className: React.PropTypes.string,
-  styleType: customPropTypes.buttonStyleTypes
+  styleType: customPropTypes.progressBarStyleTypes,
+  isStriped: React.PropTypes.bool
 };
 
-Button.defaultProps = {
+ProgressBar.defaultProps = {
   className: null,
-  styleType: null
+  styleType: null,
+  isStriped: false,
+
+  //NOTE: native property defaults
+  max: 100,
+  value: 0
 };
 
-export default Button;
+export default ProgressBar;
