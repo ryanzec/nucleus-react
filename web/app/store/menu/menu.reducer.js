@@ -33,6 +33,10 @@ let menuData = immutable.fromJS({
       display: 'SVG Icons',
       to: '/style-guide/svg-icons'
     }, {
+      id: 'style-guide-modals',
+      display: 'Modals',
+      to: '/style-guide/modals'
+    }, {
       id: 'style-guide-typography',
       display: 'Typography',
       to: '/style-guide/typography'

@@ -3,7 +3,7 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Card extends React.Component {
+class ModalContent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,14 +13,10 @@ class Card extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['card'];
+    let cssClasses = ['modal__content'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.styleType) {
-      cssClasses.push('m-' + this.props.styleType)
     }
 
     return cssClasses;
@@ -30,7 +26,7 @@ class Card extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
       </div>
@@ -38,16 +34,14 @@ class Card extends React.Component {
   }
 }
 
-Card.displayName = 'Card';
+ModalContent.displayName = 'ModalContent';
 
-Card.propTypes = {
-  className: React.PropTypes.string,
-  styleType: customPropTypes.cardStyleTypes
+ModalContent.propTypes = {
+  className: React.PropTypes.string
 };
 
-Card.defaultProps = {
-  className: null,
-  styleType: null
+ModalContent.defaultProps = {
+  className: null
 };
 
-export default Card;
+export default ModalContent;

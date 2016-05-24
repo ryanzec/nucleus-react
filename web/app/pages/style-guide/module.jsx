@@ -9,6 +9,7 @@ import ColorsPage from './colors.page.jsx';
 import GridPage from './grid.page.jsx';
 import CardsPage from './cards.page.jsx';
 import TypographyPage from './typography.page.jsx';
+import ModalsPage from './modals.page.jsx';
 
 export const routes = [
   <Route
@@ -58,5 +59,11 @@ export const routes = [
     name="style-guide-typography"
     path="/style-guide/typography"
     component={TypographyPage}
+  />,
+  <Route
+    key="8"
+    name="style-guide-modals"
+    path="/style-guide/modals"
+    component={ModalsPage}
   />
 ];

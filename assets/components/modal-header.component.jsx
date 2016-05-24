@@ -3,7 +3,9 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Card extends React.Component {
+import SvgIcon from './svg-icon.component.jsx';
+
+class ModalHeader extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,41 +15,54 @@ class Card extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['card'];
+    let cssClasses = ['modal__header'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push('m-' + this.props.styleType)
+    return cssClasses;
+  }
+
+  renderCloseHandler() {
+    let node = null;
+
+    if (this.props.closeHandler) {
+      node = (
+        <SvgIcon
+          outerClassName="modal__header-close"
+          fragment="x"
+          onClick={this.props.closeHandler}
+        />
+      );
     }
 
-    return cssClasses;
+    return node;
   }
 
   render() {
     return (
-      <div
+      <h2
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
-      </div>
+        {this.renderCloseHandler()}
+      </h2>
     );
   }
 }
 
-Card.displayName = 'Card';
+ModalHeader.displayName = 'ModalHeader';
 
-Card.propTypes = {
+ModalHeader.propTypes = {
   className: React.PropTypes.string,
-  styleType: customPropTypes.cardStyleTypes
+  closeHandler: React.PropTypes.func
 };
 
-Card.defaultProps = {
+ModalHeader.defaultProps = {
   className: null,
-  styleType: null
+  closeHandler: null
 };
 
-export default Card;
+export default ModalHeader;
