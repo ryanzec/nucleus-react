@@ -5,9 +5,9 @@ let menuData = immutable.fromJS({
   menu: [{
     display: 'Style Guide',
     items: [{
-      id: 'style-guide-alerts',
-      display: 'Alerts',
-      to: '/style-guide/alerts'
+      id: 'style-guide-breadcrumbs',
+      display: 'Breadcrumbs',
+      to: '/style-guide/breadcrumbs'
     }, {
       id: 'style-guide-buttons',
       display: 'Buttons',
