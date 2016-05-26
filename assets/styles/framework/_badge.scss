@@ -1,0 +1,85 @@
+$component-identifier: '.badge';
+
+$color-badge: $color-text;
+$color-light-badge: $color-light-text;
+//NOTE: 4px off to account for border which is needed for thin style support
+$padding-badge: 4px 12px;
+$border-radius-badge: 3px;
+$border-radius-pill-badge: 999px;
+$margin-badge: 4px;
+$background-color-badge: $color-lighter-gray;
+$background-color-success-badge: $color-success;
+$background-color-info-badge: $color-info;
+$background-color-warning-badge: $color-warning;
+$background-color-danger-badge: $color-danger;
+$background-color-thin-badge: $color-white;
+$border-width-thin-badge: 2px;
+$color-success-thin-badge: $background-color-success-badge;
+$color-info-thin-badge: $background-color-info-badge;
+$color-warning-thin-badge: $background-color-warning-badge;
+$color-danger-thin-badge: $background-color-danger-badge;
+
+
+#{$component-identifier} {
+  display: inline-block;
+  padding: $padding-badge;
+  border-radius: $border-radius-badge;
+  background-color: $background-color-badge;
+  color: $color-badge;
+  margin-right: $margin-button;
+
+  &.m-thin {
+    background-color: $background-color-thin-badge;
+    border: $border-width-thin-badge solid $background-color-badge;
+  }
+
+  &.m-pill {
+    border-radius: $border-radius-pill-badge;
+  }
+
+  &.m-success {
+    color: $color-light-badge;
+    background-color: $background-color-success-badge;
+
+    &.m-thin {
+      background-color: $background-color-thin-badge;
+      color: $color-success-thin-badge;
+      border: $border-width-thin-badge solid $color-success-thin-badge;
+    }
+  }
+
+  &.m-info {
+    color: $color-light-badge;
+    background-color: $background-color-info-badge;
+
+    &.m-thin {
+      background-color: $background-color-thin-badge;
+      color: $color-info-thin-badge;
+      border: $border-width-thin-badge solid $color-info-thin-badge;
+    }
+  }
+
+  &.m-warning {
+    color: $color-light-badge;
+    background-color: $background-color-warning-badge;
+
+    &.m-thin {
+      background-color: $background-color-thin-badge;
+      color: $color-warning-thin-badge;
+      border: $border-width-thin-badge solid $color-warning-thin-badge;
+    }
+  }
+
+  &.m-danger {
+    color: $color-light-badge;
+    background-color: $background-color-danger-badge;
+
+    &.m-thin {
+      background-color: $background-color-thin-badge;
+      color: $color-danger-thin-badge;
+      border: $border-width-thin-badge solid $color-danger-thin-badge;
+    }
+  }
+}
+
+$component-identifier: '';

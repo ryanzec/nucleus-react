@@ -13,6 +13,7 @@ import ModalsPage from './modals.page.jsx';
 import ProgressBarsPage from './progress-bars.page.jsx';
 import NotificationsPage from './notifications.page.jsx';
 import BreadcrumbsPage from './breadcrumbs.page.jsx';
+import BadgesPage from './badges.page.jsx';
 
 export const routes = [
   <Route
@@ -86,5 +87,11 @@ export const routes = [
     name="style-guide-breadcrumbs"
     path="/style-guide/breadcrumbs"
     component={BreadcrumbsPage}
+  />,
+  <Route
+    key="12"
+    name="style-guide-badges"
+    path="/style-guide/badges"
+    component={BadgesPage}
   />
 ];
