@@ -24,31 +24,43 @@ $color-darkest-gray: #424242;
 //red colors
 $color-lightest-red: #FFCDD2;
 $color-red: #F44336;
+$color-darkest-red: #B71C1C;
 
 //blue colors
 $color-lightest-blue: #C5CAE9;
 $color-lighter-blue: #7986CB;
 $color-blue: #3F51B5;
+$color-darkest-blue: #1A237E;
 
 //green colors
 $color-lightest-green: #C8E6C9;
 $color-green: #4CAF50;
+$color-darkest-green: #1B5E20;
 
 //orange colors
 $color-lightest-orange: #FFE0B2;
 $color-orange: #FF9800;
+$color-darkest-orange: #E65100;
 
 //text colors
 $color-text: #212121;
-$color-light-text: $color-lightest-gray;
+$color-light-text: $color-white;
 $color-muted-text: $color-dark-gray;
 $color-light-muted-text: transparentize($color-lightest-gray, .7);
 
 //indicator colors
+$color-light-success: $color-lightest-green;
 $color-success: $color-green;
+$color-dark-success: $color-darkest-green;
+$color-light-info: $color-lightest-blue;
 $color-info: $color-blue;
+$color-dark-info: $color-darkest-blue;
+$color-light-warning: $color-lightest-orange;
 $color-warning: $color-orange;
+$color-dark-warning: $color-darkest-orange;
+$color-light-danger: $color-lightest-red;
 $color-danger: $color-red;
+$color-dark-danger: $color-darkest-red;
 
 //svg icons
 $color-success-svg-icon: $color-success;

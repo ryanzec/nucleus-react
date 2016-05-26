@@ -11,6 +11,8 @@ import CardsPage from './cards.page.jsx';
 import TypographyPage from './typography.page.jsx';
 import ModalsPage from './modals.page.jsx';
 import ProgressBarsPage from './progress-bars.page.jsx';
+import AlertsPage from './alerts.page.jsx';
+import NotificationsPage from './notifications.page.jsx';
 
 export const routes = [
   <Route
@@ -72,5 +74,17 @@ export const routes = [
     name="style-guide-progress-bars"
     path="/style-guide/progress-bars"
     component={ProgressBarsPage}
+  />,
+  <Route
+    key="10"
+    name="style-guide-alerts"
+    path="/style-guide/alerts"
+    component={AlertsPage}
+  />,
+  <Route
+    key="11"
+    name="style-guide-notifications"
+    path="/style-guide/notifications"
+    component={NotificationsPage}
   />
 ];

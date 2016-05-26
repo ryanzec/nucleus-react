@@ -46,6 +46,16 @@
   text-align: justify !important;
 }
 
+$temp-size: 5;
+
+@while $temp-size <= 100 {
+  .margin-bottom-#{$temp-size} {
+    margin-bottom: #{$temp-size}px;
+  }
+
+  $temp-size: $temp-size + 5;
+}
+
 //TODO: need grid in place to enable these
 // @media #{$small-screen-only-media-query} {
 //   .u-hide-small {
