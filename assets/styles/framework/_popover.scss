@@ -1,0 +1,15 @@
+$component-identifier: '.popover';
+
+#{$component-identifier} {
+  padding: 8px;
+  border: 1px solid $color-gray;
+  background-color: $color-white;
+  border-radius: 3px;
+
+  &__handle {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+$component-identifier: '';

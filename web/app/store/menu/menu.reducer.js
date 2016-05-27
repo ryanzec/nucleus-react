@@ -29,6 +29,10 @@ let menuData = immutable.fromJS({
       display: 'Colors',
       to: '/style-guide/colors'
     }, {
+      id: 'style-guide-grid',
+      display: 'Grid',
+      to: '/style-guide/grid'
+    }, {
       id: 'style-guide-notifications',
       display: 'Notifications',
       to: '/style-guide/notifications'
@@ -37,9 +41,9 @@ let menuData = immutable.fromJS({
       display: 'Overlays',
       to: '/style-guide/overlays'
     }, {
-      id: 'style-guide-grid',
-      display: 'Grid',
-      to: '/style-guide/grid'
+      id: 'style-guide-popovers',
+      display: 'Popovers',
+      to: '/style-guide/popovers'
     }, {
       id: 'style-guide-progress-bars',
       display: 'Progress Bars',

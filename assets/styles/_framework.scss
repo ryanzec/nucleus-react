@@ -1,13 +1,11 @@
-//tether
-@import "../../node_modules/tether/src/css/tether";
-
-//import custom styling
 @import "./framework/_variables";
 @import "./framework/_mixins";
+
 @import "./framework/_normalize";
 @import "./framework/_typography";
 @import "./framework/_utilities";
 @import "./framework/_grid";
+@import "./framework/_tether";
 
 @import "./framework/_button";
 @import "./framework/_card";
@@ -19,3 +17,6 @@
 @import "./framework/_notification";
 @import "./framework/_breadcrumbs";
 @import "./framework/_badge";
+@import "./framework/_popover";
+@import "./framework/_tooltip";
+@import "./framework/_drop-down-menu";

@@ -14,6 +14,7 @@ import ProgressBarsPage from './progress-bars.page.jsx';
 import NotificationsPage from './notifications.page.jsx';
 import BreadcrumbsPage from './breadcrumbs.page.jsx';
 import BadgesPage from './badges.page.jsx';
+import PopoversPage from './popovers.page.jsx';
 
 export const routes = [
   <Route
@@ -93,5 +94,11 @@ export const routes = [
     name="style-guide-badges"
     path="/style-guide/badges"
     component={BadgesPage}
+  />,
+  <Route
+    key="13"
+    name="style-guide-popovers"
+    path="/style-guide/popovers"
+    component={PopoversPage}
   />
 ];
