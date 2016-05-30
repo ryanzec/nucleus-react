@@ -5,11 +5,11 @@ let menuData = immutable.fromJS({
   menu: [{
     display: 'Style Guide',
     items: [{
-      id: 'style-guide-alerts',
-      display: 'Alerts',
-      to: '/style-guide/alerts'
+      id: 'style-guide-badges',
+      display: 'Badges',
+      to: '/style-guide/badges'
     }, {
-      id: 'style-guide-list-breadcrumbs',
+      id: 'style-guide-breadcrumbs',
       display: 'Breadcrumbs',
       to: '/style-guide/breadcrumbs'
     }, {
@@ -21,13 +21,13 @@ let menuData = immutable.fromJS({
       display: 'Cards',
       to: '/style-guide/cards'
     }, {
-      id: 'style-guide-date-picker',
-      display: 'Date Picker',
-      to: '/style-guide/date-picker'
+      id: 'style-guide-code',
+      display: 'Code',
+      to: '/style-guide/code'
     }, {
-      id: 'style-guide-drop-downs',
-      display: 'Drop Downs',
-      to: '/style-guide/drop-downs'
+      id: 'style-guide-colors',
+      display: 'Colors',
+      to: '/style-guide/colors'
     }, {
       id: 'style-guide-forms',
       display: 'Forms',
@@ -37,45 +37,37 @@ let menuData = immutable.fromJS({
       display: 'Grid',
       to: '/style-guide/grid'
     }, {
-      id: 'style-guide-labels',
-      display: 'Labels',
-      to: '/style-guide/labels'
+      id: 'style-guide-lists',
+      display: 'Lists',
+      to: '/style-guide/lists'
     }, {
-      id: 'style-guide-list-groups',
-      display: 'List Groups',
-      to: '/style-guide/list-groups'
-    }, {
-      id: 'style-guide-list-modals',
+      id: 'style-guide-modals',
       display: 'Modals',
       to: '/style-guide/modals'
     }, {
-      id: 'style-guide-list-navigation',
-      display: 'Navigation',
-      to: '/style-guide/navigation'
+      id: 'style-guide-notifications',
+      display: 'Notifications',
+      to: '/style-guide/notifications'
     }, {
       id: 'style-guide-overlays',
       display: 'Overlays',
       to: '/style-guide/overlays'
     }, {
-      id: 'style-guide-list-pagination',
-      display: 'Pagination',
-      to: '/style-guide/pagination'
-    }, {
-      id: 'style-guide-list-popovers',
+      id: 'style-guide-popovers',
       display: 'Popovers',
       to: '/style-guide/popovers'
     }, {
-      id: 'style-guide-list-progress-bars',
+      id: 'style-guide-progress-bars',
       display: 'Progress Bars',
       to: '/style-guide/progress-bars'
     }, {
-      id: 'style-guide-list-select',
-      display: 'Select',
-      to: '/style-guide/select'
+      id: 'style-guide-svg-icons',
+      display: 'SVG Icons',
+      to: '/style-guide/svg-icons'
     }, {
-      id: 'style-guide-list-tooltips',
-      display: 'Tooltips',
-      to: '/style-guide/tooltips'
+      id: 'style-guide-typography',
+      display: 'Typography',
+      to: '/style-guide/typography'
     }]
   }],
   activeMenu: 'style-guide-alerts'

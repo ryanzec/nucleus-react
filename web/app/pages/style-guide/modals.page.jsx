@@ -1,137 +1,208 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
-import Button from '../../../../assets/components/button.component.jsx';
+import Code from '../../../../assets/components/code.component.jsx';
 import Modal from '../../../../assets/components/modal.component.jsx';
-import ModalContent from '../../../../assets/components/modal-content.component.jsx';
 import ModalHeader from '../../../../assets/components/modal-header.component.jsx';
-import ModalBody from '../../../../assets/components/modal-body.component.jsx';
+import ModalContent from '../../../../assets/components/modal-content.component.jsx';
 import ModalFooter from '../../../../assets/components/modal-footer.component.jsx';
-import ModalTitle from '../../../../assets/components/modal-title.component.jsx';
+import Button from '../../../../assets/components/button.component.jsx';
 
-class ModalsPage extends React.Component {
+class ModalPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalActive: false
+      isActiveModal1: false,
+      isActiveModal2: false,
+      isActiveModal3: false,
+      isActiveModal4: true
     };
 
-    this.onClickOpenModal = this.onClickOpenModal.bind(this);
-    this.onClickCloseModal = this.onClickCloseModal.bind(this);
+    this.onClickToggleModal1 = this.onClickToggleModal1.bind(this);
+    this.closeHandler1 = this.closeHandler1.bind(this);
+    this.onClickToggleModal2 = this.onClickToggleModal2.bind(this);
+    this.closeHandler2 = this.closeHandler2.bind(this);
+    this.onClickToggleModal3 = this.onClickToggleModal3.bind(this);
+    this.closeHandler3 = this.closeHandler3.bind(this);
+    this.onClickToggleModal4 = this.onClickToggleModal4.bind(this);
+    this.closeHandler4 = this.closeHandler4.bind(this);
   }
 
-  onClickOpenModal() {
+  onClickToggleModal1() {
     this.setState({
-      isModalActive: true
-    });
+      isActiveModal1: !this.state.isActiveModal1
+    })
   }
 
-  onClickCloseModal() {
+  closeHandler1() {
     this.setState({
-      isModalActive: false
-    });
+      isActiveModal1: false
+    })
+  }
+
+  onClickToggleModal2() {
+    this.setState({
+      isActiveModal2: !this.state.isActiveModal2
+    })
+  }
+
+  closeHandler2() {
+    this.setState({
+      isActiveModal2: false
+    })
+  }
+
+  onClickToggleModal3() {
+    this.setState({
+      isActiveModal3: !this.state.isActiveModal3
+    })
+  }
+
+  closeHandler3() {
+    this.setState({
+      isActiveModal3: false
+    })
+  }
+
+  onClickToggleModal4() {
+    this.setState({
+      isActiveModal4: !this.state.isActiveModal4
+    })
+  }
+
+  closeHandler4() {
+    this.setState({
+      isActiveModal4: false
+    })
   }
 
   render() {
     return (
       <div className="p-style-guide-modals">
-        <h1 className="test">Modals</h1>
-        <Button onClick={this.onClickOpenModal}>Show Modal</Button>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <Button onClick={this.onClickOpenModal}>Show Modal</Button>
-        <Modal isActive={this.state.isModalActive}>
+        <h1>Modals</h1>
+        <h2>Just Content</h2>
+        <Button onClick={this.onClickToggleModal1}>Modal1</Button>
+        <Modal isActive={this.state.isActiveModal1}>
           <ModalContent>
-            <ModalHeader>
-              <Button className="close" onClick={this.onClickCloseModal}>
-                <span aria-hidden="true">&times;</span>
-              </Button>
-              <ModalTitle>Modal title</ModalTitle>
-            </ModalHeader>
-            <ModalBody>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-              <p>One fine body&hellip;</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button styleType="secondary" onClick={this.onClickCloseModal}>Close</Button>
-              <Button styleType="primary" onClick={this.onClickCloseModal}>Save changes</Button>
-            </ModalFooter>
+            <div>content<Button onClick={this.closeHandler1}>Close</Button></div>
           </ModalContent>
+        </Modal>
+        <br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
+        <h2>Header</h2>
+        <Button onClick={this.onClickToggleModal2}>Modal2</Button>
+        <Modal isActive={this.state.isActiveModal2}>
+          <ModalHeader>
+            Header
+          </ModalHeader>
+          <ModalContent>
+            <div>content<Button onClick={this.closeHandler2}>Close</Button></div>
+          </ModalContent>
+        </Modal>
+        <br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
+        <h2>Footer</h2>
+        <Button onClick={this.onClickToggleModal3}>Modal3</Button>
+        <Modal isActive={this.state.isActiveModal3}>
+          <ModalContent>
+            <div>content<Button onClick={this.closeHandler3}>Close</Button></div>
+          </ModalContent>
+          <ModalFooter>
+            Footer
+          </ModalFooter>
+        </Modal>
+        <br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
+        <h2>Extra Long</h2>
+        <Button onClick={this.onClickToggleModal4}>Modal4</Button>
+        <Modal isActive={this.state.isActiveModal4}>
+          <ModalHeader closeHandler={this.closeHandler4}>
+            Header
+          </ModalHeader>
+          <ModalContent>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+          </ModalContent>
+          <ModalFooter isActions={true}>
+            <Button onClick={this.closeHandler4}>Cancel</Button><Button onClick={this.closeHandler4}>Save</Button>
+          </ModalFooter>
         </Modal>
       </div>
     );
   }
 }
 
-ModalsPage.displayName = 'ModalsPage';
+ModalPage.displayName = 'ModalPage';
 
-ModalsPage.contextTypes = {
+ModalPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default ModalsPage;
+export default ModalPage;

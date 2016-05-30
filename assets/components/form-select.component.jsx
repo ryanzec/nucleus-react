@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,18 +13,10 @@ class FormSelect extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['form-control'];
+    let cssClasses = ['form-element__select'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.size) {
-      cssClasses.push('form-control-' + this.props.size);
-    }
-
-    if (this.props.validation) {
-      cssClasses.push('form-control-' + this.props.validation);
     }
 
     return cssClasses;
@@ -33,7 +26,7 @@ class FormSelect extends React.Component {
     return (
       <select
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'size', 'validation')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
       </select>
@@ -44,15 +37,11 @@ class FormSelect extends React.Component {
 FormSelect.displayName = 'FormSelect';
 
 FormSelect.propTypes = {
-  className: React.PropTypes.string,
-  size: React.PropTypes.oneOf(['sm', 'lg']),
-  validation: React.PropTypes.oneOf(['success', 'warning', 'danger'])
+  className: React.PropTypes.string
 };
 
 FormSelect.defaultProps = {
-  className: null,
-  size: null,
-  validation: null
+  className: null
 };
 
 export default FormSelect;

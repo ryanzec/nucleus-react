@@ -1,82 +1,133 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
+// import CodeExample from '../../react/components/code-example.component.jsx';
+
+// import StylesExample from './assets/examples/buttons/styles.jsx';
+
+// import { readFileSync } from 'fs';
+// import { join } from 'path';
+
+// const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles.jsx'), 'utf8');
+
+import PopoverContainer from '../../../../assets/components/popover-container.component.jsx';
+import PopoverHandle from '../../../../assets/components/popover-handle.component.jsx';
 import Popover from '../../../../assets/components/popover.component.jsx';
-import PopoverToggle from '../../../../assets/components/popover-toggle.component.jsx';
-import PopoverContentWrapper from '../../../../assets/components/popover-content-wrapper.component.jsx';
-import PopoverContent from '../../../../assets/components/popover-content.component.jsx';
-import PopoverTitle from '../../../../assets/components/popover-title.component.jsx';
-import PopoverArrow from '../../../../assets/components/popover-arrow.component.jsx';
-import FormLabel from '../../../../assets/components/form-label.component.jsx';
-import FormSelect from '../../../../assets/components/form-select.component.jsx';
-import FormSelectOption from '../../../../assets/components/form-select-option.component.jsx';
-import Button from '../../../../assets/components/button.component.jsx';
+import Tooltip from '../../../../assets/components/tooltip.component.jsx';
+import DropDownMenu from '../../../../assets/components/drop-down-menu.component.jsx';
+import DropDownMenuItem from '../../../../assets/components/drop-down-menu-item.component.jsx';
+import DropDownMenuHeader from '../../../../assets/components/drop-down-menu-header.component.jsx';
+import DropDownMenuDivider from '../../../../assets/components/drop-down-menu-divider.component.jsx';
 
 class PopoversPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      attachmentPosition: 'top',
-      popoverIsActive: false
+      isActive: false,
+      isActive2: false,
+      isActiveDD: false
     };
 
-    this.onChange = this.onChange.bind(this)
-    this.onClick = this.onClick.bind(this)
-    this.onClickOutside = this.onClickOutside.bind(this)
+    this.onClickPopover = this.onClickPopover.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onClickPopoverDD = this.onClickPopoverDD.bind(this);
+    this.onClickOutside = this.onClickOutside.bind(this);
+    this.onClickOutsideDD = this.onClickOutsideDD.bind(this);
   }
 
-  onChange(event) {
+  onClickPopover() {
     this.setState({
-      attachmentPosition: event.target.value
+      isActive: !this.state.isActive
     });
-  }
-
-  onClick() {
-    this.setState({
-      popoverIsActive: !this.state.popoverIsActive
-    })
   }
 
   onClickOutside() {
     this.setState({
-      popoverIsActive: false
-    })
+      isActive: false
+    });
+  }
+
+  onMouseOver() {
+    this.setState({
+      isActive2: true
+    });
+  }
+
+  onMouseOut() {
+    this.setState({
+      isActive2: false
+    });
+  }
+
+  onClickPopoverDD() {
+    this.setState({
+      isActiveDD: !this.state.isActiveDD
+    });
+  }
+
+  onClickOutsideDD() {
+    this.setState({
+      isActiveDD: false
+    });
+  }
+
+  renderPopover() {
+    return (
+      <PopoverContainer
+        isActive={this.state.isActive}
+        attachment="top left"
+      >
+        <PopoverHandle onClick={this.onClickPopover}>handle</PopoverHandle>
+        <Popover>content</Popover>
+      </PopoverContainer>
+    );
+  }
+
+  renderPopover2() {
+    return (
+      <PopoverContainer isActive={this.state.isActive2}>
+        <PopoverHandle onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>be</PopoverHandle>
+        <Tooltip>content2</Tooltip>
+      </PopoverContainer>
+    );
+  }
+
+  renderPopoverDD() {
+    return (
+      <PopoverContainer
+        attachment="top left"
+        targetAttachment="bottom left"
+         isActive={this.state.isActiveDD}
+        onClickOutside={this.onClickOutsideDD}
+      >
+        <PopoverHandle onClick={this.onClickPopoverDD}>drop down</PopoverHandle>
+        <DropDownMenu>
+          <DropDownMenuHeader>Welcome John Doe</DropDownMenuHeader>
+          <DropDownMenuDivider />
+          <DropDownMenuItem>Your profile</DropDownMenuItem>
+          <DropDownMenuItem>Explore</DropDownMenuItem>
+          <DropDownMenuItem>Intergerations</DropDownMenuItem>
+          <DropDownMenuItem>Help</DropDownMenuItem>
+          <DropDownMenuDivider />
+          <DropDownMenuItem>Settings</DropDownMenuItem>
+          <DropDownMenuItem>Log out</DropDownMenuItem>
+        </DropDownMenu>
+      </PopoverContainer>
+    );
   }
 
   render() {
     return (
       <div className="p-style-guide-popovers">
-        <h1 className="test">Popovers</h1>
-        <FormLabel>Attachment</FormLabel>
-        <FormSelect onChange={this.onChange} value={this.state.attachmentPosition}>
-          <FormSelectOption value="top">top</FormSelectOption>
-          <FormSelectOption value="bottom">bottom</FormSelectOption>
-          <FormSelectOption value="left">left</FormSelectOption>
-          <FormSelectOption value="right">right</FormSelectOption>
-        </FormSelect>
-        <Popover
-          attachment={this.state.attachmentPosition}
-          isActive={this.state.popoverIsActive}
-          onClickOutside={this.onClickOutside}
-        >
-          <PopoverToggle style={{position: 'relative', top: '200px', left: '150px'}}>
-            <Button onClick={this.onClick}>Test</Button>
-          </PopoverToggle>
-          <PopoverContentWrapper>
-            <PopoverArrow />
-            <PopoverTitle>title</PopoverTitle>
-            <PopoverContent>content</PopoverContent>
-          </PopoverContentWrapper>
-        </Popover>
+        <h1>Popovers</h1>
+        <div>
+          Ideally the popover {this.renderPopover()} should be able to {this.renderPopover2()} placed anywhere
+        </div>
+        <br /><br /><br /><br /><br />
+        <div>
+          A popover can be a {this.renderPopoverDD()}, it just have specific styling.
+        </div>
       </div>
     );
   }

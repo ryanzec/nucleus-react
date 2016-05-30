@@ -1,21 +1,14 @@
 .p-style-guide-cards {
   .card {
-    width: 318px;
+    width: 252px;
   }
 
-  .card-columns .card {
-    width: auto;
+  .overlay-example .overlay__top-content {
+    height: 15px;
   }
-}
 
-@include media-breakpoint-up('md') {
-  .p-style-guide-cards {
-    .card-columns {
-      width: 711px;
-    }
-
-    .manual-size {
-      width: 499px;
-    }
+  .card-columns {
+    width: 782px;
+    columns: 3;
   }
 }

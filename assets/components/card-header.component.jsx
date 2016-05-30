@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,7 +13,7 @@ class CardHeader extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['card-header'];
+    let cssClasses = ['card__header'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -22,12 +23,13 @@ class CardHeader extends React.Component {
   }
 
   render() {
-    return React.createElement(
-      this.props.elementType,
-      Object.assign({
-        className: this.getCssClasses().join(' ')
-      }, getPassThroughProperties(this.props, 'className', 'elementType')),
-      this.props.children
+    return (
+      <div
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className')}
+      >
+        {this.props.children}
+      </div>
     );
   }
 }
@@ -35,13 +37,11 @@ class CardHeader extends React.Component {
 CardHeader.displayName = 'CardHeader';
 
 CardHeader.propTypes = {
-  className: React.PropTypes.string,
-  elementType: React.PropTypes.string
+  className: React.PropTypes.string
 };
 
 CardHeader.defaultProps = {
   className: null,
-  elementType: 'div'
 };
 
 export default CardHeader;

@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,14 +13,10 @@ class DropDownMenuItem extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['dropdown-item'];
+    let cssClasses = ['drop-down-menu__item'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isDisabled) {
-      cssClasses.push('disabled');
     }
 
     return cssClasses;
@@ -27,13 +24,12 @@ class DropDownMenuItem extends React.Component {
 
   render() {
     return (
-      <a
+      <div
         className={this.getCssClasses().join(' ')}
-        href="#"
-        {...getPassThroughProperties(this.props, 'className', 'isDisabled')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
-      </a>
+      </div>
     );
   }
 }
@@ -41,13 +37,11 @@ class DropDownMenuItem extends React.Component {
 DropDownMenuItem.displayName = 'DropDownMenuItem';
 
 DropDownMenuItem.propTypes = {
-  className: React.PropTypes.string,
-  isDisabled: React.PropTypes.bool
+  className: React.PropTypes.string
 };
 
 DropDownMenuItem.defaultProps = {
-  className: null,
-  isDisabled: false
+  className: null
 };
 
 export default DropDownMenuItem;

@@ -1,0 +1,25 @@
+$component-identifier: '.breadcrumbs';
+
+$color-divider-breadcrumbs: $color-gray;
+$color-active-breadcrumbs: $color-divider-breadcrumbs;
+$padding-divider-breadcrumbs: 8px;
+
+#{$component-identifier} {
+  display: flex;
+
+  &__crumb {
+    font-size: 1.6rem;
+
+    + #{$component-identifier}__crumb::before {
+      content: ">";
+      color: $color-divider-breadcrumbs;
+      padding: $padding-divider-breadcrumbs;
+    }
+
+    &.is-active {
+      color: $color-active-breadcrumbs;
+    }
+  }
+}
+
+$component-identifier: '';

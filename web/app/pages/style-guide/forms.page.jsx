@@ -1,497 +1,426 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
-import Form from '../../../../assets/components/form.component.jsx';
-import FormCheckbox from '../../../../assets/components/form-checkbox.component.jsx';
-import FormFile from '../../../../assets/components/form-file.component.jsx';
-import FormGroup from '../../../../assets/components/form-group.component.jsx';
-import FormInputGroup from '../../../../assets/components/form-input-group.component.jsx';
-import FormInputGroupAddon from '../../../../assets/components/form-input-group-addon.component.jsx';
-import FormInputGroupButton from '../../../../assets/components/form-input-group-button.component.jsx';
-import FormLabel from '../../../../assets/components/form-label.component.jsx';
-import FormRadio from '../../../../assets/components/form-radio.component.jsx';
+// import CodeExample from '../../react/components/code-example.component.jsx';
+
+// import StylesExample from './assets/examples/buttons/styles.jsx';
+
+// import { readFileSync } from 'fs';
+// import { join } from 'path';
+
+// const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles.jsx'), 'utf8');
+
+import SvgIcon from '../../../../assets/components/svg-icon.component.jsx';
+
+import FormElement from '../../../../assets/components/form-element.component.jsx';
 import FormSelect from '../../../../assets/components/form-select.component.jsx';
 import FormSelectOption from '../../../../assets/components/form-select-option.component.jsx';
-import FormStaticText from '../../../../assets/components/form-static-text.component.jsx';
 import FormTextbox from '../../../../assets/components/form-textbox.component.jsx';
-import FormTextboxCounter from '../../../../assets/components/form-textbox-counter.component.jsx';
-import Button from '../../../../assets/components/button.component.jsx';
-import GridColumn from '../../../../assets/components/grid-column.component.jsx';
-import GridContainer from '../../../../assets/components/grid-container.component.jsx';
+import FormLabel from '../../../../assets/components/form-label.component.jsx';
+import FormTextboxGroup from '../../../../assets/components/form-textbox-group.component.jsx';
+import FormValidationMessages from '../../../../assets/components/form-validation-messages.component.jsx';
+import FormValidationMessage from '../../../../assets/components/form-validation-message.component.jsx';
+import FormCheckbox from '../../../../assets/components/form-checkbox.component.jsx';
+import FormRadio from '../../../../assets/components/form-radio.component.jsx';
+import FormGroupAddon from '../../../../assets/components/form-textbox-group-addon.component.jsx';
+import FormLegend from '../../../../assets/components/form-legend.component.jsx';
 
-import DropDown from '../../../../assets/components/drop-down.component.jsx';
-import DropDownButtonToggle from '../../../../assets/components/drop-down-button-toggle.component.jsx';
-import DropDownMenu from '../../../../assets/components/drop-down-menu.component.jsx';
-import DropDownMenuItem from '../../../../assets/components/drop-down-menu-item.component.jsx';
-import DropDownMenuHeader from '../../../../assets/components/drop-down-menu-header.component.jsx';
-import DropDownMenuDivider from '../../../../assets/components/drop-down-menu-divider.component.jsx';
+import Grid from '../../../../assets/components/grid.component.jsx';
+import GridRow from '../../../../assets/components/grid-row.component.jsx';
+import GridColumn from '../../../../assets/components/grid-column.component.jsx';
 
 class FormsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dropDown1IsActive: false,
-      dropDown2IsActive: false,
-      value: ''
-    };
-
-    this.onClickDropDown1Toggle = this.onClickDropDown1Toggle.bind(this);
-    this.onClickDropDown2Toggle = this.onClickDropDown2Toggle.bind(this);
-    this.onChangeFirstField = this.onChangeFirstField.bind(this);
-  }
-
-  onClickDropDown1Toggle() {
-    this.setState({
-      dropDown1IsActive: !this.state.dropDown1IsActive
-    })
-  }
-
-  onClickDropDown2Toggle() {
-    this.setState({
-      dropDown2IsActive: !this.state.dropDown2IsActive
-    })
-  }
-
-  onChangeFirstField(event) {
-    this.setState({
-      value: event.target.value
-    });
+    this.state = {};
   }
 
   render() {
-    var radioOptions1 = [{
-      value: 'option1',
-      display: 'Option one is this and that&mdash;be sure to include why it\'s great'
-    }, {
-      value: 'option2',
-      display: 'Option two can be something else and selecting it will deselect option one'
-    }, {
-      value: 'option3',
-      display: 'Option three is disabled',
-      disabled: true
-    }];
-
     return (
       <div className="p-style-guide-forms">
-        <h1 className="test">Forms</h1>
-        <h4>Form Groups</h4>
-        <Form>
-          <FormGroup>
-            <FormLabel>Example label</FormLabel>
-            <FormTextboxCounter
-              type="text"
-              placeholder="Example input"
-              value={this.state.value}
-              onChange={this.onChangeFirstField}
-              warningLimit={10}
-              maxLimit={50}
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Another input</FormLabel>
-            <FormTextboxCounter align="right" type="text" placeholder="Another input" />
-          </FormGroup>
-        </Form>
-        <h4>Inline Form</h4>
-        <Form isInline={true}>
-          <FormGroup>
-            <FormLabel>Name</FormLabel>
-            <FormTextbox type="text" placeholder="Jane Doe" />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Email</FormLabel>
-            <FormTextboxCounter  type="email" placeholder="jane.doe@example.com" />
-          </FormGroup>
-          <Button type="submit" styleType="primary">Send invitation</Button>
-        </Form>
-        <h4>Hidden Labels</h4>
-        <Form isInline={true}>
-          <FormGroup>
-            <FormLabel isHidden={true}>Email address</FormLabel>
-            <FormTextbox type="email" placeholder="Enter email" />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel isHidden={true}>Password</FormLabel>
-            <FormTextboxCounter align="right" type="password" placeholder="Password" />
-          </FormGroup>
-          <FormCheckbox>Remember me</FormCheckbox>
-          <Button type="submit" styleType="primary">Sign in</Button>
-        </Form>
-        <Form isInline={true}>
-          <FormGroup>
-            <FormLabel isHidden={true}>Amount (in dollars)</FormLabel>
-            <FormInputGroup>
-              <FormInputGroupAddon>$</FormInputGroupAddon>
-              <FormTextbox type="text" placeholder="Amount" />
-              <FormInputGroupAddon>.00</FormInputGroupAddon>
-            </FormInputGroup>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Transfer cash</Button>
-        </Form>
-        <h4>With Grid</h4>
-        <Form>
-          <GridContainer>
-            <FormGroup useGrid={true}>
-              <FormLabel useControlStyle={true} smallSize={2}>Email</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormTextboxCounter  type="email" placeholder="Email" />
-              </GridColumn>
-            </FormGroup>
-            <FormGroup useGrid={true}>
-              <FormLabel useControlStyle={true} smallSize={2}>Password</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormTextbox type="password" placeholder="Password" />
-              </GridColumn>
-            </FormGroup>
-            <FormGroup useGrid={true}>
-              <FormLabel smallSize={2}>Radios</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormRadio name="gridRadios" value="option1" checked>Option one is this and that&mdash;be sure to include why it's great</FormRadio>
-                <FormRadio name="gridRadios" value="option2">Option two can be something else and selecting it will deselect option one</FormRadio>
-                <FormRadio name="gridRadios" value="option3" disabled>Option three is disabled</FormRadio>
-              </GridColumn>
-            </FormGroup>
-            <FormGroup useGrid={true}>
-              <FormLabel smallSize={2}>Checkbox</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormCheckbox>Check me out</FormCheckbox>
-              </GridColumn>
-            </FormGroup>
-            <FormGroup useGrid={true}>
-              <GridColumn smallOffset={2} smallSize={10}>
-                <Button type="submit" styleType="primary">Sign in</Button>
-              </GridColumn>
-            </FormGroup>
-          </GridContainer>
-        </Form>
-        <h4>Checkboxes and radios</h4>
-        <FormCheckbox value="">Option one is this and that&mdash;be sure to include why it's great</FormCheckbox>
-        <FormCheckbox value="" disabled>Option two is disabled</FormCheckbox>
-        <FormRadio name="exampleRadios" value="option1" checked>Option one is this and that&mdash;be sure to include why it's great</FormRadio>
-        <FormRadio name="exampleRadios" value="option2">Option two can be something else and selecting it will deselect option one</FormRadio>
-        <FormRadio name="exampleRadios" value="option3" disabled>Option three is disabled</FormRadio>
-        <h4>Inline checkboxes and radios</h4>
-        <FormGroup>
-          <FormCheckbox value="" isInline={true}>1</FormCheckbox>
-          <FormCheckbox value="" isInline={true}>2</FormCheckbox>
-          <FormCheckbox value="" isInline={true}>3</FormCheckbox>
-        <FormGroup>
-        </FormGroup>
-          <FormRadio name="exampleRadios" value="option1" isInline={true}>1</FormRadio>
-          <FormRadio name="exampleRadios" value="option2" isInline={true}>2</FormRadio>
-          <FormRadio name="exampleRadios" value="option3" isInline={true}>3</FormRadio>
-        </FormGroup>
-        <h4>No labeled checkboxes and radios</h4>
-        <FormCheckbox value=""></FormCheckbox>
-        <FormRadio name="exampleRadios" value="option1"></FormRadio>
-        <GridContainer>
-          <h4>Static Element</h4>
-          <Form>
-            <FormGroup useGrid={true}>
-              <FormLabel smallSize={2} useControlStyle={true}>Email</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormStaticText>email@example.com</FormStaticText>
-              </GridColumn>
-            </FormGroup>
-            <FormGroup useGrid={true}>
-              <FormLabel smallSize={2} useControlStyle={true}>Password</FormLabel>
-              <GridColumn smallSize={10}>
-                <FormTextbox type="password" placeholder="Password" />
-              </GridColumn>
-            </FormGroup>
-          </Form>
-        </GridContainer>
-        <Form isInline={true}>
-          <FormGroup>
-            <FormLabel isHidden={true}>Email</FormLabel>
-            <FormStaticText>email@example.com</FormStaticText>
-          </FormGroup>
-          <FormGroup>
-            <FormLabel isHidden={true}>Password</FormLabel>
-            <FormTextbox type="password" placeholder="Password" />
-          </FormGroup>
-          <Button type="submit" styleType="primary">Confirm identity</Button>
-        </Form>
-        <h4>Disabled</h4>
-        <Form>
-          <FormGroup>
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" disabled />
-          </FormGroup>
-          <FormGroup>
+        <h1>Forms</h1>
+        <h2>Basic</h2>
+        <div>
+          <FormLegend>Block Level Form</FormLegend>
+          <FormElement>
+            <FormLabel>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel>Last Name</FormLabel>
+            <FormTextbox type="text" placeholder="Last Name" />
+          </FormElement>
+          <FormElement>
             <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" disabled />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Disabled select menu</FormLabel>
-            <FormSelect disabled>
-              <FormSelectOption>Disabled select</FormSelectOption>
-            </FormSelect>
-          </FormGroup>
-          <FormCheckbox disabled>Can't check this</FormCheckbox>
-          <FormRadio disabled>Can't radio this</FormRadio>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <h4>Read Only</h4>
-        <Form>
-          <FormGroup>
-            <FormLabel>Read only input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" readOnly />
-          </FormGroup>
-          <FormGroup>
+            <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+          </FormElement>
+          <FormElement>
             <FormLabel>Bio</FormLabel>
-            <FormTextbox placeholder="Bio..." elementType="textarea" readOnly />
-          </FormGroup>
-        </Form>
-        <h4>Sizes</h4>
-        <Form>
-          <FormGroup>
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" size="lg" />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" size="lg" />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Disabled select menu</FormLabel>
-            <FormSelect size="lg">
-              <FormSelectOption>Disabled select</FormSelectOption>
-            </FormSelect>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <Form>
-          <FormGroup>
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" size="sm" />
-            <small className="text-muted">
-              Some inline text with a small tag looks like this.
-            </small>
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" size="sm" />
-            <small className="text-muted">
-              Some inline text with a small tag looks like this.
-            </small>
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>Disabled select menu</FormLabel>
-            <FormSelect size="sm">
-              <FormSelectOption>Disabled select</FormSelectOption>
-            </FormSelect>
-            <small className="text-muted">
-              Some inline text with a small tag looks like this.
-            </small>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <h4>Validation</h4>
-        <Form>
-          <FormGroup validation="success">
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" validation="success" />
-          </FormGroup>
-          <FormGroup validation="success">
-            <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" validation="success" />
-          </FormGroup>
-          <FormGroup validation="success">
-            <FormLabel>Select menu</FormLabel>
+            <FormTextbox type="textarea" placeholder="First Name">HA HA HA HAAAAAA</FormTextbox>
+          </FormElement>
+          <FormElement>
+            <FormLabel>Blah</FormLabel>
             <FormSelect>
-              <FormSelectOption>Option 1</FormSelectOption>
-              <FormSelectOption>Option 2</FormSelectOption>
-              <FormSelectOption>Option 3</FormSelectOption>
+              <FormSelectOption>Select Something...</FormSelectOption>
+              <FormSelectOption value="1">Something1</FormSelectOption>
+              <FormSelectOption value="2">Something2</FormSelectOption>
+              <FormSelectOption value="3">Something2</FormSelectOption>
             </FormSelect>
-          </FormGroup>
-          <FormGroup validation="success">
-            <FormCheckbox>Can't check this</FormCheckbox>
-          </FormGroup>
-          <FormGroup validation="success">
-            <FormRadio>Can't radio this</FormRadio>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <Form>
-          <FormGroup validation="warning">
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" validation="warning" />
-            <div className="text-warning">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="warning">
-            <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" validation="warning" />
-            <div className="text-warning">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="warning">
-            <FormLabel>Select menu</FormLabel>
+          </FormElement>
+          <FormElement>
+            <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
+            <FormCheckbox checked={true}>Blah</FormCheckbox>
+          </FormElement>
+          <FormElement>
+            <FormRadio inputAlignment="right">Blah</FormRadio>
+            <FormRadio checked={true}>Blah</FormRadio>
+          </FormElement>
+          <FormElement>
+            <FormLabel>Last Name</FormLabel>
+            <FormTextbox type="file" />
+          </FormElement>
+        </div>
+        <h2>Hidden Labels</h2>
+        <div>
+          <FormLegend>Hidden Labels Form</FormLegend>
+          <FormElement>
+            <FormLabel isHidden={true}>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+            </FormTextboxGroup>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>Last Name</FormLabel>
+            <FormTextbox type="text" placeholder="Last Name" />
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>Bio</FormLabel>
+            <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>Bio</FormLabel>
+            <FormTextbox type="textarea" placeholder="First Name">HA HA HA HAAAAAA</FormTextbox>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>Blah</FormLabel>
             <FormSelect>
-              <FormSelectOption>Option 1</FormSelectOption>
-              <FormSelectOption>Option 2</FormSelectOption>
-              <FormSelectOption>Option 3</FormSelectOption>
+              <FormSelectOption>Select Something...</FormSelectOption>
+              <FormSelectOption value="1">Something1</FormSelectOption>
+              <FormSelectOption value="2">Something2</FormSelectOption>
+              <FormSelectOption value="3">Something2</FormSelectOption>
             </FormSelect>
-            <div className="text-warning">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="warning">
-            <FormCheckbox>Can't check this</FormCheckbox>
-            <div className="text-warning">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="warning">
-            <FormRadio>Can't radio this</FormRadio>
-            <div className="text-warning">Validation message here</div>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <Form>
-          <FormGroup validation="danger">
-            <FormLabel>Disabled input</FormLabel>
-            <FormTextbox type="text" placeholder="Disabled input" validation="danger" />
-            <div className="text-danger">Valiation message here</div>
-          </FormGroup>
-          <FormGroup validation="danger">
+          </FormElement>
+          <FormElement>
+            <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
+            <FormCheckbox checked={true}>Blah</FormCheckbox>
+          </FormElement>
+          <FormElement>
+            <FormRadio inputAlignment="right">Blah</FormRadio>
+            <FormRadio checked={true}>Blah</FormRadio>
+          </FormElement>
+          <FormElement>
+            <FormLabel isHidden={true}>Last Name</FormLabel>
+            <FormTextbox type="file" />
+          </FormElement>
+        </div>
+        <h2>Grid</h2>
+        <Grid isForm={true}>
+          <GridRow>
+            <GridColumn>
+              <FormLegend>Inline inputs using grid</FormLegend>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn>
+              <FormElement>
+                <FormLabel isHidden={true}>First Name</FormLabel>
+                <FormTextboxGroup>
+                  <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormGroupAddon>@gmail.com</FormGroupAddon>
+                </FormTextboxGroup>
+              </FormElement>
+            </GridColumn>
+            <GridColumn>
+              <FormElement  validation="valid">
+                <FormLabel isHidden={true}>First Name</FormLabel>
+                <FormTextboxGroup>
+                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormGroupAddon>@gmail.com</FormGroupAddon>
+                </FormTextboxGroup>
+                <FormValidationMessages>
+                  <FormValidationMessage iconFragment="check">Yah!</FormValidationMessage>
+                </FormValidationMessages>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn>
+              <FormElement validation="invalid">
+                <FormLabel isHidden={true}>First Name</FormLabel>
+                <FormTextboxGroup>
+                  <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+                  <FormTextbox type="text" placeholder="First Name" />
+                </FormTextboxGroup>
+                <FormValidationMessages>
+                  <FormValidationMessage iconFragment="times">Nope!</FormValidationMessage>
+                </FormValidationMessages>
+              </FormElement>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormLabel isHidden={true}>Last Name</FormLabel>
+                <FormTextbox type="text" placeholder="Last Name" />
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn>
+              <FormElement>
+                <FormLabel isHidden={true}>Bio</FormLabel>
+                <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn>
+              <FormElement>
+                <FormLabel isHidden={true}>Blah</FormLabel>
+                <FormSelect>
+                  <FormSelectOption>Select Something...</FormSelectOption>
+                  <FormSelectOption value="1">Something1</FormSelectOption>
+                  <FormSelectOption value="2">Something2</FormSelectOption>
+                  <FormSelectOption value="3">Something2</FormSelectOption>
+                </FormSelect>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn>
+              <FormElement>
+                <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
+                <FormCheckbox checked={true}>Blah</FormCheckbox>
+              </FormElement>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormRadio inputAlignment="right">Blah</FormRadio>
+                <FormRadio checked={true}>Blah</FormRadio>
+              </FormElement>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormLabel isHidden={true}>Last Name</FormLabel>
+                <FormTextbox type="file" />
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+        </Grid>
+        <Grid isForm={true} labelAlignment="right">
+          <GridRow>
+            <GridColumn>
+              <FormLegend>Inline labels using grid</FormLegend>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>First Name</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormTextboxGroup>
+                  <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormGroupAddon>@gmail.com</FormGroupAddon>
+                </FormTextboxGroup>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>Firasdst Nasame</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>Firast Nsame</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormSelect>
+                  <FormSelectOption>Select Something...</FormSelectOption>
+                  <FormSelectOption value="1">Something1</FormSelectOption>
+                  <FormSelectOption value="2">Something2</FormSelectOption>
+                  <FormSelectOption value="3">Something2</FormSelectOption>
+                </FormSelect>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>Fasdasdasdirast</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
+                <FormCheckbox checked={true}>Blah</FormCheckbox>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>asde</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormRadio inputAlignment="right">Blah</FormRadio>
+                <FormRadio checked={true}>Blah</FormRadio>
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={3}>
+              <FormLabel>askjdg ajsh kajdg kasgh</FormLabel>
+            </GridColumn>
+            <GridColumn>
+              <FormElement>
+                <FormTextbox type="file" />
+              </FormElement>
+            </GridColumn>
+          </GridRow>
+        </Grid>
+        <h2>Validation</h2>
+        <div>
+          <FormLegend displayRequiredDetails={true}>Form Validation</FormLegend>
+          <FormElement validation="invalid">
+            <FormLabel>First Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+            <FormValidationMessages>
+              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
+              <FormValidationMessage iconFragment="envelope">Not a valid email address</FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="valid">
+            <FormLabel>Last Name</FormLabel>
+            <FormTextboxGroup>
+              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox type="text" placeholder="First Name" />
+              <FormGroupAddon>@gmail.com</FormGroupAddon>
+            </FormTextboxGroup>
+            <FormValidationMessages>
+              <FormValidationMessage iconFragment="check">Yah!</FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="invalid">
             <FormLabel>Bio</FormLabel>
-            <FormTextbox type="text" placeholder="Bio..." elementType="textarea" validation="danger" />
-            <div className="text-danger">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="danger">
-            <FormLabel>Select menu</FormLabel>
+            <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+            <FormValidationMessages>
+              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="invalid">
+            <FormLabel>Blah</FormLabel>
             <FormSelect>
-              <FormSelectOption>Option 1</FormSelectOption>
-              <FormSelectOption>Option 2</FormSelectOption>
-              <FormSelectOption>Option 3</FormSelectOption>
+              <FormSelectOption>Select Something...</FormSelectOption>
+              <FormSelectOption value="1">Something1</FormSelectOption>
+              <FormSelectOption value="2">Something2</FormSelectOption>
+              <FormSelectOption value="3">Something2</FormSelectOption>
             </FormSelect>
-            <div className="text-danger">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="danger">
-            <FormCheckbox>Can't check this</FormCheckbox>
-            <div className="text-danger">Validation message here</div>
-          </FormGroup>
-          <FormGroup validation="danger">
-            <FormRadio>Can't radio this</FormRadio>
-            <div className="text-danger">Validation message here</div>
-          </FormGroup>
-          <Button type="submit" styleType="primary">Submit</Button>
-        </Form>
-        <h4>Input group sizes</h4>
-        <FormInputGroup size="lg">
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup size="lg" position="vertical">
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-        </FormInputGroup>
-        <br />
-        <FormInputGroup size="lg" position="vertical">
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup>
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup position="vertical">
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-        </FormInputGroup>
-        <br />
-        <FormInputGroup position="vertical">
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup size="sm">
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup size="sm" position="vertical">
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-        </FormInputGroup>
-        <br />
-        <FormInputGroup size="sm" position="vertical">
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>@</FormInputGroupAddon>
-        </FormInputGroup>
-        <h4>Other elements as input group addons</h4>
-        <FormInputGroup>
-          <FormInputGroupAddon>
-            <input type="checkbox" />
-          </FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>
-            <input type="checkbox" />
-          </FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup>
-          <FormInputGroupAddon>
-            <input type="radio" />
-          </FormInputGroupAddon>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupAddon>
-            <input type="radio" />
-          </FormInputGroupAddon>
-        </FormInputGroup>
-        <br />
-        <FormInputGroup>
-          <FormInputGroupButton>
-            <Button styleType="primary">Go</Button>
-          </FormInputGroupButton>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupButton>
-            <Button styleType="primary">Go</Button>
-          </FormInputGroupButton>
-        </FormInputGroup>
-        <FormInputGroup>
-          <FormInputGroupButton isOpened={this.state.dropDown1IsActive}>
-            <DropDownButtonToggle onClick={this.onClickDropDown1Toggle}>
-              Drop Down Right Aligned
-            </DropDownButtonToggle>
-            <DropDownMenu>
-              <DropDownMenuItem>Action</DropDownMenuItem>
-              <DropDownMenuItem>Another action</DropDownMenuItem>
-              <DropDownMenuItem>Something else here</DropDownMenuItem>
-            </DropDownMenu>
-          </FormInputGroupButton>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupButton>
-            <Button styleType="primary">Go</Button>
-          </FormInputGroupButton>
-        </FormInputGroup>
-        <FormInputGroup>
-          <FormInputGroupButton isOpened={this.state.dropDown2IsActive}>
-            <Button styleType="primary">Go</Button>
-            <DropDownButtonToggle onClick={this.onClickDropDown2Toggle}>
-              Drop Down Right Aligned
-            </DropDownButtonToggle>
-            <DropDownMenu>
-              <DropDownMenuItem>Action</DropDownMenuItem>
-              <DropDownMenuItem>Another action</DropDownMenuItem>
-              <DropDownMenuItem>Something else here</DropDownMenuItem>
-            </DropDownMenu>
-          </FormInputGroupButton>
-          <FormTextbox type="text" placeholder="Username" />
-          <FormInputGroupButton>
-            <Button styleType="primary">Go</Button>
-          </FormInputGroupButton>
-        </FormInputGroup>
+            <FormValidationMessages>
+              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="valid">
+            <FormLabel>Blah</FormLabel>
+            <FormSelect>
+              <FormSelectOption>Select Something...</FormSelectOption>
+              <FormSelectOption value="1">Something1</FormSelectOption>
+              <FormSelectOption value="2">Something2</FormSelectOption>
+              <FormSelectOption value="3">Something2</FormSelectOption>
+            </FormSelect>
+            <FormValidationMessages>
+              <FormValidationMessage iconFragment="check">Yah!</FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="invalid">
+            <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
+            <FormCheckbox checked={true}>Blah</FormCheckbox>
+            <FormValidationMessages>
+              <FormValidationMessage>
+                <SvgIcon className="form-element__validation-icon" fragment="times" />This is required
+              </FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="valid">
+            <FormRadio inputAlignment="right">Blah</FormRadio>
+            <FormRadio checked={true}>Blah</FormRadio>
+            <FormValidationMessages>
+              <FormValidationMessage>
+                <SvgIcon className="form-element__validation-icon" fragment="check" />This is required
+              </FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="valid">
+            <FormLabel>Last Name</FormLabel>
+            <FormTextbox type="file" />
+            <FormValidationMessages>
+              <FormValidationMessage>
+                <SvgIcon className="form-element__validation-icon" fragment="check" />This is required
+              </FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+          <FormElement validation="invalid">
+            <FormLabel>Last Name</FormLabel>
+            <FormTextbox type="file" />
+            <FormValidationMessages>
+              <FormValidationMessage>
+                <SvgIcon className="form-element__validation-icon" fragment="times" />This is required
+              </FormValidationMessage>
+            </FormValidationMessages>
+          </FormElement>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,24 @@ There are some key used within the changelog which are as following:
 
 - [BREAKING]: means there is a change that is known to break existing code
 
+## IN PROGRESS
+
+- added popover function included support for styling in the form of tooltip, popover, and drop down menu #131
+- added badge components #126
+- added breadcrumbs components #117
+- added notification components #129
+- added progress bar components #132
+- added modal components #128
+- added button components #118
+- added card components #119
+- added css media queries #121
+- added grid components #125
+- some minor infrastructure updates
+- added code components #137
+- added svg icon components #133
+- added overlay components #130
+- [BREAKING] started 0.8.0 rewrite
+
 ## 0.7.0
 
 - [BREAKING] Complete re-write of pretty much everything

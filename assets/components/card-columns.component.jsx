@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 

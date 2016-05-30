@@ -1,12 +1,27 @@
 .p-style-guide-grid {
-  .row>[class^=col-] {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background-color: rgba(86,61,124,.15);
-    border: 1px solid rgba(86,61,124,.2);
+  .grid {
+    margin-bottom: 20px;
+    background-color: lighten($color-blue, 45%);
   }
 
-  .fixed-container {
-    width: 300px;
+  .grid__column {
+    background-color: $color-light-gray;
+    text-align: center;
+  }
+
+  .wrapping-test {
+    .grid__column {
+      @include flexbox-value-width(calc(33.3334% - 24px));
+    }
+  }
+
+  .max-width-test {
+    max-width: 700px;
+  }
+
+  .align-opposite {
+    .grid__column {
+      @include flexbox-value-width(100px);
+    }
   }
 }

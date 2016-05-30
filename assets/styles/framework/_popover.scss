@@ -1,8 +1,15 @@
-//NOTE: this is needed otherwise tether can't get the deminsions (I think) for proper positioning
-.popover {
-  position: relative;
+$component-identifier: '.popover';
+
+#{$component-identifier} {
+  padding: 8px;
+  border: 1px solid $color-gray;
+  background-color: $color-white;
+  border-radius: 3px;
+
+  &__handle {
+    cursor: pointer;
+    user-select: none;
+  }
 }
 
-.popover-toggle {
-  display: inline-block;
-}
+$component-identifier: '';

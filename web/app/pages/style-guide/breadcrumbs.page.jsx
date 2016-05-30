@@ -1,16 +1,16 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
+
+// import CodeExample from '../../react/components/code-example.component.jsx';
+
+// import StylesExample from './assets/examples/buttons/styles.jsx';
+
+// import { readFileSync } from 'fs';
+// import { join } from 'path';
+
+// const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles.jsx'), 'utf8');
 
 import Breadcrumbs from '../../../../assets/components/breadcrumbs.component.jsx';
-import BreadcrumbItem from '../../../../assets/components/breadcrumb-item.component.jsx';
+import Breadcrumb from '../../../../assets/components/breadcrumb.component.jsx';
 
 class BreadcrumbsPage extends React.Component {
   constructor(props) {
@@ -21,18 +21,12 @@ class BreadcrumbsPage extends React.Component {
   render() {
     return (
       <div className="p-style-guide-breadcrumbs">
-        <h1 className="test">Breadcrumbs</h1>
+        <h1>Breadcrumbs</h1>
         <Breadcrumbs>
-          <BreadcrumbItem isActive={true}>Home</BreadcrumbItem>
-        </Breadcrumbs>
-        <Breadcrumbs>
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem isActive={true}>Library</BreadcrumbItem>
-        </Breadcrumbs>
-        <Breadcrumbs style={{marginBottom: '5px'}}>
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Library</BreadcrumbItem>
-          <BreadcrumbItem isActive={true}>Data</BreadcrumbItem>
+          <Breadcrumb onClick={() => {console.log('1');}}>One</Breadcrumb>
+          <Breadcrumb onClick={() => {console.log('2');}}>Two</Breadcrumb>
+          <Breadcrumb onClick={() => {console.log('3');}}>Three</Breadcrumb>
+          <Breadcrumb isActive={true}>Four</Breadcrumb>
         </Breadcrumbs>
       </div>
     );

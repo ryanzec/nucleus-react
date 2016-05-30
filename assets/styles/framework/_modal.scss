@@ -1,4 +1,84 @@
-//TODO: refactor once we get animations in
-.modal-backdrop {
-  opacity: .5;
+$component-identifier: '.modal';
+
+$background-color-modal: $color-white;
+$border-radius-modal: 5px;
+$top-offset-modal: 25px;
+$padding-modal: 16px;
+$z-index-modal: 10001;
+$background-header-footer-color: $color-darkest-gray;
+$color-header-footer-modal: $color-light-text;
+
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
 }
+
+body.modal-open {
+  overflow: hidden;
+}
+
+#{$component-identifier} {
+  z-index: $z-index-modal;
+  position: relative;
+  top: $top-offset-modal;
+  width: 900px;
+  margin: 0 auto $top-offset-modal auto;
+  border-radius: $border-radius-modal;
+
+  &__header {
+    display: flex;
+    padding: $padding-modal;
+    margin: 0;
+    background-color: $background-header-footer-color;
+    border-radius: $border-radius-modal $border-radius-modal 0 0;
+    color: $color-header-footer-modal;
+
+    &-close {
+      margin-left: auto;
+      align-self: center;
+
+      .svg-icon__container {
+        fill: $color-header-footer-modal;
+      }
+    }
+  }
+
+  &__content {
+    padding: $padding-modal;
+    background-color: $background-color-modal;
+
+    &:first-child {
+      border-top-left-radius: $border-radius-modal;
+      border-top-right-radius: $border-radius-modal;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $border-radius-modal;
+      border-bottom-right-radius: $border-radius-modal;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    padding: $padding-modal;
+    background-color: $background-header-footer-color;
+    border-radius: 0 0 $border-radius-modal $border-radius-modal;
+    color: $color-header-footer-modal;
+
+    &.is-actions {
+      justify-content: flex-end;
+    }
+  }
+}
+
+$component-identifier: '';

@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,7 +13,7 @@ class CardFooter extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['card-footer'];
+    let cssClasses = ['card__footer'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -40,7 +41,7 @@ CardFooter.propTypes = {
 };
 
 CardFooter.defaultProps = {
-  className: null
+  className: null,
 };
 
 export default CardFooter;

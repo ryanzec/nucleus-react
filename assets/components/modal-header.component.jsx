@@ -1,6 +1,9 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+
+import SvgIcon from './svg-icon.component.jsx';
 
 class ModalHeader extends React.Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class ModalHeader extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['modal-header'];
+    let cssClasses = ['modal__header'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -21,14 +24,31 @@ class ModalHeader extends React.Component {
     return cssClasses;
   }
 
+  renderCloseHandler() {
+    let node = null;
+
+    if (this.props.closeHandler) {
+      node = (
+        <SvgIcon
+          outerClassName="modal__header-close"
+          fragment="times"
+          onClick={this.props.closeHandler}
+        />
+      );
+    }
+
+    return node;
+  }
+
   render() {
     return (
-      <div
+      <h2
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
-      </div>
+        {this.renderCloseHandler()}
+      </h2>
     );
   }
 }
@@ -36,11 +56,13 @@ class ModalHeader extends React.Component {
 ModalHeader.displayName = 'ModalHeader';
 
 ModalHeader.propTypes = {
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  closeHandler: React.PropTypes.func
 };
 
 ModalHeader.defaultProps = {
-  className: null
+  className: null,
+  closeHandler: null
 };
 
 export default ModalHeader;

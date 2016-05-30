@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,7 +13,7 @@ class DropDownMenuHeader extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['dropdown-header'];
+    let cssClasses = ['drop-down-menu__header'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -23,12 +24,12 @@ class DropDownMenuHeader extends React.Component {
 
   render() {
     return (
-      <h6
+      <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
-      </h6>
+      </div>
     );
   }
 }

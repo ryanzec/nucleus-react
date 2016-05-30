@@ -30,13 +30,21 @@ class Overlay extends React.Component {
   }
 
   render() {
+    var topContentNode = null;
+
+    if (this.props.children && this.props.children[0]) {
+      topContentNode = (
+        <div className="overlay__top-content">{this.props.children}</div>
+      );
+    }
+
     return (
-      <span
+      <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive', 'isAbsolute')}
       >
-        {this.props.children}
-      </span>
+        {topContentNode}
+      </div>
     );
   }
 }

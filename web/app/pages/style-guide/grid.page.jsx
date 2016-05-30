@@ -1,18 +1,17 @@
 import React from 'react';
-import * as authenticationRepository from '../../repositories/authentication.repository';
-import noop from '../../utilities/core/noop';
-import {
-  formDataFactory,
-  helpers as formDataHelpers
-} from 'form-data-validation';
-import getInputValueFromEvent from '../../../../assets/utilities/input/get-input-value-from-event';
-import onChangeInputStateUpdater from '../../../../assets/utilities/input/on-change-input-state-updater';
-import onBlurInputStateUpdater from '../../../../assets/utilities/input/on-blur-input-state-updater';
 
-import GridContainer from '../../../../assets/components/grid-container.component.jsx';
+import CodeExample from '../../react/components/code-example.component.jsx';
+
+import Grid from '../../../../assets/components/grid.component.jsx';
 import GridRow from '../../../../assets/components/grid-row.component.jsx';
 import GridColumn from '../../../../assets/components/grid-column.component.jsx';
-import ClearFix from '../../../../assets/components/clear-fix.component.jsx';
+
+// import StylesExample from './assets/examples/buttons/styles.jsx';
+
+// import { readFileSync } from 'fs';
+// import { join } from 'path';
+
+// const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles.jsx'), 'utf8');
 
 class GridPage extends React.Component {
   constructor(props) {
@@ -23,135 +22,178 @@ class GridPage extends React.Component {
   render() {
     return (
       <div className="p-style-guide-grid">
-        <h1 className="test">Grid</h1>
-        <GridContainer>
+        <h1>Grid</h1>
+        <h4>Default</h4>
+        <Grid>
           <GridRow>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-        </GridContainer>
-        <GridContainer isFixed={true} className="fixed-container">
+        </Grid>
+        <h4>Shrink</h4>
+        <Grid>
           <GridRow>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
-            <GridColumn smallSize={4}>
-              One of three columns
-            </GridColumn>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-        </GridContainer>
-        <GridContainer>
+        </Grid>
+        <h4>Order</h4>
+        <Grid>
           <GridRow>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
-            <GridColumn mediumSize={1}>.col-md-1</GridColumn>
+            <GridColumn order={2}>1 (order 2)</GridColumn>
+            <GridColumn order={4} shrink={true}>2 (order 4)</GridColumn>
+            <GridColumn order={3}>3 (order 3)</GridColumn>
+            <GridColumn order={1}>4 (order 1)</GridColumn>
           </GridRow>
+        </Grid>
+        <h4>One tall example</h4>
+        <Grid>
           <GridRow>
-            <GridColumn mediumSize={8}>.col-md-8</GridColumn>
-            <GridColumn mediumSize={4}>.col-md-4</GridColumn>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn><p>3</p><p>make</p><p>me</p><p>tall</p><p>again</p></GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn mediumSize={4}>.col-md-4</GridColumn>
-            <GridColumn mediumSize={4}>.col-md-4</GridColumn>
-            <GridColumn mediumSize={4}>.col-md-4</GridColumn>
+        </Grid>
+        <Grid>
+          <GridRow isStretched={false}>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn><p>3</p><p>make</p><p>me</p><p>tall</p><p>again</p></GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn mediumSize={6}>.col-md-6</GridColumn>
-            <GridColumn mediumSize={6}>.col-md-6</GridColumn>
+        </Grid>
+        <h4>Vertical</h4>
+        <Grid>
+          <GridRow isVertical={true}>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={12} mediumSize={8}>.col-xs-12 .col-md-8</GridColumn>
-            <GridColumn extraSmallSize={6} mediumSize={4}>.col-xs-6 .col-md-4</GridColumn>
+        </Grid>
+        <h4>Wrapping</h4>
+        <Grid className="wrapping-test">
+          <GridRow canWrap={true}>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={6} mediumSize={4}>.col-xs-6 .col-md-4</GridColumn>
-            <GridColumn extraSmallSize={6} mediumSize={4}>.col-xs-6 .col-md-4</GridColumn>
-            <GridColumn extraSmallSize={6} mediumSize={4}>.col-xs-6 .col-md-4</GridColumn>
+        </Grid>
+        <h4>Max grid width (just apply max-width to grid element)</h4>
+        <Grid className="max-width-test">
+          <GridRow canWrap={true}>
+            <GridColumn>1</GridColumn>
+            <GridColumn shrink={true}>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
+        </Grid>
+        <h4>Alignments</h4>
+        <Grid className="align-opposite">
           <GridRow>
-            <GridColumn extraSmallSize={6}>.col-xs-6</GridColumn>
-            <GridColumn extraSmallSize={6}>.col-xs-6</GridColumn>
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={12} smallSize={6} mediumSize={8}>.col-xs-12 .col-sm-6 .col-md-8</GridColumn>
-            <GridColumn extraSmallSize={6} mediumSize={4}>.col-xs-6 .col-md-4</GridColumn>
+        </Grid>
+        <Grid className="align-opposite">
+          <GridRow alignment="center">
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={6} smallSize={4}>.col-xs-6 .col-sm-4</GridColumn>
-            <GridColumn extraSmallSize={6} smallSize={4}>.col-xs-6 .col-sm-4</GridColumn>
-            {/*Optional: clear the XS cols if their content doesn't match in height*/}
-            <ClearFix className="hidden-sm-up" />
-            <GridColumn extraSmallSize={6} smallSize={4}>.col-xs-6 .col-sm-4</GridColumn>
+        </Grid>
+        <Grid className="align-opposite">
+          <GridRow alignment="right">
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={9}>.col-xs-9</GridColumn>
-            <GridColumn extraSmallSize={4}>.col-xs-4<br />Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</GridColumn>
-            <GridColumn extraSmallSize={6}>.col-xs-6<br />Subsequent columns continue along the new line.</GridColumn>
+        </Grid>
+        <Grid className="align-opposite">
+          <GridRow alignment="spaced">
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
-          <GridRow>
-            <GridColumn extraSmallSize={6} smallSize={3}>.col-xs-6 .col-sm-3</GridColumn>
-            <GridColumn extraSmallSize={6} smallSize={3}>.col-xs-6 .col-sm-3</GridColumn>
-            {/*Add the extra clearfix for only the required viewport*/}
-            <ClearFix className="hidden-sm-up" />
-            <GridColumn extraSmallSize={6} smallSize={3}>.col-xs-6 .col-sm-3</GridColumn>
-            <GridColumn extraSmallSize={6} smallSize={3}>.col-xs-6 .col-sm-3</GridColumn>
+        </Grid>
+        <Grid className="align-opposite">
+          <GridRow alignment="justify">
+            <GridColumn>1</GridColumn>
+            <GridColumn>2</GridColumn>
+            <GridColumn>3</GridColumn>
+            <GridColumn>4</GridColumn>
           </GridRow>
+        </Grid>
+        <h4>Responsive</h4>
+        <Grid>
           <GridRow>
-            <GridColumn smallSize={5} mediumSize={6}>.col-sm-5 .col-md-6</GridColumn>
-            <GridColumn smallSize={5} smallOffset={2} mediumSize={6} mediumOffset={0}>.col-sm-5 .col-sm-offset-2 .col-md-6 .col-md-offset-0</GridColumn>
-          </GridRow>
-          <GridRow>
-            <GridColumn smallSize={6} mediumSize={5} largeSize={6}>.col-sm-6 .col-md-5 .col-lg-6</GridColumn>
-            <GridColumn smallSize={6} mediumSize={5} mediumOffset={2} largeSize={6} largeOffset={0}>.col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0</GridColumn>
-          </GridRow>
-          <GridRow>
-            <GridColumn mediumSize={4}>.col-md-4</GridColumn>
-            <GridColumn mediumSize={4} mediumOffset={4}>.col-md-4 .col-md-offset-4</GridColumn>
-          </GridRow>
-          <GridRow>
-            <GridColumn mediumSize={3} mediumOffset={3}>.col-md-3 .col-md-offset-3</GridColumn>
-            <GridColumn mediumSize={3} mediumOffset={3}>.col-md-3 .col-md-offset-3</GridColumn>
-          </GridRow>
-          <GridRow>
-            <GridColumn mediumSize={6} mediumOffset={3}>.col-md-6 .col-md-offset-3</GridColumn>
-          </GridRow>
-          <GridRow>
-            <GridColumn smallSize={9}>
-              Level 1: .col-sm-9
-              <GridRow>
-                <GridColumn extraSmallSize={8} smallSize={6}>
-                  Level 2: .col-xs-8 .col-sm-6
-                </GridColumn>
-                <GridColumn extraSmallSize={4} smallSize={6}>
-                  Level 2: .col-xs-4 .col-sm-6
-                </GridColumn>
-              </GridRow>
-            </GridColumn>
+            <GridColumn smallSize={6} mediumSize={8} largeSize={6} extraLargeSize={4}>6/8/6/4</GridColumn>
+            <GridColumn smallSize={6} mediumSize={4} largeSize={6} extraLargeSize={8}>6/4/6/8</GridColumn>
           </GridRow>
           <GridRow>
-            <GridColumn mediumSize={9} mediumPush={3}>.col-md-9 .col-md-push-3</GridColumn>
-            <GridColumn mediumSize={3} mediumPull={9}>.col-md-3 .col-md-pull-9</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
           </GridRow>
-        </GridContainer>
+        </Grid>
+        <h4>Offsets</h4>
+        <Grid>
+          <GridRow>
+            <GridColumn smallSize={6} mediumSize={8} largeSize={6} extraLargeSize={4}>6/8/6/4</GridColumn>
+            <GridColumn smallSize={6} mediumSize={4} largeSize={6} extraLargeSize={8}>6/4/6/8</GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn smallSize={6} smallOffset={6} mediumSize={4} mediumOffset={8} largeSize={6} largeOffset={6} extraLargeSize={8} extraLargeOffset={4}>6/4/6/8</GridColumn>
+          </GridRow>
+        </Grid>
+        <Grid>
+          <GridRow>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+          </GridRow>
+          <GridRow>
+            <GridColumn mediumSize={3} mediumOffset={3} largeSize={4} largeOffset={2} extraLargeSize={2} extraLargeOffset={4}>3/4/2</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+          </GridRow>
+        </Grid>
+        <p>NOTE: Offsets only work with left / right row alignments</p>
+        <Grid>
+          <GridRow alignment="right">
+            <GridColumn smallSize={6} mediumSize={8} largeSize={6} extraLargeSize={4}>6/8/6/4</GridColumn>
+            <GridColumn smallSize={6} mediumSize={4} largeSize={6} extraLargeSize={8}>6/4/6/8</GridColumn>
+          </GridRow>
+          <GridRow alignment="right">
+            <GridColumn smallSize={6} smallOffset={6} mediumSize={4} mediumOffset={4} largeSize={6} largeOffset={6} extraLargeSize={4} extraLargeOffset={8}>6/4/6/4</GridColumn>
+          </GridRow>
+        </Grid>
+        <Grid>
+          <GridRow alignment="right">
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+          </GridRow>
+          <GridRow alignment="right">
+            <GridColumn mediumSize={3} largeSize={4} extraLargeSize={2}>3/4/2</GridColumn>
+            <GridColumn mediumSize={3} largeSize={2} extraLargeSize={4}>3/2/4</GridColumn>
+            <GridColumn mediumSize={3} mediumOffset={3} largeSize={2} largeOffset={4} extraLargeSize={2} extraLargeOffset={2}>3/2/2</GridColumn>
+          </GridRow>
+        </Grid>
       </div>
     );
   }

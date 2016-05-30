@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,30 +13,30 @@ class FormTextbox extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['form-control'];
+    let cssClasses = [this.props.type === 'textarea' || this.props.type === 'file' ? 'form-element__' + this.props.type : 'form-element__textbox'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.size) {
-      cssClasses.push('form-control-' + this.props.size);
-    }
-
-    if (this.props.validation) {
-      cssClasses.push('form-control-' + this.props.validation);
     }
 
     return cssClasses;
   }
 
   render() {
-    return React.createElement(
-      this.props.elementType,
-      Object.assign({
-        className: this.getCssClasses().join(' ')
-      }, getPassThroughProperties(this.props, 'className', 'elementType', 'size', 'validation')),
-      this.props.children
+    if(this.props.type === 'textarea') {
+      return (
+        <textarea
+          className={this.getCssClasses().join(' ')}
+          {...getPassThroughProperties(this.props, 'className', 'type')}
+        />
+      );
+    }
+
+    return (
+      <input
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className')}
+      />
     );
   }
 }
@@ -43,17 +44,14 @@ class FormTextbox extends React.Component {
 FormTextbox.displayName = 'FormTextbox';
 
 FormTextbox.propTypes = {
-  className: React.PropTypes.string,
-  elementType: React.PropTypes.oneOf(['input', 'textarea']),
-  size: React.PropTypes.oneOf(['sm', 'lg']),
-  validation: React.PropTypes.oneOf(['success', 'warning', 'danger'])
+  className: React.PropTypes.string
 };
 
 FormTextbox.defaultProps = {
   className: null,
-  elementType: 'input',
-  size: null,
-  validation: null
+
+  //NOTE: default input passtrhgouh props
+  type: 'text'
 };
 
 export default FormTextbox;

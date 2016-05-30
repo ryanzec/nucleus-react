@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,7 +13,7 @@ class CardTitle extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['card-title'];
+    let cssClasses = ['card__title'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -22,12 +23,13 @@ class CardTitle extends React.Component {
   }
 
   render() {
-    return React.createElement(
-      this.props.elementType,
-      Object.assign({
-        className: this.getCssClasses().join(' ')
-      }, getPassThroughProperties(this.props, 'className', 'elementType')),
-      this.props.children
+    return (
+      <h4
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className')}
+      >
+        {this.props.children}
+      </h4>
     );
   }
 }
@@ -35,13 +37,11 @@ class CardTitle extends React.Component {
 CardTitle.displayName = 'CardTitle';
 
 CardTitle.propTypes = {
-  className: React.PropTypes.string,
-  elementType: React.PropTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+  className: React.PropTypes.string
 };
 
 CardTitle.defaultProps = {
   className: null,
-  elementType: 'h4'
 };
 
 export default CardTitle;

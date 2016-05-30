@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,18 +13,18 @@ class ProgressBar extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['progress'];
+    let cssClasses = ['progress-bar'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
     if (this.props.styleType) {
-      cssClasses.push('progress-' + this.props.styleType);
+      cssClasses.push('m-' + this.props.styleType);
     }
 
     if (this.props.isStriped) {
-      cssClasses.push('progress-striped');
+      cssClasses.push('m-striped');
     }
 
     return cssClasses;
@@ -33,8 +34,10 @@ class ProgressBar extends React.Component {
     return (
       <progress
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isStriped', 'isAnimated')}
-      >{this.props.value / this.props.max}%}</progress>
+        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+      >
+        {this.props.children}
+      </progress>
     );
   }
 }
@@ -43,18 +46,18 @@ ProgressBar.displayName = 'ProgressBar';
 
 ProgressBar.propTypes = {
   className: React.PropTypes.string,
-  value: React.PropTypes.number,
-  max: React.PropTypes.number,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  styleType: customPropTypes.progressBarStyleTypes,
   isStriped: React.PropTypes.bool
 };
 
 ProgressBar.defaultProps = {
   className: null,
-  value: 0,
-  max: 100,
   styleType: null,
-  isStriped: false
+  isStriped: false,
+
+  //NOTE: native property defaults
+  max: 100,
+  value: 0
 };
 
 export default ProgressBar;

@@ -1,16 +1,95 @@
-// .btn {
-//   &:focus,
-//   &.focus,
-//   &:active,
-//   &.active,
-//   &:active:focus,
-//   &.active.focus,
-//   &.active:focus,
-//   &:active.focus {
-//     outline: none;
-//   }
-// }
+$component-identifier: '.button';
 
-// .btn:not(:first-child):not(.btn-block) {
-//   margin-left: 5px;
-// }
+$color-button: $color-text;
+$color-light-button: $color-light-text;
+$background-color-button: $color-lighter-gray;
+$background-color-hover-button: $color-light-gray;
+$padding-button: 8px 16px;
+$border-radius-button: 3px;
+$margin-button: 4px;
+$box-shadow-button: 0 0 10px rgba(0, 0, 0, .3) inset;
+$background-color-success-button: $color-success;
+$background-color-success-hover-button: darken($color-success, 10%);
+$background-color-info-button: $color-info;
+$background-color-info-hover-button: darken($color-info, 10%);
+$background-color-warning-button: $color-warning;
+$background-color-warning-hover-button: darken($color-warning, 10%);
+$background-color-danger-button: $color-danger;
+$background-color-danger-hover-button: darken($color-danger, 15%);
+
+#{$component-identifier} {
+  cursor: pointer;
+  display: inline-block;
+  padding: $padding-button;
+  border-radius: $border-radius-button;
+  margin-right: $margin-button;
+  outline: none;
+  border: none;
+  background-color: $background-color-button;
+  color: $color-button;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.m-right-aligned {
+    margin-right: 0;
+    margin-left: $margin-button;
+  }
+
+  &:hover:not(.m-link) {
+    background-color: $background-color-hover-button;
+  }
+
+  &:active:not(.m-link) {
+    box-shadow: $box-shadow-button;
+  }
+
+  &.m-success {
+    color: $color-light-button;
+    background-color: $background-color-success-button;
+
+    &:hover {
+      background-color: $background-color-success-hover-button;
+    }
+  }
+
+  &.m-info {
+    color: $color-light-button;
+    background-color: $background-color-info-button;
+
+    &:hover {
+      background-color: $background-color-info-hover-button;
+    }
+  }
+
+  &.m-warning {
+    color: $color-light-button;
+    background-color: $background-color-warning-button;
+
+    &:hover {
+      background-color: $background-color-warning-hover-button;
+    }
+  }
+
+  &.m-danger {
+    color: $color-light-button;
+    background-color: $background-color-danger-button;
+
+    &:hover {
+      background-color: $background-color-danger-hover-button;
+    }
+  }
+
+  &.m-link {
+    background-color: $color-transparent;
+    color: $color-link;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+$component-identifier: '';

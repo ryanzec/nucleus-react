@@ -1,9 +1,10 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import AppendBodyComponent from './append-body-component.component.jsx';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-import ModalBackdrop from './modal-backdrop.component.jsx';
+import AppendBodyComponent from './append-body-component.component.jsx';
+import Overlay from './overlay.component.jsx';
 
 class Modal extends AppendBodyComponent {
   constructor(props) {
@@ -17,37 +18,51 @@ class Modal extends AppendBodyComponent {
   }
 
   componentDidMount() {
+    if (this.props.isActive) {
+      document.querySelector('body').classList.add('modal-open');
+    }
+
     this.updateSelf();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(oldProps) {
+    //NOTE: need to make sure when closing the modal, the scroll position is reset to the top incase it is opened again
+    if (!this.props.isActive && oldProps.isActive) {
+      this.appendedElement.querySelector('.modal__wrapper').scrollTop = 0;
+    }
+
+    //NOTE we should only change the body call if the isActive has change incase there are multiple possible modals on the same page
+    if (this.props.isActive !== oldProps.isActive) {
+      if (this.props.isActive) {
+        document.querySelector('body').classList.add('modal-open');
+      } else if (!this.props.isActive) {
+        document.querySelector('body').classList.remove('modal-open');
+      }
+    }
+
     this.updateSelf();
   }
 
   componentWillUnmount() {
+    if (this.props.isActive) {
+      document.querySelector('body').classList.remove('modal-open');
+    }
+
     this.removeAppendElement();
   }
 
   getCssClasses() {
-    let cssClasses = ['modal'];
+    let cssClasses = ['modal__wrapper'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
-  }
-
-  renderModalBackdrop() {
-    let node = null;
-
     if (this.props.isActive) {
-      node = (
-        <ModalBackdrop />
-      );
+      cssClasses.push('is-active');
     }
 
-    return node;
+    return cssClasses;
   }
 
   updateSelf() {
@@ -55,25 +70,18 @@ class Modal extends AppendBodyComponent {
 
     if (this.props.isActive) {
       styles.display = 'block';
-
-      document.querySelector('body').classList.add('modal-open');
-    } else {
-      document.querySelector('body').classList.remove('modal-open');
     }
 
     let modalNode = (
-      <span>
-        <div
-          style={styles}
-          className={this.getCssClasses().join(' ')}
-          {...getPassThroughProperties(this.props, 'className')}
-        >
-          <div className="modal-dialog">
-            {this.props.children}
-          </div>
+      <div
+        className={this.getCssClasses().join(' ')}
+        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+      >
+        <div className="modal">
+          {this.props.children}
         </div>
-        {this.renderModalBackdrop()}
-      </span>
+        <Overlay isActive={this.props.isActive} />
+      </div>
     );
 
     this.updateAppendElement(modalNode);
@@ -87,13 +95,11 @@ class Modal extends AppendBodyComponent {
 Modal.displayName = 'Modal';
 
 Modal.propTypes = {
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool
+  className: React.PropTypes.string
 };
 
 Modal.defaultProps = {
-  className: null,
-  isActive: false
+  className: null
 };
 
 export default Modal;

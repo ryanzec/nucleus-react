@@ -1,10 +1,12 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 import FormLabel from './form-label.component.jsx';
+import SvgIcon from './svg-icon.component.jsx';
 
-class FormCheckbox extends React.Component {
+class FormElementCheckbox extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,36 +26,38 @@ class FormCheckbox extends React.Component {
   }
 
   render() {
-    let containerClassName = 'checkbox';
+    let fragment = this.props.checked ? 'check-square' : 'square';
+    let nodes = [];
+    let textNode = (<span key="text">{this.props.children}</span>);
+    let iconNode = (
+      <SvgIcon key="icon" fragment={fragment} />
+    );
 
-    if (this.props.isInline) {
-      containerClassName += '-inline';
+    if (this.props.inputAlignment === 'left') {
+      nodes = [iconNode, textNode];
+    } else {
+      nodes = [textNode, iconNode];
     }
 
     return (
-      <div className={containerClassName}>
-        <FormLabel>
-          <input
-            type="checkbox"
-            className={this.getCssClasses().join(' ')}
-            {...getPassThroughProperties(this.props, 'className', 'isInline')}
-          /> {this.props.children}
-        </FormLabel>
-      </div>
+      <FormLabel inputType="checkbox" inputAlignment={this.props.inputAlignment}>
+        <input type="hidden" />
+        {nodes}
+      </FormLabel>
     );
   }
 }
 
-FormCheckbox.displayName = 'FormCheckbox';
+FormElementCheckbox.displayName = 'FormElementCheckbox';
 
-FormCheckbox.propTypes = {
+FormElementCheckbox.propTypes = {
   className: React.PropTypes.string,
-  isInline: React.PropTypes.bool
+  inputAlignment: customPropTypes.formLabelInputAlignments
 };
 
-FormCheckbox.defaultProps = {
+FormElementCheckbox.defaultProps = {
   className: null,
-  isInline: false
+  inputAlignment: 'left'
 };
 
-export default FormCheckbox;
+export default FormElementCheckbox;

@@ -1,4 +1,10 @@
-//NOTE: this is temp until animation are added in
-.tooltip {
-  opacity: .9;
+$component-identifier: '.tooltip';
+
+#{$component-identifier} {
+  padding: 4px;
+  color: $color-light-text;
+  background-color: rgba(10, 10, 10, .8);
+  border-radius: 3px;
 }
+
+$component-identifier: '';

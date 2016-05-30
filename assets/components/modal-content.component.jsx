@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,7 +13,7 @@ class ModalContent extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['modal-content'];
+    let cssClasses = ['modal__content'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));

@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -12,14 +13,10 @@ class DropDownMenu extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['dropdown-menu'];
+    let cssClasses = ['drop-down-menu'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.align === 'right') {
-      cssClasses.push('dropdown-menu-right');
     }
 
     return cssClasses;
@@ -29,7 +26,7 @@ class DropDownMenu extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'align')}
+        {...getPassThroughProperties(this.props, 'className')}
       >
         {this.props.children}
       </div>
@@ -40,13 +37,11 @@ class DropDownMenu extends React.Component {
 DropDownMenu.displayName = 'DropDownMenu';
 
 DropDownMenu.propTypes = {
-  className: React.PropTypes.string,
-  align: React.PropTypes.oneOf(['left', 'right'])
+  className: React.PropTypes.string
 };
 
 DropDownMenu.defaultProps = {
-  className: null,
-  align: 'left'
+  className: null
 };
 
 export default DropDownMenu;

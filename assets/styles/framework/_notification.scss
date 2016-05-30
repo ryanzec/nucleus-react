@@ -1,0 +1,104 @@
+$component-identifier: '.notification';
+
+$padding-notification: 16px;
+$color-success-notification: $color-light-success;
+$color-dark-success-notification: $color-dark-success;
+$color-info-notification: $color-light-info;
+$color-dark-info-notification: $color-dark-info;
+$color-warning-notification: $color-light-warning;
+$color-dark-warning-notification: $color-dark-warning;
+$color-danger-notification: $color-light-danger;
+$color-dark-danger-notification: $color-dark-danger;
+$border-radius-notification: 5px;
+$icon-size-notification: 24px;
+$line-height-notification: 2.4rem;
+$box-shadow-notification: 0px 1px 3px rgba(0, 0, 0, 0.3);
+
+@mixin apply-notification-colors($color, $dark-color) {
+  border: 2px solid $dark-color;
+
+  .svg-icon__container {
+    fill: $dark-color;
+  }
+
+  #{$component-identifier}__actions {
+    color: $dark-color;
+  }
+
+  &.m-filled {
+    background-color: $color;
+    color: $dark-color;
+
+    .svg-icon__container {
+      fill: $dark-color;
+    }
+
+    #{$component-identifier}__actions {
+      color: $dark-color;
+    }
+  }
+}
+
+#{$component-identifier} {
+  display: flex;
+  padding: $padding-notification;
+  border-radius: $border-radius-notification;
+
+  &.m-shadow {
+    box-shadow: $box-shadow-notification;
+  }
+
+  &.m-success {
+    @include apply-notification-colors($color-success-notification, $color-dark-success-notification);
+  }
+
+  &.m-info {
+    @include apply-notification-colors($color-info-notification, $color-dark-info-notification);
+  }
+
+  &.m-warning {
+    @include apply-notification-colors($color-warning-notification, $color-dark-warning-notification);
+  }
+
+  &.m-danger {
+    @include apply-notification-colors($color-danger-notification, $color-dark-danger-notification);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    margin-right: $padding-notification;
+
+    .svg-icon__container {
+      height: $icon-size-notification;
+      width: $icon-size-notification;
+    }
+  }
+
+  &__message {
+    flex: 1;
+    line-height: $line-height-notification;
+  }
+
+  &__actions {
+    position: relative;
+    top: (($icon-size-notification - 16) / 2);
+
+    &-action {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    &-divider {
+      margin-left: ($padding-notification / 2);
+      margin-right: ($padding-notification / 2);
+    }
+
+    > span:not(:first-child).svg-icon__outer-container {
+      margin-left: ($padding-notification / 2);
+    }
+  }
+
+}
+
+$component-identifier: '';

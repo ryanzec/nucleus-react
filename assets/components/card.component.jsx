@@ -1,4 +1,5 @@
 import React from 'react';
+import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -18,12 +19,8 @@ class Card extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    if (this.props.isInverse) {
-      cssClasses.push('card-inverse');
-    }
-
     if (this.props.styleType) {
-      cssClasses.push('card-' + this.props.styleType);
+      cssClasses.push('m-' + this.props.styleType)
     }
 
     return cssClasses;
@@ -33,7 +30,7 @@ class Card extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isInverse', 'styleType')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType')}
       >
         {this.props.children}
       </div>
@@ -45,13 +42,11 @@ Card.displayName = 'Card';
 
 Card.propTypes = {
   className: React.PropTypes.string,
-  isInverse: React.PropTypes.bool,
-  styleType: React.PropTypes.oneOf(['primary', 'success', 'info', 'warning', 'danger'])
+  styleType: customPropTypes.cardStyleTypes
 };
 
 Card.defaultProps = {
   className: null,
-  isInverse: false,
   styleType: null
 };
 
