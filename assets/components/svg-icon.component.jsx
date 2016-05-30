@@ -51,7 +51,11 @@ class SvgIcon extends React.Component {
   }
 
   getSvgHtml() {
-    return iconData[this.props.size][this.props.fragment];
+    if (this.props.size) {
+      return iconData[this.props.size][this.props.fragment];
+    }
+
+    return iconData[this.props.fragment];
   }
 
   render() {
@@ -88,7 +92,7 @@ SvgIcon.defaultProps = {
   fragment: null,
   indicator: null,
   outerClassName: null,
-  size: 'small'
+  size: null
 };
 
 export default SvgIcon;

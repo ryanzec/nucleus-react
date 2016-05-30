@@ -10,6 +10,20 @@ $column-count-grid: 12;
   width: 100%;
   margin: 0 auto;
 
+  &.m-form {
+    #{$component-identifier}__column {
+      margin: 0 ($gutter-grid / 2);
+    }
+
+    &-label-right {
+      .form-element__label:not(.m-radio):not(.m-chekbox) {
+        width: 100%;
+        text-align: right;
+        padding-top: 4px;
+      }
+    }
+  }
+
   &__row {
     display: flex;
     flex-wrap: wrap;

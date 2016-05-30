@@ -3,7 +3,9 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Grid extends React.Component {
+import SvgIcon from './svg-icon.component.jsx';
+
+class FormValidationMessage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,47 +15,49 @@ class Grid extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['grid'];
+    let cssClasses = ['form-element__validation-message'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isForm) {
-      cssClasses.push('m-form');
-
-      if (this.props.labelAlignment === 'right') {
-        cssClasses.push('m-form-label-right');
-      }
     }
 
     return cssClasses;
   }
 
   render() {
+    var iconNode = null;
+
+    if (this.props.iconFragment) {
+      iconNode = (
+        <SvgIcon
+          className="form-element__validation-icon"
+          fragment={this.props.iconFragment}
+        />
+      );
+    }
+
+
     return (
       <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className')}
       >
-        {this.props.children}
+        {iconNode}{this.props.children}
       </div>
     );
   }
 }
 
-Grid.displayName = 'Grid';
+FormValidationMessage.displayName = 'FormValidationMessage';
 
-Grid.propTypes = {
+FormValidationMessage.propTypes = {
   className: React.PropTypes.string,
-  isForm: React.PropTypes.bool,
-  labelAlignment: customPropTypes.gridFormLabelAlignments
+  iconFragment: React.PropTypes.string
 };
 
-Grid.defaultProps = {
+FormValidationMessage.defaultProps = {
   className: null,
-  isForm: false,
-  labelAlignment: 'right'
+  iconFragment: null
 };
 
-export default Grid;
+export default FormValidationMessage;

@@ -3,7 +3,7 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Grid extends React.Component {
+class FormValidationMessages extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,18 +13,10 @@ class Grid extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['grid'];
+    let cssClasses = ['form-element__validation-messages'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isForm) {
-      cssClasses.push('m-form');
-
-      if (this.props.labelAlignment === 'right') {
-        cssClasses.push('m-form-label-right');
-      }
     }
 
     return cssClasses;
@@ -42,18 +34,14 @@ class Grid extends React.Component {
   }
 }
 
-Grid.displayName = 'Grid';
+FormValidationMessages.displayName = 'FormValidationMessages';
 
-Grid.propTypes = {
-  className: React.PropTypes.string,
-  isForm: React.PropTypes.bool,
-  labelAlignment: customPropTypes.gridFormLabelAlignments
+FormValidationMessages.propTypes = {
+  className: React.PropTypes.string
 };
 
-Grid.defaultProps = {
-  className: null,
-  isForm: false,
-  labelAlignment: 'right'
+FormValidationMessages.defaultProps = {
+  className: null
 };
 
-export default Grid;
+export default FormValidationMessages;

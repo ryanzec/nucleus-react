@@ -3,7 +3,7 @@ import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class Grid extends React.Component {
+class FormTextbox extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,47 +13,45 @@ class Grid extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['grid'];
+    let cssClasses = [this.props.type === 'textarea' || this.props.type === 'file' ? 'form-element__' + this.props.type : 'form-element__textbox'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isForm) {
-      cssClasses.push('m-form');
-
-      if (this.props.labelAlignment === 'right') {
-        cssClasses.push('m-form-label-right');
-      }
     }
 
     return cssClasses;
   }
 
   render() {
+    if(this.props.type === 'textarea') {
+      return (
+        <textarea
+          className={this.getCssClasses().join(' ')}
+          {...getPassThroughProperties(this.props, 'className', 'type')}
+        />
+      );
+    }
+
     return (
-      <div
+      <input
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className')}
-      >
-        {this.props.children}
-      </div>
+      />
     );
   }
 }
 
-Grid.displayName = 'Grid';
+FormTextbox.displayName = 'FormTextbox';
 
-Grid.propTypes = {
-  className: React.PropTypes.string,
-  isForm: React.PropTypes.bool,
-  labelAlignment: customPropTypes.gridFormLabelAlignments
+FormTextbox.propTypes = {
+  className: React.PropTypes.string
 };
 
-Grid.defaultProps = {
+FormTextbox.defaultProps = {
   className: null,
-  isForm: false,
-  labelAlignment: 'right'
+
+  //NOTE: default input passtrhgouh props
+  type: 'text'
 };
 
-export default Grid;
+export default FormTextbox;

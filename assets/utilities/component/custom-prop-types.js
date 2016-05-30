@@ -9,6 +9,10 @@ const progressBarStyleTypes = React.PropTypes.oneOf(['success', 'info', 'warning
 const notificationStyleTypes = React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']);
 const notificationActionsTypes = React.PropTypes.oneOf(['icons', 'text']);
 const notificationActionsActions = React.PropTypes.oneOf(['positive', 'negative', 'both']);
+const formLabelInputTypes = React.PropTypes.oneOf([false, 'checkbox', 'radio']);
+const formLabelInputAlignments = React.PropTypes.oneOf(['left', 'right']);
+const gridFormLabelAlignments = React.PropTypes.oneOf(['left', 'right']);
+const formValidations=  React.PropTypes.oneOf([false, 'valid', 'invalid']);
 
 export default {
   buttonStyleTypes,
@@ -19,5 +23,9 @@ export default {
   notificationStyleTypes,
   notificationActionsTypes,
   notificationActionsActions,
-  badgeStyleTypes
+  badgeStyleTypes,
+  formLabelInputTypes,
+  formLabelInputAlignments,
+  formValidations,
+  gridFormLabelAlignments
 };

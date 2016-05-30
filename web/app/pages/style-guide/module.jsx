@@ -15,6 +15,8 @@ import NotificationsPage from './notifications.page.jsx';
 import BreadcrumbsPage from './breadcrumbs.page.jsx';
 import BadgesPage from './badges.page.jsx';
 import PopoversPage from './popovers.page.jsx';
+import FormsPage from './forms.page.jsx';
+import ListsPage from './lists.page.jsx';
 
 export const routes = [
   <Route
@@ -100,5 +102,17 @@ export const routes = [
     name="style-guide-popovers"
     path="/style-guide/popovers"
     component={PopoversPage}
+  />,
+  <Route
+    key="14"
+    name="style-guide-lists"
+    path="/style-guide/lists"
+    component={ListsPage}
+  />,
+  <Route
+    key="15"
+    name="style-guide-forms"
+    path="/style-guide/forms"
+    component={FormsPage}
   />
 ];
