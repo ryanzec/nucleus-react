@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+- TBD
+
+## 0.8.0
+
 - added popover function included support for styling in the form of tooltip, popover, and drop down menu #131
 - added badge components #126
 - added breadcrumbs components #117
