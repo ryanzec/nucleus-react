@@ -14,7 +14,7 @@ class ModalPage extends React.Component {
       isActiveModal1: false,
       isActiveModal2: false,
       isActiveModal3: false,
-      isActiveModal4: false
+      isActiveModal4: true
     };
 
     this.onClickToggleModal1 = this.onClickToggleModal1.bind(this);

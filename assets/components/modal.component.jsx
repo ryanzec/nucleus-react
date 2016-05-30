@@ -18,6 +18,10 @@ class Modal extends AppendBodyComponent {
   }
 
   componentDidMount() {
+    if (this.props.isActive) {
+      document.querySelector('body').classList.add('modal-open');
+    }
+
     this.updateSelf();
   }
 
@@ -40,6 +44,10 @@ class Modal extends AppendBodyComponent {
   }
 
   componentWillUnmount() {
+    if (this.props.isActive) {
+      document.querySelector('body').classList.remove('modal-open');
+    }
+
     this.removeAppendElement();
   }
 

@@ -46,6 +46,10 @@ body.modal-open {
     &-close {
       margin-left: auto;
       align-self: center;
+
+      .svg-icon__container {
+        fill: $color-header-footer-modal;
+      }
     }
   }
 

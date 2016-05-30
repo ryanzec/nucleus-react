@@ -96,6 +96,7 @@ $height-textbox: 26px;
     width: 100%;
     border-radius: $border-radius-input;
     outline: none;
+    padding: $padding-input 0;
 
     &:not(#{$component-identifier}__file) {
       border: 1px solid $border-color-input;

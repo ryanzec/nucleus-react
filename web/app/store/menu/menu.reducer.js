@@ -41,6 +41,10 @@ let menuData = immutable.fromJS({
       display: 'Lists',
       to: '/style-guide/lists'
     }, {
+      id: 'style-guide-modals',
+      display: 'Modals',
+      to: '/style-guide/modals'
+    }, {
       id: 'style-guide-notifications',
       display: 'Notifications',
       to: '/style-guide/notifications'
@@ -60,10 +64,6 @@ let menuData = immutable.fromJS({
       id: 'style-guide-svg-icons',
       display: 'SVG Icons',
       to: '/style-guide/svg-icons'
-    }, {
-      id: 'style-guide-modals',
-      display: 'Modals',
-      to: '/style-guide/modals'
     }, {
       id: 'style-guide-typography',
       display: 'Typography',

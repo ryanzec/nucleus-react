@@ -31,7 +31,7 @@ class ModalHeader extends React.Component {
       node = (
         <SvgIcon
           outerClassName="modal__header-close"
-          fragment="x"
+          fragment="times"
           onClick={this.props.closeHandler}
         />
       );

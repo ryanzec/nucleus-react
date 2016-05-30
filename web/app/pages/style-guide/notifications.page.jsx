@@ -27,28 +27,28 @@ class NotificationsPage extends React.Component {
         <h1>Notifications</h1>
         <h2>Basic</h2>
         <Notification styleType="success" className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="check" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="icons" actions="both" />
         </Notification>
         <Notification styleType="info" className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="info" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="both" />
         </Notification>
         <Notification styleType="warning" className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="exclamation" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="negative" />
         </Notification>
         <Notification styleType="danger" className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="time" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
@@ -56,28 +56,28 @@ class NotificationsPage extends React.Component {
         </Notification>
         <h2>Filled</h2>
         <Notification styleType="success" isFilled={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="check" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="icons" actions="both" />
         </Notification>
         <Notification styleType="info" isFilled={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="info" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="both" />
         </Notification>
         <Notification styleType="warning" isFilled={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="exclamation" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="negative" />
         </Notification>
         <Notification styleType="danger" isFilled={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="times" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
@@ -85,28 +85,28 @@ class NotificationsPage extends React.Component {
         </Notification>
         <h2>Shadows</h2>
         <Notification styleType="success" hasShadow={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="check" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="icons" actions="both" />
         </Notification>
         <Notification styleType="info" isFilled={true} hasShadow={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="info" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="both" />
         </Notification>
         <Notification styleType="warning" hasShadow={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="exclamation" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
           <NotificationActions type="text" actions="negative" />
         </Notification>
         <Notification styleType="danger" isFilled={true} hasShadow={true} className="margin-bottom-10">
-          <NotificationIcon fragment="user" />
+          <NotificationIcon fragment="times" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>

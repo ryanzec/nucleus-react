@@ -26,11 +26,11 @@ class FormElementCheckbox extends React.Component {
   }
 
   render() {
-    var fragment = this.props.checked ? 'check-square' : 'square';
-    var nodes = [];
-    var textNode = this.props.children;
-    var iconNode = (
-      <SvgIcon fragment={fragment} />
+    let fragment = this.props.checked ? 'check-square' : 'square';
+    let nodes = [];
+    let textNode = (<span key="text">{this.props.children}</span>);
+    let iconNode = (
+      <SvgIcon key="icon" fragment={fragment} />
     );
 
     if (this.props.inputAlignment === 'left') {

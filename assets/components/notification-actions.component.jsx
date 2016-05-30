@@ -50,10 +50,10 @@ class NotificationActions extends React.Component {
   renderIconActions() {
     let nodes = [];
     let positiveNode = (
-      <SvgIcon key="0" fragment="checkmark" className="notification__actions-action" />
+      <SvgIcon key="0" fragment="check" className="notification__actions-action" />
     );
     let negativeNode = (
-      <SvgIcon key="1" fragment="x" className="notification__actions-action" />
+      <SvgIcon key="1" fragment="times" className="notification__actions-action" />
     );
 
     if (this.props.actions === 'negative') {
