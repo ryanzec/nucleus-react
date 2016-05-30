@@ -76,6 +76,12 @@
     "webdriverio": "3.2.6",
     "webpack": "1.12.13"
   },
+  "scripts": {
+    "prepublish": "rm -rf ./lib; mkdir -p ./lib/styles;./node_modules/babel-cli/bin/babel.js src --out-dir lib;cp -r ./assets/styles/* ./lib/styles;"
+  },
+  "babel": {
+    "presets": ["react", "babel-preset-es2015-without-strict"]
+  },
   "engines": {
     "node": ">=0.11.9"
   }

@@ -9,20 +9,13 @@ var extractSass = new ExtractTextPlugin('main.css');
 module.exports = {
   module: {
     loaders: [{
-      test: /\.jsx$/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015-without-strict'],
-        plugins: ['static-fs']
-      }
-    }, {
       test: /\.js$/,
       loader: 'babel',
       exclude: [
         path.resolve(__dirname, "node_modules")
       ],
       query: {
-        presets: ['es2015-without-strict'],
+        presets: ['react', 'es2015-without-strict'],
         plugins: ['static-fs']
       }
     }, {
@@ -85,7 +78,7 @@ module.exports = {
     ],
 
     //application code
-    application: './web/app/application.jsx',
+    application: './web/app/application',
 
     //mocks
     'mocked-api': './web/app/mock/api.js',
