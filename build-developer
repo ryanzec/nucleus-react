@@ -2,6 +2,9 @@
 echo "Starting developer's code build..."
 echo "Cleaning out build directory..."
 rm -rf ./web/build
+echo "Copying static assets..."
+mkdir -p ./web/build/images
+cp -R ./web/app/images/* ./web/build/images
 echo "Build i18n files..."
 ./tasks/i18n
 echo "Building code..."

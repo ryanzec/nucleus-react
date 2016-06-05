@@ -18,6 +18,7 @@ import PopoversPage from './popovers.page';
 import FormsPage from './forms.page';
 import ListsPage from './lists.page';
 import DatePickerPage from './date-picker.page';
+import ImagesPage from './images.page';
 
 export const routes = [
   <Route
@@ -121,5 +122,11 @@ export const routes = [
     name="style-guide-forms"
     path="/style-guide/forms"
     component={FormsPage}
+  />,
+  <Route
+    key="17"
+    name="style-guide-images"
+    path="/style-guide/images"
+    component={ImagesPage}
   />
 ];
