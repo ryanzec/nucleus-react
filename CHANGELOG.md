@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+## 0.9.0
+
 - added extend text components with support for auto complete and tagging #116
 - added popover function included support for styling in the form of tooltip, popover, and drop down menu #131
 - added badge components #126
