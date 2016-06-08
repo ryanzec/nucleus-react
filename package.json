@@ -1,6 +1,6 @@
 {
   "name": "nucleus-react",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "keywords": [
     "react",
     "reactjs",
@@ -75,6 +75,12 @@
     "webdriver-manager": "8.0.0",
     "webdriverio": "3.2.6",
     "webpack": "1.12.13"
+  },
+  "scripts": {
+    "prepublish": "rm -rf ./lib; mkdir -p ./lib/styles;./node_modules/babel-cli/bin/babel.js src --out-dir lib;cp -r ./src/styles/* ./lib/styles;cp -r ./src/fonts/* ./lib/fonts;"
+  },
+  "babel": {
+    "presets": ["react", "babel-preset-es2015-without-strict"]
   },
   "engines": {
     "node": ">=0.11.9"

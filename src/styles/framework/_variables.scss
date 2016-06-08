@@ -1,0 +1,105 @@
+//general colors
+$color-white: rgb(255, 255, 255) !default;
+$color-black: rgb(0, 0, 0) !default;
+$color-transparent: rgba(0, 0, 0, 0) !default;
+
+
+
+$color-gray4: gray;
+
+$font-family: 'Roboto';
+$font-size-body: 1.3rem;
+
+
+
+//gray colors
+$color-lightest-gray: #F5F5F5;
+$color-lighter-gray: #E0E0E0;
+$color-light-gray: #BDBDBD;
+$color-gray: #9E9E9E;
+$color-dark-gray: #757575;
+$color-darker-gray: #616161;
+$color-darkest-gray: #424242;
+
+//red colors
+$color-lightest-red: #FFCDD2;
+$color-red: #F44336;
+$color-darkest-red: #B71C1C;
+
+//blue colors
+$color-lightest-blue: #C5CAE9;
+$color-lighter-blue: #7986CB;
+$color-blue: #3F51B5;
+$color-darkest-blue: #1A237E;
+
+//green colors
+$color-lightest-green: #C8E6C9;
+$color-green: #4CAF50;
+$color-darkest-green: #1B5E20;
+
+//orange colors
+$color-lightest-orange: #FFE0B2;
+$color-orange: #FF9800;
+$color-darkest-orange: #E65100;
+
+//text colors
+$color-text: #212121;
+$color-muted-text: $color-dark-gray;
+$color-light-text: $color-white;
+$color-light-muted-text: transparentize($color-lightest-gray, .7);
+
+//indicator colors
+$color-light-success: transparentize($color-lightest-green, .75);
+$color-success: $color-green;
+$color-dark-success: $color-darkest-green;
+$color-light-info: transparentize($color-lightest-blue, .75);
+$color-info: $color-blue;
+$color-dark-info: $color-darkest-blue;
+$color-light-warning: transparentize($color-lightest-orange, .75);
+$color-warning: $color-orange;
+$color-dark-warning: $color-darkest-orange;
+$color-light-danger: transparentize($color-lightest-red, .75);
+$color-danger: $color-red;
+$color-dark-danger: $color-darkest-red;
+
+//svg icons
+$color-success-svg-icon: $color-success;
+$color-info-svg-icon: $color-info;
+$color-warning-svg-icon: $color-warning;
+$color-danger-svg-icon: $color-danger;
+
+//typography
+$color-link: $color-lighter-blue;
+
+//break points
+$small-break-point: 640px !default;
+$medium-break-point: 1023px !default;
+$large-break-point: 1600px !default;
+
+//media queries
+$small-screen-media-query: "only screen" !default;
+$small-screen-only-media-query: "only screen and (min-width: 1px) and (max-width: #{$small-break-point})" !default;
+$small-screen-max-media-query: "only screen and (max-width: #{$small-break-point})" !default;
+$medium-screen-media-query: "only screen and (min-width: #{$small-break-point + 1})" !default;
+$medium-screen-only-media-query: "only screen and (min-width: #{$small-break-point + 1}) and (max-width: #{$medium-break-point})" !default;
+$medium-screen-max-media-query: "only screen and (max-width: #{$medium-break-point})" !default;
+$large-screen-media-query: "only screen and (min-width: #{$medium-break-point + 1})" !default;
+$large-screen-only-media-query: "only screen and (min-width: #{$medium-break-point + 1}) and (max-width: #{$large-break-point})" !default;
+$large-screen-max-media-query: "only screen and (max-width: #{$large-break-point})" !default;
+$extra-large-screen-media-query: "only screen and (min-width: #{$large-break-point + 1})" !default;
+
+//form
+$border-radius-input: 5px;
+$padding-input: 4px;
+$padding-label: $padding-input;
+$padding-form-element: 12px;
+$padding-form-legend: 4px;
+$margin-form-legend: 8px;
+$padding-validation-icon: $padding-input;
+$font-size-form-legend: 1.8rem;
+$border-color-input: $color-gray;
+$border-color-focus-input: $color-lighter-blue;
+$background-color-textbox-group-addon: $color-lighter-gray;
+$size-required-icon-input: 6px;
+$size-validation-icon-input: 12px;
+$height-textbox: 26px;

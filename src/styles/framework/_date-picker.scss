@@ -1,0 +1,76 @@
+$component-identifier: '.date-picker';
+
+#{$component-identifier} {
+  display: inline-block;
+  border: 1px solid $color-gray;
+  border-radius: 5px;
+
+  &__previous-month,
+  &__next-month {
+    @include flexbox-value-width(16px);
+
+    cursor: pointer;
+  }
+
+  &__top-bar-current {
+    flex: 1;
+    text-align: center;
+  }
+
+  &__month {
+    margin: 8px;
+  }
+
+  &__top-bar {
+    @include border-top-radius(4px);
+
+    padding: 8px 16px 8px 16px;
+  }
+
+  &__days-of-week {
+    padding: 0 8px;
+  }
+
+  &__top-bar,
+  &__days-of-week,
+  &__week {
+    display: flex;
+  }
+
+  &__top-bar,
+  &__days-of-week {
+    background-color: $color-lighter-gray;
+  }
+
+  &__day-of-week,
+  &__day {
+    margin: 2px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 2.4rem;
+  }
+
+  &__day {
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-lighter-gray;
+      font-weight: 500;
+    }
+
+    &.is-active {
+      background-color: $color-lighter-blue;
+      color: $color-light-text;
+      font-weight: 500;
+    }
+
+    &.m-other-month {
+      opacity: .3;
+    }
+  }
+}
+
+$component-identifier: '';

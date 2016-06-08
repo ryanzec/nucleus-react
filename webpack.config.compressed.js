@@ -90,7 +90,7 @@ module.exports = {
     ],
 
     //application code
-    application: './web/app/application.jsx',
+    application: './web/app/application',
 
     //mocks
     'mocked-api': './web/app/mock/api.js',
