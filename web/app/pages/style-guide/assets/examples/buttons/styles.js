@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../../../../../../src/components/button';
 
-class SvgIconsIndicatorsExample extends React.Component {
+class ButtonsStylesExample extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,6 +21,6 @@ class SvgIconsIndicatorsExample extends React.Component {
   }
 }
 
-SvgIconsIndicatorsExample.displayName = 'SvgIconsIndicatorsExample';
+ButtonsStylesExample.displayName = 'ButtonsStylesExample';
 
-export default SvgIconsIndicatorsExample;
+export default ButtonsStylesExample;

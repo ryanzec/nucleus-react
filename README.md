@@ -1,6 +1,6 @@
-**UPDATE: I have made my decision a lot quick than I thought and I will be going through with my original rewrite plan instead of using Bootstrap as a foundational piece.  You can follow that work on the ryanzec/nucleus-react/0.8.0 branch which will be done when most if not all components are done and tested on Chrome.  The version after that will focus on other browsers testing and writing up more documentation / examples.**
+**NOTE: This code base is still going through very large changes and even with tagged versions, the code is in no way in a state that I would recommend using for anything serious. If you want to use if in stuff that you are just playing around with and want to provide me with feedback that would be awesome but I can't recommend enough that you don't use any of this code right now in anything that is public facing. Until tags are marked with alpha numbers, they are just being used to group pushing stuff.
 
-**NOTE: This rewrite is an experiment. This rewrite was done because the initial interation of this framework was done and I was going to be starting from scratch anyways and I needed bootstrap 4 components for other stuff I was doing that was moving to a bootstrap based styling so figure I would take a weekend and do this and use it as a starting point for my other work. I can't say right now whether or not the bootstrap related code will remain in this framework, that will depend on a number of factors however it will probably be more clear towards the end of June at the latest.**
+This code will be in a slightly more "useable" state (and I use the term lightly) once the tags are marked with alpha numbers.**
 
 # Nucleus React
 

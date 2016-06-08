@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 ## IN PROGRESS
 
+- added extend text components with support for auto complete and tagging #116
 - added popover function included support for styling in the form of tooltip, popover, and drop down menu #131
 - added badge components #126
 - added breadcrumbs components #117
@@ -20,7 +21,10 @@ There are some key used within the changelog which are as following:
 - added code components #137
 - added svg icon components #133
 - added overlay components #130
-- [BREAKING] started 0.8.0 rewrite
+
+## 0.8.0
+
+- [BREAKING] Another major re-write.  The Bootstrap re-write was just an experiment and decided I did not want to go that route with this framework so more re-writes of components that will continue using custom styling.
 
 ## 0.7.0
 

@@ -1,6 +1,7 @@
 @import "./framework/_variables";
 @import "./framework/_mixins";
 
+@import "./framework/_animation";
 @import "./framework/_normalize";
 @import "./framework/_typography";
 @import "./framework/_utilities";
@@ -22,3 +23,4 @@
 @import "./framework/_drop-down-menu";
 @import "./framework/_form";
 @import "./framework/_date-picker";
+@import "./framework/_extend-text";

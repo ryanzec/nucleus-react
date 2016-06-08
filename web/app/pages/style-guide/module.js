@@ -19,6 +19,7 @@ import FormsPage from './forms.page';
 import ListsPage from './lists.page';
 import DatePickerPage from './date-picker.page';
 import ImagesPage from './images.page';
+import ExtendTextPage from './extend-text.page';
 
 export const routes = [
   <Route
@@ -128,5 +129,11 @@ export const routes = [
     name="style-guide-images"
     path="/style-guide/images"
     component={ImagesPage}
+  />,
+  <Route
+    key="18"
+    name="style-guide-extend-text"
+    path="/style-guide/extend-text"
+    component={ExtendTextPage}
   />
 ];

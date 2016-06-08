@@ -1,20 +1,5 @@
 $component-identifier: '.form-element';
 
-$border-radius-input: 5px;
-$padding-input: 4px;
-$padding-label: $padding-input;
-$padding-form-element: 12px;
-$padding-form-legend: 4px;
-$margin-form-legend: 8px;
-$padding-validation-icon: $padding-input;
-$font-size-form-legend: 1.8rem;
-$border-color-input: $color-gray;
-$border-color-focus-input: $color-lighter-blue;
-$background-color-textbox-group-addon: $color-lighter-gray;
-$size-required-icon-input: 6px;
-$size-validation-icon-input: 12px;
-$height-textbox: 26px;
-
 @mixin apply-input-validation-colors($light, $normal, $dark) {
   .svg-icon__container {
     fill: $normal;

@@ -39,3 +39,23 @@ a {
 p {
   padding: 0 0 8px 0;
 }
+
+.u-muted-text {
+  color: $color-muted-text !important;
+}
+
+.u-success-text {
+  color: $color-success !important;
+}
+
+.u-info-text {
+  color: $color-info !important;
+}
+
+.u-warning-text {
+  color: $color-warning !important;
+}
+
+.u-danger-text {
+  color: $color-danger !important;
+}

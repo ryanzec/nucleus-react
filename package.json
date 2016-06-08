@@ -77,7 +77,7 @@
     "webpack": "1.12.13"
   },
   "scripts": {
-    "prepublish": "rm -rf ./lib; mkdir -p ./lib/styles;./node_modules/babel-cli/bin/babel.js src --out-dir lib;cp -r ./assets/styles/* ./lib/styles;"
+    "prepublish": "rm -rf ./lib; mkdir -p ./lib/styles;./node_modules/babel-cli/bin/babel.js src --out-dir lib;cp -r ./src/styles/* ./lib/styles;cp -r ./src/fonts/* ./lib/fonts;"
   },
   "babel": {
     "presets": ["react", "babel-preset-es2015-without-strict"]

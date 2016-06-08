@@ -87,3 +87,19 @@ $large-screen-media-query: "only screen and (min-width: #{$medium-break-point + 
 $large-screen-only-media-query: "only screen and (min-width: #{$medium-break-point + 1}) and (max-width: #{$large-break-point})" !default;
 $large-screen-max-media-query: "only screen and (max-width: #{$large-break-point})" !default;
 $extra-large-screen-media-query: "only screen and (min-width: #{$large-break-point + 1})" !default;
+
+//form
+$border-radius-input: 5px;
+$padding-input: 4px;
+$padding-label: $padding-input;
+$padding-form-element: 12px;
+$padding-form-legend: 4px;
+$margin-form-legend: 8px;
+$padding-validation-icon: $padding-input;
+$font-size-form-legend: 1.8rem;
+$border-color-input: $color-gray;
+$border-color-focus-input: $color-lighter-blue;
+$background-color-textbox-group-addon: $color-lighter-gray;
+$size-required-icon-input: 6px;
+$size-validation-icon-input: 12px;
+$height-textbox: 26px;
