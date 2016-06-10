@@ -98,7 +98,7 @@ class PopoversPage extends React.Component {
       <PopoverContainer
         attachment="top left"
         targetAttachment="bottom left"
-         isActive={this.state.isActiveDD}
+        isActive={this.state.isActiveDD}
         onClickOutside={this.onClickOutsideDD}
       >
         <PopoverHandle onClick={this.onClickPopoverDD}>drop down</PopoverHandle>

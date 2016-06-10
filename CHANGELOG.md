@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added form date picker component with support for selecting a single date #147
 - incorporated airbnb eslint (with some minor custom tweaks)
 - updated src code to pass eslint configurations
 - added utilities to managing auto incrementing id

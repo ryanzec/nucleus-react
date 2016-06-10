@@ -24,7 +24,7 @@ class ExtendText extends React.Component {
     this.domEventManager = new DomEventManager();
 
     this.state = {
-      isOpened: false,
+      isActive: false,
       isLoading: false,
       activeAutoCompleteOptionIndex: null,
       activeAutoCompleteOptions: null,
@@ -53,7 +53,7 @@ class ExtendText extends React.Component {
 
   componentDidUpdate() {
     //TODO: can I use previous state
-    if (this.state.isOpened === true && (this.state.lastCheckedInputValue === null || this.state.lastCheckedInputValue !== this.state.inputValue)) {
+    if (this.state.isActive === true && (this.state.lastCheckedInputValue === null || this.state.lastCheckedInputValue !== this.state.inputValue)) {
       this.updateAutoCompleteOptions();
     }
   }
@@ -159,7 +159,7 @@ class ExtendText extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    if (this.state.isOpened) {
+    if (this.state.isActive) {
       cssClasses.push('is-opened');
     }
 
@@ -243,7 +243,7 @@ class ExtendText extends React.Component {
       const exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
       newState.activeAutoCompleteOptionIndex = exactMatchIndex !== -1 ? exactMatchIndex : 0;
     } else if (
-      this.state.isOpened
+      this.state.isActive
       && this.props.asyncOptions
       && (
         this.state.lastCheckedInputValue !== this.state.inputValue
@@ -422,7 +422,7 @@ class ExtendText extends React.Component {
       return optionNodes;
     };
 
-    if (!this.state.isOpened) {
+    if (!this.state.isActive) {
       return null;
     }
 

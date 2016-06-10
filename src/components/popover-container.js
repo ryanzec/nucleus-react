@@ -90,7 +90,7 @@ PopoverContainer.defaultProps = {
   //NOTE: default some ReactTether properties
   attachment: 'bottom center',
   constraints: [{
-    to: 'scrollParent',
+    to: 'window',
     attachment: 'together'
   }]
 };

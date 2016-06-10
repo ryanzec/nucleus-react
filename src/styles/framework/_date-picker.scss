@@ -4,6 +4,7 @@ $component-identifier: '.date-picker';
   display: inline-block;
   border: 1px solid $color-gray;
   border-radius: 5px;
+  background-color: $color-white;
 
   &__previous-month,
   &__next-month {

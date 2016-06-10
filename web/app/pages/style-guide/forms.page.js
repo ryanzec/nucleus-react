@@ -23,6 +23,7 @@ import FormCheckbox from '../../../../src/components/form-checkbox';
 import FormRadio from '../../../../src/components/form-radio';
 import FormGroupAddon from '../../../../src/components/form-textbox-group-addon';
 import FormLegend from '../../../../src/components/form-legend';
+import FormDatePicker from '../../../../src/components/form-date-picker';
 
 import Grid from '../../../../src/components/grid';
 import GridRow from '../../../../src/components/grid-row';
@@ -31,7 +32,18 @@ import GridColumn from '../../../../src/components/grid-column';
 class FormsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+      selectedDays: []
+    };
+
+    this.onClickDate = this.onClickDate.bind(this);
+  }
+
+  onClickDate(date) {
+    this.setState({
+      selectedDays: [date]
+    });
   }
 
   render() {
@@ -95,6 +107,14 @@ class FormsPage extends React.Component {
           <FormElement>
             <FormLabel>Last Name</FormLabel>
             <FormTextbox type="file" />
+          </FormElement>
+          <FormElement>
+            <FormLabel>Date</FormLabel>
+            <FormDatePicker
+              onClickDate={this.onClickDate}
+              selectedDays={this.state.selectedDays}
+              format="dddd, MMMM Do, YYYY"
+            />
           </FormElement>
         </div>
         <h2>Hidden Labels</h2>

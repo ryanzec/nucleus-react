@@ -99,6 +99,11 @@ $component-identifier: '.form-element';
     background-color: $color-white;
   }
 
+  &__date-picker {
+    z-index: 1000;
+    cursor: pointer;
+  }
+
   &__textbox-group {
     display: flex;
 
