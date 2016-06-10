@@ -42,14 +42,30 @@
   text-align: justify !important;
 }
 
-$temp-size: 5;
+.u-margin-0 {
+  margin: 0 !important;
+}
+
+$temp-size: 0;
 
 @while $temp-size <= 100 {
-  .margin-bottom-#{$temp-size} {
-    margin-bottom: #{$temp-size}px;
+  .u-margin-top-#{$temp-size} {
+    margin-top: #{$temp-size}px !important;
   }
 
-  $temp-size: $temp-size + 5;
+  .u-margin-right-#{$temp-size} {
+    margin-right: #{$temp-size}px !important;
+  }
+
+  .u-margin-bottom-#{$temp-size} {
+    margin-bottom: #{$temp-size}px !important;
+  }
+
+  .u-margin-left-#{$temp-size} {
+    margin-left: #{$temp-size}px !important;
+  }
+
+  $temp-size: $temp-size + 4;
 }
 
 //TODO: need grid in place to enable these

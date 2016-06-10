@@ -73,6 +73,7 @@ module.exports = {
       'moment',
       'moment-timezone',
       'redux',
+      'redux-thunk',
       'reselect',
       'store-cacheable',
       'superagent',

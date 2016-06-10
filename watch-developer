@@ -4,7 +4,8 @@ echo "Cleaning out build directory..."
 rm -rf ./web/build
 echo "Copying static assets..."
 mkdir -p ./web/build/images
-cp -R ./web/app/images/* ./web/build/images
+cp -R ./web/app/images/ ./web/build/images
+cp -R ./src/fonts/ ./web/build/fonts
 echo "Build i18n files..."
 ./tasks/i18n
 echo "Building code..."

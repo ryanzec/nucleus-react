@@ -27,10 +27,10 @@ class NotificationActions extends React.Component {
   renderTextActions() {
     let nodes = [];
     let positiveNode = (
-      <span key="0" className="notification__actions-action">Accept</span>
+      <span key="0" className="notification__actions-action" onClick={this.props.onClickPositive}>Accept</span>
     );
     let negativeNode = (
-      <span key="1" className="notification__actions-action">Decline</span>
+      <span key="1" className="notification__actions-action" onClick={this.props.onClickNegative}>Decline</span>
     );
     let dividerNode = (
       <span key="2" className="notification__actions-divider">|</span>
@@ -50,10 +50,10 @@ class NotificationActions extends React.Component {
   renderIconActions() {
     let nodes = [];
     let positiveNode = (
-      <SvgIcon key="0" fragment="check" className="notification__actions-action" />
+      <SvgIcon key="0" fragment="check" className="notification__actions-action" onClick={this.props.onClickPositive} />
     );
     let negativeNode = (
-      <SvgIcon key="1" fragment="times" className="notification__actions-action" />
+      <SvgIcon key="1" fragment="times" className="notification__actions-action" onClick={this.props.onClickNegative} />
     );
 
     if (this.props.actions === 'negative') {
@@ -73,7 +73,7 @@ class NotificationActions extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'type', 'actions')}
+        {...getPassThroughProperties(this.props, 'className', 'type', 'actions', 'onClickPositive', 'onClickNegative')}
       >
         {actionNodes}
       </div>
@@ -86,13 +86,17 @@ NotificationActions.displayName = 'NotificationActions';
 NotificationActions.propTypes = {
   className: React.PropTypes.string,
   type: customPropTypes.notificationActionsTypes,
-  actions: customPropTypes.notificationActionsActions
+  actions: customPropTypes.notificationActionsActions,
+  onClickPositive: React.PropTypes.func,
+  onClickNegative: React.PropTypes.func
 };
 
 NotificationActions.defaultProps = {
   className: null,
   text: 'icons',
-  actions: 'negative'
+  actions: 'negative',
+  onClickPositive: null,
+  onClickNegative: null
 };
 
 export default NotificationActions;
