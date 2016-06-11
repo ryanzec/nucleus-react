@@ -1,7 +1,7 @@
-var counter = 0;
+let counter = 0;
 
 export default function getNextId() {
-    counter += 1;
+  counter += 1;
 
-    return counter;
+  return counter;
 }

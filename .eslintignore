@@ -1,5 +1,6 @@
-web/app/mock/*
+#web/app/mock/*
+web/*
 **/*.spec.*
 
 #third party libraries
-web/app/misc/ua-parser.js
+src/javascript/prism.js

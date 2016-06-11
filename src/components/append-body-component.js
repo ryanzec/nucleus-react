@@ -2,13 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class AppendBodyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   setAppendElement(options = {}) {
-    let tag = options.tag || 'div';
-    let className = options.className || 'append-body-wrapper';
+    const tag = options.tag || 'div';
+    const className = options.className || 'append-body-wrapper';
 
     this.appendedElement = document.createElement(tag);
     this.appendedElement.className = className;

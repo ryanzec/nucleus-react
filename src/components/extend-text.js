@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import DomEventManager from '../utilities/dom/dom-event-manager';
@@ -13,7 +12,7 @@ import ExtendTextAutoCompleteOption from './extend-text-auto-complete-option';
 import Badge from './badge';
 import Button from './button';
 
-var loadingSvg;
+let loadingSvg;
 /*eslint-disable*/
 loadingSvg = '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/> <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"></path>';
 /*eslint-enable*/
@@ -48,10 +47,6 @@ class ExtendText extends React.Component {
     this.domEventManager.add(document, 'mousedown', this.onClickOutside);
   }
 
-  componentWillUnmount() {
-    this.domEventManager.clear();
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -63,247 +58,8 @@ class ExtendText extends React.Component {
     }
   }
 
-  getCssClasses() {
-    let cssClasses = ['extend-text'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.state.isOpened) {
-      cssClasses.push('is-opened');
-    }
-
-    return cssClasses;
-  }
-
-  asyncOptionsCallback(callbackOptions) {
-    callbackOptions = callbackOptions || {};
-
-    if (callbackOptions.options) {
-      let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, callbackOptions.options);
-      let newOptions = this.filterAutoCompleteOptions(callbackOptions.options);
-
-      if (this.props.allowCreate && this.state.inputValue.length > 0) {
-        let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newOptions);
-
-        if (exactMatchIndex === -1) {
-          newOptions = [this.generateObjectValueFromInput()].concat(newOptions);
-        }
-      }
-
-      this.setState({
-        isLoading: false,
-        activeAutoCompleteOptions: newOptions,
-        activeAutoCompleteOptionIndex: exactMatchIndex !== -1 ? exactMatchIndex : 0
-      }, this.repositionAutoCompleteContainerToActiveOption);
-    }
-  }
-
-  generateObjectValueFromInput() {
-    return {
-      display: this.props.createTemplate.replace('%%value%%', this.state.inputValue),
-      value: this.state.inputValue,
-      isNew: true
-    };
-  }
-
-  selectActiveItem() {
-    if (this.state.activeAutoCompleteOptions) {
-      this.updateValue(this.state.activeAutoCompleteOptions[this.state.activeAutoCompleteOptionIndex]);
-    }
-  }
-
-  updateValue(newValue) {
-    if (newValue.isNew) {
-      newValue = {
-        display: newValue.value,
-        value: newValue.value,
-        isNew: true
-      };
-    }
-
-    if (isArray(this.props.value) && this.props.multiple) {
-      newValue = this.props.value.concat([newValue]);
-    } else {
-      newValue = [newValue];
-    }
-
-    this.setValue(newValue, this.getDisplayValue(newValue));
-  }
-
-  setValue(newValue, newInputValue) {
-    if (this.props.onChange) {
-      this.props.onChange(newValue);
-    }
-
-    this.closeAutoComplete(newValue, {
-      previousInputValue: this.state.inputValue,
-      inputValue: newInputValue
-    });
-  }
-
-  updateAutoCompleteOptions() {
-    let newState = {
-      lastCheckedInputValue: this.state.inputValue
-    };
-
-    if (this.props.options.length > 0) {
-      newState.activeAutoCompleteOptions = this.filterAutoCompleteOptions(this.props.options);
-
-      let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
-      newState.activeAutoCompleteOptionIndex = exactMatchIndex !== -1 ? exactMatchIndex : 0;
-    } else if (
-      this.state.isOpened
-      && this.props.asyncOptions
-      && (
-        this.state.lastCheckedInputValue !== this.state.inputValue
-        || this.state.lastCheckedInputValue === null
-      )
-      && this.state.inputValue.length >= this.props.characterThreshold
-    ) {
-      newState.isLoading = true;
-
-      this.props.asyncOptions(this.state.inputValue, this.asyncOptionsCallback);
-    }
-
-    if (this.props.allowCreate && newState.activeAutoCompleteOptions && this.state.inputValue.length > 0) {
-      let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
-
-      if (exactMatchIndex === -1) {
-        newState.activeAutoCompleteOptions = [this.generateObjectValueFromInput()].concat(newState.activeAutoCompleteOptions);
-      }
-    }
-
-    this.setState(newState, this.repositionAutoCompleteContainerToActiveOption);
-  }
-
-  increaseActiveAutoCompleteOption() {
-    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
-      var newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
-
-      if (newActiveAutoCompleteOptionIndex === null) {
-        newActiveAutoCompleteOptionIndex = 0;
-      } else {
-        newActiveAutoCompleteOptionIndex += 1;
-      }
-
-      if (this.state.activeAutoCompleteOptions && newActiveAutoCompleteOptionIndex >= this.state.activeAutoCompleteOptions.length) {
-        newActiveAutoCompleteOptionIndex = 0;
-      }
-
-      this.setState({
-        activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
-      }, this.repositionAutoCompleteContainerToActiveOption);
-    }
-  }
-
-  decreaseActiveAutoCompleteOption() {
-    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
-      var newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
-
-      if (newActiveAutoCompleteOptionIndex === null) {
-        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
-      } else {
-        newActiveAutoCompleteOptionIndex -= 1;
-      }
-
-      if (newActiveAutoCompleteOptionIndex < 0) {
-        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
-      }
-
-      this.setState({
-        activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
-      }, this.repositionAutoCompleteContainerToActiveOption);
-    }
-  }
-
-  filterAutoCompleteOptions(autoCompleteOptions) {
-    let filteredOptions = [];
-
-    if (
-      this.props.useFiltering
-      && this.props.isSearchable
-      && this.props.options.length > 0
-      && (
-        this.state.inputValue !== ''
-        || this.props.multiple
-      )
-    ) {
-      if (isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
-        if (this.props.optionsFilter) {
-          filteredOptions = this.props.optionsFilter(this.state.inputValue, autoCompleteOptions);
-        } else {
-          let alreadySelectedValues = [];
-
-          if (this.props.multiple && isArray(this.props.value)) {
-            this.props.value.forEach(function(valueObject) {
-              alreadySelectedValues.push(valueObject.display.toLowerCase());
-            });
-          }
-
-          filteredOptions = autoCompleteOptions.filter((autoCompleteOption) => {
-            return (
-              (
-                autoCompleteOption.display.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1
-                && alreadySelectedValues.indexOf(autoCompleteOption.display.toLowerCase()) === -1
-              )
-              || autoCompleteOption.isNew === true
-            );
-          });
-        }
-      }
-    } else {
-      filteredOptions = cloneDeep(autoCompleteOptions);
-    }
-
-    return filteredOptions;
-  }
-
-  repositionAutoCompleteContainerToActiveOption() {
-    let autoCompleteContainerNode = ReactDOM.findDOMNode(this.refs.container).querySelector('.extend-text__auto-complete-container');
-    let activeOptionNode = ReactDOM.findDOMNode(this.refs.container).querySelector('.extend-text__auto-complete-option:nth-child(' + (this.state.activeAutoCompleteOptionIndex + 1) + ')');
-
-    if (activeOptionNode) {
-      autoCompleteContainerNode.scrollTop = activeOptionNode.offsetTop;
-    }
-  }
-
-  closeAutoComplete(currentValue, newState) {
-    newState = newState || {};
-    currentValue = currentValue || this.props.value;
-
-    newState.isOpened = false;
-    newState.activeAutoCompleteOptionIndex = null;
-    newState.activeAutoCompleteOptions = null;
-    newState.lastCheckedInputValue = null;
-    newState.inputValue = this.getDisplayValue(currentValue);
-
-    ReactDOM.findDOMNode(this.refs.input).blur();
-
-    this.setState(newState);
-  }
-
-  getExactMatchAutoCompleteOptionIndex(inputValue, autoCompleteOptions) {
-    var index = -1;
-
-    if (inputValue !== '' && isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
-      autoCompleteOptions.forEach((autoCompleteOption, key) => {
-        if (index !== -1) {
-          return;
-        }
-
-        if (autoCompleteOption.display.toLowerCase() === inputValue.toLowerCase()) {
-          index = key;
-        }
-      });
-    }
-
-    return index;
-  }
-
-  getDisplayValue(values) {
-    return !this.props.multiple && isArray(values) && values.length > 0 ? values[0].display : '';
+  componentWillUnmount() {
+    this.domEventManager.clear();
   }
 
   onClickOutside() {
@@ -334,7 +90,7 @@ class ExtendText extends React.Component {
   }
 
   onKeyDown(event) {
-    switch(event.keyCode) {
+    switch (event.keyCode) {
       case 27: //escape
         event.preventDefault();
         this.closeAutoComplete();
@@ -370,11 +126,11 @@ class ExtendText extends React.Component {
 
   onMouseEnterAutoCompleteOption(event) {
     this.setState({
-      activeAutoCompleteOptionIndex: parseInt(event.target.getAttribute('data-index'))
+      activeAutoCompleteOptionIndex: parseInt(event.target.getAttribute('data-index'), 10)
     });
   }
 
-  onMouseDownAutoCompleteOption(event) {
+  onMouseDownAutoCompleteOption() {
     this.selectActiveItem();
   }
 
@@ -390,17 +146,256 @@ class ExtendText extends React.Component {
   }
 
   onClickDeleteTag(event) {
-    let removeIndex = parseInt(event.currentTarget.getAttribute('data-key'));
-    var newValue = cloneDeep(this.props.value);
-    newValue.splice(removeIndex, 1);
-
+    const newValue = cloneDeep(this.props.value);
+    newValue.splice(parseInt(event.currentTarget.getAttribute('data-key'), 10), 1);
 
     this.setValue(newValue, '');
   }
 
+  getCssClasses() {
+    let cssClasses = ['extend-text'];
+
+    if (this.props.className) {
+      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    }
+
+    if (this.state.isOpened) {
+      cssClasses.push('is-opened');
+    }
+
+    return cssClasses;
+  }
+
+  asyncOptionsCallback(callbackOptions = {}) {
+    if (callbackOptions.options) {
+      let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, callbackOptions.options);
+      let newOptions = this.filterAutoCompleteOptions(callbackOptions.options);
+
+      if (this.props.allowCreate && this.state.inputValue.length > 0) {
+        exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newOptions);
+
+        if (exactMatchIndex === -1) {
+          newOptions = [this.generateObjectValueFromInput()].concat(newOptions);
+        }
+      }
+
+      this.setState({
+        isLoading: false,
+        activeAutoCompleteOptions: newOptions,
+        activeAutoCompleteOptionIndex: exactMatchIndex !== -1 ? exactMatchIndex : 0
+      }, this.repositionAutoCompleteContainerToActiveOption);
+    }
+  }
+
+  generateObjectValueFromInput() {
+    return {
+      display: this.props.createTemplate.replace('%%value%%', this.state.inputValue),
+      value: this.state.inputValue,
+      isNew: true
+    };
+  }
+
+  selectActiveItem() {
+    if (this.state.activeAutoCompleteOptions) {
+      this.updateValue(this.state.activeAutoCompleteOptions[this.state.activeAutoCompleteOptionIndex]);
+    }
+  }
+
+  updateValue(newValue) {
+    let realNewValue = newValue;
+
+    if (realNewValue.isNew) {
+      realNewValue = {
+        display: newValue.value,
+        value: newValue.value,
+        isNew: true
+      };
+    }
+
+    if (isArray(this.props.value) && this.props.multiple) {
+      realNewValue = this.props.value.concat([realNewValue]);
+    } else {
+      realNewValue = [realNewValue];
+    }
+
+    this.setValue(realNewValue, this.getDisplayValue(realNewValue));
+  }
+
+  setValue(newValue, newInputValue) {
+    if (this.props.onChange) {
+      this.props.onChange(newValue);
+    }
+
+    this.closeAutoComplete(newValue, {
+      previousInputValue: this.state.inputValue,
+      inputValue: newInputValue
+    });
+  }
+
+  updateAutoCompleteOptions() {
+    const newState = {
+      lastCheckedInputValue: this.state.inputValue
+    };
+
+    if (this.props.options.length > 0) {
+      newState.activeAutoCompleteOptions = this.filterAutoCompleteOptions(this.props.options);
+
+      const exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
+      newState.activeAutoCompleteOptionIndex = exactMatchIndex !== -1 ? exactMatchIndex : 0;
+    } else if (
+      this.state.isOpened
+      && this.props.asyncOptions
+      && (
+        this.state.lastCheckedInputValue !== this.state.inputValue
+        || this.state.lastCheckedInputValue === null
+      )
+      && this.state.inputValue.length >= this.props.characterThreshold
+    ) {
+      newState.isLoading = true;
+
+      this.props.asyncOptions(this.state.inputValue, this.asyncOptionsCallback);
+    }
+
+    if (this.props.allowCreate && newState.activeAutoCompleteOptions && this.state.inputValue.length > 0) {
+      const exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
+
+      if (exactMatchIndex === -1) {
+        newState.activeAutoCompleteOptions = [this.generateObjectValueFromInput()].concat(newState.activeAutoCompleteOptions);
+      }
+    }
+
+    this.setState(newState, this.repositionAutoCompleteContainerToActiveOption);
+  }
+
+  increaseActiveAutoCompleteOption() {
+    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
+      let newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
+
+      if (newActiveAutoCompleteOptionIndex === null) {
+        newActiveAutoCompleteOptionIndex = 0;
+      } else {
+        newActiveAutoCompleteOptionIndex += 1;
+      }
+
+      if (this.state.activeAutoCompleteOptions && newActiveAutoCompleteOptionIndex >= this.state.activeAutoCompleteOptions.length) {
+        newActiveAutoCompleteOptionIndex = 0;
+      }
+
+      this.setState({
+        activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
+      }, this.repositionAutoCompleteContainerToActiveOption);
+    }
+  }
+
+  decreaseActiveAutoCompleteOption() {
+    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
+      let newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
+
+      if (newActiveAutoCompleteOptionIndex === null) {
+        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
+      } else {
+        newActiveAutoCompleteOptionIndex -= 1;
+      }
+
+      if (newActiveAutoCompleteOptionIndex < 0) {
+        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
+      }
+
+      this.setState({
+        activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
+      }, this.repositionAutoCompleteContainerToActiveOption);
+    }
+  }
+
+  filterAutoCompleteOptions(autoCompleteOptions) {
+    let filteredOptions = [];
+
+    if (
+      this.props.useFiltering
+      && this.props.isSearchable
+      && this.props.options.length > 0
+      && (
+        this.state.inputValue !== ''
+        || this.props.multiple
+      )
+    ) {
+      if (isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
+        if (this.props.optionsFilter) {
+          filteredOptions = this.props.optionsFilter(this.state.inputValue, autoCompleteOptions);
+        } else {
+          const alreadySelectedValues = [];
+
+          if (this.props.multiple && isArray(this.props.value)) {
+            this.props.value.forEach((valueObject) => {
+              alreadySelectedValues.push(valueObject.display.toLowerCase());
+            });
+          }
+
+          filteredOptions = autoCompleteOptions.filter((autoCompleteOption) => (
+            (
+              autoCompleteOption.display.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1
+              && alreadySelectedValues.indexOf(autoCompleteOption.display.toLowerCase()) === -1
+            )
+            || autoCompleteOption.isNew === true
+          ));
+        }
+      }
+    } else {
+      filteredOptions = cloneDeep(autoCompleteOptions);
+    }
+
+    return filteredOptions;
+  }
+
+  repositionAutoCompleteContainerToActiveOption() {
+    const activeOptionsSelector = `.extend-text__auto-complete-option:nth-child(${(this.state.activeAutoCompleteOptionIndex + 1)})`;
+    const autoCompleteContainerNode = ReactDOM.findDOMNode(this.refs.container).querySelector('.extend-text__auto-complete-container');
+    const activeOptionNode = ReactDOM.findDOMNode(this.refs.container).querySelector(activeOptionsSelector);
+
+    if (activeOptionNode) {
+      autoCompleteContainerNode.scrollTop = activeOptionNode.offsetTop;
+    }
+  }
+
+  closeAutoComplete(currentValue = this.props.value, newState = {}) {
+    Object.assign(newState, {
+      isOpened: false,
+      activeAutoCompleteOptionIndex: null,
+      activeAutoCompleteOptions: null,
+      lastCheckedInputValue: null,
+      inputValue: this.getDisplayValue(currentValue)
+    });
+
+    ReactDOM.findDOMNode(this.refs.input).blur();
+
+    this.setState(newState);
+  }
+
+  getExactMatchAutoCompleteOptionIndex(inputValue, autoCompleteOptions) {
+    let index = -1;
+
+    if (inputValue !== '' && isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
+      autoCompleteOptions.forEach((autoCompleteOption, key) => {
+        if (index !== -1) {
+          return;
+        }
+
+        if (autoCompleteOption.display.toLowerCase() === inputValue.toLowerCase()) {
+          index = key;
+        }
+      });
+    }
+
+    return index;
+  }
+
+  getDisplayValue(values) {
+    return !this.props.multiple && isArray(values) && values.length > 0 ? values[0].display : '';
+  }
+
   renderAutoComplete() {
     const processAutoCompleteOptions = (options) => {
-      let optionNodes = [];
+      const optionNodes = [];
 
       options.forEach((option, key) => {
         let displayNode = null;
@@ -425,7 +420,7 @@ class ExtendText extends React.Component {
       });
 
       return optionNodes;
-    }
+    };
 
     if (!this.state.isOpened) {
       return null;
@@ -441,7 +436,7 @@ class ExtendText extends React.Component {
         >
           {this.props.loadingNode}
         </div>
-      )
+      );
     } else if (!this.state.activeAutoCompleteOptions || this.state.activeAutoCompleteOptions.length === 0) {
       children.push(
         <div
@@ -450,9 +445,9 @@ class ExtendText extends React.Component {
         >
           {this.props.typeForSearchingNode}
         </div>
-      )
+      );
     } else {
-      let renderableOptions = this.props.useFiltering && this.props.isSearchable && this.props.options.length > 0
+      const renderableOptions = this.props.useFiltering && this.props.isSearchable && this.props.options.length > 0
         ? this.filterAutoCompleteOptions(this.state.activeAutoCompleteOptions)
         : this.state.activeAutoCompleteOptions;
 
@@ -466,7 +461,7 @@ class ExtendText extends React.Component {
           >{
             this.props.noOptionsNode}
           </div>
-        )
+        );
       }
     }
 
@@ -478,7 +473,7 @@ class ExtendText extends React.Component {
   }
 
   renderTags() {
-    if (!this.props.multiple || !isArray(this.props.value ) || this.props.value.length === 0) {
+    if (!this.props.multiple || !isArray(this.props.value) || this.props.value.length === 0) {
       return null;
     }
 

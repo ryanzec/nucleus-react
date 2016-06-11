@@ -1,19 +1,14 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 class FormTextbox extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
   getCssClasses() {
-    let cssClasses = [this.props.type === 'textarea' || this.props.type === 'file' ? 'form-element__' + this.props.type : 'form-element__textbox'];
+    let cssClasses = [this.props.type === 'textarea' || this.props.type === 'file' ? `form-element__${this.props.type}` : 'form-element__textbox'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -23,7 +18,7 @@ class FormTextbox extends React.Component {
   }
 
   render() {
-    if(this.props.type === 'textarea') {
+    if (this.props.type === 'textarea') {
       return (
         <textarea
           className={this.getCssClasses().join(' ')}
@@ -44,7 +39,8 @@ class FormTextbox extends React.Component {
 FormTextbox.displayName = 'FormTextbox';
 
 FormTextbox.propTypes = {
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  type: React.PropTypes.string
 };
 
 FormTextbox.defaultProps = {

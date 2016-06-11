@@ -1,15 +1,10 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 import SvgIcon from './svg-icon';
 
 class FormLegend extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -22,14 +17,14 @@ class FormLegend extends React.Component {
     }
 
     if (this.props.validation) {
-      cssClasses.push('m-' + this.props.validation);
+      cssClasses.push(`m-${this.props.validation}`);
     }
 
     return cssClasses;
   }
 
   render() {
-    var requiredDetailsNode = null;
+    let requiredDetailsNode = null;
 
     if (this.props.displayRequiredDetails) {
       requiredDetailsNode = (
@@ -57,12 +52,14 @@ FormLegend.displayName = 'FormLegend';
 
 FormLegend.propTypes = {
   className: React.PropTypes.string,
-  displayRequiredDetails: React.PropTypes.bool
+  displayRequiredDetails: React.PropTypes.bool,
+  validation: React.PropTypes.oneOf(['valid', 'inValid'])
 };
 
 FormLegend.defaultProps = {
   className: null,
-  displayRequiredDetails: false
+  displayRequiredDetails: false,
+  validation: null
 };
 
 export default FormLegend;

@@ -1,15 +1,10 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 import SvgIcon from './svg-icon';
 
 class FormValidationMessage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -25,7 +20,7 @@ class FormValidationMessage extends React.Component {
   }
 
   render() {
-    var iconNode = null;
+    let iconNode = null;
 
     if (this.props.iconFragment) {
       iconNode = (

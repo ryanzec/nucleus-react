@@ -1,13 +1,8 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 class ProgressBar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -20,7 +15,7 @@ class ProgressBar extends React.Component {
     }
 
     if (this.props.styleType) {
-      cssClasses.push('m-' + this.props.styleType);
+      cssClasses.push(`m-${this.props.styleType}`);
     }
 
     if (this.props.isStriped) {
@@ -46,7 +41,7 @@ ProgressBar.displayName = 'ProgressBar';
 
 ProgressBar.propTypes = {
   className: React.PropTypes.string,
-  styleType: customPropTypes.progressBarStyleTypes,
+  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
   isStriped: React.PropTypes.bool
 };
 

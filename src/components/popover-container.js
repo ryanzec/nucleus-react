@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import DomEventManager from '../utilities/dom/dom-event-manager';
 
 import ReactTether from 'react-tether';
-
-let count = 1;
 
 class PopoverContainer extends React.Component {
   constructor(props) {
@@ -24,12 +21,12 @@ class PopoverContainer extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.domEventManager.clear();
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
+  componentWillUnmount() {
+    this.domEventManager.clear();
   }
 
   onClickOutside() {
@@ -64,11 +61,7 @@ class PopoverContainer extends React.Component {
     }
 
     //NOTE: we need to add in a ref in order to make sure in the outside click handler we are not clicking on the content
-    let children = React.Children.map(this.props.children, (child, key) => {
-      return React.cloneElement(child, {
-          ref: key === 0 ? 'handle' : 'content'
-      });
-    });
+    let children = React.Children.map(this.props.children, (child, key) => React.cloneElement(child, {ref: key === 0 ? 'handle' : 'content'}));
 
     return (
       <ReactTether
@@ -86,7 +79,7 @@ PopoverContainer.displayName = 'PopoverContainer';
 PopoverContainer.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool,
-  outClickOutside: React.PropTypes.func
+  onClickOutside: React.PropTypes.func
 };
 
 PopoverContainer.defaultProps = {

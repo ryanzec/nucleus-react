@@ -1,0 +1,35 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    // disable requiring trailing commas because it might be nice to revert to
+    // being JSON at some point, and I don't want to make big changes now.
+    "comma-dangle": 0,
+
+    //sorry, I just hate this
+    "object-curly-spacing": [2, "never"],
+
+    //children is something that is kinda automatic and no real benefit it defined the prop type for it
+    "react/prop-types": [2,{ignore:[children]}],
+
+    //we have a max line length of 160
+    "max-len": [1, 160],
+
+    //we want to allow our code to use console.warn / error that will be stripped out during production build for useful messages
+    "no-console": [2,{"allow":["warn", "error"]}],
+
+    //commented out code should have a space (editor like sublime text do this) and regular commend should not
+    "spaced-comment": [2, "never"],
+
+    //airbnb default for this has some get/set stuff that can cause random error so just removed that
+    "react/sort-comp": [2, {
+      order: [
+        "static-methods",
+        "lifecycle",
+        "/^on.+$/",
+        "everything-else",
+        "/^render.+$/",
+        "render"
+      ],
+    }],
+  }
+}

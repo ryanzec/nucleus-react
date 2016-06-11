@@ -1,5 +1,4 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import moment from 'moment-timezone';
@@ -19,12 +18,8 @@ class DatePicker extends React.Component {
     this.onClickPreviousMonth = this.onClickPreviousMonth.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
   componentWillMount() {
-    let startingDay;
+    let viewDate;
 
     if (this.props.selectedDays.length > 0) {
       viewDate = this.props.selectedDays[0];
@@ -33,7 +28,23 @@ class DatePicker extends React.Component {
     }
 
     this.setState({
-      viewDate: viewDate
+      viewDate
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
+  onClickNextMonth() {
+    this.setState({
+      viewDate: this.state.viewDate.clone().add(1, 'month')
+    });
+  }
+
+  onClickPreviousMonth() {
+    this.setState({
+      viewDate: this.state.viewDate.clone().subtract(1, 'month')
     });
   }
 
@@ -48,15 +59,14 @@ class DatePicker extends React.Component {
   }
 
   getCalendarMonthWeeks() {
-    let baseMonth = this.state.viewDate.month();
-    let currentProcessingDay = this.state.viewDate.clone().startOf('month').weekday(0);
-
-    let calendarMonthWeeks = [];
+    const baseMonth = this.state.viewDate.month();
+    const currentProcessingDay = this.state.viewDate.clone().startOf('month').weekday(0);
+    const calendarMonthWeeks = [];
 
     do {
-      let weekDays = [];
+      const weekDays = [];
 
-      for(let x = 0; x < 7; x += 1) {
+      for (let x = 0; x < 7; x += 1) {
         weekDays.push(currentProcessingDay.clone());
 
         currentProcessingDay.add(1, 'days');
@@ -80,34 +90,19 @@ class DatePicker extends React.Component {
         if (day.diff(selectedDay, 'days') === 0) {
           isActive = true;
         }
-
-        console.log(day.diff(selectedDay, 'days'));
       });
     }
 
     return isActive;
   }
 
-  onClickNextMonth() {
-    this.setState({
-      viewDate: this.state.viewDate.clone().add(1, 'month')
-    });
-  }
-
-  onClickPreviousMonth() {
-    this.setState({
-      viewDate: this.state.viewDate.clone().subtract(1, 'month')
-    });
-  }
-
   renderCalendarMonthWeeks() {
-    let viewMonth = this.state.viewDate.month();
-    let calendarMonthWeeks = this.getCalendarMonthWeeks();
-
-    var weekNodes = [];
+    const viewMonth = this.state.viewDate.month();
+    const calendarMonthWeeks = this.getCalendarMonthWeeks();
+    const weekNodes = [];
 
     calendarMonthWeeks.forEach((week, weekKey) => {
-      let dayNodes = [];
+      const dayNodes = [];
 
       week.forEach((day) => {
         let isOtherMonth = day.month() !== viewMonth;
@@ -182,17 +177,3 @@ DatePicker.defaultProps = {
 };
 
 export default DatePicker;
-
-
-
-
-
-
-
-
-
-
-
-
-
-

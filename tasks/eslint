@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-./node_modules/.bin/eslint --ext .js --ext .jsx web/app/
+./node_modules/.bin/eslint --ext .js --ext .jsx src/

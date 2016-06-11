@@ -7,9 +7,9 @@ export default class DomEventManager {
     element.addEventListener(type, func);
 
     this.managedDomEvents.push({
-      element: element,
-      type: type,
-      func: func
+      element,
+      type,
+      func
     });
   }
 

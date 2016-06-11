@@ -7,8 +7,8 @@ export default class DomDimensions {
   }
 
   calculateDimensions() {
-    let nodeClientRect = this.domElement.getBoundingClientRect();
-    let nodeComputedStyles = window.getComputedStyle(this.domElement);
+    const nodeClientRect = this.domElement.getBoundingClientRect();
+    const nodeComputedStyles = window.getComputedStyle(this.domElement);
 
     this.dimensions = {
       width: parseFloat(nodeClientRect.width),
@@ -37,10 +37,10 @@ export default class DomDimensions {
         bottom: parseFloat(nodeComputedStyles.borderBottomWidth),
         left: parseFloat(nodeComputedStyles.borderLeftWidth)
       }
-    }
+    };
   }
 
   autoSetHeight() {
-    this.domElement.style.height = this.domElement.scrollHeight + this.dimensions.borders.top + this.dimensions.borders.bottom + 'px';
+    this.domElement.style.height = `${(this.domElement.scrollHeight + this.dimensions.borders.top + this.dimensions.borders.bottom)}px`;
   }
 }

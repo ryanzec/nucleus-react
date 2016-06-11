@@ -5,6 +5,9 @@ There are some key used within the changelog which are as following:
 - [BREAKING]: means there is a change that is known to break existing code
 
 # IN PROGRESS
+
+- incorporated airbnb eslint (with some minor custom tweaks)
+- updated src code to pass eslint configurations
 - added utilities to managing auto incrementing id
 - added support to bind click event for the negative and position notification actions
 - added basic notification container with very basic example (example needs more flushing out)

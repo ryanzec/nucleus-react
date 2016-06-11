@@ -4,47 +4,39 @@ import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-com
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 
 class SvgIcon extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
   getInnerCssClasses() {
-    var cssClasses = ['svg-icon__container', this.props.fragment + '-icon'];
+    let cssClasses = ['svg-icon__container', `${this.props.fragment}-icon`];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
     if (this.props.styleType) {
-      cssClasses.push('m-' + this.props.styleType);
+      cssClasses.push(`m-${this.props.styleType}`);
     }
 
     return cssClasses;
   }
 
   getOuterCssClasses() {
-    var cssClasses = ['svg-icon__outer-container', this.props.fragment + '-icon'];
+    let cssClasses = ['svg-icon__outer-container', `${this.props.fragment}-icon`];
 
     if (this.props.outerClassName) {
       cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
-    }
-
-    if (this.props.isClickable === true) {
-      cssClasses.push('has-clickability');
     }
 
     return cssClasses;
   }
 
   getIndicatorHtml() {
-    var indicator = '';
+    let indicator = '';
 
     if (this.props.indicator) {
-      indicator = '<div class="svg-icon__indicator m-' + this.props.indicator + '"></div>';
+      indicator = `<div class="svg-icon__indicator m-${this.props.indicator}"></div>`;
     }
 
     return indicator;

@@ -1,16 +1,10 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 import FormLabel from './form-label';
 import SvgIcon from './svg-icon';
 
 class FormElementCheckbox extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -26,11 +20,10 @@ class FormElementCheckbox extends React.Component {
   }
 
   render() {
-    let fragment = this.props.checked ? 'check-square' : 'square';
-    let nodes = [];
-    let textNode = (<span key="text">{this.props.children}</span>);
-    let iconNode = (
-      <SvgIcon key="icon" fragment={fragment} />
+    let nodes;
+    const textNode = (<span key="text">{this.props.children}</span>);
+    const iconNode = (
+      <SvgIcon key="icon" fragment={this.props.checked ? 'check-square' : 'square'} />
     );
 
     if (this.props.inputAlignment === 'left') {
@@ -52,12 +45,14 @@ FormElementCheckbox.displayName = 'FormElementCheckbox';
 
 FormElementCheckbox.propTypes = {
   className: React.PropTypes.string,
-  inputAlignment: customPropTypes.formLabelInputAlignments
+  inputAlignment: React.PropTypes.oneOf(['left', 'right']),
+  checked: React.PropTypes.bool
 };
 
 FormElementCheckbox.defaultProps = {
   className: null,
-  inputAlignment: 'left'
+  inputAlignment: 'left',
+  checked: false
 };
 
 export default FormElementCheckbox;

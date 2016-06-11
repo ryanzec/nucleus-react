@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 class Code extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
   componentWillMount() {
     if (process.env.ENV !== 'production') {
       if (!window.Prism) {
@@ -21,6 +13,10 @@ class Code extends React.Component {
 
   componentDidMount() {
     window.Prism.highlightElement(this.getCodeElement());
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
   componentDidUpdate() {
@@ -40,16 +36,15 @@ class Code extends React.Component {
   getCodeElement() {
     if (this.props.isInline === true) {
       return ReactDOM.findDOMNode(this);
-    } else {
-      return ReactDOM.findDOMNode(this).querySelector('code');
     }
+
+    return ReactDOM.findDOMNode(this).querySelector('code');
   }
 
   render() {
-    var codeCssClasses = ['language-' + this.props.language];
-    var preCssClasses = [];
-    var codeAttributes = {};
-    var preAttributes = {};
+    const preCssClasses = [];
+    const codeAttributes = {};
+    const preAttributes = {};
 
     if (this.props.showLineNumbers === true) {
       preCssClasses.push('line-numbers');
@@ -67,7 +62,7 @@ class Code extends React.Component {
       preCssClasses.push(this.props.className);
     }
 
-    codeAttributes.className = codeCssClasses.join(' ');
+    codeAttributes.className = `language-${this.props.language}`;
     preAttributes.className = preCssClasses.join(' ');
 
     if (this.props.isInline !== true) {
@@ -76,17 +71,18 @@ class Code extends React.Component {
           React.createElement('code', codeAttributes, this.props.children)
         )
       );
-    } else {
-      return (
-        React.createElement('code', codeAttributes, this.props.children)
-      );
     }
+
+    return (
+      React.createElement('code', codeAttributes, this.props.children)
+    );
   }
 }
 
 Code.displayName = 'Code';
 
 Code.propTypes = {
+  className: React.PropTypes.string,
   language: React.PropTypes.string,
   showLineNumbers: React.PropTypes.bool,
   lineNumberStart: React.PropTypes.number,
@@ -95,6 +91,7 @@ Code.propTypes = {
 };
 
 Code.defaultProps = {
+  className: null,
   language: null,
   showLineNumbers: true,
   lineNumberStart: null,

@@ -1,5 +1,4 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -11,10 +10,6 @@ class Modal extends AppendBodyComponent {
     super(props);
 
     this.setAppendElement();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
   componentDidMount() {
@@ -51,6 +46,10 @@ class Modal extends AppendBodyComponent {
     this.removeAppendElement();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
   getCssClasses() {
     let cssClasses = ['modal__wrapper'];
 
@@ -66,13 +65,13 @@ class Modal extends AppendBodyComponent {
   }
 
   updateSelf() {
-    let styles = {};
+    const styles = {};
 
     if (this.props.isActive) {
       styles.display = 'block';
     }
 
-    let modalNode = (
+    this.updateAppendElement(
       <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive')}
@@ -83,8 +82,6 @@ class Modal extends AppendBodyComponent {
         <Overlay isActive={this.props.isActive} />
       </div>
     );
-
-    this.updateAppendElement(modalNode);
   }
 
   render() {

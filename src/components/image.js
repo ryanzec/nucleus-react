@@ -18,6 +18,12 @@ class Image extends React.Component {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
+  onError() {
+    this.setState({
+      errorLoading: true
+    });
+  }
+
   getCssClasses() {
     let cssClasses = [];
 
@@ -28,15 +34,10 @@ class Image extends React.Component {
     return cssClasses;
   }
 
-  onError() {
-    this.setState({
-      errorLoading: true
-    });
-  }
-
   render() {
-    var node = (
+    let node = (
       <img
+        role="presentation"
         className={this.getCssClasses().join(' ')}
         onError={this.onError}
         {...getPassThroughProperties(this.props, 'className', 'notFoundNode')}
@@ -55,12 +56,14 @@ Image.displayName = 'Image';
 
 Image.propTypes = {
   className: React.PropTypes.string,
-  notFoundNode: React.PropTypes.node
+  notFoundNode: React.PropTypes.node,
+  src: React.PropTypes.string
 };
 
 Image.defaultProps = {
   className: null,
-  notFoundNode: null
+  notFoundNode: null,
+  src: null
 };
 
 export default Image;

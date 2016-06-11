@@ -1,15 +1,10 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 import SvgIcon from './svg-icon';
 
 class FormLabel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -22,15 +17,15 @@ class FormLabel extends React.Component {
     }
 
     if (this.props.inputType) {
-      cssClasses.push('m-' + this.props.inputType);
-      cssClasses.push('m-' + this.props.inputAlignment);
+      cssClasses.push(`m-${this.props.inputType}`);
+      cssClasses.push(`m-${this.props.inputAlignment}`);
     }
 
     return cssClasses;
   }
 
   renderRequiredIcon() {
-    var node = null;
+    let node = null;
 
     if (this.props.isRequired) {
       node = (
@@ -66,8 +61,8 @@ FormLabel.displayName = 'FormLabel';
 FormLabel.propTypes = {
   className: React.PropTypes.string,
   isRequired: React.PropTypes.bool,
-  inputType: customPropTypes.formLabelInputTypes,
-  inputAlignment: customPropTypes.formLabelInputAlignments,
+  inputType: React.PropTypes.oneOf([false, 'checkbox', 'radio']),
+  inputAlignment: React.PropTypes.oneOf(['left', 'right']),
   isHidden: React.PropTypes.bool
 };
 

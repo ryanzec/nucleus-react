@@ -3,10 +3,6 @@ import getPassThroughProperties from '../utilities/component/get-pass-through-pr
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 class Overlay extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -30,7 +26,7 @@ class Overlay extends React.Component {
   }
 
   render() {
-    var topContentNode = null;
+    let topContentNode = null;
 
     if (this.props.children && this.props.children[0]) {
       topContentNode = (

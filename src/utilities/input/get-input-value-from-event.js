@@ -1,5 +1,5 @@
 export default function getInputValueFromEvent(event) {
-  var value;
+  let value;
 
   if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
     value = event.target.checked;
@@ -8,4 +8,4 @@ export default function getInputValueFromEvent(event) {
   }
 
   return value;
-};
+}

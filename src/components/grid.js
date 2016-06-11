@@ -1,13 +1,8 @@
 import React from 'react';
-import customPropTypes from '../utilities/component/custom-prop-types';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
 class Grid extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -47,7 +42,7 @@ Grid.displayName = 'Grid';
 Grid.propTypes = {
   className: React.PropTypes.string,
   isForm: React.PropTypes.bool,
-  labelAlignment: customPropTypes.gridFormLabelAlignments
+  labelAlignment: React.PropTypes.oneOf(['left', 'right'])
 };
 
 Grid.defaultProps = {
