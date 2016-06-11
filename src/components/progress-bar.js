@@ -22,6 +22,10 @@ class ProgressBar extends React.Component {
       cssClasses.push('m-striped');
     }
 
+    if (!this.props.isSquare) {
+      cssClasses.push('m-pill');
+    }
+
     return cssClasses;
   }
 
@@ -29,7 +33,7 @@ class ProgressBar extends React.Component {
     return (
       <progress
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isStriped', 'isSquare')}
       >
         {this.props.children}
       </progress>
@@ -42,13 +46,15 @@ ProgressBar.displayName = 'ProgressBar';
 ProgressBar.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  isStriped: React.PropTypes.bool
+  isStriped: React.PropTypes.bool,
+  isSquare: React.PropTypes.bool
 };
 
 ProgressBar.defaultProps = {
   className: null,
   styleType: null,
   isStriped: false,
+  isSquare: false,
 
   //NOTE: native property defaults
   max: 100,

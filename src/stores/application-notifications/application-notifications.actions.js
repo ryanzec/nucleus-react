@@ -1,18 +1,10 @@
 import * as constants from './application-notifications.constants';
 
-const add = (newNotification) => {
-  return (dispatch) => {
-    dispatch({
-      type: constants.ADD,
-      newNotification
-    });
-
-    if (newNotification.autoClose) {
-      setTimeout(() => {
-        dispatch(remove(newNotification.id));
-      }, newNotification.autoClose);
-    }
-  }
+const add = (newNotification) => (dispatch) => {
+  dispatch({
+    type: constants.ADD,
+    newNotification
+  });
 };
 
 const update = (id, updateData) => ({

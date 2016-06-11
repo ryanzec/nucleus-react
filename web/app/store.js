@@ -6,9 +6,9 @@ import {
 import thunk from 'redux-thunk';
 import {routerReducer} from 'react-router-redux';
 
-import preventDoubleClick from './prevent-double-click/prevent-double-click.reducer';
-import menu from './menu/menu.reducer';
-import applicationNotifications from './application-notifications/application-notifications.reducer';
+import preventDoubleClick from './stores/prevent-double-click/prevent-double-click.reducer';
+import menu from './stores/menu/menu.reducer';
+import applicationNotifications from '../../src/stores/application-notifications/application-notifications.reducer';
 
 let myReducers = {
   preventDoubleClick,

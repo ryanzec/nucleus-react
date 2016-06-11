@@ -36,6 +36,11 @@ class ProgressBarsPage extends React.Component {
         <ProgressBar styleType="info" isStriped={true} value={50} className="u-margin-bottom-12" />
         <ProgressBar styleType="warning" isStriped={true} value={75} className="u-margin-bottom-12" />
         <ProgressBar styleType="danger" isStriped={true} value={100} className="u-margin-bottom-12" />
+        <h2>Square</h2>
+        <ProgressBar isSquare styleType="success" isStriped={true} value={25} className="u-margin-bottom-12" />
+        <ProgressBar isSquare styleType="info" isStriped={true} value={50} className="u-margin-bottom-12" />
+        <ProgressBar isSquare styleType="warning" isStriped={true} value={75} className="u-margin-bottom-12" />
+        <ProgressBar isSquare styleType="danger" isStriped={true} value={100} className="u-margin-bottom-12" />
       </div>
     );
   }

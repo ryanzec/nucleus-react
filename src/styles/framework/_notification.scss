@@ -49,6 +49,8 @@ $background-color-notification: $color-white;
 @mixin apply-notification-colors($color, $dark-color) {
   border: 2px solid $dark-color;
   background-color: $background-color-notification;
+  overflow: hidden;
+  position: relative;
 
   .svg-icon__container {
     fill: $dark-color;
@@ -59,15 +61,16 @@ $background-color-notification: $color-white;
   }
 
   &.m-filled {
-    background-color: $color;
-    color: $dark-color;
+    border: none;
+    background-color: lighten($dark-color, 20%);
+    color: $color-white;
 
     .svg-icon__container {
-      fill: $dark-color;
+      fill: $color-white;
     }
 
     #{$component-identifier}__actions {
-      color: $dark-color;
+      color: $color-white;
     }
   }
 }
@@ -133,6 +136,14 @@ $background-color-notification: $color-white;
     }
   }
 
+  &__countdown {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+  }
 }
 
 $component-identifier: '';

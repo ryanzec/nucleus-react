@@ -33,7 +33,7 @@ class Notification extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isFiolled', 'withShadow')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isFilled', 'hasShadow')}
       >
         {this.props.children}
       </div>

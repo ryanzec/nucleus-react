@@ -31,5 +31,8 @@
         "render"
       ],
     }],
+
+    //NOTE: this make so that there should be no name in front of a function first '(' regardless if it is named or not
+    space-before-function-paren: [2, "never"]
   }
 }

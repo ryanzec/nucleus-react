@@ -1,7 +1,7 @@
 import immutable from 'immutable';
 import * as constants from './application-notifications.constants';
 
-let baseData = {
+const baseData = {
   notifications: []
 };
 
@@ -17,16 +17,14 @@ export default function(state = immutable.fromJS(baseData), action) {
       newState = state.setIn(['notifications'], state.getIn(['notifications']).map((notification) => {
         if (notification.get('id') === action.id) {
           return notification.merge(action.updateData);
-        } else {
-          return notification;
         }
+
+        return notification;
       }));
       break;
 
     case constants.REMOVE:
-      newState = state.setIn(['notifications'], state.getIn(['notifications']).filter((notification) => {
-        return notification.get('id') !== action.id;
-      }));
+      newState = state.setIn(['notifications'], state.getIn(['notifications']).filter((notification) => notification.get('id') !== action.id));
       break;
 
     case constants.CLEAR:
@@ -38,4 +36,4 @@ export default function(state = immutable.fromJS(baseData), action) {
   }
 
   return newState;
-};
+}

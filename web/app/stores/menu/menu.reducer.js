@@ -81,6 +81,13 @@ let menuData = immutable.fromJS({
       display: 'Typography',
       to: '/style-guide/typography'
     }]
+  }, {
+    display: 'Sub Systems',
+    items: [{
+      id: 'sub-systems-application-notifications',
+      display: 'Application Notifications',
+      to: '/sub-systems/application-notifications'
+    }]
   }],
   activeMenu: 'style-guide-alerts'
 });

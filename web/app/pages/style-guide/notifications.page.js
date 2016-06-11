@@ -3,14 +3,10 @@ import {connect} from 'react-redux';
 
 // import CodeExample from '../../react/components/code-example';
 
-// import StylesExample from './src/examples/buttons/styles';
-
 // import { readFileSync } from 'fs';
 // import { join } from 'path';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
-
-import applicationNotificationsActions from '../../store/application-notifications/application-notifications.actions';
 
 import Code from '../../../../src/components/code';
 import Button from '../../../../src/components/button';
@@ -161,33 +157,6 @@ class NotificationsPage extends React.Component {
           </NotificationMessage>
           <NotificationActions type="icons" actions="positive" />
         </Notification>
-        <h2>NotificationContainer</h2>
-        <div>
-          <NotificationContainer>
-            {this.renderApplictionNotifications()}
-          </NotificationContainer>
-          <Button
-            styleType="success"
-            onClick={this.props.onClickAdd}
-          >
-            Add
-          </Button>
-          <Button
-            styleType="success"
-            onClick={this.props.onClickAddAutoClose}
-          >
-            Add Auto Close
-          </Button>
-          <Button onClick={this.props.onClickUpdate}>
-            Update
-          </Button>
-          <Button
-            styleType="danger"
-            onClick={this.props.onClickClear}
-          >
-            Clear
-          </Button>
-        </div>
       </div>
     );
   }
@@ -199,37 +168,4 @@ NotificationsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-let mapStateToProps = (state) => ({
-  applicationNotifications: state.applicationNotifications.toJSON()
-});
-
-let mapDispatchToProps = (dispatch) => ({
-  dispatch,
-
-  onClickAddAutoClose() {
-    dispatch(applicationNotificationsActions.add({
-      id: getNextId(),
-      message: 'test',
-      autoClose: 3000
-    }));
-  },
-
-  onClickAdd() {
-    dispatch(applicationNotificationsActions.add({
-      id: getNextId(),
-      message: 'test'
-    }));
-  },
-
-  onClickUpdate() {
-    dispatch(applicationNotificationsActions.update(1, {
-      message: 'updated'
-    }));
-  },
-
-  onClickClear() {
-    dispatch(applicationNotificationsActions.clear());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsPage);
+export default NotificationsPage;
