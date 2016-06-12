@@ -22,6 +22,10 @@ class Button extends React.Component {
       cssClasses.push('m-pill');
     }
 
+    if (this.props.isThin) {
+      cssClasses.push('m-thin');
+    }
+
     return cssClasses;
   }
 
@@ -29,7 +33,7 @@ class Button extends React.Component {
     return (
       <button
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isPill')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isPill', 'isThin')}
       >
         {this.props.children}
       </button>
@@ -42,13 +46,15 @@ Button.displayName = 'Button';
 Button.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
-  isPill: React.PropTypes.bool
+  isPill: React.PropTypes.bool,
+  isThin: React.PropTypes.bool
 };
 
 Button.defaultProps = {
   className: null,
   styleType: null,
-  isPill: false
+  isPill: false,
+  isThin: false
 };
 
 export default Button;

@@ -4,12 +4,14 @@ import CodeExample from '../../react/components/code-example';
 
 import StylesExample from './assets/examples/buttons/styles';
 import PillExample from './assets/examples/buttons/pill';
+import ThinExample from './assets/examples/buttons/thin';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles.js'), 'utf8');
 const pillExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/pill.js'), 'utf8');
+const thinExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/thin.js'), 'utf8');
 
 class ButtonsPage extends React.Component {
   constructor(props) {
@@ -28,10 +30,16 @@ class ButtonsPage extends React.Component {
           codeContent={stylesExampleContent}
         />
         <h2>Pills</h2>
-        <p>Button can be in the for of a pill</p>
+        <p>Button can be in the form of a pill</p>
         <CodeExample
           exampleComponent={PillExample}
           codeContent={pillExampleContent}
+        />
+        <h2>Thin</h2>
+        <p>Buttons can be inverted with the thin form</p>
+        <CodeExample
+          exampleComponent={ThinExample}
+          codeContent={thinExampleContent}
         />
       </div>
     );

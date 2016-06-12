@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added thin form for buttons
 - added pill form for buttons
 - notification additions and updates to support the application notifications sub system
 - added form date picker component with support for selecting a single date #147

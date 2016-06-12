@@ -17,6 +17,23 @@ $background-color-warning-hover-button: darken($color-warning, 10%);
 $background-color-danger-button: $color-danger;
 $background-color-danger-hover-button: darken($color-danger, 15%);
 
+@mixin apply-button-colors($light, $dark, $hover) {
+  color: $light;
+  background-color: $dark;
+  border-color: $dark;
+
+  &.m-thin {
+    color: $dark;
+    background-color: $color-white;
+  }
+
+  &:hover {
+    background-color: $hover;
+    border-color: $hover;
+    color: $light;
+  }
+}
+
 #{$component-identifier} {
   cursor: pointer;
   display: inline-block;
@@ -28,8 +45,16 @@ $background-color-danger-hover-button: darken($color-danger, 15%);
   background-color: $background-color-button;
   color: $color-button;
 
+  &:not(.m-link) {
+    border: 2px solid $background-color-button;
+  }
+
   &.m-pill {
     border-radius: 999px;
+  }
+
+  &.m-thin {
+    background-color: $color-white;
   }
 
   &:last-child {
@@ -43,6 +68,7 @@ $background-color-danger-hover-button: darken($color-danger, 15%);
 
   &:hover:not(.m-link) {
     background-color: $background-color-hover-button;
+    border-color: $background-color-hover-button;
   }
 
   &:active:not(.m-link) {
@@ -50,39 +76,19 @@ $background-color-danger-hover-button: darken($color-danger, 15%);
   }
 
   &.m-success {
-    color: $color-light-button;
-    background-color: $background-color-success-button;
-
-    &:hover {
-      background-color: $background-color-success-hover-button;
-    }
+    @include apply-button-colors($color-light-button, $background-color-success-button, $background-color-success-hover-button);
   }
 
   &.m-info {
-    color: $color-light-button;
-    background-color: $background-color-info-button;
-
-    &:hover {
-      background-color: $background-color-info-hover-button;
-    }
+    @include apply-button-colors($color-light-button, $background-color-info-button, $background-color-info-hover-button);
   }
 
   &.m-warning {
-    color: $color-light-button;
-    background-color: $background-color-warning-button;
-
-    &:hover {
-      background-color: $background-color-warning-hover-button;
-    }
+    @include apply-button-colors($color-light-button, $background-color-warning-button, $background-color-warning-hover-button);
   }
 
   &.m-danger {
-    color: $color-light-button;
-    background-color: $background-color-danger-button;
-
-    &:hover {
-      background-color: $background-color-danger-hover-button;
-    }
+    @include apply-button-colors($color-light-button, $background-color-danger-button, $background-color-danger-hover-button);
   }
 
   &.m-link {
