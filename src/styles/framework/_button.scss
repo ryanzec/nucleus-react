@@ -28,6 +28,10 @@ $background-color-danger-hover-button: darken($color-danger, 15%);
   background-color: $background-color-button;
   color: $color-button;
 
+  &.m-pill {
+    border-radius: 999px;
+  }
+
   &:last-child {
     margin-right: 0;
   }

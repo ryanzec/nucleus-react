@@ -18,6 +18,10 @@ class Button extends React.Component {
       cssClasses.push(`m-${this.props.styleType}`);
     }
 
+    if (this.props.isPill) {
+      cssClasses.push('m-pill');
+    }
+
     return cssClasses;
   }
 
@@ -25,7 +29,7 @@ class Button extends React.Component {
     return (
       <button
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isPill')}
       >
         {this.props.children}
       </button>
@@ -37,12 +41,14 @@ Button.displayName = 'Button';
 
 Button.propTypes = {
   className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link'])
+  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
+  isPill: React.PropTypes.bool
 };
 
 Button.defaultProps = {
   className: null,
-  styleType: null
+  styleType: null,
+  isPill: false
 };
 
 export default Button;
