@@ -57,7 +57,7 @@ $component-identifier: '.date-picker';
     border-radius: 3px;
     cursor: pointer;
 
-    &:hover {
+    &:hover:not(.is-disabled) {
       background-color: $color-lighter-gray;
       font-weight: 500;
     }
@@ -69,7 +69,12 @@ $component-identifier: '.date-picker';
     }
 
     &.m-other-month {
+      opacity: .6;
+    }
+
+    &.is-disabled {
       opacity: .3;
+      cursor: not-allowed;
     }
   }
 }

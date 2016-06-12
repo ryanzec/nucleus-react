@@ -39,6 +39,8 @@ class DatePickerPage extends React.Component {
           <DatePicker
             onClickDate={this.onClickDate}
             selectedDays={this.state.selectedDays}
+            minDate={moment('2012-04-05', 'YYYY-MM-DD')}
+            maxDate={moment('2012-05-02', 'YYYY-MM-DD')}
           />
         </div>
       </div>

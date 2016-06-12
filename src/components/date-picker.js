@@ -96,6 +96,25 @@ class DatePicker extends React.Component {
     return isActive;
   }
 
+  isDisabledDay(day) {
+    let isDisabled = false;
+
+    if (this.props.minDate || this.props.maxDate) {
+      isDisabled = (
+        (
+          this.props.minDate
+          && this.props.minDate.isAfter(day)
+        )
+        || (
+          this.props.maxDate
+          && this.props.maxDate.isBefore(day)
+        )
+      );
+    }
+
+    return isDisabled;
+  }
+
   renderCalendarMonthWeeks() {
     const viewMonth = this.state.viewDate.month();
     const calendarMonthWeeks = this.getCalendarMonthWeeks();
@@ -114,6 +133,7 @@ class DatePicker extends React.Component {
             day={day}
             isOtherMonth={isOtherMonth}
             isActive={this.isActiveDay(day)}
+            disabled={this.isDisabledDay(day)}
             onClickDate={this.props.onClickDate}
           >
             {day.date()}
@@ -167,13 +187,17 @@ DatePicker.displayName = 'DatePicker';
 DatePicker.propTypes = {
   className: React.PropTypes.string,
   onClickDate: React.PropTypes.func.isRequired,
-  selectedDays: React.PropTypes.array
+  selectedDays: React.PropTypes.array,
+  minDate: React.PropTypes.object,
+  maxDate: React.PropTypes.object
 };
 
 DatePicker.defaultProps = {
   className: null,
   onClickDate: null,
-  selectedDays: []
+  selectedDays: [],
+  minDate: null,
+  maxDate: null
 };
 
 export default DatePicker;
