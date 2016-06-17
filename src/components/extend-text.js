@@ -62,8 +62,8 @@ class ExtendText extends React.Component {
     this.domEventManager.clear();
   }
 
-  onClickOutside() {
-    if (this.state.isOpened) {
+  onClickOutside(event) {
+    if (this.state.isActive) {
       let close = true;
 
       if (
@@ -84,7 +84,7 @@ class ExtendText extends React.Component {
 
   onFocusInput() {
     this.setState({
-      isOpened: true,
+      isActive: true,
       activeAutoCompleteOptionIndex: 0
     });
   }
@@ -359,7 +359,7 @@ class ExtendText extends React.Component {
 
   closeAutoComplete(currentValue = this.props.value, newState = {}) {
     Object.assign(newState, {
-      isOpened: false,
+      isActive: false,
       activeAutoCompleteOptionIndex: null,
       activeAutoCompleteOptions: null,
       lastCheckedInputValue: null,

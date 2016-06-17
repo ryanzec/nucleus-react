@@ -4,7 +4,7 @@ import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-com
 import FormLabel from './form-label';
 import SvgIcon from './svg-icon';
 
-class FormCheckbox extends React.Component {
+class FormRadio extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -41,18 +41,18 @@ class FormCheckbox extends React.Component {
   }
 }
 
-FormCheckbox.displayName = 'FormCheckbox';
+FormRadio.displayName = 'FormRadio';
 
-FormCheckbox.propTypes = {
+FormRadio.propTypes = {
   className: React.PropTypes.string,
   inputAlignment: React.PropTypes.oneOf(['left', 'right']),
   checked: React.PropTypes.bool
 };
 
-FormCheckbox.defaultProps = {
+FormRadio.defaultProps = {
   className: null,
   inputAlignment: 'left',
   checked: false
 };
 
-export default FormCheckbox;
+export default FormRadio;

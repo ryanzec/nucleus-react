@@ -24,6 +24,7 @@ import FormRadio from '../../../../src/components/form-radio';
 import FormGroupAddon from '../../../../src/components/form-textbox-group-addon';
 import FormLegend from '../../../../src/components/form-legend';
 import FormDatePicker from '../../../../src/components/form-date-picker';
+import FormCheckboxToggle from '../../../../src/components/form-checkbox-toggle';
 
 import Grid from '../../../../src/components/grid';
 import GridRow from '../../../../src/components/grid-row';
@@ -99,6 +100,11 @@ class FormsPage extends React.Component {
           <FormElement>
             <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
             <FormCheckbox checked={true}>Blah</FormCheckbox>
+          </FormElement>
+          <FormElement>
+            <FormLabel>Toggle Checkbox</FormLabel>
+            <FormCheckboxToggle />
+            <FormCheckboxToggle checked={true} />
           </FormElement>
           <FormElement>
             <FormRadio inputAlignment="right">Blah</FormRadio>

@@ -4,7 +4,7 @@ import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-com
 import FormLabel from './form-label';
 import SvgIcon from './svg-icon';
 
-class FormElementCheckbox extends React.Component {
+class FormCheckbox extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -41,18 +41,18 @@ class FormElementCheckbox extends React.Component {
   }
 }
 
-FormElementCheckbox.displayName = 'FormElementCheckbox';
+FormCheckbox.displayName = 'FormCheckbox';
 
-FormElementCheckbox.propTypes = {
+FormCheckbox.propTypes = {
   className: React.PropTypes.string,
   inputAlignment: React.PropTypes.oneOf(['left', 'right']),
   checked: React.PropTypes.bool
 };
 
-FormElementCheckbox.defaultProps = {
+FormCheckbox.defaultProps = {
   className: null,
   inputAlignment: 'left',
   checked: false
 };
 
-export default FormElementCheckbox;
+export default FormCheckbox;

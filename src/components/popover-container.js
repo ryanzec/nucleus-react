@@ -29,7 +29,7 @@ class PopoverContainer extends React.Component {
     this.domEventManager.clear();
   }
 
-  onClickOutside() {
+  onClickOutside(event) {
     let closePopover = true;
 
     if (this.refs.content && (ReactDOM.findDOMNode(this.refs.content).contains(event.target) || ReactDOM.findDOMNode(this.refs.content) === event.target)) {
