@@ -1,0 +1,21 @@
+$component-identifier: '.wizard';
+
+#{$component-identifier} {
+  &__intro-highlight {
+    position: absolute;
+    background-color: $color-white;
+    z-index: 100000;
+
+    &.tether-element {
+      background-color: transparent;
+      color: $color-white;
+    }
+  }
+
+  &__highlighted-element {
+    position: relative;
+    z-index: 100001;
+  }
+}
+
+$component-identifier: '';

@@ -20,6 +20,7 @@ import ListsPage from './lists.page';
 import DatePickerPage from './date-picker.page';
 import ImagesPage from './images.page';
 import ExtendTextPage from './extend-text.page';
+import WizardPage from './wizard.page';
 
 export const routes = [
   <Route
@@ -135,5 +136,11 @@ export const routes = [
     name="style-guide-extend-text"
     path="/style-guide/extend-text"
     component={ExtendTextPage}
+  />,
+  <Route
+    key="19"
+    name="style-guide-wizard"
+    path="/style-guide/wizard"
+    component={WizardPage}
   />
 ];

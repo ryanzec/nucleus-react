@@ -1,10 +1,31 @@
 import React from 'react';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import getNextId from '../utilities/get-next-id';
 
-class Overlay extends React.Component {
+import AppendBodyComponent from './append-body-component';
+
+class Overlay extends AppendBodyComponent {
+  constructor(props) {
+    super(props);
+
+    this.setAppendElementId(getNextId());
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
+  }
+
+  componentDidMount() {
+    this.updateSelf();
+  }
+
+  componentDidUpdate(oldProps) {
+    this.updateSelf();
+  }
+
+  componentWillUnmount() {
+    this.removeAppendElement();
   }
 
   getCssClasses() {
@@ -25,7 +46,7 @@ class Overlay extends React.Component {
     return cssClasses;
   }
 
-  render() {
+  updateSelf() {
     let topContentNode = null;
 
     if (this.props.children && this.props.children[0]) {
@@ -34,7 +55,7 @@ class Overlay extends React.Component {
       );
     }
 
-    return (
+    this.updateAppendElement(
       <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive', 'isAbsolute')}
@@ -42,6 +63,10 @@ class Overlay extends React.Component {
         {topContentNode}
       </div>
     );
+  }
+
+  render() {
+    return null;
   }
 }
 
