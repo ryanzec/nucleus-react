@@ -2,8 +2,6 @@ import React from 'react';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-import SvgIcon from './svg-icon';
-
 class FormCheckboxToggle extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);

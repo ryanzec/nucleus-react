@@ -80,6 +80,10 @@ let menuData = immutable.fromJS({
       id: 'style-guide-typography',
       display: 'Typography',
       to: '/style-guide/typography'
+    }, {
+      id: 'style-guide-wizard',
+      display: 'Wizard',
+      to: '/style-guide/wizard'
     }]
   }, {
     display: 'Sub Systems',

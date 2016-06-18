@@ -1,6 +1,7 @@
 import React from 'react';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import getNextId from '../utilities/get-next-id';
 
 import AppendBodyComponent from './append-body-component';
 import Overlay from './overlay';
@@ -9,7 +10,8 @@ class Modal extends AppendBodyComponent {
   constructor(props) {
     super(props);
 
-    this.setAppendElement();
+    this.uniqueId = getNextId();
+    this.setAppendElementId(this.uniqueId);
   }
 
   componentDidMount() {
@@ -23,7 +25,7 @@ class Modal extends AppendBodyComponent {
   componentDidUpdate(oldProps) {
     //NOTE: need to make sure when closing the modal, the scroll position is reset to the top incase it is opened again
     if (!this.props.isActive && oldProps.isActive) {
-      this.appendedElement.querySelector('.modal__wrapper').scrollTop = 0;
+      this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"]`).scrollTop = 0;
     }
 
     //NOTE we should only change the body call if the isActive has change incase there are multiple possible modals on the same page
@@ -71,15 +73,24 @@ class Modal extends AppendBodyComponent {
       styles.display = 'block';
     }
 
+    let overlayNode = null;
+
+    if (!this.props.overlayDisabled) {
+      overlayNode = (
+        <Overlay isActive={this.props.isActive} />
+      );
+    }
+
     this.updateAppendElement(
       <div
+        data-modal-id={this.uniqueId}
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive')}
       >
         <div className="modal">
           {this.props.children}
         </div>
-        <Overlay isActive={this.props.isActive} />
+        {overlayNode}
       </div>
     );
   }
@@ -92,11 +103,13 @@ class Modal extends AppendBodyComponent {
 Modal.displayName = 'Modal';
 
 Modal.propTypes = {
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  overlayDisabled: React.PropTypes.bool
 };
 
 Modal.defaultProps = {
-  className: null
+  className: null,
+  overlayDisabled: false
 };
 
 export default Modal;

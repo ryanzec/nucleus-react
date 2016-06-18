@@ -17,6 +17,7 @@ $color-header-footer-modal: $color-light-text;
   overflow-x: hidden;
   overflow-y: auto;
   display: none;
+  z-index: $z-index-modal;
 
   &.is-active {
     display: block;
@@ -28,7 +29,6 @@ body.modal-open {
 }
 
 #{$component-identifier} {
-  z-index: $z-index-modal;
   position: relative;
   top: $top-offset-modal;
   width: 900px;

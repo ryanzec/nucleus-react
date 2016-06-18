@@ -88,9 +88,9 @@ class ModalPage extends React.Component {
         </Modal>
         <br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br />
-        <h2>Header</h2>
+        <h2>Header (and overlay disabled</h2>
         <Button onClick={this.onClickToggleModal2}>Modal2</Button>
-        <Modal isActive={this.state.isActiveModal2}>
+        <Modal isActive={this.state.isActiveModal2} overlayDisabled={true}>
           <ModalHeader>
             Header
           </ModalHeader>
