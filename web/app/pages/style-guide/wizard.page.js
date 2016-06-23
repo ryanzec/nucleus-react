@@ -46,10 +46,13 @@ class WizardPage extends React.Component {
             }
           }, {
             type: 'intro',
-            highlightElements: [
-              '.p-style-guide-wizard h1',
-              '.p-style-guide-wizard h3'
-            ],
+            highlightElements: [{
+              selector: '.p-style-guide-wizard h1',
+              padding: 5
+            }, {
+              selector: '.p-style-guide-wizard h3',
+              padding: 15
+            }],
             className: 'testing',
             content: (
               <div>WHAT WHAT!!!</div>
@@ -64,7 +67,6 @@ class WizardPage extends React.Component {
           }]}
           closeHandler={this.closeHandler}
           allowExit={true}
-          highlightPadding={5}
         />
       </div>
     );

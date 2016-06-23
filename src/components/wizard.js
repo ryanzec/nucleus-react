@@ -69,27 +69,15 @@ class Wizard extends React.Component {
   }
 
   increaseStep() {
-    this.removeIntroClasses();
-
     this.setState({
       activeStep: this.state.activeStep + 1
     });
   }
 
   decreaseStep() {
-    this.removeIntroClasses();
-
     this.setState({
       activeStep: this.state.activeStep - 1
     });
-  }
-
-  removeIntroClasses() {
-    if (this.props.steps[this.state.activeStep].highlightElements && this.props.steps[this.state.activeStep].highlightElements.length > 0) {
-      this.props.steps[this.state.activeStep].highlightElements.forEach((selector) => {
-        document.querySelector(selector).classList.remove('wizard__highlighted-element');
-      });
-    }
   }
 
   getNextButtonText() {
@@ -154,19 +142,18 @@ class Wizard extends React.Component {
       if (this.props.steps[this.state.activeStep].highlightElements && this.props.steps[this.state.activeStep].highlightElements.length > 0) {
         const highlightElements = [];
 
-        this.props.steps[this.state.activeStep].highlightElements.forEach((selector, key) => {
+        this.props.steps[this.state.activeStep].highlightElements.forEach((configuration, key) => {
           const content = key === 0 ? this.props.steps[this.state.activeStep].content : null;
 
           highlightElements.push(
             <WizardHighlightElement
               key={key}
-              highlightedSelector={selector}
+              configuration={configuration}
               className={this.props.steps[this.state.activeStep].className}
               onClickNextStep={this.onClickNextStep}
               onClickPreviousStep={this.onClickPreviousStep}
               nextButtonText={this.getNextButtonText()}
               previousButtonText={this.props.previousButtonText}
-              highlightPadding={this.props.highlightPadding}
             >
               {content}
             </WizardHighlightElement>
@@ -213,8 +200,7 @@ Wizard.propTypes = {
   allowGoingBackwards: React.PropTypes.bool,
   previousButtonText: React.PropTypes.string,
   nextButtonText: React.PropTypes.string,
-  finishButtonText: React.PropTypes.string,
-  highlightPadding: React.PropTypes.number
+  finishButtonText: React.PropTypes.string
 };
 
 Wizard.defaultProps = {
@@ -226,8 +212,7 @@ Wizard.defaultProps = {
   allowGoingBackwards: true,
   previousButtonText: 'Previous',
   nextButtonText: 'Next',
-  finishButtonText: 'Done',
-  highlightPadding: 0
+  finishButtonText: 'Done'
 };
 
 export default Wizard;
