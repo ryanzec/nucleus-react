@@ -40,6 +40,7 @@ class WizardHighlightElement extends AppendBodyComponent {
 
   componentWillUnmount() {
     this.domEventManager.clear();
+    document.querySelector(this.props.configuration.selector).classList.remove('wizard__highlighted-element');
     this.removeAppendElement();
   }
 
