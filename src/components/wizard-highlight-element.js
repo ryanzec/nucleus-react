@@ -54,17 +54,18 @@ class WizardHighlightElement extends AppendBodyComponent {
   }
 
   setHighlightedStyles() {
-    const highlightElement = document.querySelector(this.props.highlightedSelector);
+    const highlightElement = document.querySelector(this.props.configuration.selector);
     const dimensions = new DomDimensions(highlightElement);
 
     highlightElement.classList.add('wizard__highlighted-element');
+    const highlightPadding = this.props.configuration.padding || 0;
 
     this.setState({
       styles: {
-        top: `${dimensions.dimensions.relativeTop - this.props.highlightPadding}px`,
-        left: `${dimensions.dimensions.relativeLeft - this.props.highlightPadding}px`,
-        height: dimensions.dimensions.height + (this.props.highlightPadding * 2),
-        width: dimensions.dimensions.width + (this.props.highlightPadding * 2)
+        top: `${dimensions.dimensions.relativeTop - highlightPadding}px`,
+        left: `${dimensions.dimensions.relativeLeft - highlightPadding}px`,
+        height: dimensions.dimensions.height + (highlightPadding * 2),
+        width: dimensions.dimensions.width + (highlightPadding * 2)
       }
     });
   }
@@ -95,7 +96,7 @@ class WizardHighlightElement extends AppendBodyComponent {
           'onClickPreviousStep',
           'nextButtonText',
           'previousButtonText',
-          'highlightedSelector'
+          'configuration'
         )}
       >
         <div
@@ -108,7 +109,7 @@ class WizardHighlightElement extends AppendBodyComponent {
             'onClickPreviousStep',
             'nextButtonText',
             'previousButtonText',
-            'highlightedSelector'
+            'configuration'
           )}
         />
         {highlightNode}
@@ -129,8 +130,7 @@ WizardHighlightElement.propTypes = {
   onClickPreviousStep: React.PropTypes.func,
   nextButtonText: React.PropTypes.string,
   previousButtonText: React.PropTypes.string,
-  highlightedSelector: React.PropTypes.string.isRequired,
-  highlightPadding: React.PropTypes.number
+  configuration: React.PropTypes.object.isRequired,
 };
 
 WizardHighlightElement.defaultProps = {
@@ -139,8 +139,7 @@ WizardHighlightElement.defaultProps = {
   onClickPreviousStep: null,
   nextButtonText: 'Next',
   previousButtonText: 'Previous',
-  highlightedSelector: null,
-  highlightPadding: 0,
+  configuration: null,
 
   //NOTE: default some ReactTether properties
   attachment: 'top center',
