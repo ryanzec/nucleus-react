@@ -6,7 +6,7 @@ class NotificationCountdown extends React.Component {
     super(props);
 
     this.time = 0;
-    this.timeLength = this.props.length;
+    this.timeLength = props.length;
     this.start = new Date().getTime();
   }
 

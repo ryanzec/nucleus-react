@@ -4,7 +4,7 @@ $color-button: $color-text;
 $color-light-button: $color-light-text;
 $background-color-button: $color-lighter-gray;
 $background-color-hover-button: $color-light-gray;
-$padding-button: 8px 16px;
+$padding-button: 4px 8px;
 $border-radius-button: 3px;
 $margin-button: 4px;
 $box-shadow-button: 0 0 10px rgba(0, 0, 0, .3) inset;
@@ -16,6 +16,7 @@ $background-color-warning-button: $color-warning;
 $background-color-warning-hover-button: darken($color-warning, 10%);
 $background-color-danger-button: $color-danger;
 $background-color-danger-hover-button: darken($color-danger, 15%);
+$font-size-button: 1.4rem;
 
 @mixin apply-button-colors($light, $dark, $hover) {
   color: $light;
@@ -44,6 +45,7 @@ $background-color-danger-hover-button: darken($color-danger, 15%);
   border: none;
   background-color: $background-color-button;
   color: $color-button;
+  font-size: $font-size-button;
 
   &:not(.m-link) {
     border: 2px solid $background-color-button;

@@ -2,17 +2,20 @@ import React from 'react';
 
 import Button from '../../../../src/components/button';
 import Overlay from '../../../../src/components/overlay';
+import OverlayAbsolute from '../../../../src/components/overlay-absolute';
 
 class OverlaysPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOverlayActive: false,
-      isAbsoluteOverlayActive: false
+      isAbsoluteOverlayActive: false,
+      isAbsoluteOverlayWithTextActive: false
     };
 
     this.onClickDefault = this.onClickDefault.bind(this);
     this.onClickAbsolute = this.onClickAbsolute.bind(this);
+    this.onClickAbsoluteWithText = this.onClickAbsoluteWithText.bind(this);
   }
 
   onClickDefault() {
@@ -39,6 +42,18 @@ class OverlaysPage extends React.Component {
     }.bind(this), 2000);
   }
 
+  onClickAbsoluteWithText() {
+    this.setState({
+      isAbsoluteOverlayWithTextActive: true
+    });
+
+    setTimeout(function() {
+      this.setState({
+        isAbsoluteOverlayWithTextActive: false
+      });
+    }.bind(this), 2000);
+  }
+
   render() {
     return (
       <div className="p-style-guide-overlays">
@@ -47,7 +62,11 @@ class OverlaysPage extends React.Component {
         <Overlay isActive={this.state.isOverlayActive} isAbsolute={true} />
         <div className="absolute-test">
             <Button onClick={this.onClickAbsolute}>Specific Element Page</Button>
-            <Overlay isActive={this.state.isAbsoluteOverlayActive} isAbsolute={true} />
+            <OverlayAbsolute isActive={this.state.isAbsoluteOverlayActive} />
+        </div>
+        <div className="absolute-test m-with-overlay-text">
+            <Button onClick={this.onClickAbsoluteWithText}>Specific Element Page With Overlay Text</Button>
+            <OverlayAbsolute isActive={this.state.isAbsoluteOverlayWithTextActive}>I am text</OverlayAbsolute>
         </div>
       </div>
     );

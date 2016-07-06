@@ -29,7 +29,7 @@ class ExtendText extends React.Component {
       activeAutoCompleteOptionIndex: null,
       activeAutoCompleteOptions: null,
       lastCheckedInputValue: null,
-      inputValue: this.getDisplayValue(props.value)
+      inputValue: this.getDisplayValue(props.multiple, props.value)
     };
 
     this.onFocusInput = this.onFocusInput.bind(this);
@@ -218,7 +218,7 @@ class ExtendText extends React.Component {
       realNewValue = [realNewValue];
     }
 
-    this.setValue(realNewValue, this.getDisplayValue(realNewValue));
+    this.setValue(realNewValue, this.getDisplayValue(this.props.multiple, realNewValue));
   }
 
   setValue(newValue, newInputValue) {
@@ -363,7 +363,7 @@ class ExtendText extends React.Component {
       activeAutoCompleteOptionIndex: null,
       activeAutoCompleteOptions: null,
       lastCheckedInputValue: null,
-      inputValue: this.getDisplayValue(currentValue)
+      inputValue: this.getDisplayValue(this.props.multiple, currentValue)
     });
 
     ReactDOM.findDOMNode(this.refs.input).blur();
@@ -389,8 +389,8 @@ class ExtendText extends React.Component {
     return index;
   }
 
-  getDisplayValue(values) {
-    return !this.props.multiple && isArray(values) && values.length > 0 ? values[0].display : '';
+  getDisplayValue(allowsMultiple, values) {
+    return !allowsMultiple && isArray(values) && values.length > 0 ? values[0].display : '';
   }
 
   renderAutoComplete() {

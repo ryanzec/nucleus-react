@@ -1,5 +1,5 @@
 import React from 'react';
-import iconData from 'nucleus-icons';
+import iconData from 'font-awesome-svg-icons';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 

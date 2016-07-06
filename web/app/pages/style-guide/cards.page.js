@@ -6,7 +6,7 @@ import Grid from '../../../../src/components/grid';
 import GridRow from '../../../../src/components/grid-row';
 import GridColumn from '../../../../src/components/grid-column';
 import Button from '../../../../src/components/button';
-import Overlay from '../../../../src/components/overlay';
+import OverlayAbsolute from '../../../../src/components/overlay-absolute';
 import Card from '../../../../src/components/card';
 import CardTitle from '../../../../src/components/card-title';
 import CardSubtitle from '../../../../src/components/card-subtitle';
@@ -154,7 +154,7 @@ class CardsPage extends React.Component {
           </CardActions>
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardFooter className="u-text-align-center">5 months ago</CardFooter>
-          <Overlay isActive={true} isAbsolute={true}>This is top content</Overlay>
+          <OverlayAbsolute isActive={true}>This is top content</OverlayAbsolute>
         </Card>
         <h4>Styles</h4>
         <Card styleType="success">

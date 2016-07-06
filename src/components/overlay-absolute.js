@@ -1,35 +1,14 @@
 import React from 'react';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import getNextId from '../utilities/get-next-id';
 
-import AppendBodyComponent from './append-body-component';
-
-class Overlay extends AppendBodyComponent {
-  constructor(props) {
-    super(props);
-
-    this.setAppendElementId(getNextId());
-  }
-
+class OverlayAbsolute extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  componentDidMount() {
-    this.updateSelf();
-  }
-
-  componentDidUpdate(oldProps) {
-    this.updateSelf();
-  }
-
-  componentWillUnmount() {
-    this.removeAppendElement();
-  }
-
   getCssClasses() {
-    let cssClasses = ['overlay'];
+    let cssClasses = ['overlay', 'overlay-absolute'];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -42,7 +21,7 @@ class Overlay extends AppendBodyComponent {
     return cssClasses;
   }
 
-  updateSelf() {
+  render() {
     let topContentNode = null;
 
     if (this.props.children && this.props.children[0]) {
@@ -51,7 +30,7 @@ class Overlay extends AppendBodyComponent {
       );
     }
 
-    this.updateAppendElement(
+    return (
       <div
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive')}
@@ -60,23 +39,18 @@ class Overlay extends AppendBodyComponent {
       </div>
     );
   }
-
-  render() {
-    return null;
-  }
 }
 
-Overlay.displayName = 'Overlay';
+OverlayAbsolute.displayName = 'OverlayAbsolute';
 
-Overlay.propTypes = {
+OverlayAbsolute.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool
 };
 
-Overlay.defaultProps = {
+OverlayAbsolute.defaultProps = {
   className: null,
-  isActive: false,
-  isAbsolute: false
+  isActive: false
 };
 
-export default Overlay;
+export default OverlayAbsolute;
