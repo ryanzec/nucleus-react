@@ -8,6 +8,7 @@ import DynamicExample from './assets/examples/extend-text/dynamic';
 import DefaultValueExample from './assets/examples/extend-text/default-value';
 import CharacterThresholdExample from './assets/examples/extend-text/character-threshold';
 import NotSearchableExample from './assets/examples/extend-text/not-searchable';
+import NotSearchableTopExample from './assets/examples/extend-text/not-searchable-top';
 import DisabledExample from './assets/examples/extend-text/disabled';
 import NoFilteringExample from './assets/examples/extend-text/no-filtering';
 import CustomFilterExample from './assets/examples/extend-text/custom-filter';
@@ -24,6 +25,7 @@ const dynamicExampleContent = readFileSync(join(__dirname, '/assets/examples/ext
 const defaultValueExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/default-value.js'), 'utf8');
 const characterThresholdExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/character-threshold.js'), 'utf8');
 const notSearchableExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/not-searchable.js'), 'utf8');
+const notSearchableTopExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/not-searchable-top.js'), 'utf8');
 const disabledExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/disabled.js'), 'utf8');
 const noFilteringExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/no-filtering.js'), 'utf8');
 const customFilterExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/custom-filter.js'), 'utf8');
@@ -73,6 +75,12 @@ class ExtendTextPage extends React.Component {
         <CodeExample
           exampleComponent={NotSearchableExample}
           codeContent={notSearchableExampleContent}
+        />
+        <h4>Not searchable (top)</h4>
+        <p>If you want the extend text component to not allow searching (make it more like a standard select drop down), then just set the isSearchable property to false</p>
+        <CodeExample
+          exampleComponent={NotSearchableTopExample}
+          codeContent={notSearchableTopExampleContent}
         />
         <h4>Disabled</h4>
         <p>You can disable the component by passing true to the disabled property</p>

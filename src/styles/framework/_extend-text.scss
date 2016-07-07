@@ -3,9 +3,51 @@ $component-identifier: '.extend-text';
 #{$component-identifier} {
   position: relative;
 
+  .form-element__textbox {
+    padding-right: 24px;
+  }
+
   &.is-opened {
-    .form-element__textbox {
-      @include border-bottom-radius(0);
+    #{$component-identifier}__auto-complete-container {
+      border-color: $border-color-focus-input;
+    }
+  }
+
+  &.m-bottom {
+    &.is-opened {
+      .form-element__textbox {
+        @include border-bottom-radius(0);
+      }
+    }
+
+    #{$component-identifier}__auto-complete-container {
+      @include border-bottom-radius($border-radius-input);
+
+      top: 100%;
+      border-top: none;
+
+      &:last-child {
+        @include border-bottom-radius($border-radius-input - 1);
+      }
+    }
+  }
+
+  &.m-top {
+    &.is-opened {
+      .form-element__textbox {
+        @include border-top-radius(0);
+      }
+    }
+
+    #{$component-identifier}__auto-complete-container {
+      @include border-top-radius($border-radius-input);
+
+      bottom: 100%;
+      border-bottom: none;
+
+      &:last-child {
+        @include border-top-radius($border-radius-input - 1);
+      }
     }
   }
 
@@ -32,13 +74,9 @@ $component-identifier: '.extend-text';
 
   &__auto-complete {
     &-container {
-      @include border-bottom-radius($border-radius-input);
-
       position: absolute;
-      top: 100%;
       width: 100%;
       border: 1px solid $border-color-input;
-      border-top: none;
       z-index: 100;
       background-color: $color-white;
       max-height: 300px;
@@ -57,10 +95,6 @@ $component-identifier: '.extend-text';
       &.is-active {
         background-color: $color-lightest-blue;
       }
-
-      &:last-child {
-        @include border-bottom-radius($border-radius-input - 1);
-      }
     }
   }
 
@@ -68,8 +102,24 @@ $component-identifier: '.extend-text';
     margin-bottom: 8px;
   }
 
-  &__tag-delete {
-    cursor: pointer;
+  &__tag {
+    margin-bottom: 4px;
+
+    span:nth-child(2) {
+      position: relative;
+      top: -2px;
+      line-height: 1.9rem;
+    }
+
+    .svg-icon__container {
+      height: 24px;
+      width: 24px;
+      padding: 6px;
+    }
+
+    &-delete {
+      cursor: pointer;
+    }
   }
 }
 

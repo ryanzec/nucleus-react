@@ -117,6 +117,7 @@ class ExtendText extends React.Component {
 
       default:
         if (this.props.allowCreate && this.props.multiple && this.props.addTagOnKeyCode === event.keyCode) {
+          this.addTagKeyCodeEnter = true;
           event.preventDefault();
           this.selectActiveItem();
         }
@@ -153,7 +154,7 @@ class ExtendText extends React.Component {
   }
 
   getCssClasses() {
-    let cssClasses = ['extend-text'];
+    let cssClasses = ['extend-text', `m-${this.props.autoCompletePosition}`];
 
     if (this.props.className) {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
@@ -226,10 +227,17 @@ class ExtendText extends React.Component {
       this.props.onChange(newValue);
     }
 
-    this.closeAutoComplete(newValue, {
+    let newState = {
       previousInputValue: this.state.inputValue,
       inputValue: newInputValue
-    });
+    };
+
+    if (this.addTagKeyCodeEnter) {
+      this.setState(newState);
+      this.addTagKeyCodeEnter = false;
+    } else {
+      this.closeAutoComplete(newValue, newState);
+    }
   }
 
   updateAutoCompleteOptions() {
@@ -485,14 +493,13 @@ class ExtendText extends React.Component {
           key={key}
           className="extend-text__tag"
         >
-          {valueObject.display}
           <SvgIcon
             className="extend-text__tag-delete"
             data-key={key}
-            fragment="x"
-            size="small"
+            fragment="times"
             onClick={this.onClickDeleteTag}
           />
+          {valueObject.display}
         </Badge>
       );
     });
@@ -607,7 +614,8 @@ ExtendText.propTypes = {
   addTagOnKeyCode: React.PropTypes.number,
   loadingNode: React.PropTypes.node,
   typeForSearchingNode: React.PropTypes.node,
-  noOptionsNode: React.PropTypes.node
+  noOptionsNode: React.PropTypes.node,
+  autoCompletePosition: React.PropTypes.oneOf(['bottom', 'top'])
 };
 
 ExtendText.defaultProps = {
@@ -629,7 +637,8 @@ ExtendText.defaultProps = {
   addTagOnKeyCode: null,
   loadingNode: 'Loading options...',
   typeForSearchingNode: 'Start typing for auto complete list',
-  noOptionsNode: 'No options found'
+  noOptionsNode: 'No options found',
+  autoCompletePosition: 'bottom'
 };
 
 export default ExtendText;

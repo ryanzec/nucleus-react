@@ -1,7 +1,7 @@
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text';
 
-class ExtendTextTaggingExample extends React.Component {
+class ExtendTextNotSearchableExample extends React.Component {
   constructor(props) {
     super(props);
 
@@ -37,22 +37,20 @@ class ExtendTextTaggingExample extends React.Component {
   render() {
     return (
       <ExtendText
+        autoCompletePosition="top"
         options={this.state.options}
         value={this.state.value}
         onChange={this.onChange}
-        multiple={true}
-        addTagOnKeyCode={188}
-        allowCreate={true}
-        placeholder="Type to add another..."
+        isSearchable={false}
       />
     );
   }
 }
 
-ExtendTextTaggingExample.displayName = 'ExtendTextTaggingExample';
+ExtendTextNotSearchableExample.displayName = 'ExtendTextNotSearchableExample';
 
-ExtendTextTaggingExample.contextTypes = {
+ExtendTextNotSearchableExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default ExtendTextTaggingExample;
+export default ExtendTextNotSearchableExample;
