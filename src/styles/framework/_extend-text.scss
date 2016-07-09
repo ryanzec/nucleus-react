@@ -5,6 +5,10 @@ $component-identifier: '.extend-text';
 
   .form-element__textbox {
     padding-right: 24px;
+
+    &[readonly] {
+      cursor: pointer;
+    }
   }
 
   &.is-opened {
@@ -30,6 +34,11 @@ $component-identifier: '.extend-text';
         @include border-bottom-radius($border-radius-input - 1);
       }
     }
+
+    #{$component-identifier}__tags-container,
+    #{$component-identifier}__tag {
+      margin: 0 4px 4px 0;
+    }
   }
 
   &.m-top {
@@ -49,6 +58,11 @@ $component-identifier: '.extend-text';
         @include border-top-radius($border-radius-input - 1);
       }
     }
+
+    #{$component-identifier}__tags-container,
+    #{$component-identifier}__tag {
+      margin: 4px 4px 0 0;
+    }
   }
 
   &__loading-indicator {
@@ -62,10 +76,12 @@ $component-identifier: '.extend-text';
 
   &__drop-down-indicator {
     position: absolute;
-    right: 10px;
-    top: 7px;
-    height: 12px;
-    width: 12px;
+    right: 0;
+    top: 0;
+    height: 26px;
+    width: 31px;
+    cursor: pointer;
+    padding: 8px;
   }
 
   &__input-container {
@@ -98,23 +114,21 @@ $component-identifier: '.extend-text';
     }
   }
 
-  &__tags-container {
-    margin-bottom: 8px;
-  }
-
   &__tag {
-    margin-bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid $color-black;
+    border-radius: 3px;
 
     span:nth-child(2) {
-      position: relative;
-      top: -2px;
-      line-height: 1.9rem;
+      padding-right: 8px;
     }
 
     .svg-icon__container {
-      height: 24px;
-      width: 24px;
-      padding: 6px;
+      height: (13px + (4 * 2));
+      width: (13px + (8 * 2));
+      padding: 4px 8px;
+      cursor: pointer;
     }
 
     &-delete {

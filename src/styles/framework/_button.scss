@@ -1,9 +1,9 @@
 $component-identifier: '.button';
 
-$color-button: $color-text;
+$color-button: $color-light-text;
 $color-light-button: $color-light-text;
-$background-color-button: $color-lighter-gray;
-$background-color-hover-button: $color-light-gray;
+$background-color-button: $color-neutral;
+$background-color-hover-button: $color-dark-neutral;
 $padding-button: 4px 8px;
 $border-radius-button: 3px;
 $margin-button: 4px;
@@ -28,7 +28,7 @@ $font-size-button: 1.4rem;
     background-color: $color-white;
   }
 
-  &:hover {
+  &:hover:not(.m-link) {
     background-color: $hover;
     border-color: $hover;
     color: $light;
@@ -43,7 +43,7 @@ $font-size-button: 1.4rem;
   margin-right: $margin-button;
   outline: none;
   border: none;
-  background-color: $background-color-button;
+  // background-color: $background-color-button;
   color: $color-button;
   font-size: $font-size-button;
 
@@ -56,7 +56,9 @@ $font-size-button: 1.4rem;
   }
 
   &.m-thin {
-    background-color: $color-white;
+    // color: $background-color-button;
+    // background-color: $color-white;
+    @include apply-button-colors($color-light-button, $background-color-button, $background-color-hover-button);
   }
 
   &:last-child {

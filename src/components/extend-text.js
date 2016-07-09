@@ -9,7 +9,6 @@ import isArray from 'lodash/isArray';
 import SvgIcon from './svg-icon';
 import FormTextbox from './form-textbox';
 import ExtendTextAutoCompleteOption from './extend-text-auto-complete-option';
-import Badge from './badge';
 import Button from './button';
 
 let loadingSvg;
@@ -41,6 +40,7 @@ class ExtendText extends React.Component {
     this.onClickOutside = this.onClickOutside.bind(this);
     this.onClickClearAll = this.onClickClearAll.bind(this);
     this.onClickDeleteTag = this.onClickDeleteTag.bind(this);
+    this.onClickDropDownIndicator = this.onClickDropDownIndicator.bind(this);
   }
 
   componentDidMount() {
@@ -51,10 +51,20 @@ class ExtendText extends React.Component {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(previousProps, previousState) {
     //TODO: can I use previous state
     if (this.state.isActive === true && (this.state.lastCheckedInputValue === null || this.state.lastCheckedInputValue !== this.state.inputValue)) {
       this.updateAutoCompleteOptions();
+    }
+
+    //need to make sure to update in the input value when the prop value change to keep everything in sync
+    let previousValue = previousProps.value && previousProps.value[0] ? previousProps.value[0].value : null;
+    let newValue = this.props.value && this.props.value[0] ? this.props.value[0].value : null;
+
+    if (!this.props.multiple && newValue !== previousValue) {
+      this.setState({
+        inputValue: this.getDisplayValue(this.props.multiple, this.props.value)
+      });
     }
   }
 
@@ -67,10 +77,32 @@ class ExtendText extends React.Component {
       let close = true;
 
       if (
-        this.refs.container
+        this.refs.input
         && (
-          ReactDOM.findDOMNode(this.refs.container).contains(event.target)
-          || ReactDOM.findDOMNode(this.refs.container) === event.target
+          ReactDOM.findDOMNode(this.refs.input).contains(event.target)
+          || ReactDOM.findDOMNode(this.refs.input) === event.target
+        )
+      ) {
+        close = false;
+      }
+
+      if (
+        close
+        && this.refs.dropDownIndicator
+        && (
+          ReactDOM.findDOMNode(this.refs.dropDownIndicator).contains(event.target)
+          || ReactDOM.findDOMNode(this.refs.dropDownIndicator) === event.target
+        )
+      ) {
+        close = false;
+      }
+
+      if (
+        close
+        && this.refs.autoCompleteContainer
+        && (
+          ReactDOM.findDOMNode(this.refs.autoCompleteContainer).contains(event.target)
+          || ReactDOM.findDOMNode(this.refs.autoCompleteContainer) === event.target
         )
       ) {
         close = false;
@@ -151,6 +183,10 @@ class ExtendText extends React.Component {
     newValue.splice(parseInt(event.currentTarget.getAttribute('data-key'), 10), 1);
 
     this.setValue(newValue, '');
+  }
+
+  onClickDropDownIndicator() {
+    ReactDOM.findDOMNode(this.refs.input).focus();
   }
 
   getCssClasses() {
@@ -318,15 +354,7 @@ class ExtendText extends React.Component {
   filterAutoCompleteOptions(autoCompleteOptions) {
     let filteredOptions = [];
 
-    if (
-      this.props.useFiltering
-      && this.props.isSearchable
-      && this.props.options.length > 0
-      && (
-        this.state.inputValue !== ''
-        || this.props.multiple
-      )
-    ) {
+    if (this.props.useFiltering && (this.state.inputValue !== ''|| this.props.multiple)) {
       if (isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
         if (this.props.optionsFilter) {
           filteredOptions = this.props.optionsFilter(this.state.inputValue, autoCompleteOptions);
@@ -474,7 +502,10 @@ class ExtendText extends React.Component {
     }
 
     return (
-      <div className="extend-text__auto-complete-container">
+      <div
+        ref="autoCompleteContainer"
+        className="extend-text__auto-complete-container"
+      >
         {children}
       </div>
     );
@@ -489,7 +520,7 @@ class ExtendText extends React.Component {
 
     this.props.value.forEach((valueObject, key) => {
       tagNodes.push(
-        <Badge
+        <div
           key={key}
           className="extend-text__tag"
         >
@@ -500,13 +531,13 @@ class ExtendText extends React.Component {
             onClick={this.onClickDeleteTag}
           />
           {valueObject.display}
-        </Badge>
+        </div>
       );
     });
 
     let clearAllNode = null;
 
-    if (tagNodes.length > 0) {
+    if (this.props.clearable && tagNodes.length > 0) {
       clearAllNode = (
         <Button
           styleType="link"
@@ -546,6 +577,62 @@ class ExtendText extends React.Component {
   }
 
   render() {
+    var gutsNode = null;
+
+    if (this.props.autoCompletePosition === 'top') {
+      gutsNode = (
+        <span>
+          <div className="extend-text__input-container">
+            <FormTextbox
+              ref="input"
+              onFocus={this.onFocusInput}
+              onKeyDown={this.onKeyDown}
+              value={this.state.inputValue}
+              onChange={this.onChangeInput}
+              readOnly={!this.props.isSearchable}
+              disabled={this.props.disabled}
+              placeholder={this.props.placeholder}
+            />
+            {this.renderLoadingIndicator()}
+            <SvgIcon
+              ref="dropDownIndicator"
+              onClick={this.onClickDropDownIndicator}
+              fragment="caret-down"
+              className="extend-text__drop-down-indicator"
+            />
+            {this.renderAutoComplete()}
+          </div>
+          {this.renderTags()}
+        </span>
+      );
+    } else {
+      gutsNode = (
+        <span>
+          {this.renderTags()}
+          <div className="extend-text__input-container">
+            <FormTextbox
+              ref="input"
+              onFocus={this.onFocusInput}
+              onKeyDown={this.onKeyDown}
+              value={this.state.inputValue}
+              onChange={this.onChangeInput}
+              readOnly={!this.props.isSearchable}
+              disabled={this.props.disabled}
+              placeholder={this.props.placeholder}
+            />
+            {this.renderLoadingIndicator()}
+            <SvgIcon
+              ref="dropDownIndicator"
+              onClick={this.onClickDropDownIndicator}
+              fragment="caret-down"
+              className="extend-text__drop-down-indicator"
+            />
+            {this.renderAutoComplete()}
+          </div>
+        </span>
+      );
+    }
+
     return (
       <div
         ref="container"
@@ -572,22 +659,7 @@ class ExtendText extends React.Component {
           'typeForSearchingNode'
         )}
       >
-        {this.renderTags()}
-        <div className="extend-text__input-container">
-          <FormTextbox
-            ref="input"
-            onFocus={this.onFocusInput}
-            onKeyDown={this.onKeyDown}
-            value={this.state.inputValue}
-            onChange={this.onChangeInput}
-            readOnly={!this.props.isSearchable}
-            disabled={this.props.disabled}
-            placeholder={this.props.placeholder}
-          />
-          {this.renderLoadingIndicator()}
-          <SvgIcon fragment="caret-down" className="extend-text__drop-down-indicator" />
-          {this.renderAutoComplete()}
-        </div>
+        {gutsNode}
       </div>
     );
   }
@@ -615,7 +687,8 @@ ExtendText.propTypes = {
   loadingNode: React.PropTypes.node,
   typeForSearchingNode: React.PropTypes.node,
   noOptionsNode: React.PropTypes.node,
-  autoCompletePosition: React.PropTypes.oneOf(['bottom', 'top'])
+  autoCompletePosition: React.PropTypes.oneOf(['bottom', 'top']),
+  clearable: React.PropTypes.bool
 };
 
 ExtendText.defaultProps = {
@@ -638,7 +711,8 @@ ExtendText.defaultProps = {
   loadingNode: 'Loading options...',
   typeForSearchingNode: 'Start typing for auto complete list',
   noOptionsNode: 'No options found',
-  autoCompletePosition: 'bottom'
+  autoCompletePosition: 'bottom',
+  clearable: false
 };
 
 export default ExtendText;

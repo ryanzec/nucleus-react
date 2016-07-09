@@ -1,13 +1,13 @@
 $component-identifier: '.badge';
 
-$color-badge: $color-text;
+$color-badge: $color-light-text;
 $color-light-badge: $color-light-text;
 //NOTE: 4px off to account for border which is needed for thin style support
 $padding-badge: 2px 8px;
 $border-radius-badge: 3px;
 $border-radius-pill-badge: 999px;
 $margin-badge: 4px;
-$background-color-badge: $color-lighter-gray;
+$background-color-badge: $color-neutral;
 $background-color-success-badge: $color-success;
 $background-color-info-badge: $color-info;
 $background-color-warning-badge: $color-warning;
@@ -30,6 +30,7 @@ $font-size-badge: 1.2rem;
   font-size: $font-size-badge;
 
   &.m-thin {
+    color: $background-color-badge;
     background-color: $background-color-thin-badge;
     border: $border-width-thin-badge solid $background-color-badge;
   }
