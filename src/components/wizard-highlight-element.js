@@ -34,7 +34,7 @@ class WizardHighlightElement extends AppendBodyComponent {
     this.updateSelf();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate() {
     this.updateSelf();
   }
 
@@ -88,7 +88,7 @@ class WizardHighlightElement extends AppendBodyComponent {
 
     this.updateAppendElement(
       <ReactTether
-        isActive={true}
+        isActive
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(
           this.props,

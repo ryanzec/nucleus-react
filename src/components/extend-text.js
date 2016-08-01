@@ -51,15 +51,17 @@ class ExtendText extends React.Component {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  componentDidUpdate(previousProps, previousState) {
-    //TODO: can I use previous state
+  //TODO: can I do this in the will receive props so I don't have to do the eslint disable below?
+  /*eslint-disable */
+  componentDidUpdate(previousProps) {
+    //TODO: can I use previous state?
     if (this.state.isActive === true && (this.state.lastCheckedInputValue === null || this.state.lastCheckedInputValue !== this.state.inputValue)) {
       this.updateAutoCompleteOptions();
     }
 
     //need to make sure to update in the input value when the prop value change to keep everything in sync
-    let previousValue = previousProps.value && previousProps.value[0] ? previousProps.value[0].value : null;
-    let newValue = this.props.value && this.props.value[0] ? this.props.value[0].value : null;
+    const previousValue = previousProps.value && previousProps.value[0] ? previousProps.value[0].value : null;
+    const newValue = this.props.value && this.props.value[0] ? this.props.value[0].value : null;
 
     if (!this.props.multiple && newValue !== previousValue) {
       this.setState({
@@ -67,6 +69,7 @@ class ExtendText extends React.Component {
       });
     }
   }
+  /*eslint-enable */
 
   componentWillUnmount() {
     this.domEventManager.clear();
@@ -263,7 +266,7 @@ class ExtendText extends React.Component {
       this.props.onChange(newValue);
     }
 
-    let newState = {
+    const newState = {
       previousInputValue: this.state.inputValue,
       inputValue: newInputValue
     };
@@ -354,7 +357,7 @@ class ExtendText extends React.Component {
   filterAutoCompleteOptions(autoCompleteOptions) {
     let filteredOptions = [];
 
-    if (this.props.useFiltering && (this.state.inputValue !== ''|| this.props.multiple)) {
+    if (this.props.useFiltering && (this.state.inputValue !== '' || this.props.multiple)) {
       if (isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
         if (this.props.optionsFilter) {
           filteredOptions = this.props.optionsFilter(this.state.inputValue, autoCompleteOptions);
@@ -577,7 +580,7 @@ class ExtendText extends React.Component {
   }
 
   render() {
-    var gutsNode = null;
+    let gutsNode = null;
 
     if (this.props.autoCompletePosition === 'top') {
       gutsNode = (

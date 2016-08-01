@@ -21,6 +21,7 @@ import DatePickerPage from './date-picker.page';
 import ImagesPage from './images.page';
 import ExtendTextPage from './extend-text.page';
 import WizardPage from './wizard.page';
+import FileUploadDragDrop from './file-upload-drag-drop.page';
 
 export const routes = [
   <Route
@@ -142,5 +143,11 @@ export const routes = [
     name="style-guide-wizard"
     path="/style-guide/wizard"
     component={WizardPage}
+  />,
+  <Route
+    key="20"
+    name="style-guide-file-upload-drag-drop"
+    path="/style-guide/file-upload-drag-drop"
+    component={FileUploadDragDrop}
   />
 ];

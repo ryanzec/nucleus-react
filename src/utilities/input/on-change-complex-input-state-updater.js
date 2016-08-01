@@ -1,8 +1,8 @@
 import {helpers as formDataHelpers} from 'form-data-validation';
 
-export default function onBlurInputStateUpdater(options) {
-  let newFormData;
-  const validateParameters = [this.state[options.formName], options.fieldName];
+export default function onChangeInputStateUpdater(options) {
+  let newFormData = formDataHelpers.set(this.state[options.formName], options.fieldName, options.value, true);
+  const validateParameters = [newFormData, options.fieldName];
 
   if (options.markFieldsAsDirty) {
     const markFieldsAsDirtyKeys = Object.keys(options.markFieldsAsDirty);
@@ -33,7 +33,5 @@ export default function onBlurInputStateUpdater(options) {
     });
   }
 
-  newFormData = formDataHelpers.validate.apply(null, validateParameters);
-
-  return formDataHelpers.markFieldAsDirty(newFormData, options.fieldName);
+  return formDataHelpers.validate.apply(null, validateParameters);
 }

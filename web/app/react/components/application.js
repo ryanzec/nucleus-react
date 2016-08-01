@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import HTML5Backend from 'react-dnd-html5-backend';
+import {DragDropContext} from 'react-dnd';
 
 import Grid from '../../../../src/components/grid';
 import GridRow from '../../../../src/components/grid-row';
@@ -64,4 +66,4 @@ let mapStateToProps = function(state) {
   };
 };
 
-export default connect(mapStateToProps)(Application);
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps)(Application));

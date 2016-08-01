@@ -37,6 +37,10 @@ let menuData = immutable.fromJS({
       display: 'Extend Text',
       to: '/style-guide/extend-text'
     }, {
+      id: 'style-guide-file-upload-drag-drop',
+      display: 'File Upload (DnD)',
+      to: '/style-guide/file-upload-drag-drop'
+    }, {
       id: 'style-guide-forms',
       display: 'Forms',
       to: '/style-guide/forms'

@@ -75,7 +75,9 @@ module.exports = {
       'react-redux',
       'react-router-redux',
       'react-router-scroll',
-      'react-tether'
+      'react-tether',
+      'react-dnd',
+      'react-dnd-html5-backend'
     ],
 
     //application code

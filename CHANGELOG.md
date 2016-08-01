@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added drag and drop file upload component #158
 - added support for min / max dates for date picker #152
 - added thin form for buttons
 - added pill form for buttons

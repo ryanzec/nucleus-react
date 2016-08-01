@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configuration from '../configuration';
 
-let appenedElements = {};
-let appendElementContainer = document.querySelector(configuration.get('appendElementSelector'));
+const appenedElements = {};
+const appendElementContainer = document.querySelector(configuration.get('appendElementSelector'));
 
 const getAppendedElements = () => {
   const elements = [];
@@ -12,19 +12,18 @@ const getAppendedElements = () => {
   const length = keys.length;
 
   if (length > 0) {
-    keys.forEach(function(key) {
+    keys.forEach((key) => {
       elements.push(appenedElements[key]);
     });
   }
 
   return elements;
-}
+};
 
 class AppendBodyComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    this.appendElementId;
     this.appendElementContainer = appendElementContainer;
   }
 

@@ -113,7 +113,7 @@ class Wizard extends React.Component {
       <Modal
         className={this.props.steps[this.state.activeStep].className}
         isActive={this.props.isActive}
-        overlayDisabled={true}
+        overlayDisabled
       >
         <ModalHeader closeHandler={closeHandler}>
           Header
@@ -121,7 +121,7 @@ class Wizard extends React.Component {
         <ModalContent>
           {this.renderModalContent()}
         </ModalContent>
-        <ModalFooter isActions={true}>
+        <ModalFooter isActions>
           {previousStepButtonNode}
           <Button onClick={this.onClickNextStep}>{this.getNextButtonText()}</Button>
         </ModalFooter>
@@ -132,36 +132,36 @@ class Wizard extends React.Component {
   renderStep() {
     if (this.props.steps[this.state.activeStep].type === 'modal') {
       return this.renderModal();
-    } else {
-      if (process.env.ENV !== 'production') {
-        if (!this.props.steps[this.state.activeStep].highlightElements || this.props.steps[this.state.activeStep].highlightElements.length === 0) {
-          console.error('A wizard step of intro needs to have at least 1 highlight element');
-        }
+    }
+
+    if (process.env.ENV !== 'production') {
+      if (!this.props.steps[this.state.activeStep].highlightElements || this.props.steps[this.state.activeStep].highlightElements.length === 0) {
+        console.error('A wizard step of intro needs to have at least 1 highlight element');
       }
+    }
 
-      if (this.props.steps[this.state.activeStep].highlightElements && this.props.steps[this.state.activeStep].highlightElements.length > 0) {
-        const highlightElements = [];
+    if (this.props.steps[this.state.activeStep].highlightElements && this.props.steps[this.state.activeStep].highlightElements.length > 0) {
+      const highlightElements = [];
 
-        this.props.steps[this.state.activeStep].highlightElements.forEach((configuration, key) => {
-          const content = key === 0 ? this.props.steps[this.state.activeStep].content : null;
+      this.props.steps[this.state.activeStep].highlightElements.forEach((configuration, key) => {
+        const content = key === 0 ? this.props.steps[this.state.activeStep].content : null;
 
-          highlightElements.push(
-            <WizardHighlightElement
-              key={key}
-              configuration={configuration}
-              className={this.props.steps[this.state.activeStep].className}
-              onClickNextStep={this.onClickNextStep}
-              onClickPreviousStep={this.onClickPreviousStep}
-              nextButtonText={this.getNextButtonText()}
-              previousButtonText={this.props.previousButtonText}
-            >
-              {content}
-            </WizardHighlightElement>
-          );
-        });
+        highlightElements.push(
+          <WizardHighlightElement
+            key={key}
+            configuration={configuration}
+            className={this.props.steps[this.state.activeStep].className}
+            onClickNextStep={this.onClickNextStep}
+            onClickPreviousStep={this.onClickPreviousStep}
+            nextButtonText={this.getNextButtonText()}
+            previousButtonText={this.props.previousButtonText}
+          >
+            {content}
+          </WizardHighlightElement>
+        );
+      });
 
-        return highlightElements;
-      }
+      return highlightElements;
     }
   }
 
@@ -200,7 +200,8 @@ Wizard.propTypes = {
   allowGoingBackwards: React.PropTypes.bool,
   previousButtonText: React.PropTypes.string,
   nextButtonText: React.PropTypes.string,
-  finishButtonText: React.PropTypes.string
+  finishButtonText: React.PropTypes.string,
+  initialStep: React.PropTypes.number
 };
 
 Wizard.defaultProps = {
@@ -212,7 +213,8 @@ Wizard.defaultProps = {
   allowGoingBackwards: true,
   previousButtonText: 'Previous',
   nextButtonText: 'Next',
-  finishButtonText: 'Done'
+  finishButtonText: 'Done',
+  initialStep: 0
 };
 
 export default Wizard;

@@ -20,7 +20,7 @@ class Overlay extends AppendBodyComponent {
     this.updateSelf();
   }
 
-  componentDidUpdate(oldProps) {
+  componentDidUpdate() {
     this.updateSelf();
   }
 

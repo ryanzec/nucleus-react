@@ -9,11 +9,15 @@ import {routerReducer} from 'react-router-redux';
 import preventDoubleClick from './stores/prevent-double-click/prevent-double-click.reducer';
 import menu from './stores/menu/menu.reducer';
 import applicationNotifications from '../../src/stores/application-notifications/application-notifications.reducer';
+import fileUpload from './stores/file-upload/file-upload.reducer';
+import fileUploadForm from './stores/file-upload-form/file-upload-form.reducer';
 
 let myReducers = {
   preventDoubleClick,
   menu,
-  applicationNotifications
+  applicationNotifications,
+  fileUpload,
+  fileUploadForm
 };
 
 let reducers = {};
