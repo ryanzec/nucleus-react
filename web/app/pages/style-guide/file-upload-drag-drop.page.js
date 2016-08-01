@@ -20,20 +20,19 @@ class FileUploadDragDropPage extends React.Component {
   }
 
   processFiles(files) {
-    console.log(files[0]);
     let newFormData = formDataHelpers.set(this.props.fileUploadForm, 'fileUpload', files[0]);
     newFormData = formDataHelpers.validate(newFormData, 'fileUpload');
 
-    this.props.dispatch(fileUploadActions.set(files));
+    // this.props.dispatch(fileUploadActions.set(files));
     this.props.dispatch(fileUploadFormActions.set(newFormData));
   }
 
   renderCurrentFileName() {
     let node = 'None Selected';
-    let files = this.props.fileUpload.getIn(['files']).toJSON();
+    let file = this.props.fileUploadForm.getIn(['fileUpload', 'value']);
 
-    if (files && files[0]) {
-      node = files[0].name;
+    if (file) {
+      node = file.name;
     }
 
     return node;
@@ -77,7 +76,6 @@ FileUploadDragDropPage.contextTypes = {
 };
 
 let mapStateToProps = (state) => ({
-  fileUpload: state.fileUpload,
   fileUploadForm: state.fileUploadForm
 });
 
