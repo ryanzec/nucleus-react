@@ -22,6 +22,16 @@ $color-header-footer-modal: $color-light-text;
   &.is-active {
     display: block;
   }
+
+  &.has-dynamic-height {
+    #{$component-identifier} {
+      overflow-y: auto;
+
+      &__content {
+        overflow-y: auto;
+      }
+    }
+  }
 }
 
 body.modal-open {
@@ -30,17 +40,12 @@ body.modal-open {
 
 #{$component-identifier} {
   position: relative;
-  top: $top-offset-modal;
-  width: 900px;
-  margin: 0 auto $top-offset-modal auto;
-  border-radius: $border-radius-modal;
 
   &__header {
     display: flex;
     padding: $padding-modal;
     margin: 0;
     background-color: $background-header-footer-color;
-    border-radius: $border-radius-modal $border-radius-modal 0 0;
     color: $color-header-footer-modal;
 
     &-close {
@@ -56,27 +61,46 @@ body.modal-open {
   &__content {
     padding: $padding-modal;
     background-color: $background-color-modal;
-
-    &:first-child {
-      border-top-left-radius: $border-radius-modal;
-      border-top-right-radius: $border-radius-modal;
-    }
-
-    &:last-child {
-      border-bottom-left-radius: $border-radius-modal;
-      border-bottom-right-radius: $border-radius-modal;
-    }
   }
 
   &__footer {
     display: flex;
     padding: $padding-modal;
     background-color: $background-header-footer-color;
-    border-radius: 0 0 $border-radius-modal $border-radius-modal;
     color: $color-header-footer-modal;
 
     &.is-actions {
       justify-content: flex-end;
+    }
+  }
+}
+
+@media #{$medium-screen-media-query} {
+  #{$component-identifier} {
+    top: $top-offset-modal;
+    width: 600px;
+    margin: 0 auto $top-offset-modal auto;
+    border-radius: $border-radius-modal;
+
+    &__header {
+      @include border-top-radius($border-radius-modal);
+    }
+
+    &__content {
+      &:first-child {
+        @include border-top-radius($border-radius-modal);
+      }
+
+      &:last-child {
+        @include border-bottom-radius($border-radius-modal);
+      }
+    }
+
+    //NOTE: scrollable functionality
+
+
+    &__footer {
+      @include border-bottom-radius($border-radius-modal);
     }
   }
 }

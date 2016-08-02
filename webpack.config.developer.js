@@ -15,7 +15,7 @@ module.exports = {
         path.resolve(__dirname, "node_modules")
       ],
       query: {
-        presets: ['react', 'es2015-without-strict'],
+        presets: ['react', 'es2015-without-strict-loose'],
         plugins: ['static-fs']
       }
     }, {

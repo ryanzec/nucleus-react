@@ -14,7 +14,8 @@ class ModalPage extends React.Component {
       isActiveModal1: false,
       isActiveModal2: false,
       isActiveModal3: false,
-      isActiveModal4: true
+      isActiveModal4: true,
+      isActiveModal5: false,
     };
 
     this.onClickToggleModal1 = this.onClickToggleModal1.bind(this);
@@ -25,6 +26,8 @@ class ModalPage extends React.Component {
     this.closeHandler3 = this.closeHandler3.bind(this);
     this.onClickToggleModal4 = this.onClickToggleModal4.bind(this);
     this.closeHandler4 = this.closeHandler4.bind(this);
+    this.onClickToggleModal5 = this.onClickToggleModal5.bind(this);
+    this.closeHandler5 = this.closeHandler5.bind(this);
   }
 
   onClickToggleModal1() {
@@ -72,6 +75,18 @@ class ModalPage extends React.Component {
   closeHandler4() {
     this.setState({
       isActiveModal4: false
+    })
+  }
+
+  onClickToggleModal5() {
+    this.setState({
+      isActiveModal5: !this.state.isActiveModal5
+    })
+  }
+
+  closeHandler5() {
+    this.setState({
+      isActiveModal5: false
     })
   }
 
@@ -192,6 +207,93 @@ class ModalPage extends React.Component {
           </ModalContent>
           <ModalFooter isActions={true}>
             <Button onClick={this.closeHandler4}>Cancel</Button><Button onClick={this.closeHandler4}>Save</Button>
+          </ModalFooter>
+        </Modal>
+        <br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br />
+        <h2>Extra Long (using dynamic height)</h2>
+        <Button onClick={this.onClickToggleModal5}>Modal5</Button>
+        <Modal
+          isActive={this.state.isActiveModal5}
+          hasDynamicHeight
+        >
+          <ModalHeader closeHandler={this.closeHandler5}>
+            Header
+          </ModalHeader>
+          <ModalContent>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+            <div>content</div>
+          </ModalContent>
+          <ModalFooter isActions={true}>
+            <Button onClick={this.closeHandler5}>Cancel</Button><Button onClick={this.closeHandler5}>Save</Button>
           </ModalFooter>
         </Modal>
       </div>

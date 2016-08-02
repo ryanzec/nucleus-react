@@ -1,20 +1,39 @@
 $component-identifier: '.wizard';
 
 #{$component-identifier} {
-  &__intro-highlight {
-    position: absolute;
-    background-color: $color-white;
-    z-index: 100000;
+  &__step-indicator-container {
+    display: inline-flex;
+    align-items: center;
+    margin-right: auto;
 
-    &.tether-element {
-      background-color: transparent;
-      color: $color-white;
+    hr {
+      display: inline-block;
+      width: 12px;
+      border-bottom: 3px solid $color-neutral;
+      height: 3px;
+
+      //NOTE: this prevents small lines showing between the hr border the the circle elements
+      margin-left: -1px;
+      margin-right: -1px;
+
+      &.is-previous {
+        border-color: $color-light-info;
+      }
     }
   }
 
-  &__highlighted-element {
-    position: relative;
-    z-index: 100001;
+  &__step-indicator {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    border: 2px solid $color-neutral;
+
+    &.is-previous,
+    &.is-current {
+      background-color: $color-light-info;
+      border-color: $color-light-info;
+    }
   }
 }
 

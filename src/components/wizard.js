@@ -8,14 +8,14 @@ import ModalContent from './modal-content';
 import ModalFooter from './modal-footer';
 import Button from './button';
 import Overlay from './overlay';
-import WizardHighlightElement from './wizard-highlight-element';
+import WizardStepIndicator from './wizard-step-indicator';
 
 class Wizard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeStep: this.props.initialStep || 0
+      activeStep: props.initialStep || 0
     };
 
     this.onClickNextStep = this.onClickNextStep.bind(this);
@@ -122,6 +122,10 @@ class Wizard extends React.Component {
           {this.renderModalContent()}
         </ModalContent>
         <ModalFooter isActions>
+          <WizardStepIndicator
+            totalSteps={this.props.steps.length}
+            currentStep={this.state.activeStep + 1}
+          />
           {previousStepButtonNode}
           <Button onClick={this.onClickNextStep}>{this.getNextButtonText()}</Button>
         </ModalFooter>
@@ -135,33 +139,7 @@ class Wizard extends React.Component {
     }
 
     if (process.env.ENV !== 'production') {
-      if (!this.props.steps[this.state.activeStep].highlightElements || this.props.steps[this.state.activeStep].highlightElements.length === 0) {
-        console.error('A wizard step of intro needs to have at least 1 highlight element');
-      }
-    }
-
-    if (this.props.steps[this.state.activeStep].highlightElements && this.props.steps[this.state.activeStep].highlightElements.length > 0) {
-      const highlightElements = [];
-
-      this.props.steps[this.state.activeStep].highlightElements.forEach((configuration, key) => {
-        const content = key === 0 ? this.props.steps[this.state.activeStep].content : null;
-
-        highlightElements.push(
-          <WizardHighlightElement
-            key={key}
-            configuration={configuration}
-            className={this.props.steps[this.state.activeStep].className}
-            onClickNextStep={this.onClickNextStep}
-            onClickPreviousStep={this.onClickPreviousStep}
-            nextButtonText={this.getNextButtonText()}
-            previousButtonText={this.props.previousButtonText}
-          >
-            {content}
-          </WizardHighlightElement>
-        );
-      });
-
-      return highlightElements;
+      console.error('The wizard component currently only supports modal type wizards');
     }
   }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {helpers as formDataHelpers} from 'form-data-validation';
 import parseValidationData from '../../../../src/utilities/input/parse-validation-data';
-import fileUploadActions from '../../stores/file-upload/file-upload.actions';
 import fileUploadFormActions from '../../stores/file-upload-form/file-upload-form.actions';
 
 import FileUploadDragDrop from '../../../../src/components/file-upload-drag-drop';
@@ -23,7 +22,6 @@ class FileUploadDragDropPage extends React.Component {
     let newFormData = formDataHelpers.set(this.props.fileUploadForm, 'fileUpload', files[0]);
     newFormData = formDataHelpers.validate(newFormData, 'fileUpload');
 
-    // this.props.dispatch(fileUploadActions.set(files));
     this.props.dispatch(fileUploadFormActions.set(newFormData));
   }
 

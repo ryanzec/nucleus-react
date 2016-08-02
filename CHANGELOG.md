@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- removed element highlighting support from wizard component
+- added wizard step indicator
+- refactor modal styling to support smaller screens better
+- added support for dynamic heights for the modal component
 - added drag and drop file upload component #158
 - added support for min / max dates for date picker #152
 - added thin form for buttons
