@@ -127,7 +127,12 @@ class Wizard extends React.Component {
             currentStep={this.state.activeStep + 1}
           />
           {previousStepButtonNode}
-          <Button onClick={this.onClickNextStep}>{this.getNextButtonText()}</Button>
+          <Button
+            styleType="success"
+            onClick={this.onClickNextStep}
+            >
+              {this.getNextButtonText()}
+            </Button>
         </ModalFooter>
       </Modal>
     );

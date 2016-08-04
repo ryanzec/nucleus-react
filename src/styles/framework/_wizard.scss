@@ -8,7 +8,7 @@ $component-identifier: '.wizard';
 
     hr {
       display: inline-block;
-      width: 12px;
+      width: 16px;
       border-bottom: 3px solid $color-neutral;
       height: 3px;
 
@@ -17,7 +17,7 @@ $component-identifier: '.wizard';
       margin-right: -1px;
 
       &.is-previous {
-        border-color: $color-light-info;
+        border-color: $color-green;
       }
     }
   }
@@ -29,10 +29,13 @@ $component-identifier: '.wizard';
     border-radius: 999px;
     border: 2px solid $color-neutral;
 
-    &.is-previous,
+    &.is-previous {
+      background-color: $color-green;
+      border-color: $color-green;
+    }
+
     &.is-current {
-      background-color: $color-light-info;
-      border-color: $color-light-info;
+      border-color: $color-green;
     }
   }
 }

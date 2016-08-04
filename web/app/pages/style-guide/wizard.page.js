@@ -10,11 +10,17 @@ class WizardPage extends React.Component {
     super(props);
 
     this.state = {
-      wizardIsActive: true
+      wizardIsActive: false
     };
 
     this.closeHandler = this.closeHandler.bind(this);
     this.openHandler = this.openHandler.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      wizardIsActive: true
+    });
   }
 
   closeHandler() {

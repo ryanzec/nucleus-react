@@ -43,7 +43,7 @@ $font-size-button: 1.4rem;
   margin-right: $margin-button;
   outline: none;
   border: none;
-  // background-color: $background-color-button;
+  background-color: $background-color-button;
   color: $color-button;
   font-size: $font-size-button;
 
@@ -56,8 +56,6 @@ $font-size-button: 1.4rem;
   }
 
   &.m-thin {
-    // color: $background-color-button;
-    // background-color: $color-white;
     @include apply-button-colors($color-light-button, $background-color-button, $background-color-hover-button);
   }
 

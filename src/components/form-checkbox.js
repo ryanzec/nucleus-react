@@ -1,5 +1,7 @@
 import React from 'react';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+
 
 import FormLabel from './form-label';
 import SvgIcon from './svg-icon';
@@ -34,7 +36,11 @@ class FormCheckbox extends React.Component {
 
     return (
       <FormLabel inputType="checkbox" inputAlignment={this.props.inputAlignment}>
-        <input type="hidden" />
+        <input
+          className="u-hide"
+          type="checkbox"
+          {...getPassThroughProperties(this.props, 'className', 'inputAlignment')}
+        />
         {nodes}
       </FormLabel>
     );

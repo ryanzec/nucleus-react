@@ -33,12 +33,18 @@ class WizardStepIndicator extends React.Component {
       }
 
       stepNodes.push(
-        <div className={circleClassName}></div>
+        <div
+          key={`${renderingNumber}-circle`}
+          className={circleClassName}
+        ></div>
       );
 
       if (renderingNumber < this.props.totalSteps) {
         stepNodes.push(
-          <hr className={hrClassName} />
+          <hr
+            key={`${renderingNumber}-line`}
+            className={hrClassName}
+          />
         );
       }
 

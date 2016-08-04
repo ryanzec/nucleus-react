@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HTML5Backend from 'react-dnd-html5-backend';
+import {DragDropContext} from 'react-dnd';
 import configuration from '../configuration';
 
 const appenedElements = {};
@@ -20,6 +22,18 @@ const getAppendedElements = () => {
   return elements;
 };
 
+//NOTE: this is needed to order to make sure this component support the drag and drop functionality sicne it's content is render outside the main application
+//NOTE: component
+class AppendElementsDragDropContainer extends React.Component {
+    render() {
+        return(
+            <span>{this.props.appendedElements}</span>
+        );
+    }
+}
+
+AppendElementsDragDropContainer = DragDropContext(HTML5Backend)(AppendElementsDragDropContainer);
+
 class AppendBodyComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +52,7 @@ class AppendBodyComponent extends React.Component {
   }
 
   updateAppendElements() {
-    ReactDOM.render(<span>{getAppendedElements()}</span>, appendElementContainer);
+    ReactDOM.render(<AppendElementsDragDropContainer appendedElements={getAppendedElements()} />, appendElementContainer);
   }
 
   removeAppendElement() {

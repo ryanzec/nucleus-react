@@ -1,8 +1,8 @@
 import {helpers as formDataHelpers} from 'form-data-validation';
 
-export default function onChangeInputStateUpdater(options) {
+export default function onChangeInputStateUpdater(formData, options) {
   const markAsDirty = options.markAsDirty === true;
-  let newFormData = formDataHelpers.set(this.state[options.formName], options.fieldName, options.value, markAsDirty);
+  let newFormData = formDataHelpers.set(formData, options.fieldName, options.value, markAsDirty);
   const validateParameters = [newFormData, options.fieldName];
 
   if (options.markFieldsAsDirty) {

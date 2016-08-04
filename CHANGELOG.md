@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- fixed issue with drag and drop not working for components that use the AppendBodyComponent base class
+- fixed issue with the default styling of buttons
 - fixed some mobile issues with the modal component
 - removed element highlighting support from wizard component
 - added wizard step indicator
