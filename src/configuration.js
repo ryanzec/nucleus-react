@@ -1,13 +1,21 @@
-const configuration = {
-  appendElementSelector: '.append-elements'
+var configurationValues = {
+  appendElementSelector: '.append-elements',
+  standardDateFormat: 'YYYY-MM-DDTHH:mm:ssZZ',
+  standardDisplayDateFormat: 'MM/DD/YYYY',
+  timezone: 'UTC',
+  userAgentDetails: {}
 };
 
 export default {
-  get(key) {
-    if (!key) {
-      return configuration;
+  get: (configuration) => {
+    if (!configuration) {
+      return configurationValues;
     }
 
-    return configuration[key];
+    return configurationValues[configuration];
+  },
+
+  set: (configuration, value) => {
+    configurationValues[configuration] = value;
   }
 };

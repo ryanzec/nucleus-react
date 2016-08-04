@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- fixed some mobile issues with the modal component
 - removed element highlighting support from wizard component
 - added wizard step indicator
 - refactor modal styling to support smaller screens better

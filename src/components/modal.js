@@ -4,6 +4,7 @@ import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-com
 import DomEventManager from '../utilities/dom/dom-event-manager';
 import DomDimensions from '../utilities/dom/dom-dimensions';
 import getNextId from '../utilities/get-next-id';
+import configuration from '../configuration';
 
 import AppendBodyComponent from './append-body-component';
 import Overlay from './overlay';
@@ -18,11 +19,21 @@ class Modal extends AppendBodyComponent {
     this.setAppendElementId(this.uniqueId);
 
     this.setDynamicHeights = this.setDynamicHeights.bind(this);
+
+    //NOTE: this is needed as iOS has some issue with the regular way of dealing with modals
+    let userAgentDetails = configuration.get('userAgentDetails');
+
+    this.osName = userAgentDetails.getOS().name;
+    this.resetBodyScrollTop = null;
   }
 
   componentDidMount() {
     if (this.props.isActive) {
       document.querySelector('body').classList.add('modal-open');
+
+      if (this.osName.indexOf('iOS') !== -1) {
+        document.querySelector('body').classList.add('ios-fixed');
+      }
     }
 
     if (this.props.hasDynamicHeight) {
@@ -37,7 +48,12 @@ class Modal extends AppendBodyComponent {
     let hideInitially = false;
     //NOTE: need to make sure when closing the modal, the scroll position is reset to the top incase it is opened again
     if (!this.props.isActive && oldProps.isActive) {
-      this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"]`).scrollTop = 0;
+      //NOTE: the setting of the overflowY style back and forth is needed in order to fix issue with the scrollTop = 0 not scrolling to the very top for
+      //NOTE: chrome on andriod
+      const wrapperDomNode = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"]`);
+      wrapperDomNode.style.overflowY = 'hidden';
+      wrapperDomNode.scrollTop = 0;
+      wrapperDomNode.style.overflowY = 'auto';
       this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal__content`).scrollTop = 0;
     }
 
@@ -46,8 +62,22 @@ class Modal extends AppendBodyComponent {
       if (this.props.isActive) {
         hideInitially = true;
         document.querySelector('body').classList.add('modal-open');
+
+        if (this.osName.indexOf('iOS') !== -1) {
+          this.resetBodyScrollTop = document.body.scrollTop;
+          document.querySelector('body').classList.add('ios-fixed');
+        }
       } else if (!this.props.isActive) {
         document.querySelector('body').classList.remove('modal-open');
+
+        if (this.osName.indexOf('iOS') !== -1) {
+          document.querySelector('body').classList.remove('ios-fixed');
+
+          if (this.resetBodyScrollTop !== null) {
+            document.body.scrollTop = this.resetBodyScrollTop;
+            this.resetBodyScrollTop = null;
+          }
+        }
       }
     }
 

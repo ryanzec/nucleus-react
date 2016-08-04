@@ -18,6 +18,7 @@ $color-header-footer-modal: $color-light-text;
   overflow-y: auto;
   display: none;
   z-index: $z-index-modal;
+  -webkit-overflow-scrolling: touch;
 
   &.is-active {
     display: block;
@@ -26,9 +27,11 @@ $color-header-footer-modal: $color-light-text;
   &.has-dynamic-height {
     #{$component-identifier} {
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
 
       &__content {
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
     }
   }
@@ -36,6 +39,14 @@ $color-header-footer-modal: $color-light-text;
 
 body.modal-open {
   overflow: hidden;
+
+  &.ios-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 #{$component-identifier} {
@@ -72,6 +83,13 @@ body.modal-open {
     &.is-actions {
       justify-content: flex-end;
     }
+  }
+}
+
+@media #{$small-screen-only-media-query} {
+  #{$component-identifier} {
+    height: 100%;
+    background-color: $background-header-footer-color;
   }
 }
 
