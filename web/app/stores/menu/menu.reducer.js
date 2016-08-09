@@ -96,6 +96,17 @@ let menuData = immutable.fromJS({
       display: 'Application Notifications',
       to: '/sub-systems/application-notifications'
     }]
+  }, {
+    display: 'Showcase',
+    items: [{
+      id: 'showcase-dynamically-loading-components',
+      display: 'Dynamically Loading Components',
+      to: '/showcase/dynamically-loading-components'
+    }, {
+      id: 'showcase-algorithms',
+      display: 'Algorithms',
+      to: '/showcase/algorithms'
+    }]
   }],
   activeMenu: 'style-guide-alerts'
 });

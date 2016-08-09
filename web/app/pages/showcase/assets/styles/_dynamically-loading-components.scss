@@ -1,0 +1,19 @@
+.p-showcase-dynamically-loading-components {
+  table {
+    width: 600px;
+
+    th:nth-child(1) {
+      width: 50px;
+    }
+
+    th:nth-child(2) {
+      width: 75px;
+    }
+  }
+
+  .data-set1,
+  .data-set2,
+  .data-set3 {
+    position: relative;
+  }
+}

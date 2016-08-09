@@ -14,6 +14,7 @@ import NotFoundPage from './react/components/not-found.page';
 import CodePage from './pages/style-guide/code.page';
 import {routes as styleGuideRoutes} from './pages/style-guide/module';
 import {routes as subSystemsRoutes} from './pages/sub-systems/module';
+import {routes as showcaseRoutes} from './pages/showcase/module';
 import useScroll from 'react-router-scroll';
 
 let history = syncHistoryWithStore(browserHistory, store);
@@ -28,6 +29,7 @@ export default (
         <IndexRoute component={CodePage} />
         {styleGuideRoutes}
         {subSystemsRoutes}
+        {showcaseRoutes}
         <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>

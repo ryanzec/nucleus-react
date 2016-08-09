@@ -1,3 +1,11 @@
+.u-truncate {
+  width: 90% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
+}
+
 .u-hide {
   display: none !important;
 }

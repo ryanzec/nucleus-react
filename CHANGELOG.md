@@ -6,6 +6,11 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added shwocase for algorithm work (with 3 algorithms)
+- fixed issue with modal auto content sizing
+- added basic default table styling
+- refactored overlay css to allow for easier centering of top content
+- added showcase example for dynamically loading components for a page
 - fixed issue with drag and drop not working for components that use the AppendBodyComponent base class
 - fixed issue with the default styling of buttons
 - fixed some mobile issues with the modal component

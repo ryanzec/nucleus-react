@@ -107,11 +107,17 @@ class Modal extends AppendBodyComponent {
     if (this.props.isActive) {
       const bodyDimensions = new DomDimensions(document.body);
       const modalDimensions = new DomDimensions(modalElement);
-      const headerDimensions = new DomDimensions(headerElement);
-      const footerDimensions = new DomDimensions(footerElement);
 
       const modalHeight = bodyDimensions.dimensions.height - (modalDimensions.dimensions.top * 2);
-      const contentHeight = modalHeight - headerDimensions.dimensions.height - footerDimensions.dimensions.height;
+      let contentHeight = modalHeight - headerDimensions.dimensions.height - footerDimensions.dimensions.height;
+
+      if (headerElement) {
+          contentHeight -= (new DomDimensions(headerElement)).dimensions.height;
+      }
+
+      if (footerElement) {
+          contentHeight -= (new DomDimensions(footerElement)).dimensions.height;
+      }
 
       contentElement.style.maxHeight = `${contentHeight}px`;
       modalElement.style.maxHeight = `${modalHeight}px`;

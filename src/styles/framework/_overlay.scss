@@ -9,18 +9,13 @@ $component-identifier: '.overlay';
   background-color: transparentize(#000000, .5);
   z-index: 10000;
   display: none;
+  justify-content: center;
+  align-items: center;
 
   &__top-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     z-index: 10001;
     display: none;
     color: $color-light-text;
-    margin: auto;
-    text-align: center;
   }
 
   &-absolute {
@@ -28,7 +23,7 @@ $component-identifier: '.overlay';
   }
 
   &.active {
-    display: block;
+    display: flex;
 
     #{$component-identifier}__top-content {
       display: block;
