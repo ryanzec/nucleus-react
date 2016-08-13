@@ -5,6 +5,7 @@ import * as routerHooks from './router.hooks';
 
 import DynamicallyLoadingComponentsPage from './dynamically-loading-components.page';
 import AlgorithmsPage from './algorithms.page';
+import SvgMapPage from './svg-map.page';
 
 export const routes = [
   <Route
@@ -19,5 +20,11 @@ export const routes = [
     name="showcase-algorithms"
     path="/showcase/algorithms"
     component={AlgorithmsPage}
+  />,
+  <Route
+    key="3"
+    name="showcase-svg-map"
+    path="/showcase/svg-map"
+    component={SvgMapPage}
   />
 ];

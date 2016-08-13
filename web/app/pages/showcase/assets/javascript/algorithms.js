@@ -1,4 +1,10 @@
 export default {
+  swapValues: function(values, index1, index2) {
+    var swapValue = values[index1];
+
+    values[index1] = values[index2];
+    values[index2] = swapValue;
+  },
   bubble: function(numbers) {
     //NOTE: this is just for testing purpose to see performance comparied to other algorithms
     var comparisonCount = 0;
@@ -12,10 +18,7 @@ export default {
 
         //NOTE: if the inner loops value (are are the value after the outer loop) is greater than the outer loops value, we swap the values
         if (numbers[y] < numbers[x]) {
-          var swapValue = numbers[x];
-
-          numbers[x] = numbers[y];
-          numbers[y] = swapValue;
+          this.swapValues(numbers, x, y);
         }
       }
     }
@@ -63,9 +66,6 @@ export default {
     return sortedStuff;
   },
   mergeSort: function(left, right, test) {
-    // console.log(left);
-    // console.log(right);
-    // console.log('---');
     var result = [];
 
     while (left.length && right.length) {
@@ -101,13 +101,17 @@ export default {
     var halfA = numbers.slice(0, halfIndex);
     var halfB = numbers.slice(halfIndex);
 
-    var test = this.mergeSort(this.merge(halfA, compareCount), this.merge(halfB, compareCount), compareCount);
+    //NOTE: this sort works by first reducing the large array into arrays of 1 item (or empty) on the way down the recusrion loop then on the way back up the
+    //NOTE: recursion loop is compares left and right values and sort them slowly growing the array. the sorting works here because as the array are slow merged
+    //NOTE: back together, they are always already sorted so you can easily just compare them in the order the appear in the array without worrying about them
+    //NOTE: getting out of order
+    var sortedStuff = this.mergeSort(this.merge(halfA, compareCount), this.merge(halfB, compareCount), compareCount);
 
     //NOTE: this is just for testing purpose to see performance comparied to other algorithms
     if (baseCall) {
       console.log(compareCount.compareCount);
     }
 
-    return test;
+    return sortedStuff;
   }
 };

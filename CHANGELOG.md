@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added showcase for svg map example (based on https://blog.komand.com/building-svg-maps-with-react)
 - added shwocase for algorithm work (with 3 algorithms)
 - fixed issue with modal auto content sizing
 - added basic default table styling
