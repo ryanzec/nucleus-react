@@ -18,7 +18,8 @@ class Modal extends AppendBodyComponent {
 
     this.setAppendElementId(this.uniqueId);
 
-    this.setDynamicHeights = this.setDynamicHeights.bind(this);
+    this.setContentHeight = this.setContentHeight.bind(this);
+    this.centerModal = this.centerModal.bind(this);
 
     //NOTE: this is needed as iOS has some issue with the regular way of dealing with modals
     let userAgentDetails = configuration.get('userAgentDetails');
@@ -36,9 +37,9 @@ class Modal extends AppendBodyComponent {
       }
     }
 
-    if (this.props.hasDynamicHeight) {
-      this.domEventManager.add(window, 'resize', this.setDynamicHeights);
-      this.domEventManager.add(window, 'orientationchange', this.setDynamicHeights);
+    if (this.props.isScrollable) {
+      this.domEventManager.add(window, 'resize', this.setContentHeight);
+      this.domEventManager.add(window, 'orientationchange', this.setContentHeight);
     }
 
     this.updateSelf(true);
@@ -98,7 +99,7 @@ class Modal extends AppendBodyComponent {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  setDynamicHeights() {
+  setContentHeight() {
     const modalElement = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal`);
     const headerElement = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal__header`);
     const contentElement = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal__content`);
@@ -107,20 +108,45 @@ class Modal extends AppendBodyComponent {
     if (this.props.isActive) {
       const bodyDimensions = new DomDimensions(document.body);
       const modalDimensions = new DomDimensions(modalElement);
+      const maxModalHeight = bodyDimensions.dimensions.height - (this.props.minSpacing * 2);
 
-      const modalHeight = bodyDimensions.dimensions.height - (modalDimensions.dimensions.top * 2);
-      let contentHeight = modalHeight - headerDimensions.dimensions.height - footerDimensions.dimensions.height;
+      let modalHeight = bodyDimensions.dimensions.height - (modalDimensions.dimensions.margins.top * 2);
+      modalHeight = maxModalHeight < modalHeight ? maxModalHeight : modalHeight;
+
+      let contentHeight = modalHeight;
 
       if (headerElement) {
-          contentHeight -= (new DomDimensions(headerElement)).dimensions.height;
+        contentHeight -= (new DomDimensions(headerElement)).dimensions.height;
       }
 
       if (footerElement) {
-          contentHeight -= (new DomDimensions(footerElement)).dimensions.height;
+        contentHeight -= (new DomDimensions(footerElement)).dimensions.height;
       }
 
       contentElement.style.maxHeight = `${contentHeight}px`;
       modalElement.style.maxHeight = `${modalHeight}px`;
+
+      if (this.props.hasAutoCenter) {
+        setTimeout(this.centerModal);
+      } else {
+        modalElement.classList.remove('u-invisible');
+      }
+    }
+  }
+
+  centerModal() {
+    if (this.props.isActive) {
+      const modalElement = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal`);
+      const modalContent = this.appendElementContainer.querySelector(`.modal__wrapper[data-modal-id="${this.uniqueId}"] .modal__content`);
+      const modalDimensions = new DomDimensions(modalElement);
+      const contentDimensions = new DomDimensions(modalContent);
+      const heightToUse = contentDimensions.dimensions.height > modalDimensions.dimensions.height
+          ? modalDimensions.dimensions.height
+          : modalDimensions.dimensions.height
+      const topMargin = Math.floor(heightToUse / 2) * -1 + 'px';
+      const leftMargin =Math.floor(contentDimensions.dimensions.width / 2) * -1 + 'px';
+
+      modalElement.style.margin = `${topMargin} 0 0 ${leftMargin}`;
       modalElement.classList.remove('u-invisible');
     }
   }
@@ -136,8 +162,12 @@ class Modal extends AppendBodyComponent {
       cssClasses.push('is-active');
     }
 
-    if (this.props.hasDynamicHeight) {
-      cssClasses.push('has-dynamic-height');
+    if (this.props.isScrollable) {
+      cssClasses.push('is-scrollable');
+    }
+
+    if (this.props.hasAutoCenter) {
+      cssClasses.push('has-auto-center');
     }
 
     return cssClasses;
@@ -160,7 +190,7 @@ class Modal extends AppendBodyComponent {
 
     let modalClassName = 'modal';
 
-    if (this.props.hasDynamicHeight && hideInitially) {
+    if ((this.props.isScrollable || this.props.hasAutoCenter) && hideInitially) {
       modalClassName += ' u-invisible';
     }
 
@@ -178,8 +208,12 @@ class Modal extends AppendBodyComponent {
     );
 
     //NOTE: this allows all styling to be applied before we calculate the dynamic heights
-    if (this.props.hasDynamicHeight) {
-      setTimeout(this.setDynamicHeights, 100);
+    if (this.props.isScrollable) {
+      setTimeout(this.setContentHeight, 10);
+    }
+
+    if (this.props.hasAutoCenter) {
+      setTimeout(this.centerModal, 10);
     }
   }
 
@@ -193,13 +227,19 @@ Modal.displayName = 'Modal';
 Modal.propTypes = {
   className: React.PropTypes.string,
   overlayDisabled: React.PropTypes.bool,
-  hasDynamicHeight: React.PropTypes.bool
+  isScrollable: React.PropTypes.bool,
+  hasAutoCenter: React.PropTypes.bool,
+
+  //NOTE: this needs to be be in the javascript incase the dynamic height and auto height are both enabled and should match the value in the css
+  minSpacing: React.PropTypes.number,
 };
 
 Modal.defaultProps = {
   className: null,
   overlayDisabled: false,
-  hasDynamicHeight: false
+  isScrollable: false,
+  hasAutoCenter: false,
+  minSpacing: 25,
 };
 
 export default Modal;

@@ -16,6 +16,7 @@ class ModalPage extends React.Component {
       isActiveModal3: false,
       isActiveModal4: true,
       isActiveModal5: false,
+      dynamicContentCount: 5
     };
 
     this.onClickToggleModal1 = this.onClickToggleModal1.bind(this);
@@ -28,6 +29,7 @@ class ModalPage extends React.Component {
     this.closeHandler4 = this.closeHandler4.bind(this);
     this.onClickToggleModal5 = this.onClickToggleModal5.bind(this);
     this.closeHandler5 = this.closeHandler5.bind(this);
+    this.onClickDynamicAddContent = this.onClickDynamicAddContent.bind(this);
   }
 
   onClickToggleModal1() {
@@ -84,16 +86,21 @@ class ModalPage extends React.Component {
     })
   }
 
+  onClickDynamicAddContent() {
+    this.setState({
+      dynamicContentCount: this.state.dynamicContentCount + 3
+    });
+  }
+
   closeHandler5() {
     this.setState({
       isActiveModal5: false
     })
   }
 
-  render() {
+  renderContentModal() {
     return (
-      <div className="p-style-guide-modals">
-        <h1>Modals</h1>
+      <div>
         <h2>Just Content</h2>
         <Button onClick={this.onClickToggleModal1}>Modal1</Button>
         <Modal isActive={this.state.isActiveModal1}>
@@ -101,11 +108,16 @@ class ModalPage extends React.Component {
             <div>content<Button onClick={this.closeHandler1}>Close</Button></div>
           </ModalContent>
         </Modal>
-        <br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br />
+      </div>
+    );
+  }
+
+  renderHeaderNoOverlayModal() {
+    return (
+      <div>
         <h2>Header (and overlay disabled</h2>
         <Button onClick={this.onClickToggleModal2}>Modal2</Button>
-        <Modal isActive={this.state.isActiveModal2} overlayDisabled={true}>
+        <Modal isActive={this.state.isActiveModal2} overlayDisabled>
           <ModalHeader>
             Header
           </ModalHeader>
@@ -113,8 +125,13 @@ class ModalPage extends React.Component {
             <div>content<Button onClick={this.closeHandler2}>Close</Button></div>
           </ModalContent>
         </Modal>
-        <br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br />
+      </div>
+    );
+  }
+
+  renderFooterModal() {
+    return (
+      <div>
         <h2>Footer</h2>
         <Button onClick={this.onClickToggleModal3}>Modal3</Button>
         <Modal isActive={this.state.isActiveModal3}>
@@ -125,8 +142,13 @@ class ModalPage extends React.Component {
             Footer
           </ModalFooter>
         </Modal>
-        <br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br />
+      </div>
+    );
+  }
+
+  renderExtraLongModal() {
+    return (
+      <div>
         <h2>Extra Long</h2>
         <Button onClick={this.onClickToggleModal4}>Modal4</Button>
         <Modal isActive={this.state.isActiveModal4}>
@@ -209,93 +231,54 @@ class ModalPage extends React.Component {
             <Button onClick={this.closeHandler4}>Cancel</Button><Button onClick={this.closeHandler4}>Save</Button>
           </ModalFooter>
         </Modal>
-        <br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br />
+      </div>
+    );
+  }
+
+  renderDynamicHeightModal() {
+    var renderDynamicContent = () => {
+      nodes = [];
+
+      for (let x = 0; x < this.state.dynamicContentCount; x += 1) {
+        nodes.push(<div key={x}>content</div>);
+      }
+
+      return nodes;
+    };
+
+    return (
+      <div>
         <h2>Extra Long (using dynamic height)</h2>
         <Button onClick={this.onClickToggleModal5}>Modal5</Button>
         <Modal
           isActive={this.state.isActiveModal5}
-          hasDynamicHeight
+          hasAutoCenter
+          isScrollable
         >
           <ModalHeader closeHandler={this.closeHandler5}>
             Header
           </ModalHeader>
           <ModalContent>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
-            <div>content</div>
+            <Button onClick={this.onClickDynamicAddContent}>Add Content</Button>
+            {renderDynamicContent()}
           </ModalContent>
           <ModalFooter isActions={true}>
             <Button onClick={this.closeHandler5}>Cancel</Button><Button onClick={this.closeHandler5}>Save</Button>
           </ModalFooter>
         </Modal>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="p-style-guide-modals">
+        <h1>Modals</h1>
+        {this.renderContentModal()}
+        {this.renderHeaderNoOverlayModal()}
+        {this.renderFooterModal()}
+        {this.renderExtraLongModal()}
+        {this.renderDynamicHeightModal()}
       </div>
     );
   }

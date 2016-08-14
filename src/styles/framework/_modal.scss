@@ -2,7 +2,7 @@ $component-identifier: '.modal';
 
 $background-color-modal: $color-white;
 $border-radius-modal: 5px;
-$top-offset-modal: 25px;
+$margin-top-bottom-modal: 25px;
 $padding-modal: 16px;
 $z-index-modal: 10001;
 $background-header-footer-color: $color-white;
@@ -24,7 +24,7 @@ $color-header-footer-modal: $color-text;
     display: block;
   }
 
-  &.has-dynamic-height {
+  &.is-scrollable {
     #{$component-identifier} {
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
@@ -34,6 +34,16 @@ $color-header-footer-modal: $color-text;
         -webkit-overflow-scrolling: touch;
       }
     }
+  }
+
+  &.has-auto-center .modal {
+    position: absolute;
+
+    max-height: 90%;
+
+    //NOTE: javascript applied the negative margins to create the center effect with this
+    top: 50%;
+    left: 50%;
   }
 }
 
@@ -97,9 +107,8 @@ body.modal-open {
 
 @media #{$medium-screen-media-query} {
   #{$component-identifier} {
-    top: $top-offset-modal;
     width: 600px;
-    margin: 0 auto $top-offset-modal auto;
+    margin: $margin-top-bottom-modal auto;
     border-radius: $border-radius-modal;
 
     &__header {
@@ -115,9 +124,6 @@ body.modal-open {
         @include border-bottom-radius($border-radius-modal);
       }
     }
-
-    //NOTE: scrollable functionality
-
 
     &__footer {
       @include border-bottom-radius($border-radius-modal);
