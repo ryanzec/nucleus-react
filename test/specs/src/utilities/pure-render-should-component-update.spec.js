@@ -1,4 +1,4 @@
-import pureRenderShouldComponentUpdate from '../../../../assets/utilities/pure-render-should-component-update';
+import pureRenderShouldComponentUpdate from '../../../../src/utilities/pure-render-should-component-update';
 
 describe('pure render should component update', function() {
   it('should return false stuff matches', function() {

@@ -86,7 +86,7 @@ NotificationActions.propTypes = {
 
 NotificationActions.defaultProps = {
   className: null,
-  text: 'icons',
+  type: 'icons',
   actions: 'negative',
   onClickPositive: null,
   onClickNegative: null

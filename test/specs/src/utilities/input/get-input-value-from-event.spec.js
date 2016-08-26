@@ -1,4 +1,4 @@
-import getInputValueFromEvent from '../../../../../assets/utilities/input/get-input-value-from-event';
+import getInputValueFromEvent from '../../../../../src/utilities/input/get-input-value-from-event';
 
 describe('get input value from event', function() {
   it('should get value from regular input event', function() {

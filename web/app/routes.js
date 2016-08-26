@@ -1,6 +1,7 @@
 import React from 'react';
+import { createHistory } from 'history'
 import {
-  browserHistory,
+  useRouterHistory,
   IndexRoute,
   Route,
   Router,
@@ -15,7 +16,11 @@ import CodePage from './pages/style-guide/code.page';
 import {routes as styleGuideRoutes} from './pages/style-guide/module';
 import {routes as subSystemsRoutes} from './pages/sub-systems/module';
 import {routes as showcaseRoutes} from './pages/showcase/module';
-import useScroll from 'react-router-scroll';
+import {useScroll} from 'react-router-scroll';
+
+const browserHistory = useRouterHistory(createHistory)({
+  basename: '/'
+});
 
 let history = syncHistoryWithStore(browserHistory, store);
 

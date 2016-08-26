@@ -47,7 +47,7 @@ class FormLabel extends React.Component {
     return (
       <label
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isRequired')}
+        {...getPassThroughProperties(this.props, 'className', 'isRequired', 'inputType', 'inputAlignment', 'isHidden')}
       >
         {this.props.children}
         {this.renderRequiredIcon()}
@@ -69,7 +69,7 @@ FormLabel.propTypes = {
 FormLabel.defaultProps = {
   className: null,
   isRequired: false,
-  input: false,
+  inputType: false,
   inputAlignment: 'left',
   isHidden: false
 };

@@ -10,7 +10,9 @@ const defaultFormData = formDataFactory({
     buttonText: {
       initialValue: 'I\'m a Button'
     },
-    styleType: {},
+    styleType: {
+      initialValue: 'link'
+    },
     isPill: {
       initialValue: false
     },

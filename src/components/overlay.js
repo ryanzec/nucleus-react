@@ -75,8 +75,7 @@ Overlay.propTypes = {
 
 Overlay.defaultProps = {
   className: null,
-  isActive: false,
-  isAbsolute: false
+  isActive: false
 };
 
 export default Overlay;

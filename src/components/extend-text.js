@@ -659,7 +659,10 @@ class ExtendText extends React.Component {
           'placeholder',
           'addTagOnKeyCode',
           'loadingNode',
-          'typeForSearchingNode'
+          'typeForSearchingNode',
+          'noOptionsNode',
+          'autoCompletePosition',
+          'clearable'
         )}
       >
         {gutsNode}

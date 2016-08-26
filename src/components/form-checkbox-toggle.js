@@ -40,7 +40,7 @@ FormCheckboxToggle.displayName = 'FormCheckboxToggle';
 
 FormCheckboxToggle.propTypes = {
   className: React.PropTypes.string,
-  checked: React.PropTypes.boolean,
+  checked: React.PropTypes.bool,
   offNode: React.PropTypes.node,
   onNode: React.PropTypes.node
 };

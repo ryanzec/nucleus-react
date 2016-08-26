@@ -198,7 +198,7 @@ class Modal extends AppendBodyComponent {
       <div
         data-modal-id={this.uniqueId}
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+        {...getPassThroughProperties(this.props, 'className', 'isActive', 'overlayDisabled', 'isScrollable', 'hasAutoCenter', 'minSpacing')}
       >
         <div className={modalClassName}>
           {this.props.children}
@@ -226,6 +226,7 @@ Modal.displayName = 'Modal';
 
 Modal.propTypes = {
   className: React.PropTypes.string,
+  isActive: React.PropTypes.bool,
   overlayDisabled: React.PropTypes.bool,
   isScrollable: React.PropTypes.bool,
   hasAutoCenter: React.PropTypes.bool,
@@ -236,6 +237,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   className: null,
+  isActive: false,
   overlayDisabled: false,
   isScrollable: false,
   hasAutoCenter: false,

@@ -78,7 +78,17 @@ class FileUploadDragDrop extends React.Component {
       <div
         onClick={this.onClick}
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(
+          this.props,
+          'className',
+          'infoNode',
+          'infoHoverNode',
+          'isClickable',
+          'processFiles',
+          'isOver',
+          'canDrop',
+          'connectDropTarget'
+        )}
       >
         {infoNode}
         {this.renderInput()}

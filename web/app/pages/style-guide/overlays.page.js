@@ -59,7 +59,7 @@ class OverlaysPage extends React.Component {
       <div className="p-style-guide-overlays">
         <h1>Overlays</h1>
         <Button onClick={this.onClickDefault}>Full Page</Button>
-        <Overlay isActive={this.state.isOverlayActive} isAbsolute={true} />
+        <Overlay isActive={this.state.isOverlayActive}/>
         <div className="absolute-test">
             <Button onClick={this.onClickAbsolute}>Specific Element Page</Button>
             <OverlayAbsolute isActive={this.state.isAbsoluteOverlayActive} />

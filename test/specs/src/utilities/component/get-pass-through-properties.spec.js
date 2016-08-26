@@ -1,4 +1,4 @@
-import getPassThroughProperies from '../../../../../assets/utilities/component/get-pass-through-properties';
+import getPassThroughProperies from '../../../../../src/utilities/component/get-pass-through-properties';
 
 describe('get pass through properties', function() {
   it('should return all properties', function() {

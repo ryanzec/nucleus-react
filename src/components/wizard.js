@@ -162,7 +162,8 @@ class Wizard extends React.Component {
           'allowGoingBackwards',
           'previousButtonText',
           'nextButtonText',
-          'finishButtonText'
+          'finishButtonText',
+          'initialStep'
         )}
       >
         {this.renderStep()}

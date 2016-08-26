@@ -1,4 +1,4 @@
-import shallowEquals from '../../../../assets/utilities/shallow-equals';
+import shallowEquals from '../../../../src/utilities/shallow-equals';
 
 describe('shallow equals', function() {
   it('should return true if values match', function() {

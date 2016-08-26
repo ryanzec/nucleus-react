@@ -14,7 +14,7 @@ import FormSelectOption from '../../../../../../../src/components/form-select-op
 import FormCheckbox from '../../../../../../../src/components/form-checkbox';
 
 import Button from '../../../../../../../src/components/button';
-class ButtonsPillExample extends React.Component {
+class ButtonsInteractiveExample extends React.Component {
   constructor(props) {
     super(props);
 
@@ -131,10 +131,10 @@ class ButtonsPillExample extends React.Component {
   }
 }
 
-ButtonsPillExample.displayName = 'ButtonsPillExample';
+ButtonsInteractiveExample.displayName = 'ButtonsInteractiveExample';
 
 let mapStateToProps = (state) => ({
   form: state.buttonExampleForm
 });
 
-export default connect(mapStateToProps)(ButtonsPillExample);
+export default connect(mapStateToProps)(ButtonsInteractiveExample);

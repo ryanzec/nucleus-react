@@ -25,7 +25,7 @@ class FormElement extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, 'className', 'validation')}
       >
         {this.props.children}
       </div>

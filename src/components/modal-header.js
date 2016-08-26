@@ -39,7 +39,7 @@ class ModalHeader extends React.Component {
     return (
       <h2
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, 'className', 'closeHandler')}
       >
         {this.props.children}
         {this.renderCloseHandler()}

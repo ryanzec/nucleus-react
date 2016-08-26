@@ -150,7 +150,7 @@ class DatePicker extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, 'className', 'onClickDate', 'selectedDays', 'minDate', 'maxDate')}
       >
         <div className="date-picker__top-bar">
           <SvgIcon

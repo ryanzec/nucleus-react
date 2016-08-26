@@ -30,8 +30,7 @@ import globArray from 'glob-array';
 
 //NOTE: if you want to exclude a files that is include by the tests itself, you need to define that exclude in a .istanbul.yml file
 var filesForCoverage = [
-  process.cwd() + '/assets/**/*.js',
-  process.cwd() + '/assets/**/*.jsx'
+  process.cwd() + '/assets/**/*.js'
 ];
 
 globArray.sync(filesForCoverage).forEach(function(filePath) {
