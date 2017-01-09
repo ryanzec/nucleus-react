@@ -23,10 +23,10 @@ class ImagesPage extends React.Component {
       <div className="p-style-guide-images">
         <h1>Images</h1>
         <h2>Valid Image</h2>
-        <Image src="/build/images/user.png" notFoundNode="Test" />
+        <Image src="/images/user.png" notFoundNode="Test" />
         <h2>Invalid Image</h2>
-        <Image src="/build/images/nonono.png" notFoundNode="Test" />
-        <Image src="/build/images/nonono.png" notFoundNode={<Button>Any renderable node can be used</Button>} />
+        <Image src="/invalid/image.png" notFoundNode="Test" />
+        <Image src="/invalid/image.png" notFoundNode={<Button>Any renderable node can be used</Button>} />
       </div>
     );
   }

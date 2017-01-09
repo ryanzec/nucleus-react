@@ -1,10 +1,10 @@
 var path = require('path');
-var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var precss = require('precss');
-
-var extractSass = new ExtractTextPlugin('main.css');
+var AssetsRewrite = require('./webpack/assets-rewrite-plugin');
+var extractSass = new ExtractTextPlugin('/css/main.css');
 
 module.exports = {
   module: {
@@ -26,16 +26,13 @@ module.exports = {
       loader: 'file?name=[name].[ext]'
     }, {
       test: /\.css$/,
-      loader: 'file?name=[name].[ext]'
+      loader: 'file?name=/css/[name].[ext]'
     }, {
       test: /\/misc\/.*\.js$/,
-      loader: 'file?name=/misc/[name].[ext]'
+      loader: 'file?name=/javascript/misc/[name].[ext]'
     }, {
       test: /prism\.js$/,
-      loader: 'file?name=/misc/[name].[ext]'
-    }, {
-      test: /\.(png|jpg|jpeg|)$/,
-      loader: 'file?name=/images/[hash].[ext]'
+      loader: 'file?name=/javascript/misc/[name].[ext]'
     }, {
       test: /\.json$/,
       loader: 'json-loader'
@@ -48,12 +45,31 @@ module.exports = {
     extractSass,
     //NOTE: this is in specific order so that the libraries-core defines the webpackJsonp function (multiple common chunk does not seem to work)
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['libraries-react', 'libraries-core']
+      names: ['/javascript/libraries-react', '/javascript/libraries-core']
+    }),
+    new AssetsRewrite({
+      fileTypesToRewrite: ['svg', 'eot', 'ttf', 'woff', 'png', 'gif', 'jpeg', 'jpg', 'js', 'css', 'map', 'html'],
+      fileTypesToProcess: ['html', 'css', 'js'],
+      assetPaths: ['locale', 'javascript', 'misc', 'images', 'css'],
+      prependSlash: true,
+      addStatic: true,
+      domains: [],
+      noBuildVersion: [
+        'components/backend/backend.js',
+        'app/mocked-api.js'
+      ],
+      assetPatterns: [
+        'web/*.html',
+        'web/app/**/*.*',
+        'web/components/**/*.*',
+        //test files should not trigger static rewrite
+        '!web/app/**/*.spec.js'
+      ]
     })
   ],
   entry: {
     //3rd party libraries
-    'libraries-core': [
+    '/javascript/libraries-core': [
       'bluebird',
       'form-data-validation',
       'immutable',
@@ -68,7 +84,7 @@ module.exports = {
       'tether'
     ],
 
-    'libraries-react': [
+    '/javascript/libraries-react': [
       'react',
       'react-dom',
       'react-router',
@@ -81,11 +97,11 @@ module.exports = {
     ],
 
     //application code
-    application: './web/app/application',
+    '/javascript/application': './web/app/application',
 
     //mocks
-    'mocked-api': './web/app/mock/api.js',
-    'mocked-local-storage': './web/app/mock/local-storage.js'
+    '/javascript/mocked-api': './web/app/mock/api.js',
+    '/javascript/mocked-local-storage': './web/app/mock/local-storage.js'
   },
   devtool: ['source-map'],
   output: {

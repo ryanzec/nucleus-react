@@ -3,5 +3,4 @@
 /node_modules/*
 /web/build/*
 npm-debug.log
-/web/local-server
 /lib/*

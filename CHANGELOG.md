@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added custom assets rewrite plugin for webpack
 - updated all libraries and related changes
 - added auto centering to the modal component
 - added showcase for svg map example (based on https://blog.komand.com/building-svg-maps-with-react)
