@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- fixed issue with clicking popover handle trigger the on click outside event of the popover itself
+- fixed issue with popover and weird rendering issue when mouseenter / mouseleave event (like a tooltip) #167
 - refactored demo application side navigation menu to use new expandable list component
 - refactor standard html header styling
 - added expandable list component

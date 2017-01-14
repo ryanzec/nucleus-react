@@ -44,7 +44,7 @@ class ExpandableList extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'initialIsActive')}
+        {...getPassThroughProperties(this.props, 'className', 'initialIsActive', 'handleNode')}
       >
         <div
           className="expandable-list__handle"

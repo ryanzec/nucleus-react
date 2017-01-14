@@ -32,7 +32,22 @@ class PopoverContainer extends React.Component {
   onClickOutside(event) {
     let closePopover = true;
 
-    if (this.refs.content && (ReactDOM.findDOMNode(this.refs.content).contains(event.target) || ReactDOM.findDOMNode(this.refs.content) === event.target)) {
+    if (
+      (
+        this.refs.content
+        && (
+          ReactDOM.findDOMNode(this.refs.content).contains(event.target)
+          || ReactDOM.findDOMNode(this.refs.content) === event.target
+        )
+      )
+      || (
+        this.refs.handle
+        && (
+          ReactDOM.findDOMNode(this.refs.handle).contains(event.target)
+          || ReactDOM.findDOMNode(this.refs.handle) === event.target
+        )
+      )
+    ) {
       closePopover = false;
     }
 
@@ -56,12 +71,15 @@ class PopoverContainer extends React.Component {
   }
 
   render() {
-    if (!this.props.isActive) {
-      return this.props.children[0];
-    }
-
     //NOTE: we need to add in a ref in order to make sure in the outside click handler we are not clicking on the content
-    let children = React.Children.map(this.props.children, (child, key) => React.cloneElement(child, {ref: key === 0 ? 'handle' : 'content'}));
+    let children = React.Children.map(this.props.children, (child, key) => {
+      return React.cloneElement(child, {
+        ref: key === 0 ? 'handle' : 'content'
+      });
+    }).filter((item, key) => {
+      return this.props.isActive || key === 0;
+      // return true;
+    });
 
     return (
       <ReactTether
