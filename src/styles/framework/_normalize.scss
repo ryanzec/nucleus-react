@@ -434,6 +434,12 @@ th {
   padding: 0;
 }
 
+ol,
+ul {
+  margin: 0;
+  padding: 0 0 0 $spacing-small;
+}
+
 // style placeholder text
 ::-webkit-input-placeholder{
   font-style: italic;

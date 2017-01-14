@@ -3,6 +3,12 @@ $component-identifier: '.list';
 #{$component-identifier} {
   &.m-plain {
     list-style: none;
+    padding: 0;
+
+    > ol,
+    > ul {
+      padding: 0 0 0 $spacing-small;
+    }
   }
 }
 

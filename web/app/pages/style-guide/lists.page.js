@@ -96,7 +96,7 @@ class BadgesPage extends React.Component {
           <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
           <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
           <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
-          <List> styleType="plain"
+          <List styleType="plain">
             <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
             <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
             <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
