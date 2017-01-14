@@ -87,7 +87,7 @@ class DatePicker extends React.Component {
           return;
         }
 
-        if (day.diff(selectedDay, 'days') === 0) {
+        if (day.diff(selectedDay.clone().startOf('day'), 'days') === 0) {
           isActive = true;
         }
       });
