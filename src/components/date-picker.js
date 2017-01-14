@@ -21,7 +21,7 @@ class DatePicker extends React.Component {
   componentWillMount() {
     let viewDate;
 
-    if (this.props.selectedDays.length > 0) {
+    if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
       viewDate = this.props.selectedDays[0];
     } else {
       viewDate = moment();
@@ -81,7 +81,7 @@ class DatePicker extends React.Component {
   isActiveDay(day) {
     let isActive = false;
 
-    if (this.props.selectedDays.length > 0) {
+    if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
       this.props.selectedDays.forEach((selectedDay) => {
         if (isActive) {
           return;

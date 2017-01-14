@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added in some more validation code to prevent errors in the date picker component #172
 - fixed issue with date picker sometime show 2 dates as selected when only 1 date was actually selected #171
 - added ability to define custom tag renderer for the extend text component #169
 - fixed bug with extend text showing "search" text instead of "no options" text when async returns no data #166
