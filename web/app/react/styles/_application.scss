@@ -51,5 +51,9 @@ html, body {
     flex: 1;
     overflow-y: auto;
     padding: $spacing-medium;
+
+    :first-of-type h1 {
+      margin-top: 0;
+    }
   }
 }

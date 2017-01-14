@@ -6,18 +6,18 @@ $component-identifier: '.main-navigation';
   border-right: 1px solid $border-color;
   padding: $spacing-extra-small;
 
-  .svg-icon__container {
-    fill: $color-light-text;
+  .expandable-list:not(:last-child) {
+    margin-bottom: $spacing-small;
   }
 
-  &__item {
-    display: flex;
-    padding: 4px 0 4px 8px;
+  .list__item {
+    // NOTE: note using `padding` so I don't overwrite or have to copy default properties
+    padding-top: $spacing-extra-tiny;
+    padding-bottom: $spacing-extra-tiny;
+    cursor: pointer;
 
     &:hover {
-      background-color: $color-blue4;
-      color: $color-light-text;
-      cursor: pointer;
+      background-color: $color-gray3;
     }
 
     .svg-icon__outer-container {

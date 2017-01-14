@@ -6,6 +6,9 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- refactored demo application side navigation menu to use new expandable list component
+- refactor standard html header styling
+- added expandable list component
 - added list components
 - refactored general demo application styling
 - refactored colors (mostly based off of https://vmware.github.io/clarity/documentation/color)

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ExpandableList from '../../../../src/components/expandable-list';
+import ListItem from '../../../../src/components/list-item';
 import SvgIcon from '../../../../src/components/svg-icon';
 
 class MainNavigationSection extends React.Component {
@@ -26,7 +28,6 @@ class MainNavigationSection extends React.Component {
   }
 
   renderItems() {
-    var itemsNode = null;
     var itemNodes = [];
 
     if (this.props.items.length > 0) {
@@ -40,33 +41,25 @@ class MainNavigationSection extends React.Component {
         }
 
         itemNodes.push(
-          <div
+          <ListItem
             key={item.id}
-            className="main-navigation__item"
             data-to={item.to}
             onClick={this.onClickMenuItem}
           >
             {svgIconNode}{item.display}
-          </div>
+          </ListItem>
         );
       });
-
-      itemsNode = (
-        <div className="main-navigation__items">
-          {itemNodes}
-        </div>
-      );
     }
 
-    return itemsNode;
+    return itemNodes;
   }
 
   render() {
     return (
-      <div className={this.getCssClasses().join(' ')}>
-        <div className="main-navigation__section-header">{this.props.headerNode}</div>
+      <ExpandableList handleNode={this.props.headerNode}>
         {this.renderItems()}
-      </div>
+      </ExpandableList>
     );
   }
 }

@@ -12,4 +12,31 @@ $component-identifier: '.list';
   }
 }
 
+.expandable-list {
+  &.is-active {
+    .list {
+      display: block;
+    }
+  }
+
+  .list {
+    display: none;
+
+    &__item {
+      padding-left: #{$spacing-extra-tiny + 12px + $spacing-small};
+    }
+  }
+
+  &__handle {
+    user-select: none;
+    cursor: pointer;
+
+    .svg-icon__container {
+      height: 12px;
+      width: 12px;
+      margin-right: $spacing-extra-tiny;
+    }
+  }
+}
+
 $component-identifier: '';
