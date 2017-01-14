@@ -3,19 +3,36 @@ import getPassThroughProperties from '../utilities/component/get-pass-through-pr
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 import moment from 'moment-timezone';
 
-import SvgIcon from './svg-icon';
+import Button from './button';
 import DatePickerDay from './date-picker-day';
+import FormTextbox from './form-textbox';
+import SvgIcon from './svg-icon';
 
 class DatePicker extends React.Component {
   constructor(props) {
     super(props);
+    let startedSelectedDate;
+
+    if (props.selectedDays.length > 0 && moment.isMoment(props.selectedDays[0])) {
+      startedSelectedDate = props.selectedDays[0];
+    }
 
     this.state = {
-      viewDate: null
+      viewDate: null,
+      hours: startedSelectedDate ? this.convertTimeValueToString(startedSelectedDate.hours()) : '00',
+      minutes: startedSelectedDate ? this.convertTimeValueToString(startedSelectedDate.minutes()) : '00',
+      seconds: startedSelectedDate ? this.convertTimeValueToString(startedSelectedDate.seconds()) : '00',
     };
+  }
 
-    this.onClickNextMonth = this.onClickNextMonth.bind(this);
-    this.onClickPreviousMonth = this.onClickPreviousMonth.bind(this);
+  componentWillReceiveProps(newProps) {
+    if (newProps.selectedDays.length > 0 && moment.isMoment(newProps.selectedDays[0])) {
+      this.setState({
+        hours: this.convertTimeValueToString(newProps.selectedDays[0].hours()),
+        minutes: this.convertTimeValueToString(newProps.selectedDays[0].minutes()),
+        seconds: this.convertTimeValueToString(newProps.selectedDays[0].seconds()),
+      });
+    }
   }
 
   componentWillMount() {
@@ -36,16 +53,78 @@ class DatePicker extends React.Component {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onClickNextMonth() {
+  onClickNextMonth = () => {
     this.setState({
       viewDate: this.state.viewDate.clone().add(1, 'month')
     });
   }
 
-  onClickPreviousMonth() {
+  onClickPreviousMonth = () => {
     this.setState({
       viewDate: this.state.viewDate.clone().subtract(1, 'month')
     });
+  }
+
+  onFocusTime = (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+
+    if (parseInt(this.state[formField], 10) === 0) {
+      this.setState({
+        [formField]: '',
+      });
+    }
+  }
+
+  onBlurTime = (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+    let newValue = this.convertTimeValueToString(event.target.value);
+
+    this.setState({
+      [formField]: newValue,
+    }, () => {
+      let newDate;
+
+      if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
+        newDate = this.props.selectedDays[0].clone();
+      } else {
+        newDate = moment();
+      }
+
+      newDate.hours(this.state.hours);
+      newDate.minutes(this.state.minutes);
+      newDate.seconds(this.state.seconds);
+
+      this.props.onClickDate(newDate);
+    });
+  }
+
+  onChangeTime = (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+    let newValue = this.convertTimeValueToString(event.target.value, false);
+
+    if (newValue > 24 && formField === 'hours') {
+      newValue = '23';
+    } else if (newValue > 60) {
+      newValue = '59';
+    }
+
+    this.setState({
+      [formField]: newValue,
+    });
+  }
+
+  convertTimeValueToString(value, addLeadingZero = true) {
+    let parsedValue = parseInt(value, 10);
+
+    if (isNaN(parsedValue)) {
+      parsedValue = 0;
+    }
+
+    if (addLeadingZero) {
+      return (parsedValue + '').length === 1 ? '0' + parsedValue : '' + parsedValue;
+    } else {
+      return parsedValue === 0 ? '' : '' + parsedValue;
+    }
   }
 
   getCssClasses() {
@@ -119,6 +198,11 @@ class DatePicker extends React.Component {
     const viewMonth = this.state.viewDate.month();
     const calendarMonthWeeks = this.getCalendarMonthWeeks();
     const weekNodes = [];
+    const currentTime = {
+      hours: this.state.hours,
+      minutes: this.state.minutes,
+      seconds: this.state.seconds,
+    };
 
     calendarMonthWeeks.forEach((week, weekKey) => {
       const dayNodes = [];
@@ -135,6 +219,7 @@ class DatePicker extends React.Component {
             isActive={this.isActiveDay(day)}
             disabled={this.isDisabledDay(day)}
             onClickDate={this.props.onClickDate}
+            currentTime={currentTime}
           >
             {day.date()}
           </DatePickerDay>);
@@ -146,11 +231,53 @@ class DatePicker extends React.Component {
     return weekNodes;
   }
 
+  renderTime() {
+    if (!this.props.displayTime) {
+      return null;
+    }
+
+    return (
+      <div className="date-picker__time-container">
+        <FormTextbox
+          data-form-field="hours"
+          onChange={this.onChangeTime}
+          onFocus={this.onFocusTime}
+          onBlur={this.onBlurTime}
+          value={this.state.hours}
+        />:
+        <FormTextbox
+          data-form-field="minutes"
+          onChange={this.onChangeTime}
+          onFocus={this.onFocusTime}
+          onBlur={this.onBlurTime}
+          value={this.state.minutes}
+        />:
+        <FormTextbox
+          data-form-field="seconds"
+          onChange={this.onChangeTime}
+          onFocus={this.onFocusTime}
+          onBlur={this.onBlurTime}
+          value={this.state.seconds}
+        />
+      </div>
+    );
+  }
+
+  renderClose() {
+    if (!this.props.onClose) {
+      return null;
+    }
+
+    return (
+      <Button onClick={this.props.onClose}>Close</Button>
+    );
+  }
+
   render() {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'onClickDate', 'selectedDays', 'minDate', 'maxDate')}
+        {...getPassThroughProperties(this.props, 'className', 'onClickDate', 'selectedDays', 'minDate', 'maxDate', 'displayTime', 'onClose')}
       >
         <div className="date-picker__top-bar">
           <SvgIcon
@@ -177,6 +304,8 @@ class DatePicker extends React.Component {
         <div className="date-picker__month">
           {this.renderCalendarMonthWeeks()}
         </div>
+        {this.renderTime()}
+        {this.renderClose()}
       </div>
     );
   }
@@ -187,7 +316,9 @@ DatePicker.propTypes = {
   onClickDate: React.PropTypes.func.isRequired,
   selectedDays: React.PropTypes.array,
   minDate: React.PropTypes.object,
-  maxDate: React.PropTypes.object
+  maxDate: React.PropTypes.object,
+  displayTime: React.PropTypes.bool,
+  onClose: React.PropTypes.func,
 };
 
 DatePicker.defaultProps = {
@@ -195,7 +326,9 @@ DatePicker.defaultProps = {
   onClickDate: null,
   selectedDays: [],
   minDate: null,
-  maxDate: null
+  maxDate: null,
+  displayTime: true,
+  onClose: null,
 };
 
 export default DatePicker;

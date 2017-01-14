@@ -6,6 +6,12 @@ $component-identifier: '.date-picker';
   border-radius: 5px;
   background-color: $color-white;
 
+  .button {
+    @include border-top-radius(0);
+
+    width: 100%;
+  }
+
   &__previous-month,
   &__next-month {
     @include flexbox-value-width(16px);
@@ -19,17 +25,17 @@ $component-identifier: '.date-picker';
   }
 
   &__month {
-    margin: 8px;
+    margin: $spacing-tiny;
   }
 
   &__top-bar {
     @include border-top-radius(4px);
 
-    padding: 8px 16px 8px 16px;
+    padding: $spacing-tiny $spacing-small $spacing-tiny $spacing-small;
   }
 
   &__days-of-week {
-    padding: 0 8px;
+    padding: 0 $spacing-tiny;
   }
 
   &__top-bar,
@@ -57,13 +63,13 @@ $component-identifier: '.date-picker';
     border-radius: 3px;
     cursor: pointer;
 
-    &:hover:not(.is-disabled) {
+    &:hover:not(.is-disabled):not(.is-active) {
       background-color: $color-gray2;
       font-weight: 500;
     }
 
     &.is-active {
-      background-color: $color-blue2;
+      background-color: $background-color-active;
       color: $color-light-text;
       font-weight: 500;
     }
@@ -75,6 +81,19 @@ $component-identifier: '.date-picker';
     &.is-disabled {
       opacity: .3;
       cursor: not-allowed;
+    }
+  }
+
+  &__time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 125px;
+    margin: 0 auto;
+    margin-bottom: $spacing-small;
+
+    .form-element__textbox {
+      @include flexbox-value-width(35px);
     }
   }
 }

@@ -13,22 +13,19 @@ class FormDatePicker extends React.Component {
     this.state = {
       isActive: false
     };
-
-    this.onFocus = this.onFocus.bind(this);
-    this.onClickOutside = this.onClickOutside.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onFocus() {
+  onFocus = () => {
     this.setState({
       isActive: true
     });
   }
 
-  onClickOutside() {
+  onClose = () => {
     this.setState({
       isActive: false
     });
@@ -58,7 +55,6 @@ class FormDatePicker extends React.Component {
     return (
       <PopoverContainer
         className={this.getCssClasses().join(' ')}
-        onClickOutside={this.onClickOutside}
         isActive={this.state.isActive}
         {...getPassThroughProperties(this.props, 'className', 'onClick', 'selectedDays', 'onClickDate')}
       >
@@ -70,6 +66,7 @@ class FormDatePicker extends React.Component {
         <DatePicker
           selectedDays={this.props.selectedDays}
           onClickDate={this.props.onClickDate}
+          onClose={this.onClose}
         />
       </PopoverContainer>
     );

@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added optional close functionality to the date picker component (for use within the form date picker component) #173
+- added time functionality to date picker component
 - added in some more validation code to prevent errors in the date picker component #172
 - fixed issue with date picker sometime show 2 dates as selected when only 1 date was actually selected #171
 - added ability to define custom tag renderer for the extend text component #169

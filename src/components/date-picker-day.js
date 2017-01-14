@@ -19,8 +19,14 @@ class DatePickerDay extends React.Component {
   }
 
   onClick() {
-    if (!this.props.disabled && this.props.onClickDate) {
-      this.props.onClickDate(this.props.day);
+    if (!this.props.disabled) {
+      const newDate = this.props.day.clone();
+
+      newDate.hours(this.props.currentTime.hours);
+      newDate.minutes(this.props.currentTime.minutes);
+      newDate.seconds(this.props.currentTime.seconds);
+
+      this.props.onClickDate(newDate);
     }
   }
 
@@ -51,7 +57,7 @@ class DatePickerDay extends React.Component {
       <div
         className={this.getCssClasses().join(' ')}
         onClick={this.onClick}
-        {...getPassThroughProperties(this.props, 'className', 'isOtherMonth', 'isActive', 'day', 'onClickDate', 'disabled')}
+        {...getPassThroughProperties(this.props, 'className', 'isOtherMonth', 'isActive', 'day', 'onClickDate', 'disabled', 'currentTime')}
       >
         {this.props.children}
       </div>
@@ -64,17 +70,16 @@ DatePickerDay.propTypes = {
   isOtherMonth: React.PropTypes.bool,
   isActive: React.PropTypes.bool,
   day: React.PropTypes.object.isRequired,
-  onClickDate: React.PropTypes.func,
-  disabled: React.PropTypes.bool
+  onClickDate: React.PropTypes.func.isRequired,
+  disabled: React.PropTypes.bool,
+  currentTime: React.PropTypes.object.isRequired,
 };
 
 DatePickerDay.defaultProps = {
   className: null,
   isOtherMonth: false,
   isActive: false,
-  day: null,
-  onClickDate: null,
-  disabled: false
+  disabled: false,
 };
 
 export default DatePickerDay;

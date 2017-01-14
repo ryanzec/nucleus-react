@@ -43,6 +43,7 @@ $font-size-button: 1.4rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: $padding-button;
   border-radius: $border-radius-button;
   margin-right: $margin-button;
@@ -51,6 +52,7 @@ $font-size-button: 1.4rem;
   background-color: $background-color-button;
   color: $color-button;
   font-size: $font-size-button;
+  text-align: center;
 
   .svg-icon__container {
     fill: $color-button;

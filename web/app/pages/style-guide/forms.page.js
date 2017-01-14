@@ -119,7 +119,7 @@ class FormsPage extends React.Component {
             <FormDatePicker
               onClickDate={this.onClickDate}
               selectedDays={this.state.selectedDays}
-              format="dddd, MMMM Do, YYYY"
+              format="dddd, MMMM Do, YYYY HH:mm:ss Z"
             />
           </FormElement>
         </div>
