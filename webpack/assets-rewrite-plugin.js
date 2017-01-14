@@ -9,6 +9,17 @@ function AssetsRewrite(options) {
   this.options = _.extend({}, options);
 }
 
+function makeID() {
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (var i=0; i < 5; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+}
+
 AssetsRewrite.prototype.apply = function(compiler) {
   var config = this.options;
 
@@ -24,9 +35,16 @@ AssetsRewrite.prototype.apply = function(compiler) {
         asset = asset.substr(6);
       }
 
-      shasum.update(fs.readFileSync(filePath, {
-        encoding: 'utf8'
-      }));
+      // NOTE: generally if a file could not be found it mean there was an error in generating the file however the error that producing in here prevent the
+      // NOTE: webpack error from showing so this is the easiest way to prevent that though there is probably a better way within webpack to do it.
+      if (!fs.existsSync(filePath)) {
+        shasum.update(makeID());
+      } else {
+        shasum.update(fs.readFileSync(filePath, {
+          encoding: 'utf8'
+        }));
+      }
+
       var sha = shasum.digest('hex');
       var assetParts = asset.split('/');
 
