@@ -41,8 +41,6 @@ class OverlayAbsolute extends React.Component {
   }
 }
 
-OverlayAbsolute.displayName = 'OverlayAbsolute';
-
 OverlayAbsolute.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool

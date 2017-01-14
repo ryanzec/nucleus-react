@@ -43,8 +43,6 @@ class Breadcrumb extends React.Component {
   }
 }
 
-Breadcrumb.displayName = 'Breadcrumb';
-
 Breadcrumb.propTypes = {
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,

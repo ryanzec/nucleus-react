@@ -29,8 +29,6 @@ class Popover extends React.Component {
   }
 }
 
-Popover.displayName = 'Popover';
-
 Popover.propTypes = {
   className: React.PropTypes.string
 };

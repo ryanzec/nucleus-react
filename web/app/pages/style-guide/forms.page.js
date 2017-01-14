@@ -452,8 +452,6 @@ class FormsPage extends React.Component {
   }
 }
 
-FormsPage.displayName = 'FormsPage';
-
 FormsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

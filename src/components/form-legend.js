@@ -48,8 +48,6 @@ class FormLegend extends React.Component {
   }
 }
 
-FormLegend.displayName = 'FormLegend';
-
 FormLegend.propTypes = {
   className: React.PropTypes.string,
   displayRequiredDetails: React.PropTypes.bool,

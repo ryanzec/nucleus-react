@@ -41,8 +41,6 @@ class ProgressBar extends React.Component {
   }
 }
 
-ProgressBar.displayName = 'ProgressBar';
-
 ProgressBar.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),

@@ -46,8 +46,6 @@ class ProgressBarsPage extends React.Component {
   }
 }
 
-ProgressBarsPage.displayName = 'ProgressBarsPage';
-
 ProgressBarsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

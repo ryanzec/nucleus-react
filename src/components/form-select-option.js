@@ -29,8 +29,6 @@ class FormSelectOption extends React.Component {
   }
 }
 
-FormSelectOption.displayName = 'FormSelectOption';
-
 FormSelectOption.propTypes = {
   className: React.PropTypes.string
 };

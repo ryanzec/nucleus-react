@@ -29,8 +29,6 @@ class FormSelect extends React.Component {
   }
 }
 
-FormSelect.displayName = 'FormSelect';
-
 FormSelect.propTypes = {
   className: React.PropTypes.string
 };

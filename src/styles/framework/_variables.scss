@@ -1,85 +1,108 @@
-//general colors
+// NOTE: colors are mostly based off of https://vmware.github.io/clarity/documentation/color
+
+// NOTE: general colors
 $color-white: rgb(255, 255, 255) !default;
 $color-black: rgb(0, 0, 0) !default;
 $color-transparent: rgba(0, 0, 0, 0) !default;
 
+// NOTE: gray colors
+$color-gray1: #FAFAFA;
+$color-gray2: #EEEEEE;
+$color-gray3: #DDDDDD;
+$color-gray4: #CCCCCC;
+$color-gray5: #747474;
+$color-gray6: #565656;
+$color-gray7: #313131;
 
+// NOTE: red colors
+$color-red1: #F5DBD9;
+$color-red2: #EBAFA6;
+$color-red3: #E62700;
+$color-red4: #C92100;
+$color-red5: #A32100;
 
-$color-gray4: gray;
+// NOTE: blue colors
+$color-blue1: #E1F1F6;
+$color-blue2: #89CBDF;
+$color-blue3: #49AFD9;
+$color-blue4: #0094D2;
+$color-blue5: #007CBB;
+$color-blue6: #004A70;
+$color-blue7: #002538;
 
+// NOTE: green colors
+$color-green1: #DFF0D0;
+$color-green2: #60B515;
+$color-green3: #62A420;
+$color-green4: #318700;
+$color-green5: #266900;
+$color-green6: #1D5100;
+
+// NOTE: orange colors
+$color-orange1: #FEECB5;
+$color-orange2: #EB8D00;
+$color-orange3: #8A5301;
+
+// NOTE: text colors
+$color-dark-text: $color-gray7;
+$color-muted-text: $color-gray5;
+$color-light-text: $color-white;
+$color-light-muted-text: $color-gray4;
+
+// NOTE: indicator colors
+$color-light-success: $color-green1;
+$color-success: $color-green4;
+$color-dark-success: $color-green6;
+$color-light-info: $color-blue1;
+$color-info: $color-blue4;
+$color-dark-info: $color-blue7;
+$color-light-warning: $color-orange1;
+$color-warning: $color-orange2;
+$color-dark-warning: $color-orange3;
+$color-light-danger: $color-red1;
+$color-danger: $color-red3;
+$color-dark-danger: $color-red5;
+$color-light-neutral: $color-gray2;
+$color-neutral: $color-gray5;
+$color-dark-neutral: $color-gray7;
+
+// NOTE: generic application colors
+$border-color: $color-gray4;
+$background-color-active: $color-blue2;
+
+// NOTE: spacing
+$spacing-extra-tiny: 4px;
+$spacing-tiny: 8px;
+$spacing-extra-small: 12px;
+$spacing-small: 16px;
+$spacing-medium: 20px;
+$spacing-large: 24px;
+
+// NOTE: fonts
 $font-family: 'Roboto';
 $font-size-body: 1.3rem;
 
-
-
-//gray colors
-$color-lightest-gray: #F5F5F5;
-$color-lighter-gray: #E0E0E0;
-$color-light-gray: #BDBDBD;
-$color-gray: #9E9E9E;
-$color-dark-gray: #757575;
-$color-darker-gray: #616161;
-$color-darkest-gray: #424242;
-
-//red colors
-$color-lightest-red: #FFCDD2;
-$color-red: #F44336;
-$color-darkest-red: #B71C1C;
-
-//blue colors
-$color-lightest-blue: #C5CAE9;
-$color-lighter-blue: #7986CB;
-$color-blue: #3F51B5;
-$color-darkest-blue: #1A237E;
-
-//green colors
-$color-lightest-green: #C8E6C9;
-$color-green: #4CAF50;
-$color-darkest-green: #1B5E20;
-
-//orange colors
-$color-lightest-orange: #FFE0B2;
-$color-orange: #FF9800;
-$color-darkest-orange: #E65100;
-
-//text colors
-$color-text: #212121;
-$color-muted-text: $color-dark-gray;
-$color-light-text: $color-white;
-$color-light-muted-text: transparentize($color-lightest-gray, .7);
-
-//indicator colors
-$color-light-success: $color-lightest-green;
-$color-success: $color-green;
-$color-dark-success: $color-darkest-green;
-$color-light-info: $color-lightest-blue;
-$color-info: $color-blue;
-$color-dark-info: $color-darkest-blue;
-$color-light-warning: $color-lightest-orange;
-$color-warning: $color-orange;
-$color-dark-warning: $color-darkest-orange;
-$color-light-danger: $color-lightest-red;
-$color-danger: $color-red;
-$color-dark-danger: $color-darkest-red;
-$color-light-neutral: $color-lighter-gray;
-$color-neutral: $color-light-gray;
-$color-dark-neutral: $color-gray;
-
-//svg icons
+// NOTE: svg icons
 $color-success-svg-icon: $color-success;
 $color-info-svg-icon: $color-info;
 $color-warning-svg-icon: $color-warning;
 $color-danger-svg-icon: $color-danger;
 
-//typography
-$color-link: $color-lighter-blue;
+// NOTE: typography
+$color-link: $color-blue2;
 
-//break points
+// NOTE: border radius
+$border-radius-pill: 9999px;
+$border-radius-tiny: 3px;
+$border-radius-small: 5px;
+$border-radius-medium: 10px;
+
+// NOTE: break points
 $small-break-point: 640px !default;
 $medium-break-point: 1023px !default;
 $large-break-point: 1600px !default;
 
-//media queries
+// NOTE: media queries
 $small-screen-media-query: "only screen" !default;
 $small-screen-only-media-query: "only screen and (min-width: 1px) and (max-width: #{$small-break-point})" !default;
 $small-screen-max-media-query: "only screen and (max-width: #{$small-break-point})" !default;
@@ -91,7 +114,7 @@ $large-screen-only-media-query: "only screen and (min-width: #{$medium-break-poi
 $large-screen-max-media-query: "only screen and (max-width: #{$large-break-point})" !default;
 $extra-large-screen-media-query: "only screen and (min-width: #{$large-break-point + 1})" !default;
 
-//form
+// NOTE: form
 $border-radius-input: 5px;
 $padding-input: 4px;
 $padding-label: $padding-input;
@@ -100,9 +123,9 @@ $padding-form-legend: 4px;
 $margin-form-legend: 8px;
 $padding-validation-icon: $padding-input;
 $font-size-form-legend: 1.8rem;
-$border-color-input: $color-gray;
-$border-color-focus-input: $color-lighter-blue;
-$background-color-textbox-group-addon: $color-lighter-gray;
+$border-color-input: $color-gray4;
+$border-color-focus-input: $color-blue2;
+$background-color-textbox-group-addon: $color-gray2;
 $size-required-icon-input: 6px;
 $size-validation-icon-input: 12px;
 $height-textbox: 26px;

@@ -29,8 +29,6 @@ class FormTextboxGroupAddon extends React.Component {
   }
 }
 
-FormTextboxGroupAddon.displayName = 'FormTextboxGroupAddon';
-
 FormTextboxGroupAddon.propTypes = {
   className: React.PropTypes.string
 };

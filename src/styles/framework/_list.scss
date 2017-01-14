@@ -1,0 +1,9 @@
+$component-identifier: '.list';
+
+#{$component-identifier} {
+  &.m-plain {
+    list-style: none;
+  }
+}
+
+$component-identifier: '';

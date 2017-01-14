@@ -6,6 +6,10 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added list components
+- refactored general demo application styling
+- refactored colors (mostly based off of https://vmware.github.io/clarity/documentation/color)
+- added tab components
 - added custom assets rewrite plugin for webpack
 - updated all libraries and related changes
 - added auto centering to the modal component

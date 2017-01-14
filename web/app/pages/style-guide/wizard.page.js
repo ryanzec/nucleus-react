@@ -75,8 +75,6 @@ class WizardPage extends React.Component {
   }
 }
 
-WizardPage.displayName = 'WizardPage';
-
 WizardPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

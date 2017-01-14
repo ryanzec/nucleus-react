@@ -97,8 +97,6 @@ class FileUploadDragDrop extends React.Component {
   }
 }
 
-FileUploadDragDrop.displayName = 'FileUploadDragDrop';
-
 FileUploadDragDrop.propTypes = {
   className: React.PropTypes.string,
   infoNode: React.PropTypes.node,

@@ -6,7 +6,7 @@ $margin-top-bottom-modal: 25px;
 $padding-modal: 16px;
 $z-index-modal: 10001;
 $background-header-footer-color: $color-white;
-$color-header-footer-modal: $color-text;
+$color-header-footer-modal: $color-dark-text;
 
 .modal__wrapper {
   position: fixed;
@@ -68,7 +68,7 @@ body.modal-open {
     margin: 0;
     background-color: $background-header-footer-color;
     color: $color-header-footer-modal;
-    border-bottom: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray4;
 
     &-close {
       margin-left: auto;
@@ -90,7 +90,7 @@ body.modal-open {
     padding: $padding-modal;
     background-color: $background-header-footer-color;
     color: $color-header-footer-modal;
-    border-top: 1px solid $color-gray;
+    border-top: 1px solid $color-gray4;
 
     &.is-actions {
       justify-content: flex-end;

@@ -48,8 +48,6 @@ class ModalHeader extends React.Component {
   }
 }
 
-ModalHeader.displayName = 'ModalHeader';
-
 ModalHeader.propTypes = {
   className: React.PropTypes.string,
   closeHandler: React.PropTypes.func

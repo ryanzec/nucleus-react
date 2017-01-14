@@ -40,8 +40,6 @@ class CodePage extends React.Component {
   }
 }
 
-CodePage.displayName = 'CodePage';
-
 CodePage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

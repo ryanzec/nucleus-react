@@ -46,8 +46,6 @@ class ExtendTextNotFilteringExample extends React.Component {
   }
 }
 
-ExtendTextNotFilteringExample.displayName = 'ExtendTextNotFilteringExample';
-
 ExtendTextNotFilteringExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

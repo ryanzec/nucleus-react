@@ -82,8 +82,6 @@ class GridRow extends React.Component {
   }
 }
 
-GridRow.displayName = 'GridRow';
-
 GridRow.propTypes = {
   className: React.PropTypes.string,
   shrink: React.PropTypes.bool,

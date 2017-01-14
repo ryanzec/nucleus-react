@@ -17,7 +17,7 @@ $component-identifier: '.wizard';
       margin-right: -1px;
 
       &.is-previous {
-        border-color: $color-green;
+        border-color: $color-green4;
       }
     }
   }
@@ -30,12 +30,12 @@ $component-identifier: '.wizard';
     border: 2px solid $color-neutral;
 
     &.is-previous {
-      background-color: $color-green;
-      border-color: $color-green;
+      background-color: $color-green4;
+      border-color: $color-green4;
     }
 
     &.is-current {
-      border-color: $color-green;
+      border-color: $color-green4;
     }
   }
 }

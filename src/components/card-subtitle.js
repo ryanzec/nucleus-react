@@ -29,8 +29,6 @@ class CardSubtitle extends React.Component {
   }
 }
 
-CardSubtitle.displayName = 'CardSubtitle';
-
 CardSubtitle.propTypes = {
   className: React.PropTypes.string
 };

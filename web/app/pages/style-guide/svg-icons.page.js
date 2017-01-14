@@ -43,8 +43,6 @@ class SvgIconsPage extends React.Component {
   }
 }
 
-SvgIconsPage.displayName = 'SvgIconsPage';
-
 SvgIconsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

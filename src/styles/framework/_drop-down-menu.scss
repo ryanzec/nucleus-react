@@ -2,7 +2,7 @@ $component-identifier: '.drop-down-menu';
 
 #{$component-identifier} {
   background-color: $color-white;
-  border: 1px solid $color-gray;
+  border: 1px solid $color-gray4;
   border-radius: 3px;
 
    &__header,
@@ -18,7 +18,7 @@ $component-identifier: '.drop-down-menu';
   &__divider {
     padding: 0 12px;
     height: 1px;
-    border-bottom: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray4;
   }
 
   &__item {

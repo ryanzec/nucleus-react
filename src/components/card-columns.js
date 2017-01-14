@@ -29,8 +29,6 @@ class CardColumns extends React.Component {
   }
 }
 
-CardColumns.displayName = 'CardColumns';
-
 CardColumns.propTypes = {
   className: React.PropTypes.string
 };

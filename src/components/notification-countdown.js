@@ -45,8 +45,6 @@ class NotificationCountdown extends React.Component {
   }
 }
 
-NotificationCountdown.displayName = 'NotificationCountdown';
-
 NotificationCountdown.propTypes = {
   length: React.PropTypes.number.isRequired
 };

@@ -29,8 +29,6 @@ class DropDownMenuHeader extends React.Component {
   }
 }
 
-DropDownMenuHeader.displayName = 'DropDownMenuHeader';
-
 DropDownMenuHeader.propTypes = {
   className: React.PropTypes.string
 };

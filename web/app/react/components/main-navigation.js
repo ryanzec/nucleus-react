@@ -24,8 +24,6 @@ class MainNavigation extends React.Component {
   }
 }
 
-MainNavigation.displayName = 'MainNavigation';
-
 MainNavigation.propTypes = {
   className: React.PropTypes.string
 };

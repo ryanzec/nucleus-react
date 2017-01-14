@@ -43,8 +43,6 @@ class FormValidationMessage extends React.Component {
   }
 }
 
-FormValidationMessage.displayName = 'FormValidationMessage';
-
 FormValidationMessage.propTypes = {
   className: React.PropTypes.string,
   iconFragment: React.PropTypes.string

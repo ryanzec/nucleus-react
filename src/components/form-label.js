@@ -56,8 +56,6 @@ class FormLabel extends React.Component {
   }
 }
 
-FormLabel.displayName = 'FormLabel';
-
 FormLabel.propTypes = {
   className: React.PropTypes.string,
   isRequired: React.PropTypes.bool,

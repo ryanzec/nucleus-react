@@ -29,8 +29,6 @@ class DropDownMenuDivider extends React.Component {
   }
 }
 
-DropDownMenuDivider.displayName = 'DropDownMenuDivider';
-
 DropDownMenuDivider.propTypes = {
   className: React.PropTypes.string
 };

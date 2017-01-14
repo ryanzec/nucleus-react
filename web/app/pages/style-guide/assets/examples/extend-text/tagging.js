@@ -49,8 +49,6 @@ class ExtendTextTaggingExample extends React.Component {
   }
 }
 
-ExtendTextTaggingExample.displayName = 'ExtendTextTaggingExample';
-
 ExtendTextTaggingExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

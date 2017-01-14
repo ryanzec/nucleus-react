@@ -1,23 +1,13 @@
 $component-identifier: '.main-navigation';
 
 #{$component-identifier} {
-  //TODO: add better small screen support for menu
-  display: block;
   @include flexbox-value-width(250px);
 
-  background-color: $color-darker-gray;
-  color: $color-light-text;
+  border-right: 1px solid $border-color;
+  padding: $spacing-extra-small;
 
   .svg-icon__container {
     fill: $color-light-text;
-  }
-
-  &__section {
-    padding: 0 8px;
-
-    &-header {
-      padding: 4px 0;
-    }
   }
 
   &__item {
@@ -25,7 +15,8 @@ $component-identifier: '.main-navigation';
     padding: 4px 0 4px 8px;
 
     &:hover {
-      background-color: $color-blue;
+      background-color: $color-blue4;
+      color: $color-light-text;
       cursor: pointer;
     }
 

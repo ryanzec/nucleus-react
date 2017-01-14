@@ -32,8 +32,6 @@ class ImagesPage extends React.Component {
   }
 }
 
-ImagesPage.displayName = 'ImagesPage';
-
 ImagesPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

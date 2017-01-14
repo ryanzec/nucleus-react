@@ -50,13 +50,13 @@
   text-align: justify !important;
 }
 
-.u-margin-0 {
-  margin: 0 !important;
-}
-
 $temp-size: 0;
 
 @while $temp-size <= 100 {
+  .u-margin-#{$temp-size} {
+    margin: #{$temp-size}px !important;
+  }
+
   .u-margin-top-#{$temp-size} {
     margin-top: #{$temp-size}px !important;
   }
@@ -71,6 +71,26 @@ $temp-size: 0;
 
   .u-margin-left-#{$temp-size} {
     margin-left: #{$temp-size}px !important;
+  }
+
+  .u-padding-#{$temp-size} {
+    padding: #{$temp-size}px !important;
+  }
+
+  .u-padding-top-#{$temp-size} {
+    padding-top: #{$temp-size}px !important;
+  }
+
+  .u-padding-right-#{$temp-size} {
+    padding-right: #{$temp-size}px !important;
+  }
+
+  .u-padding-bottom-#{$temp-size} {
+    padding-bottom: #{$temp-size}px !important;
+  }
+
+  .u-padding-left-#{$temp-size} {
+    padding-left: #{$temp-size}px !important;
   }
 
   $temp-size: $temp-size + 4;

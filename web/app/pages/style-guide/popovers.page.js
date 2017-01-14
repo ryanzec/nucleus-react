@@ -133,8 +133,6 @@ class PopoversPage extends React.Component {
   }
 }
 
-PopoversPage.displayName = 'PopoversPage';
-
 PopoversPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

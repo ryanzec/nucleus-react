@@ -78,8 +78,6 @@ class ApplicationNotificationsPage extends React.Component {
   }
 }
 
-ApplicationNotificationsPage.displayName = 'ApplicationNotificationsPage';
-
 ApplicationNotificationsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

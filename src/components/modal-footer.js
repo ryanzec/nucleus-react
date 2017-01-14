@@ -33,8 +33,6 @@ class ModalFooter extends React.Component {
   }
 }
 
-ModalFooter.displayName = 'ModalFooter';
-
 ModalFooter.propTypes = {
   className: React.PropTypes.string,
   isActions: React.PropTypes.bool

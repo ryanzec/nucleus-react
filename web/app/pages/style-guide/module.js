@@ -21,7 +21,8 @@ import DatePickerPage from './date-picker.page';
 import ImagesPage from './images.page';
 import ExtendTextPage from './extend-text.page';
 import WizardPage from './wizard.page';
-import FileUploadDragDrop from './file-upload-drag-drop.page';
+import FileUploadDragDropPage from './file-upload-drag-drop.page';
+import TabsPage from './tabs.page';
 
 export const routes = [
   <Route
@@ -148,6 +149,12 @@ export const routes = [
     key="20"
     name="style-guide-file-upload-drag-drop"
     path="/style-guide/file-upload-drag-drop"
-    component={FileUploadDragDrop}
+    component={FileUploadDragDropPage}
+  />,
+  <Route
+    key="20"
+    name="style-guide-tabs"
+    path="/style-guide/tabs"
+    component={TabsPage}
   />
 ];

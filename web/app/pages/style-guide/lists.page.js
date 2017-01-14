@@ -9,7 +9,8 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-// import Badge from '../../../../src/components/badge';
+import List from '../../../../src/components/list';
+import ListItem from '../../../../src/components/list-item';
 
 class BadgesPage extends React.Component {
   constructor(props) {
@@ -22,62 +23,93 @@ class BadgesPage extends React.Component {
       <div className="p-style-guide-lists">
         <h1>Lists</h1>
         <h2>Ordered</h2>
-        <ol>
-          <li>ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, consectetur</li>
-        </ol>
+        <List type="ol">
+          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+        </List>
         <h2>Unordered</h2>
-        <ul>
-          <li>ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, consectetur</li>
-        </ul>
+        <List>
+          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+        </List>
         <h2>Nested</h2>
-        <ul>
-          <li>ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit amet, adipiscing</li>
-          <ul>
-            <li>ipsum dolor sit amet, consectetur adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-            <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-            <ul>
-              <li>ipsum dolor sit amet, consectetur adipiscing</li>
-              <li>Lorem ipsum dolor sit amet, adipiscing</li>
-              <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-              <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-              <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-              <li>Lorem ipsum dolor sit amet, consectetur</li>
-            </ul>
-            <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, consectetur</li>
-          </ul>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-          <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-          <ul>
-            <li>ipsum dolor sit amet, consectetur adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing</li>
-            <li>Lorem ipsum sit amet, consectetur adipiscing</li>
-            <li>Lorem ipsum dolor sit, consectetur adipiscing</li>
-            <li>Lorem ipsum dolor sit amet, consectetur</li>
-          </ul>
-          <li>Lorem ipsum dolor sit amet, consectetur</li>
-        </ul>
+        <List>
+          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <List>
+            <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+            <List>
+              <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+            </List>
+            <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          </List>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <List>
+            <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          </List>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+        </List>
+        <h2>Plain List</h2>
+        <List styleType="plain">
+          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <List styleType="plain">
+            <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+            <List styleType="plain">
+              <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+              <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+            </List>
+            <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          </List>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <List> styleType="plain"
+            <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+            <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          </List>
+          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+        </List>
       </div>
     );
   }
 }
-
-BadgesPage.displayName = 'BadgesPage';
 
 BadgesPage.contextTypes = {
   router: React.PropTypes.object.isRequired

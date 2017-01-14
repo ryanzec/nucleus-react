@@ -32,8 +32,6 @@ class NotificationIcon extends React.Component {
   }
 }
 
-NotificationIcon.displayName = 'NotificationIcon';
-
 NotificationIcon.propTypes = {
   className: React.PropTypes.string
 };

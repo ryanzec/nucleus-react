@@ -33,8 +33,6 @@ class ExtendTextAutoCompleteOption extends React.Component {
   }
 }
 
-ExtendTextAutoCompleteOption.displayName = 'ExtendTextAutoCompleteOption';
-
 ExtendTextAutoCompleteOption.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool

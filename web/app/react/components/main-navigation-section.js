@@ -71,8 +71,6 @@ class MainNavigationSection extends React.Component {
   }
 }
 
-MainNavigationSection.displayName = 'MainNavigationSection';
-
 MainNavigationSection.propTypes = {
   className: React.PropTypes.string,
   headerNode: React.PropTypes.node.isRequired,

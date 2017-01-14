@@ -104,7 +104,7 @@ AssetsRewrite.prototype.apply = function(compiler) {
       } while(noMatches === false);
 
       if (assetMatches.length > 0) {
-        console.log(('rewriting assets in ' + fileToProcess + ':').magenta);
+        // console.log(('rewriting assets in ' + fileToProcess + ':').magenta);
         assetMatches.forEach(function(matchObject) {
           var toReplace = Object.keys(matchObject)[0];
           var assetPath = matchObject[Object.keys(matchObject)[0]];
@@ -124,12 +124,12 @@ AssetsRewrite.prototype.apply = function(compiler) {
 
           rewrittenPath = '"' + rewrittenPath + '"';
 
-          console.log((toReplace + ' => ' + rewrittenPath).cyan);
+          // console.log((toReplace + ' => ' + rewrittenPath).cyan);
 
           fileContents = fileContents.replace(toReplace, rewrittenPath);
         });
       } else {
-        console.log(('no assets to rewrite in ' + fileToProcess).green);
+        // console.log(('no assets to rewrite in ' + fileToProcess).green);
       }
 
       fs.writeFileSync(fileToProcess, fileContents, 'utf8');

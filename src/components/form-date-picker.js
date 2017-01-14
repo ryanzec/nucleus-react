@@ -76,8 +76,6 @@ class FormDatePicker extends React.Component {
   }
 }
 
-FormDatePicker.displayName = 'FormDatePicker';
-
 FormDatePicker.propTypes = {
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,

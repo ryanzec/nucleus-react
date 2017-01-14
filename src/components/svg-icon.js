@@ -67,8 +67,6 @@ class SvgIcon extends React.Component {
   }
 }
 
-SvgIcon.displayName = 'SvgIcon';
-
 SvgIcon.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),

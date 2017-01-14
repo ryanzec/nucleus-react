@@ -284,8 +284,6 @@ class ModalPage extends React.Component {
   }
 }
 
-ModalPage.displayName = 'ModalPage';
-
 ModalPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

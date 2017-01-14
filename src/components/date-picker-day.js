@@ -59,8 +59,6 @@ class DatePickerDay extends React.Component {
   }
 }
 
-DatePickerDay.displayName = 'DatePickerDay';
-
 DatePickerDay.propTypes = {
   className: React.PropTypes.string,
   isOtherMonth: React.PropTypes.bool,

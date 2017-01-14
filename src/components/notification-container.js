@@ -29,8 +29,6 @@ class NotificationContainer extends React.Component {
   }
 }
 
-NotificationContainer.displayName = 'NotificationContainer';
-
 NotificationContainer.propTypes = {
   className: React.PropTypes.string,
   position: React.PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])

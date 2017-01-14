@@ -33,8 +33,6 @@ class BreadcrumbsPage extends React.Component {
   }
 }
 
-BreadcrumbsPage.displayName = 'BreadcrumbsPage';
-
 BreadcrumbsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

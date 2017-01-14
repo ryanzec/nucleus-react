@@ -74,8 +74,6 @@ class NotificationActions extends React.Component {
   }
 }
 
-NotificationActions.displayName = 'NotificationActions';
-
 NotificationActions.propTypes = {
   className: React.PropTypes.string,
   type: React.PropTypes.oneOf(['icons', 'text']),

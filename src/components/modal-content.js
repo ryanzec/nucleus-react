@@ -29,8 +29,6 @@ class ModalContent extends React.Component {
   }
 }
 
-ModalContent.displayName = 'ModalContent';
-
 ModalContent.propTypes = {
   className: React.PropTypes.string
 };

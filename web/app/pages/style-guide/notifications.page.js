@@ -162,8 +162,6 @@ class NotificationsPage extends React.Component {
   }
 }
 
-NotificationsPage.displayName = 'NotificationsPage';
-
 NotificationsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

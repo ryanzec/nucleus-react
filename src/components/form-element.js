@@ -33,8 +33,6 @@ class FormElement extends React.Component {
   }
 }
 
-FormElement.displayName = 'FormElement';
-
 FormElement.propTypes = {
   className: React.PropTypes.string,
   validation: React.PropTypes.oneOf([false, 'valid', 'invalid'])

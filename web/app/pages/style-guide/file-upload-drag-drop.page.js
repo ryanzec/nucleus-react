@@ -67,8 +67,6 @@ class FileUploadDragDropPage extends React.Component {
   }
 }
 
-FileUploadDragDropPage.displayName = 'FileUploadDragDropPage';
-
 FileUploadDragDropPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

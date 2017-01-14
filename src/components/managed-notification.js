@@ -90,8 +90,6 @@ class ManagedNotification extends React.Component {
   }
 }
 
-ManagedNotification.displayName = 'ManagedNotification';
-
 ManagedNotification.propTypes = {
   className: React.PropTypes.string,
   notification: React.PropTypes.object.isRequired,

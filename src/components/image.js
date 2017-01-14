@@ -52,8 +52,6 @@ class Image extends React.Component {
   }
 }
 
-Image.displayName = 'Image';
-
 Image.propTypes = {
   className: React.PropTypes.string,
   notFoundNode: React.PropTypes.node,

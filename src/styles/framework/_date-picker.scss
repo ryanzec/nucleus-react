@@ -2,7 +2,7 @@ $component-identifier: '.date-picker';
 
 #{$component-identifier} {
   display: inline-block;
-  border: 1px solid $color-gray;
+  border: 1px solid $color-gray4;
   border-radius: 5px;
   background-color: $color-white;
 
@@ -40,7 +40,7 @@ $component-identifier: '.date-picker';
 
   &__top-bar,
   &__days-of-week {
-    background-color: $color-lighter-gray;
+    background-color: $color-gray2;
   }
 
   &__day-of-week,
@@ -58,12 +58,12 @@ $component-identifier: '.date-picker';
     cursor: pointer;
 
     &:hover:not(.is-disabled) {
-      background-color: $color-lighter-gray;
+      background-color: $color-gray2;
       font-weight: 500;
     }
 
     &.is-active {
-      background-color: $color-lighter-blue;
+      background-color: $color-blue2;
       color: $color-light-text;
       font-weight: 500;
     }

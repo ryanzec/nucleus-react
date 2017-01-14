@@ -29,8 +29,6 @@ class DropDownMenuItem extends React.Component {
   }
 }
 
-DropDownMenuItem.displayName = 'DropDownMenuItem';
-
 DropDownMenuItem.propTypes = {
   className: React.PropTypes.string
 };

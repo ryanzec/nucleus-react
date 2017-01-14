@@ -44,8 +44,6 @@ class BadgesPage extends React.Component {
   }
 }
 
-BadgesPage.displayName = 'BadgesPage';
-
 BadgesPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

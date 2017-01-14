@@ -59,8 +59,6 @@ class ExtendTextCharacterThresholdExample extends React.Component {
   }
 }
 
-ExtendTextCharacterThresholdExample.displayName = 'ExtendTextCharacterThresholdExample';
-
 ExtendTextCharacterThresholdExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

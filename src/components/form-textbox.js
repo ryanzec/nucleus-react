@@ -36,8 +36,6 @@ class FormTextbox extends React.Component {
   }
 }
 
-FormTextbox.displayName = 'FormTextbox';
-
 FormTextbox.propTypes = {
   className: React.PropTypes.string,
   type: React.PropTypes.string

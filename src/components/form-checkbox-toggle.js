@@ -36,8 +36,6 @@ class FormCheckboxToggle extends React.Component {
   }
 }
 
-FormCheckboxToggle.displayName = 'FormCheckboxToggle';
-
 FormCheckboxToggle.propTypes = {
   className: React.PropTypes.string,
   checked: React.PropTypes.bool,

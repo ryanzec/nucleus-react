@@ -74,8 +74,6 @@ class PopoverContainer extends React.Component {
   }
 }
 
-PopoverContainer.displayName = 'PopoverContainer';
-
 PopoverContainer.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool,

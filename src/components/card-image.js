@@ -27,8 +27,6 @@ class CardImage extends React.Component {
   }
 }
 
-CardImage.displayName = 'CardImage';
-
 CardImage.propTypes = {
   className: React.PropTypes.string
 };

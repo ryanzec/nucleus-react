@@ -58,8 +58,6 @@ class ExtendTextDefaultValueExample extends React.Component {
   }
 }
 
-ExtendTextDefaultValueExample.displayName = 'ExtendTextDefaultValueExample';
-
 ExtendTextDefaultValueExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

@@ -66,8 +66,6 @@ class Overlay extends AppendBodyComponent {
   }
 }
 
-Overlay.displayName = 'Overlay';
-
 Overlay.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool

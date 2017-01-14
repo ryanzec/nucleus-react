@@ -199,8 +199,6 @@ class GridPage extends React.Component {
   }
 }
 
-GridPage.displayName = 'GridPage';
-
 GridPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

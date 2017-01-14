@@ -29,8 +29,6 @@ class CardContent extends React.Component {
   }
 }
 
-CardContent.displayName = 'CardContent';
-
 CardContent.propTypes = {
   className: React.PropTypes.string
 };

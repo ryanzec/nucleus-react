@@ -29,8 +29,6 @@ class Breadcrumbs extends React.Component {
   }
 }
 
-Breadcrumbs.displayName = 'Breadcrumbs';
-
 Breadcrumbs.propTypes = {
   className: React.PropTypes.string
 };

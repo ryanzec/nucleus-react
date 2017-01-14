@@ -182,8 +182,6 @@ class DatePicker extends React.Component {
   }
 }
 
-DatePicker.displayName = 'DatePicker';
-
 DatePicker.propTypes = {
   className: React.PropTypes.string,
   onClickDate: React.PropTypes.func.isRequired,

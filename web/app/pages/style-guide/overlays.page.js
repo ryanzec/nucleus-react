@@ -73,8 +73,6 @@ class OverlaysPage extends React.Component {
   }
 }
 
-OverlaysPage.displayName = 'OverlaysPage';
-
 OverlaysPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

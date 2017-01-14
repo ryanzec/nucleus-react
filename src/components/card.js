@@ -33,8 +33,6 @@ class Card extends React.Component {
   }
 }
 
-Card.displayName = 'Card';
-
 Card.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger'])

@@ -1,17 +1,55 @@
 html, body {
   background-color: $color-white;
-  height: 100%
-}
-
-.react-bootstrap-element {
-  height: 100%;
 }
 
 .application-container {
   display: flex;
-  min-height: 100%;
-}
+  flex-direction: column;
+  height: 100vh;
 
-.main-application {
-  flex: 1
+  &__header {
+    @include flexbox-value-height(50px);
+
+    display: flex;
+    color: $color-light-text;
+    background-color: $color-blue7;
+
+    .tab {
+
+      &__item {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        background-color: $color-blue7;
+        color: $color-light-muted-text;
+
+        &.is-active,
+        &:hover {
+          color: $color-light-text;
+        }
+
+        &.is-active {
+          background-color: $color-blue6;
+        }
+      }
+    }
+
+    &-logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      padding: 0 $spacing-small;
+    }
+  }
+
+  &__main {
+    flex: 1 1 auto;
+    display: flex;
+  }
+
+  &__main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-medium;
+  }
 }

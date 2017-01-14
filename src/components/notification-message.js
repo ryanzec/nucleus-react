@@ -29,8 +29,6 @@ class NotificationMessage extends React.Component {
   }
 }
 
-NotificationMessage.displayName = 'NotificationMessage';
-
 NotificationMessage.propTypes = {
   className: React.PropTypes.string
 };

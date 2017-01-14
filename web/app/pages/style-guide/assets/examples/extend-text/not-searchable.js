@@ -46,8 +46,6 @@ class ExtendTextNotSearchableExample extends React.Component {
   }
 }
 
-ExtendTextNotSearchableExample.displayName = 'ExtendTextNotSearchableExample';
-
 ExtendTextNotSearchableExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

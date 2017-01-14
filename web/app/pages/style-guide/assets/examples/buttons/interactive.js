@@ -131,8 +131,6 @@ class ButtonsInteractiveExample extends React.Component {
   }
 }
 
-ButtonsInteractiveExample.displayName = 'ButtonsInteractiveExample';
-
 let mapStateToProps = (state) => ({
   form: state.buttonExampleForm
 });

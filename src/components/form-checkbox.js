@@ -47,8 +47,6 @@ class FormCheckbox extends React.Component {
   }
 }
 
-FormCheckbox.displayName = 'FormCheckbox';
-
 FormCheckbox.propTypes = {
   className: React.PropTypes.string,
   inputAlignment: React.PropTypes.oneOf(['left', 'right']),

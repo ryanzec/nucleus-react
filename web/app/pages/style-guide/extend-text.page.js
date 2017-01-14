@@ -131,8 +131,6 @@ class ExtendTextPage extends React.Component {
   }
 }
 
-ExtendTextPage.displayName = 'ExtendTextPage';
-
 ExtendTextPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

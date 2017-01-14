@@ -1,11 +1,11 @@
 .p-style-guide-grid {
   .grid {
     margin-bottom: 20px;
-    background-color: lighten($color-blue, 45%);
+    background-color: $color-blue1;
   }
 
   .grid__column {
-    background-color: $color-light-gray;
+    background-color: $color-gray3;
     text-align: center;
   }
 

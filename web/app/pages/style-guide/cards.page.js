@@ -255,8 +255,6 @@ class CardsPage extends React.Component {
   }
 }
 
-CardsPage.displayName = 'CardsPage';
-
 CardsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

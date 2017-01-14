@@ -41,8 +41,6 @@ class FormRadio extends React.Component {
   }
 }
 
-FormRadio.displayName = 'FormRadio';
-
 FormRadio.propTypes = {
   className: React.PropTypes.string,
   inputAlignment: React.PropTypes.oneOf(['left', 'right']),

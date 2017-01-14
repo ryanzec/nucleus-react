@@ -58,8 +58,6 @@ class ExtendTextDynamicExample extends React.Component {
   }
 }
 
-ExtendTextDynamicExample.displayName = 'ExtendTextDynamicExample';
-
 ExtendTextDynamicExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

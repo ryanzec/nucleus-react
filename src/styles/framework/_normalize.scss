@@ -18,7 +18,7 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
   font-size: 62.5%; /* 3 */
-  color: $color-text;
+  color: $color-dark-text;
 }
 
 /**
@@ -228,7 +228,7 @@ hr {
   //box-sizing: content-box;
   height: 0;
   border: none;
-  border-bottom: 1px solid $color-gray4;
+  border-bottom: 1px solid $color-gray5;
 }
 
 /**

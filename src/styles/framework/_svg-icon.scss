@@ -16,7 +16,7 @@ $component-identifier: '.svg-icon';
     position: relative;
     width: 16px;
     height: 16px;
-    fill: $color-text;
+    fill: $color-dark-text;
 
     &.m-success {
       fill: $color-success-svg-icon;
@@ -43,7 +43,7 @@ $component-identifier: '.svg-icon';
     position: absolute;
     top: -2px;
     right: -2px;
-    background-color: $color-text;
+    background-color: $color-dark-text;
 
     &.m-success {
       background-color: $color-success-svg-icon;

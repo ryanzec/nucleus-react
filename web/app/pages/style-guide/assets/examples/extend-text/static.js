@@ -45,8 +45,6 @@ class ExtendTextStaticExample extends React.Component {
   }
 }
 
-ExtendTextStaticExample.displayName = 'ExtendTextStaticExample';
-
 ExtendTextStaticExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

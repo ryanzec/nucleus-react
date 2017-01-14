@@ -149,8 +149,6 @@ class DynamicallyLoadingComponentsPage extends React.Component {
   }
 }
 
-DynamicallyLoadingComponentsPage.displayName = 'DynamicallyLoadingComponentsPage';
-
 DynamicallyLoadingComponentsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

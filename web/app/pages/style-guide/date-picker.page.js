@@ -48,8 +48,6 @@ class DatePickerPage extends React.Component {
   }
 }
 
-DatePickerPage.displayName = 'DatePickerPage';
-
 DatePickerPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

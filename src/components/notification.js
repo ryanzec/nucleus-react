@@ -41,8 +41,6 @@ class Notification extends React.Component {
   }
 }
 
-Notification.displayName = 'Notification';
-
 Notification.propTypes = {
   className: React.PropTypes.string,
   styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),

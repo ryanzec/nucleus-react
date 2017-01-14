@@ -29,8 +29,6 @@ class CardHeader extends React.Component {
   }
 }
 
-CardHeader.displayName = 'CardHeader';
-
 CardHeader.propTypes = {
   className: React.PropTypes.string
 };

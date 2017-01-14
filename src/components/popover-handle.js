@@ -29,8 +29,6 @@ class PopoverHandle extends React.Component {
   }
 }
 
-PopoverHandle.displayName = 'PopoverHandle';
-
 PopoverHandle.propTypes = {
   className: React.PropTypes.string
 };

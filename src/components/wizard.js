@@ -173,8 +173,6 @@ class Wizard extends React.Component {
   }
 }
 
-Wizard.displayName = 'Wizard';
-
 Wizard.propTypes = {
   className: React.PropTypes.string,
   steps: React.PropTypes.array.isRequired,

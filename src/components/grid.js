@@ -37,8 +37,6 @@ class Grid extends React.Component {
   }
 }
 
-Grid.displayName = 'Grid';
-
 Grid.propTypes = {
   className: React.PropTypes.string,
   isForm: React.PropTypes.bool,

@@ -79,8 +79,6 @@ class Code extends React.Component {
   }
 }
 
-Code.displayName = 'Code';
-
 Code.propTypes = {
   className: React.PropTypes.string,
   language: React.PropTypes.string,

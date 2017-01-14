@@ -31,6 +31,4 @@ class SvgIconsIndicatorsExample extends React.Component {
   }
 }
 
-SvgIconsIndicatorsExample.displayName = 'SvgIconsIndicatorsExample';
-
 export default SvgIconsIndicatorsExample;

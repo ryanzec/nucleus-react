@@ -72,8 +72,6 @@ class ExtendTextCustomRendererExample extends React.Component {
   }
 }
 
-ExtendTextCustomRendererExample.displayName = 'ExtendTextCustomRendererExample';
-
 ExtendTextCustomRendererExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

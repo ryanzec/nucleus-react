@@ -1,0 +1,140 @@
+.color-palette {
+  .card__content {
+    overflow: hidden;
+  }
+
+  &__example {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-extra-small;
+    width: 300px;
+
+    &.light {
+      color: $color-light-text;
+    }
+
+    &.dark {
+      color: $color-dark-text;
+    }
+
+    span.light {
+      color: $color-light-text;
+    }
+
+    span.dark {
+      color: $color-dark-text;
+    }
+
+    &.gray1 {
+      background-color: $color-gray1;
+    }
+
+    &.gray2 {
+      background-color: $color-gray2;
+    }
+
+    &.gray3 {
+      background-color: $color-gray3;
+    }
+
+    &.gray4 {
+      background-color: $color-gray4;
+    }
+
+    &.gray5 {
+      background-color: $color-gray5;
+    }
+
+    &.gray6 {
+      background-color: $color-gray6;
+    }
+
+    &.gray7{
+      background-color: $color-gray7;
+    }
+
+    &.red1 {
+      background-color: $color-red1;
+    }
+
+    &.red2 {
+      background-color: $color-red2;
+    }
+
+    &.red3 {
+      background-color: $color-red3;
+    }
+
+    &.red4 {
+      background-color: $color-red4;
+    }
+
+    &.red5 {
+      background-color: $color-red5;
+    }
+
+    &.blue1 {
+      background-color: $color-blue1;
+    }
+
+    &.blue2 {
+      background-color: $color-blue2;
+    }
+
+    &.blue3 {
+      background-color: $color-blue3;
+    }
+
+    &.blue4 {
+      background-color: $color-blue4;
+    }
+
+    &.blue5 {
+      background-color: $color-blue5;
+    }
+
+    &.blue6 {
+      background-color: $color-blue6;
+    }
+
+    &.blue7{
+      background-color: $color-blue7;
+    }
+
+    &.green1 {
+      background-color: $color-green1;
+    }
+
+    &.green2 {
+      background-color: $color-green2;
+    }
+
+    &.green3 {
+      background-color: $color-green3;
+    }
+
+    &.green4 {
+      background-color: $color-green4;
+    }
+
+    &.green5 {
+      background-color: $color-green5;
+    }
+
+    &.green6 {
+      background-color: $color-green6;
+    }
+
+    &.orange1 {
+      background-color: $color-orange1;
+    }
+
+    &.orange2 {
+      background-color: $color-orange2;
+    }
+
+    &.orange3 {
+      background-color: $color-orange3;
+    }
+  }
+}

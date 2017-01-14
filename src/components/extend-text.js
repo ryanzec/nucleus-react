@@ -671,8 +671,6 @@ class ExtendText extends React.Component {
   }
 }
 
-ExtendText.displayName = 'ExtendText';
-
 ExtendText.propTypes = {
   className: React.PropTypes.string,
   options: React.PropTypes.array,

@@ -68,8 +68,6 @@ class WizardStepIndicator extends React.Component {
   }
 }
 
-WizardStepIndicator.displayName = 'WizardStepIndicator';
-
 WizardStepIndicator.propTypes = {
   className: React.PropTypes.string,
   totalSteps: React.PropTypes.number.isRequired,

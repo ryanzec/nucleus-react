@@ -222,8 +222,6 @@ class Modal extends AppendBodyComponent {
   }
 }
 
-Modal.displayName = 'Modal';
-
 Modal.propTypes = {
   className: React.PropTypes.string,
   isActive: React.PropTypes.bool,

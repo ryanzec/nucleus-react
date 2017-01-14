@@ -29,8 +29,6 @@ class CardFooter extends React.Component {
   }
 }
 
-CardFooter.displayName = 'CardFooter';
-
 CardFooter.propTypes = {
   className: React.PropTypes.string
 };

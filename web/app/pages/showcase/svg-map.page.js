@@ -254,8 +254,6 @@ class SvgMapPage extends React.Component {
   }
 }
 
-SvgMapPage.displayName = 'SvgMapPage';
-
 SvgMapPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

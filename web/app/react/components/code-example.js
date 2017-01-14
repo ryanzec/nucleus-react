@@ -68,8 +68,6 @@ class CodeExample extends React.Component {
   }
 }
 
-CodeExample.displayName = 'CodeExample';
-
 CodeExample.propTypes = {
   className: React.PropTypes.string,
   exampleComponent: React.PropTypes.func.isRequired,

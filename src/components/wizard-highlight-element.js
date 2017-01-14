@@ -123,8 +123,6 @@ class WizardHighlightElement extends AppendBodyComponent {
   }
 }
 
-WizardHighlightElement.displayName = 'WizardHighlightElement';
-
 WizardHighlightElement.propTypes = {
   className: React.PropTypes.string,
   onClickNextStep: React.PropTypes.func,

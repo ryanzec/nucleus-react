@@ -58,8 +58,6 @@ class ButtonsPage extends React.Component {
   }
 }
 
-ButtonsPage.displayName = 'ButtonsPage';
-
 ButtonsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

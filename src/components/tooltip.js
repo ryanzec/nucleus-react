@@ -29,8 +29,6 @@ class Tooltip extends React.Component {
   }
 }
 
-Tooltip.displayName = 'Tooltip';
-
 Tooltip.propTypes = {
   className: React.PropTypes.string
 };

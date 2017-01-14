@@ -42,8 +42,6 @@ class AlgorithmsPage extends React.Component {
   }
 }
 
-AlgorithmsPage.displayName = 'AlgorithmsPage';
-
 AlgorithmsPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

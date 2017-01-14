@@ -29,8 +29,6 @@ class FormTextboxGroup extends React.Component {
   }
 }
 
-FormTextboxGroup.displayName = 'FormTextboxGroup';
-
 FormTextboxGroup.propTypes = {
   className: React.PropTypes.string
 };

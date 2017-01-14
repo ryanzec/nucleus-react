@@ -62,6 +62,4 @@ class AppendBodyComponent extends React.Component {
   }
 }
 
-AppendBodyComponent.displayName = 'AppendBodyComponent';
-
 export default AppendBodyComponent;

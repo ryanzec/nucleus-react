@@ -51,8 +51,6 @@ class ExtendTextCustomFilterExample extends React.Component {
   }
 }
 
-ExtendTextCustomFilterExample.displayName = 'ExtendTextCustomFilterExample';
-
 ExtendTextCustomFilterExample.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
