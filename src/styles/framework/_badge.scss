@@ -1,7 +1,6 @@
 $component-identifier: '.badge';
 
 $color-badge: $color-light-text;
-$color-light-badge: $color-light-text;
 //NOTE: 4px off to account for border which is needed for thin style support
 $padding-badge: 2px 8px;
 $border-radius-badge: 3px;
@@ -21,13 +20,18 @@ $color-danger-thin-badge: $background-color-danger-badge;
 $font-size-badge: 1.2rem;
 
 #{$component-identifier} {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: $padding-badge;
   border-radius: $border-radius-badge;
   background-color: $background-color-badge;
   color: $color-badge;
   margin-right: $margin-button;
   font-size: $font-size-badge;
+
+  .svg-icon__container {
+    fill: $color-badge;
+  }
 
   &.m-thin {
     color: $background-color-badge;
@@ -40,8 +44,12 @@ $font-size-badge: 1.2rem;
   }
 
   &.m-success {
-    color: $color-light-badge;
+    color: $color-badge;
     background-color: $background-color-success-badge;
+
+    .svg-icon__container {
+      fill: $color-badge;
+    }
 
     &.m-thin {
       background-color: $background-color-thin-badge;
@@ -51,8 +59,12 @@ $font-size-badge: 1.2rem;
   }
 
   &.m-info {
-    color: $color-light-badge;
+    color: $color-badge;
     background-color: $background-color-info-badge;
+
+    .svg-icon__container {
+      fill: $color-badge;
+    }
 
     &.m-thin {
       background-color: $background-color-thin-badge;
@@ -62,8 +74,12 @@ $font-size-badge: 1.2rem;
   }
 
   &.m-warning {
-    color: $color-light-badge;
+    color: $color-badge;
     background-color: $background-color-warning-badge;
+
+    .svg-icon__container {
+      fill: $color-badge;
+    }
 
     &.m-thin {
       background-color: $background-color-thin-badge;
@@ -73,8 +89,12 @@ $font-size-badge: 1.2rem;
   }
 
   &.m-danger {
-    color: $color-light-badge;
+    color: $color-badge;
     background-color: $background-color-danger-badge;
+
+    .svg-icon__container {
+      fill: $color-badge;
+    }
 
     &.m-thin {
       background-color: $background-color-thin-badge;

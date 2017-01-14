@@ -16,6 +16,7 @@ import CustomOptionRendererExample from './assets/examples/extend-text/custom-op
 import StaticAllowCreateExample from './assets/examples/extend-text/static-allow-create';
 import DynamicAllowCreateExample from './assets/examples/extend-text/dynamic-allow-create';
 import TaggingExample from './assets/examples/extend-text/tagging';
+import CustomTagRenderer from './assets/examples/extend-text/custom-tag-renderer';
 import EmptyExample from './assets/examples/extend-text/empty';
 
 import { readFileSync } from 'fs';
@@ -34,6 +35,7 @@ const customOptionRendererExampleContent = readFileSync(join(__dirname, '/assets
 const staticAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/static-allow-create.js'), 'utf8');
 const dynamicAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/dynamic-allow-create.js'), 'utf8');
 const taggingExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/tagging.js'), 'utf8');
+const customTagRendererContent = readFileSync(join(__dirname, '/assets/examples/extend-text/custom-tag-renderer.js'), 'utf8');
 const emptyExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/empty.js'), 'utf8');
 
 class ExtendTextPage extends React.Component {
@@ -49,7 +51,7 @@ class ExtendTextPage extends React.Component {
         <h1>Extend Text</h1>
         <h2>Auto Complete</h2>
         <h4>Empty</h4>
-        <p>If you want the user to be able to select multiple values, then just set the multiple property to true.</p>
+        <p>Example with not option and allows new creation.</p>
         <CodeExample
           exampleComponent={EmptyExample}
           codeContent={emptyExampleContent}
@@ -130,6 +132,12 @@ class ExtendTextPage extends React.Component {
         <CodeExample
           exampleComponent={TaggingExample}
           codeContent={taggingExampleContent}
+        />
+        <h4>Custom Tag Renderer</h4>
+        <p>You can define a custom tag renderer</p>
+        <CodeExample
+          exampleComponent={CustomTagRenderer}
+          codeContent={customTagRendererContent}
         />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

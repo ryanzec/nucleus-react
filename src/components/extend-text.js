@@ -10,6 +10,7 @@ import SvgIcon from './svg-icon';
 import FormTextbox from './form-textbox';
 import ExtendTextAutoCompleteOption from './extend-text-auto-complete-option';
 import Button from './button';
+import Badge from './badge';
 
 let loadingSvg;
 /*eslint-disable*/
@@ -529,19 +530,31 @@ class ExtendText extends React.Component {
     let tagNodes = [];
 
     this.props.value.forEach((valueObject, key) => {
+      const deleteNode = (
+        <SvgIcon
+          className="extend-text__tag-delete"
+          data-key={key}
+          fragment="times"
+          onClick={this.onClickDeleteTag}
+        />
+      );
+      let tagNode = (
+        <span>
+          {deleteNode}{valueObject.display}
+        </span>
+      );
+
+      if (this.props.tagRenderer) {
+        tagNode = this.props.tagRenderer(valueObject, deleteNode);
+      }
+
       tagNodes.push(
-        <div
+        <Badge
           key={key}
           className="extend-text__tag"
         >
-          <SvgIcon
-            className="extend-text__tag-delete"
-            data-key={key}
-            fragment="times"
-            onClick={this.onClickDeleteTag}
-          />
-          {valueObject.display}
-        </div>
+          {tagNode}
+        </Badge>
       );
     });
 
@@ -690,6 +703,7 @@ ExtendText.propTypes = {
   useFiltering: React.PropTypes.bool,
   optionsFilter: React.PropTypes.func,
   optionRenderer: React.PropTypes.func,
+  tagRenderer: React.PropTypes.func,
   allowCreate: React.PropTypes.bool,
   createTemplate: React.PropTypes.string,
   multiple: React.PropTypes.bool,
@@ -714,6 +728,7 @@ ExtendText.defaultProps = {
   useFiltering: true,
   optionsFilter: null,
   optionRenderer: null,
+  tagRenderer: null,
   allowCreate: false,
   createTemplate: 'Add new item \'%%value%%\'?',
   multiple: false,

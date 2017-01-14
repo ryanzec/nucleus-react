@@ -115,20 +115,10 @@ $component-identifier: '.extend-text';
   }
 
   &__tag {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid $color-black;
-    border-radius: 3px;
-
-    span:nth-child(2) {
-      padding-right: 8px;
-    }
-
     .svg-icon__container {
-      height: (13px + (4 * 2));
-      width: (13px + (8 * 2));
-      padding: 4px 8px;
-      cursor: pointer;
+      margin-right: $spacing-extra-tiny;
+      height: 10px;
+      width: 10px;
     }
 
     &-delete {

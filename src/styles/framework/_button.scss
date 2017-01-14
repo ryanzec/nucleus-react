@@ -23,6 +23,10 @@ $font-size-button: 1.4rem;
   background-color: $dark;
   border-color: $dark;
 
+  .svg-icon__container {
+    fill: $light;
+  }
+
   &.m-thin {
     color: $dark;
     background-color: $color-white;
@@ -37,7 +41,8 @@ $font-size-button: 1.4rem;
 
 #{$component-identifier} {
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: $padding-button;
   border-radius: $border-radius-button;
   margin-right: $margin-button;
@@ -46,6 +51,10 @@ $font-size-button: 1.4rem;
   background-color: $background-color-button;
   color: $color-button;
   font-size: $font-size-button;
+
+  .svg-icon__container {
+    fill: $color-button;
+  }
 
   &:not(.m-link) {
     border: 2px solid $background-color-button;

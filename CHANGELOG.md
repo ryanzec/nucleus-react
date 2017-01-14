@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added ability to define custom tag renderer for the extend text component #169
 - fixed bug with extend text showing "search" text instead of "no options" text when async returns no data #166
 - fixed issue with allow create not working for extend texts given a static set of options that are empty #168
 - fixed issue with clicking popover handle trigger the on click outside event of the popover itself
