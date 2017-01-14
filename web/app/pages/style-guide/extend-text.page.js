@@ -16,6 +16,7 @@ import CustomOptionRendererExample from './assets/examples/extend-text/custom-op
 import StaticAllowCreateExample from './assets/examples/extend-text/static-allow-create';
 import DynamicAllowCreateExample from './assets/examples/extend-text/dynamic-allow-create';
 import TaggingExample from './assets/examples/extend-text/tagging';
+import EmptyExample from './assets/examples/extend-text/empty';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -33,6 +34,7 @@ const customOptionRendererExampleContent = readFileSync(join(__dirname, '/assets
 const staticAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/static-allow-create.js'), 'utf8');
 const dynamicAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/dynamic-allow-create.js'), 'utf8');
 const taggingExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/tagging.js'), 'utf8');
+const emptyExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/empty.js'), 'utf8');
 
 class ExtendTextPage extends React.Component {
   constructor(props) {
@@ -46,6 +48,12 @@ class ExtendTextPage extends React.Component {
       <div className="p-style-guide-extend-text">
         <h1>Extend Text</h1>
         <h2>Auto Complete</h2>
+        <h4>Empty</h4>
+        <p>If you want the user to be able to select multiple values, then just set the multiple property to true.</p>
+        <CodeExample
+          exampleComponent={EmptyExample}
+          codeContent={emptyExampleContent}
+        />
         <h4>Statically loaded</h4>
         <p>This is a standard extended text with auto complete using a static options list.  This functions pretty much like a select input with the option of searching and more styling ability (which we will see a little below).</p>
         <CodeExample

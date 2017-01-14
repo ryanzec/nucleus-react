@@ -281,7 +281,8 @@ class ExtendText extends React.Component {
 
   updateAutoCompleteOptions() {
     const newState = {
-      lastCheckedInputValue: this.state.inputValue
+      lastCheckedInputValue: this.state.inputValue,
+      activeAutoCompleteOptions: [],
     };
 
     if (this.props.options.length > 0) {
