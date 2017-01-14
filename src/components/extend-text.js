@@ -477,7 +477,13 @@ class ExtendText extends React.Component {
           {this.props.loadingNode}
         </div>
       );
-    } else if (!this.state.activeAutoCompleteOptions || this.state.activeAutoCompleteOptions.length === 0) {
+    } else if (
+      this.state.inputValue.length < this.props.characterThreshold
+      && (
+        !this.state.activeAutoCompleteOptions
+        || this.state.activeAutoCompleteOptions.length === 0
+      )
+    ) {
       children.push(
         <div
           key="searching-node"
