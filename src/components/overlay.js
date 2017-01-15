@@ -9,7 +9,8 @@ class Overlay extends AppendBodyComponent {
   constructor(props) {
     super(props);
 
-    this.setAppendElementId(getNextId());
+    this.uniqueId = getNextId();
+    this.setAppendElementId(this.uniqueId);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -53,6 +54,7 @@ class Overlay extends AppendBodyComponent {
 
     this.updateAppendElement(
       <div
+        key={`overlay-${this.uniqueId}`}
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive')}
       >

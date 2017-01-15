@@ -196,12 +196,15 @@ class Modal extends AppendBodyComponent {
 
     this.updateAppendElement(
       <div
+        key={`modal-${this.uniqueId}`}
         data-modal-id={this.uniqueId}
         className={this.getCssClasses().join(' ')}
         {...getPassThroughProperties(this.props, 'className', 'isActive', 'overlayDisabled', 'isScrollable', 'hasAutoCenter', 'minSpacing')}
       >
         <div className={modalClassName}>
-          {this.props.children}
+          <div className="modal__container">
+            {this.props.children}
+          </div>
         </div>
         {overlayNode}
       </div>
@@ -237,7 +240,7 @@ Modal.defaultProps = {
   className: null,
   isActive: false,
   overlayDisabled: false,
-  isScrollable: false,
+  isScrollable: true,
   hasAutoCenter: false,
   minSpacing: 25,
 };

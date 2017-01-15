@@ -1,41 +1,83 @@
 $component-identifier: '.wizard';
 
+.modal__wrapper.m-wizard .modal__container{
+  display: flex;
+
+  #{$component-identifier}__navigation {
+    @include flexbox-value-width(200px);
+    border-right: 1px solid $border-color;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .svg-icon__outer-container {
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid $border-color;
+      padding: $spacing-small
+    }
+
+    &.is-collapsed {
+      @include flexbox-value-width(48px);
+
+      #{$component-identifier}__step-indicator {
+        &-title {
+          display: none
+        }
+      }
+    }
+  }
+
+  #{$component-identifier}__content {
+    flex: 1;
+  }
+}
+
 #{$component-identifier} {
   &__step-indicator-container {
     display: inline-flex;
     align-items: center;
     margin-right: auto;
+    padding: $spacing-small;
 
     hr {
-      display: inline-block;
-      width: 16px;
-      border-bottom: 3px solid $color-neutral;
-      height: 3px;
+      display: block;
+      width: 2px;
+      background-color: $color-neutral;
+      height: 16px;
 
-      //NOTE: this prevents small lines showing between the hr border the the circle elements
-      margin-left: -1px;
-      margin-right: -1px;
+      margin: 0 0 0 7px;
 
       &.is-previous {
-        border-color: $color-green4;
+        background-color: $color-green4;
       }
     }
   }
 
   &__step-indicator {
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    border-radius: 999px;
-    border: 2px solid $color-neutral;
+    display: flex;
+    align-items: center;
 
-    &.is-previous {
-      background-color: $color-green4;
-      border-color: $color-green4;
+    &-title {
+      margin-left: $spacing-small;
     }
 
-    &.is-current {
-      border-color: $color-green4;
+    &-circle {
+      display: inline-block;
+      height: 16px;
+      width: 16px;
+      border-radius: 999px;
+      border: 2px solid $color-neutral;
+
+      &.is-previous {
+        background-color: $color-green4;
+        border-color: $color-green4;
+      }
+
+      &.is-current {
+        border-color: $color-green4;
+      }
     }
   }
 }

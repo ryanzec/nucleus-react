@@ -3,6 +3,7 @@ import React from 'react';
 import Wizard from '../../../../src/components/wizard';
 import Button from '../../../../src/components/button';
 
+
 const codeContent = 'p {\n\tcolor: red;\n}';
 
 class WizardPage extends React.Component {
@@ -35,6 +36,30 @@ class WizardPage extends React.Component {
     });
   }
 
+  renderWizardOneContent() {
+    return (
+      <div>
+        I'm content man
+      </div>
+    );
+  }
+
+  renderWizardTwoContent() {
+    return (
+      <div>
+        I'm content man 22
+      </div>
+    );
+  }
+
+  renderWizardThreeContent() {
+    return (
+      <div>
+        I'm content man 333
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="p-style-guide-wizard">
@@ -46,14 +71,15 @@ class WizardPage extends React.Component {
           isActive={this.state.wizardIsActive}
           steps={[{
             type: 'modal',
-            content: "I'm content man",
+            title: 'Step 1',
+            content: this.renderWizardOneContent(),
             nextHandler: (increaseStep) => {
               console.log('step1 done');
               increaseStep();
             }
           }, {
             type: 'modal',
-            content: "I'm content man 22",
+            content: this.renderWizardTwoContent(),
             className: 'modal-testing',
             previousHandler: (decreaseStep) => {
               console.log('move backwards from step2');
@@ -61,7 +87,8 @@ class WizardPage extends React.Component {
             }
           }, {
             type: 'modal',
-            content: "I'm content man 333",
+            title: 'Step 3',
+            content: this.renderWizardThreeContent(),
             nextHandler: (increaseStep) => {
               console.log('wizard done');
               increaseStep();

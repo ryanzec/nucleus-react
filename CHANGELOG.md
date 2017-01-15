@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- refactored the wizard step indicator to be able to show title names and just be better overall I think
 - added styles and components related to tables
 - fixed issue with the styling of disabled custom radio / checkbox form elements
 - added optional close functionality to the date picker component (for use within the form date picker component) #173

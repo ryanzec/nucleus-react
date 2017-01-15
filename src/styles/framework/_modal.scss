@@ -66,7 +66,6 @@ body.modal-open {
     display: flex;
     padding: $padding-modal;
     margin: 0;
-    background-color: $background-header-footer-color;
     color: $color-header-footer-modal;
     border-bottom: 1px solid $color-gray4;
 
@@ -80,15 +79,17 @@ body.modal-open {
     }
   }
 
+  &__container {
+    background-color: $background-color-modal
+  }
+
   &__content {
     padding: $padding-modal;
-    background-color: $background-color-modal;
   }
 
   &__footer {
     display: flex;
     padding: $padding-modal;
-    background-color: $background-header-footer-color;
     color: $color-header-footer-modal;
     border-top: 1px solid $color-gray4;
 
@@ -101,7 +102,6 @@ body.modal-open {
 @media #{$small-screen-only-media-query} {
   #{$component-identifier} {
     height: 100%;
-    background-color: $background-header-footer-color;
   }
 }
 

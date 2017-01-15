@@ -8,6 +8,8 @@ import ModalContent from './modal-content';
 import ModalFooter from './modal-footer';
 import Button from './button';
 import Overlay from './overlay';
+import WizardNavigation from './wizard-navigation';
+import WizardContent from './wizard-content';
 import WizardStepIndicator from './wizard-step-indicator';
 
 class Wizard extends React.Component {
@@ -90,6 +92,12 @@ class Wizard extends React.Component {
     return nextNodeText;
   }
 
+  getStepTitles() {
+    return this.props.steps.map((step) => {
+      return step.title || 'N/A';
+    });
+  }
+
   renderModalContent() {
     return this.props.steps[this.state.activeStep].content;
   }
@@ -111,29 +119,34 @@ class Wizard extends React.Component {
 
     return (
       <Modal
-        className={this.props.steps[this.state.activeStep].className}
+        className={`m-wizard ${this.props.steps[this.state.activeStep].className}`}
         isActive={this.props.isActive}
         overlayDisabled
       >
-        <ModalHeader closeHandler={closeHandler}>
-          Header
-        </ModalHeader>
-        <ModalContent>
-          {this.renderModalContent()}
-        </ModalContent>
-        <ModalFooter isActions>
+        <WizardNavigation>
           <WizardStepIndicator
+            titles={this.getStepTitles()}
             totalSteps={this.props.steps.length}
             currentStep={this.state.activeStep + 1}
           />
-          {previousStepButtonNode}
-          <Button
-            styleType="success"
-            onClick={this.onClickNextStep}
+        </WizardNavigation>
+        <WizardContent>
+          <ModalHeader closeHandler={closeHandler}>
+            Header
+          </ModalHeader>
+          <ModalContent>
+            {this.renderModalContent()}
+          </ModalContent>
+          <ModalFooter isActions>
+            {previousStepButtonNode}
+            <Button
+              styleType="success"
+              onClick={this.onClickNextStep}
             >
               {this.getNextButtonText()}
             </Button>
-        </ModalFooter>
+          </ModalFooter>
+        </WizardContent>
       </Modal>
     );
   }

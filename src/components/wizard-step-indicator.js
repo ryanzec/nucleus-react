@@ -22,7 +22,8 @@ class WizardStepIndicator extends React.Component {
     let renderingNumber = 1;
 
     while (renderingNumber <= this.props.totalSteps) {
-      let circleClassName = 'wizard__step-indicator';
+      let mainClassName = 'wizard__step-indicator';
+      let circleClassName = `${mainClassName}-circle`;
       let hrClassName = '';
 
       if (renderingNumber < this.props.currentStep) {
@@ -34,9 +35,12 @@ class WizardStepIndicator extends React.Component {
 
       stepNodes.push(
         <div
-          key={`${renderingNumber}-circle`}
-          className={circleClassName}
-        ></div>
+          className={mainClassName}
+          key={`${renderingNumber}-indicator`}
+        >
+          <div className={circleClassName}></div>
+          <span className={`${mainClassName}-title`}>{this.props.titles[renderingNumber - 1]}</span>
+        </div>
       );
 
       if (renderingNumber < this.props.totalSteps) {
@@ -58,7 +62,7 @@ class WizardStepIndicator extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'totalSteps', 'currentStep')}
+        {...getPassThroughProperties(this.props, 'className', 'totalSteps', 'currentStep', 'titles')}
       >
         <div className="wizard__step-indicator-inner-container">
           {this.renderStepIndicators()}
@@ -71,13 +75,12 @@ class WizardStepIndicator extends React.Component {
 WizardStepIndicator.propTypes = {
   className: React.PropTypes.string,
   totalSteps: React.PropTypes.number.isRequired,
-  currentStep: React.PropTypes.number.isRequired
+  currentStep: React.PropTypes.number.isRequired,
+  titles: React.PropTypes.array.isRequired,
 };
 
 WizardStepIndicator.defaultProps = {
   className: null,
-  totalSteps: 1,
-  currentStep: 1
 };
 
 export default WizardStepIndicator;
