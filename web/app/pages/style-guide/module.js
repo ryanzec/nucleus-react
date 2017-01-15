@@ -23,6 +23,7 @@ import ExtendTextPage from './extend-text.page';
 import WizardPage from './wizard.page';
 import FileUploadDragDropPage from './file-upload-drag-drop.page';
 import TabsPage from './tabs.page';
+import TablesPage from './tables.page';
 
 export const routes = [
   <Route
@@ -156,5 +157,11 @@ export const routes = [
     name="style-guide-tabs"
     path="/style-guide/tabs"
     component={TabsPage}
+  />,
+  <Route
+    key="20"
+    name="style-guide-tables"
+    path="/style-guide/tables"
+    component={TablesPage}
   />
 ];

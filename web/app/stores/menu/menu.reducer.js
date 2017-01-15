@@ -77,6 +77,10 @@ let menuData = immutable.fromJS({
       display: 'Progress Bars',
       to: '/style-guide/progress-bars'
     }, {
+      id: 'style-guide-tables',
+      display: 'Tables',
+      to: '/style-guide/tables'
+    }, {
       id: 'style-guide-tabs',
       display: 'Tabs',
       to: '/style-guide/tabs'
