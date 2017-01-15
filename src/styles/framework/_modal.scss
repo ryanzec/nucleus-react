@@ -1,133 +1,67 @@
 $component-identifier: '.modal';
 
-$background-color-modal: $color-white;
-$border-radius-modal: 5px;
-$margin-top-bottom-modal: 25px;
-$padding-modal: 16px;
 $z-index-modal: 10001;
-$background-header-footer-color: $color-white;
-$color-header-footer-modal: $color-dark-text;
 
-.modal__wrapper {
+body.modal-open {
+  overflow: hidden;
+}
+
+#{$component-identifier} {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  display: none;
   z-index: $z-index-modal;
-  -webkit-overflow-scrolling: touch;
 
   &.is-active {
     display: block;
   }
 
-  &.is-scrollable {
-    #{$component-identifier} {
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: $color-white;
 
-      &__content {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-    }
-  }
-
-  &.has-auto-center .modal {
-    position: absolute;
-
-    max-height: 90%;
-
-    //NOTE: javascript applied the negative margins to create the center effect with this
-    top: 50%;
+    //NOTE: need to be twice the top to have even top / bottom spacing
+    max-height: calc(100% - 75px * 2);
+    width: 900px;
+    position: relative;
+    top: 75px;
     left: 50%;
+    transform: translateX(-50%);
   }
-}
-
-body.modal-open {
-  overflow: hidden;
-
-  &.ios-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-}
-
-#{$component-identifier} {
-  position: relative;
 
   &__header {
+    @include flexbox-value-height(65px);
+
     display: flex;
-    padding: $padding-modal;
-    margin: 0;
-    color: $color-header-footer-modal;
-    border-bottom: 1px solid $color-gray4;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    padding: $spacing-extra-small;
+    border-bottom: 1px solid $border-color;
 
     &-close {
       margin-left: auto;
-      align-self: center;
-
-      .svg-icon__container {
-        fill: $color-header-footer-modal;
-      }
+      cursor: pointer;
     }
-  }
-
-  &__container {
-    background-color: $background-color-modal
   }
 
   &__content {
-    padding: $padding-modal;
+    padding: $spacing-extra-small;
+    overflow-y: auto;
   }
 
   &__footer {
+    @include flexbox-value-height(60px);
+
     display: flex;
-    padding: $padding-modal;
-    color: $color-header-footer-modal;
-    border-top: 1px solid $color-gray4;
-
-    &.is-actions {
-      justify-content: flex-end;
-    }
-  }
-}
-
-@media #{$small-screen-only-media-query} {
-  #{$component-identifier} {
-    height: 100%;
-  }
-}
-
-@media #{$medium-screen-media-query} {
-  #{$component-identifier} {
-    width: 600px;
-    margin: $margin-top-bottom-modal auto;
-    border-radius: $border-radius-modal;
-
-    &__header {
-      @include border-top-radius($border-radius-modal);
-    }
-
-    &__content {
-      &:first-child {
-        @include border-top-radius($border-radius-modal);
-      }
-
-      &:last-child {
-        @include border-bottom-radius($border-radius-modal);
-      }
-    }
-
-    &__footer {
-      @include border-bottom-radius($border-radius-modal);
-    }
+    align-items: center;
+    padding: $spacing-extra-small;
+    border-top: 1px solid $border-color;
   }
 }
 

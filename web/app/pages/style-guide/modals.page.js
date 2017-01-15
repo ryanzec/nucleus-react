@@ -227,8 +227,9 @@ class ModalPage extends React.Component {
             <div>content</div>
             <div>content</div>
           </ModalContent>
-          <ModalFooter isActions={true}>
-            <Button onClick={this.closeHandler4}>Cancel</Button><Button onClick={this.closeHandler4}>Save</Button>
+          <ModalFooter>
+            <Button onClick={this.closeHandler4}>Save</Button>
+            <Button onClick={this.closeHandler4}>Cancel</Button>
           </ModalFooter>
         </Modal>
       </div>
@@ -250,11 +251,7 @@ class ModalPage extends React.Component {
       <div>
         <h2>Extra Long (using dynamic height)</h2>
         <Button onClick={this.onClickToggleModal5}>Modal5</Button>
-        <Modal
-          isActive={this.state.isActiveModal5}
-          hasAutoCenter
-          isScrollable
-        >
+        <Modal isActive={this.state.isActiveModal5}>
           <ModalHeader closeHandler={this.closeHandler5}>
             Header
           </ModalHeader>
@@ -262,7 +259,7 @@ class ModalPage extends React.Component {
             <Button onClick={this.onClickDynamicAddContent}>Add Content</Button>
             {renderDynamicContent()}
           </ModalContent>
-          <ModalFooter isActions={true}>
+          <ModalFooter>
             <Button onClick={this.closeHandler5}>Cancel</Button><Button onClick={this.closeHandler5}>Save</Button>
           </ModalFooter>
         </Modal>
@@ -278,6 +275,16 @@ class ModalPage extends React.Component {
         {this.renderHeaderNoOverlayModal()}
         {this.renderFooterModal()}
         {this.renderExtraLongModal()}
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         {this.renderDynamicHeightModal()}
       </div>
     );

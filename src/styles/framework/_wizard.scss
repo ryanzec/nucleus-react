@@ -1,7 +1,7 @@
 $component-identifier: '.wizard';
 
-.modal__wrapper.m-wizard .modal__container{
-  display: flex;
+.modal.m-wizard .modal__container {
+  flex-direction: row;
 
   #{$component-identifier}__navigation {
     @include flexbox-value-width(200px);
@@ -14,8 +14,8 @@ $component-identifier: '.wizard';
     .svg-icon__outer-container {
       display: flex;
       justify-content: flex-end;
-      border-top: 1px solid $border-color;
-      padding: $spacing-small
+      padding: $spacing-small;
+      cursor: pointer;
     }
 
     &.is-collapsed {
@@ -30,6 +30,8 @@ $component-identifier: '.wizard';
   }
 
   #{$component-identifier}__content {
+    display: flex;
+    flex-direction: column;
     flex: 1;
   }
 }
