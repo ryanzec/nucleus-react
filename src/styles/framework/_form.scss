@@ -64,6 +64,10 @@ $component-identifier: '.form-element';
         fill: $color-blue2;
       }
 
+      &.is-disabled .svg-icon__container {
+        fill: $color-gray4;
+      }
+
       &.m-left .svg-icon__container {
         margin-right: 4px;
       }

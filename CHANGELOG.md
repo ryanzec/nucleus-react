@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- fixed issue with the styling of disabled custom radio / checkbox form elements
 - added optional close functionality to the date picker component (for use within the form date picker component) #173
 - added time functionality to date picker component
 - added in some more validation code to prevent errors in the date picker component #172

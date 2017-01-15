@@ -100,15 +100,39 @@ class FormsPage extends React.Component {
           <FormElement>
             <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
             <FormCheckbox checked={true}>Blah</FormCheckbox>
+            <FormCheckbox
+              inputAlignment="right"
+              disabled
+            >
+              Blah
+            </FormCheckbox>
+            <FormCheckbox
+              checked
+              disabled
+            >
+              Blah
+            </FormCheckbox>
           </FormElement>
           <FormElement>
             <FormLabel>Toggle Checkbox</FormLabel>
             <FormCheckboxToggle />
-            <FormCheckboxToggle checked={true} />
+            <FormCheckboxToggle checked />
           </FormElement>
           <FormElement>
             <FormRadio inputAlignment="right">Blah</FormRadio>
-            <FormRadio checked={true}>Blah</FormRadio>
+            <FormRadio checked>Blah</FormRadio>
+            <FormRadio
+              inputAlignment="right"
+              disabled
+            >
+              Blah
+            </FormRadio>
+            <FormRadio
+              disabled
+              checked
+            >
+              Blah
+            </FormRadio>
           </FormElement>
           <FormElement>
             <FormLabel>Last Name</FormLabel>

@@ -16,6 +16,10 @@ class FormRadio extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
+    if (this.props.disabled) {
+      cssClasses.push('is-disabled');
+    }
+
     return cssClasses;
   }
 
@@ -33,7 +37,7 @@ class FormRadio extends React.Component {
     }
 
     return (
-      <FormLabel inputType="radio" inputAlignment={this.props.inputAlignment}>
+      <FormLabel className={this.getCssClasses().join(' ')} inputType="radio" inputAlignment={this.props.inputAlignment}>
         <input type="hidden" />
         {nodes}
       </FormLabel>

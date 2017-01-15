@@ -28,11 +28,11 @@ class BadgesPage extends React.Component {
         <Badge styleType="warning">Warning</Badge>
         <Badge styleType="danger">Danger</Badge>
         <h2>Pilled</h2>
-        <Badge isPill={true}>Default</Badge>
-        <Badge isPill={true} styleType="success">Success</Badge>
-        <Badge isPill={true} styleType="info">Info</Badge>
-        <Badge isPill={true} styleType="warning">Warning</Badge>
-        <Badge isPill={true} styleType="danger">Danger</Badge>
+        <Badge isPill={true}>1</Badge>
+        <Badge isPill={true} styleType="success">23</Badge>
+        <Badge isPill={true} styleType="info">143</Badge>
+        <Badge isPill={true} styleType="warning">23</Badge>
+        <Badge isPill={true} styleType="danger">2</Badge>
         <h2>Thin</h2>
         <Badge isThin={true}>Default</Badge>
         <Badge isThin={true} isPill={true} styleType="success">Success</Badge>
