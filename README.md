@@ -1,10 +1,27 @@
+**USER BEWARE: This code has not been highly tested so use in production at your own risk.**
+
 # Nucleus React
 
-## What is this?
+This is a set of components used for building medium to large scale web applications built from the ground up for ReactJS.
 
-Originally this was going to be a ReactJS framework of common components used to build web applications. Since then, I have decided to slightly change the direction of this project. While this will still have those components, it is not going to be focused on being a real framework that I would recommend being used in a production environment as is. This project is going to be more of a sandbox for me to experiment and play around with ReactJS (and web development in general). Maintaining a framework of this size for all the different browsers and such is just not something that I want to use all my free time doing right now.
+**More details to come at an underdetermined point of time in the future.**
 
-This means that while I am still going to be testing what I build in different browsers, it is not going to be a huge priority. This should still be good to use as a reference and even pulling code out to use as a starting point however you need to make sure to do your due diligence when integrating any peice of code from this project that you do properly testing to make sure that is does what you need it to in all the browsers you need it to.
+## Phases To Complete
+
+* Get all core components mostly functionality with ok UX (browser support: Chrome)
+* Do code refactoring to get all code within coding standards (browser support: Chrome)
+* Create interactive examples for all core components (browser support: Chrome)
+* Focus on getting the UX for all components 100% done (browser support: Chrome)
+* Get all components working in FireFox (browser support: Chrome / FireFox)
+* Get all code working in Edge, at least the latest version but also test previous version (browser support: Chrome / FireFox / Edge)
+* Test code in IE 10 / 11 and determine what support this code should have (browser support: Chrome / FireFox / Edge / maybe IE 10 / 11)
+* Test code in Safari and determine what support this code should have
+* Build out for feature full examples that show real application type features instead of just individual component by themsevles
+
+## List Of Things That Will Not Be Offically Supported
+
+* IE 9 and lower will not be supported (IE 10 - 11 might not even be supported)
+* While responsiveness will be implemented mobile will not be supported
 
 # License
 
