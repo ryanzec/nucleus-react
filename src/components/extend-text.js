@@ -272,7 +272,8 @@ class ExtendText extends React.Component {
       inputValue: newInputValue
     };
 
-    if (this.addTagKeyCodeEnter) {
+    // NOTE: this allow use to update the tags while keeping the auto complete open since the common use case for tagging is adding multiple items
+    if (this.addTagKeyCodeEnter || this.props.multiple) {
       this.setState(newState);
       this.addTagKeyCodeEnter = false;
     } else {

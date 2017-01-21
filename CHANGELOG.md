@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added functionality for auto complete to stay open when selecting value and tagging is enabled #185
 - added toggle array value utility function #190
 - refactor the modal to remove a lot of javascript based position and simplified the css for centering the modals
 - refactored the wizard step indicator to be able to show title names and just be better overall I think

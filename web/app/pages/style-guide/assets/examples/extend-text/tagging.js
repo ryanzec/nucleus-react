@@ -1,5 +1,6 @@
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text';
+import Button from '../../../../../../../src/components/button';
 
 class ExtendTextTaggingExample extends React.Component {
   constructor(props) {
@@ -24,27 +25,37 @@ class ExtendTextTaggingExample extends React.Component {
       }],
       value: null
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue) {
+  onChange = (newValue) => {
     this.setState({
       value: newValue
     });
   }
 
+  onResetValues = () => {
+    this.setState({
+      value: [{
+        display: 'Item 1',
+        value: 1
+      }]
+    });
+  }
+
   render() {
     return (
-      <ExtendText
-        options={this.state.options}
-        value={this.state.value}
-        onChange={this.onChange}
-        multiple={true}
-        addTagOnKeyCode={188}
-        allowCreate={true}
-        placeholder="Type to add another..."
-      />
+      <span>
+        <Button onClick={this.onResetValues}>Reset Values</Button>
+        <ExtendText
+          options={this.state.options}
+          value={this.state.value}
+          onChange={this.onChange}
+          multiple={true}
+          addTagOnKeyCode={188}
+          allowCreate={true}
+          placeholder="Type to add another..."
+        />
+      </span>
     );
   }
 }
