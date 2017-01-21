@@ -21,7 +21,7 @@ class Popover extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, Popover.propTypes)}
       >
         {this.props.children}
       </div>

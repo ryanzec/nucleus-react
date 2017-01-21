@@ -33,7 +33,7 @@ class ProgressBar extends React.Component {
     return (
       <progress
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isStriped', 'isSquare')}
+        {...getPassThroughProperties(this.props, ProgressBar.propTypes)}
       >
         {this.props.children}
       </progress>

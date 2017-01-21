@@ -35,7 +35,7 @@ class Breadcrumb extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'onClick', 'isActive')}
+        {...getPassThroughProperties(this.props, Breadcrumb.propTypes)}
       >
         {crumbNode}
       </div>

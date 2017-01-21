@@ -25,7 +25,7 @@ class FormCheckboxToggle extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'checked', 'offNode', 'onNode')}
+        {...getPassThroughProperties(this.props, FormCheckboxToggle.propTypes)}
       >
         <div className="form-element__checkbox-toggle-circle"></div>
         <div className="form-element__checkbox-toggle-bar">

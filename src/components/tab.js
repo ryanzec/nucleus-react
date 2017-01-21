@@ -25,7 +25,7 @@ class Tab extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType')}
+        {...getPassThroughProperties(this.props, Tab.propTypes)}
       >
         {this.props.children}
       </div>

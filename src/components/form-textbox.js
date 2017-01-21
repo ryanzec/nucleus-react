@@ -22,7 +22,7 @@ class FormTextbox extends React.Component {
       return (
         <textarea
           className={this.getCssClasses().join(' ')}
-          {...getPassThroughProperties(this.props, 'className', 'type')}
+          {...getPassThroughProperties(this.props, FormTextbox.propTypes)}
         />
       );
     }
@@ -30,7 +30,7 @@ class FormTextbox extends React.Component {
     return (
       <input
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, FormTextbox.propTypes, 'type')}
       />
     );
   }

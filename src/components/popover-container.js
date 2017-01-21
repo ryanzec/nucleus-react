@@ -84,7 +84,7 @@ class PopoverContainer extends React.Component {
     return (
       <ReactTether
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+        {...getPassThroughProperties(this.props, PopoverContainer.propTypes)}
       >
         {children}
       </ReactTether>

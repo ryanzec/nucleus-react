@@ -54,7 +54,7 @@ class SvgIcon extends React.Component {
     return (
       <span
         className={this.getOuterCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'fragment', 'indicator', 'outerClassName', 'size', 'styleType')}
+        {...getPassThroughProperties(this.props, SvgIcon.propTypes)}
       >
         <span
           className={this.getInnerCssClasses().join(' ')}

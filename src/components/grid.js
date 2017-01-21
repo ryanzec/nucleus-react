@@ -29,7 +29,7 @@ class Grid extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isForm', 'labelAlignment')}
+        {...getPassThroughProperties(this.props, Grid.propTypes)}
       >
         {this.props.children}
       </div>

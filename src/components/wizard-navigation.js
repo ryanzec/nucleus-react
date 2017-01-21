@@ -41,7 +41,7 @@ class WizardNavigation extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, WizardNavigation.propTypes)}
       >
         {this.props.children}
         <SvgIcon

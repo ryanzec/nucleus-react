@@ -21,7 +21,7 @@ class TableRow extends React.Component {
     return (
       <tr
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, TableRow.propTypes)}
       >
         {this.props.children}
       </tr>

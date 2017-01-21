@@ -40,7 +40,7 @@ class Image extends React.Component {
         role="presentation"
         className={this.getCssClasses().join(' ')}
         onError={this.onError}
-        {...getPassThroughProperties(this.props, 'className', 'notFoundNode')}
+        {...getPassThroughProperties(this.props, Image.propTypes, 'src')}
       />
     );
 

@@ -25,7 +25,7 @@ class TableFooterItem extends React.Component {
     return (
       <td
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'alignment')}
+        {...getPassThroughProperties(this.props, TableFooterItem.propTypes)}
       >
         {this.props.children}
       </td>

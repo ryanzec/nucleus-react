@@ -56,7 +56,7 @@ class Overlay extends AppendBodyComponent {
       <div
         key={`overlay-${this.uniqueId}`}
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+        {...getPassThroughProperties(this.props, Overlay.propTypes)}
       >
         {topContentNode}
       </div>

@@ -21,7 +21,7 @@ class TableFooter extends React.Component {
     return (
       <tfoot
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, TableFooter.propTypes)}
       >
         {this.props.children}
       </tfoot>

@@ -21,7 +21,7 @@ class CardSubtitle extends React.Component {
     return (
       <h5
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardSubtitle.propTypes)}
       >
         {this.props.children}
       </h5>

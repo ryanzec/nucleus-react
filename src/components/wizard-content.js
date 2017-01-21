@@ -21,7 +21,7 @@ class WizardContent extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, WizardContent.propTypes)}
       >
         {this.props.children}
       </div>

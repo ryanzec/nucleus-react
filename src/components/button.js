@@ -33,7 +33,7 @@ class Button extends React.Component {
     return (
       <button
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'styleType', 'isPill', 'isThin')}
+        {...getPassThroughProperties(this.props, Button.propTypes)}
       >
         {this.props.children}
       </button>

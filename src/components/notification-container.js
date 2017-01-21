@@ -21,7 +21,7 @@ class NotificationContainer extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'position')}
+        {...getPassThroughProperties(this.props, NotificationContainer.propTypes)}
       >
         {this.props.children}
       </div>

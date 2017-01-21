@@ -66,7 +66,7 @@ class NotificationActions extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'type', 'actions', 'onClickPositive', 'onClickNegative')}
+        {...getPassThroughProperties(this.props, NotificationActions.propTypes)}
       >
         {this.props.type === 'icons' ? this.renderIconActions() : this.renderTextActions()}
       </div>

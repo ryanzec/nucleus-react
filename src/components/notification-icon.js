@@ -25,7 +25,7 @@ class NotificationIcon extends React.Component {
         className={this.getCssClasses().join(' ')}
       >
         <SvgIcon
-          {...getPassThroughProperties(this.props, 'className')}
+          {...getPassThroughProperties(this.props, NotificationIcon.propTypes)}
         />
       </div>
     );

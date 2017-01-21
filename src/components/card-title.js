@@ -21,7 +21,7 @@ class CardTitle extends React.Component {
     return (
       <h4
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardTitle.propTypes)}
       >
         {this.props.children}
       </h4>

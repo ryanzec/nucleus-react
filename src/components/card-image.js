@@ -21,7 +21,7 @@ class CardImage extends React.Component {
     return (
       <image
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardImage.propTypes)}
       />
     );
   }

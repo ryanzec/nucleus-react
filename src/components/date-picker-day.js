@@ -57,7 +57,7 @@ class DatePickerDay extends React.Component {
       <div
         className={this.getCssClasses().join(' ')}
         onClick={this.onClick}
-        {...getPassThroughProperties(this.props, 'className', 'isOtherMonth', 'isActive', 'day', 'onClickDate', 'disabled', 'currentTime')}
+        {...getPassThroughProperties(this.props, DatePickerDay.propTypes)}
       >
         {this.props.children}
       </div>

@@ -21,7 +21,7 @@ class Tooltip extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, Tooltip.propTypes)}
       >
         {this.props.children}
       </div>

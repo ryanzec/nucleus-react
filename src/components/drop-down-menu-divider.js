@@ -21,7 +21,7 @@ class DropDownMenuDivider extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, DropDownMenuDivider.propTypes)}
       >
         {this.props.children}
       </div>

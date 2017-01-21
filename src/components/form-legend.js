@@ -40,7 +40,7 @@ class FormLegend extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'displayRequiredDetails', 'validation')}
+        {...getPassThroughProperties(this.props, FormLegend.propTypes)}
       >
         {this.props.children}{requiredDetailsNode}
       </div>

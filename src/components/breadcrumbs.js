@@ -21,7 +21,7 @@ class Breadcrumbs extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, Breadcrumbs.propTypes)}
       >
         {this.props.children}
       </div>

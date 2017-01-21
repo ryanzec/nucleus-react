@@ -62,7 +62,7 @@ class WizardStepIndicator extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'totalSteps', 'currentStep', 'titles')}
+        {...getPassThroughProperties(this.props, WizardStepIndicator.propTypes)}
       >
         <div className="wizard__step-indicator-inner-container">
           {this.renderStepIndicators()}

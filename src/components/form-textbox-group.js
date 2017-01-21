@@ -21,7 +21,7 @@ class FormTextboxGroup extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, FormTextboxGroup.propTypes)}
       >
         {this.props.children}
       </div>

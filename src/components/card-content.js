@@ -21,7 +21,7 @@ class CardContent extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardContent.propTypes)}
       >
         {this.props.children}
       </div>

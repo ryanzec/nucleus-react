@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- [BREAKING] refactored the get pass through properties utility #170
 - fixed bug with addTagOnKeyCode being triggered when shift was being pressed #163
 - [BREAKING] refactor the date components to only have 1 date to simplify that code as mutliple selected dates will not be needed #187
 - selecting a new date will automatically change the view date to match (and in turn change the month / year being viewed) #184

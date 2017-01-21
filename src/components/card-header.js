@@ -21,7 +21,7 @@ class CardHeader extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardHeader.propTypes)}
       >
         {this.props.children}
       </div>

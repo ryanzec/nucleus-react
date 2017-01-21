@@ -21,7 +21,7 @@ class DropDownMenuItem extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, DropDownMenuItem.propTypes)}
       >
         {this.props.children}
       </div>

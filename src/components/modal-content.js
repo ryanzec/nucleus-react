@@ -21,7 +21,7 @@ class ModalContent extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, ModalContent.propTypes)}
       >
         {this.props.children}
       </div>

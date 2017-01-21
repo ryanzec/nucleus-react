@@ -661,30 +661,7 @@ class ExtendText extends React.Component {
       <div
         ref="container"
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(
-          this.props,
-          'className',
-          'options',
-          'asyncOptions',
-          'value',
-          'onChange',
-          'characterThreshold',
-          'isSearchable',
-          'disabled',
-          'useFiltering',
-          'optionsFilter',
-          'optionRenderer',
-          'allowCreate',
-          'createTemplate',
-          'multiple',
-          'placeholder',
-          'addTagOnKeyCode',
-          'loadingNode',
-          'typeForSearchingNode',
-          'noOptionsNode',
-          'autoCompletePosition',
-          'clearable'
-        )}
+        {...getPassThroughProperties(this.props, ExtendText.propTypes)}
       >
         {gutsNode}
       </div>

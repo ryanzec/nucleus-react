@@ -21,7 +21,7 @@ class ModalFooter extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, ModalFooter.propTypes)}
       >
         {this.props.children}
       </div>

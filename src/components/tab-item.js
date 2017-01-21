@@ -25,7 +25,7 @@ class TabItem extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+        {...getPassThroughProperties(this.props, TabItem.propTypes)}
       >
         {this.props.children}
       </div>

@@ -137,7 +137,7 @@ class Wizard extends React.Component {
           <ModalContent>
             {this.renderModalContent()}
           </ModalContent>
-          <ModalFooter isActions>
+          <ModalFooter>
             {previousStepButtonNode}
             <Button
               styleType="success"
@@ -165,19 +165,7 @@ class Wizard extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(
-          this.props,
-          'className',
-          'steps',
-          'isActive',
-          'closeHandler',
-          'allowExit',
-          'allowGoingBackwards',
-          'previousButtonText',
-          'nextButtonText',
-          'finishButtonText',
-          'initialStep'
-        )}
+        {...getPassThroughProperties(this.props, Wizard.propTypes)}
       >
         {this.renderStep()}
         <Overlay isActive={this.props.isActive} />

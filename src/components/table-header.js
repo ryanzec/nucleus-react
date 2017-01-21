@@ -21,7 +21,7 @@ class TableHeader extends React.Component {
     return (
       <thead
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, TableHeader.propTypes)}
       >
         {this.props.children}
       </thead>

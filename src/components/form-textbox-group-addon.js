@@ -21,7 +21,7 @@ class FormTextboxGroupAddon extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, FormTextboxGroupAddon.propTypes)}
       >
         {this.props.children}
       </div>

@@ -33,7 +33,7 @@ class OverlayAbsolute extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive')}
+        {...getPassThroughProperties(this.props, OverlayAbsolute.propTypes)}
       >
         {topContentNode}
       </div>

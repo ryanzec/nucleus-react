@@ -43,7 +43,7 @@ class FormCheckbox extends React.Component {
         <input
           className="u-hide"
           type="checkbox"
-          {...getPassThroughProperties(this.props, 'className', 'inputAlignment')}
+          {...getPassThroughProperties(this.props, FormCheckbox.propTypes, 'checked')}
         />
         {nodes}
       </FormLabel>

@@ -57,7 +57,7 @@ class FormDatePicker extends React.Component {
       <PopoverContainer
         className={this.getCssClasses().join(' ')}
         isActive={this.state.isActive}
-        {...getPassThroughProperties(this.props, 'className', 'onClick', 'selectedDay', 'onClickDate')}
+        {...getPassThroughProperties(this.props, FormDatePicker.propTypes)}
       >
         <FormTextbox
           onFocus={this.onFocus}

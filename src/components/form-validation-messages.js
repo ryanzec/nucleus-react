@@ -21,7 +21,7 @@ class FormValidationMessages extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, FormValidationMessages.propTypes)}
       >
         {this.props.children}
       </div>

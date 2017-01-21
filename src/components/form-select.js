@@ -21,7 +21,7 @@ class FormSelect extends React.Component {
     return (
       <select
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, FormSelect.propTypes)}
       >
         {this.props.children}
       </select>

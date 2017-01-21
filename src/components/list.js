@@ -25,7 +25,7 @@ class List extends React.Component {
     const properties = {
       className: this.getCssClasses().join(' '),
     };
-    Object.assign(properties, getPassThroughProperties(this.props, 'className', 'styleType', 'type'));
+    Object.assign(properties, getPassThroughProperties(this.props, List.propTypes));
     return React.createElement(this.props.type, properties, this.props.children);
   }
 }

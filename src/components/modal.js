@@ -83,7 +83,7 @@ class Modal extends AppendBodyComponent {
         key={`modal-${this.uniqueId}`}
         data-modal-id={this.uniqueId}
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isActive', 'overlayDisabled'/*, 'isScrollable', 'hasAutoCenter', 'minSpacing'*/)}
+        {...getPassThroughProperties(this.props, Modal.propTypes)}
       >
         <div className="modal__container">
           {this.props.children}

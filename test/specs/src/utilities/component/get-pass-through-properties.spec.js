@@ -6,7 +6,7 @@ describe('get pass through properties', function() {
       tagName: 'INPUT',
       value: 'test',
       anotherProperty: 't'
-    })).to.deep.equal({
+    }, {})).to.deep.equal({
       tagName: 'INPUT',
       value: 'test',
       anotherProperty: 't'
@@ -18,8 +18,24 @@ describe('get pass through properties', function() {
       tagName: 'INPUT',
       value: 'test',
       anotherProperty: 't'
-    }, 'tagName', 'anotherProperty')).to.deep.equal({
-      value: 'test'
+    }, {
+      tagName: 'INPUT',
+      value: 'test',
+      anotherProperty: 't'
+    })).to.deep.equal({});
+  });
+
+  it('should be able to filter out properties but includes one manually', function() {
+    expect(getPassThroughProperies({
+      tagName: 'INPUT',
+      value: 'test',
+      anotherProperty: 't'
+    }, {
+      tagName: 'INPUT',
+      value: 'test',
+      anotherProperty: 't'
+    }, 'tagName')).to.deep.equal({
+      tagName: 'INPUT'
     });
   });
 });

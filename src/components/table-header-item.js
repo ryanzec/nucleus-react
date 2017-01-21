@@ -25,7 +25,7 @@ class TableHeaderItem extends React.Component {
     return (
       <th
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'alignment')}
+        {...getPassThroughProperties(this.props, TableHeaderItem.propTypes)}
       >
         {this.props.children}
       </th>

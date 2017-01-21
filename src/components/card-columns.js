@@ -21,7 +21,7 @@ class CardColumns extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, CardColumns.propTypes)}
       >
         {this.props.children}
       </div>

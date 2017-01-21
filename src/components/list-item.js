@@ -2,7 +2,7 @@ import React from 'react';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
-class DropDownMenuHeader extends React.Component {
+class ListItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
@@ -21,7 +21,7 @@ class DropDownMenuHeader extends React.Component {
     return (
       <li
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, ListItem.propTypes)}
       >
         {this.props.children}
       </li>
@@ -29,12 +29,12 @@ class DropDownMenuHeader extends React.Component {
   }
 }
 
-DropDownMenuHeader.propTypes = {
+ListItem.propTypes = {
   className: React.PropTypes.string
 };
 
-DropDownMenuHeader.defaultProps = {
+ListItem.defaultProps = {
   className: null
 };
 
-export default DropDownMenuHeader;
+export default ListItem;

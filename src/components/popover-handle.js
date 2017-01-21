@@ -21,7 +21,7 @@ class PopoverHandle extends React.Component {
     return (
       <span
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, PopoverHandle.propTypes)}
       >
         {this.props.children}
       </span>

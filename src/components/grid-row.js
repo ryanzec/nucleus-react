@@ -33,7 +33,7 @@ class GridRow extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'isStretched', 'isVertical', 'canWrap', 'alignment')}
+        {...getPassThroughProperties(this.props, GridRow.propTypes)}
       >
         {this.props.children}
       </div>

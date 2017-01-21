@@ -29,7 +29,7 @@ class Table extends React.Component {
     return (
       <table
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'alignment', 'styleType', 'isVertical')}
+        {...getPassThroughProperties(this.props, Table.propTypes)}
       >
         {this.props.children}
       </table>

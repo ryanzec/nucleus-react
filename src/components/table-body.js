@@ -21,7 +21,7 @@ class TableBody extends React.Component {
     return (
       <tbody
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className')}
+        {...getPassThroughProperties(this.props, TableBody.propTypes)}
       >
         {this.props.children}
       </tbody>

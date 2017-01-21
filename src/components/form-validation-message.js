@@ -35,7 +35,7 @@ class FormValidationMessage extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'iconFragment')}
+        {...getPassThroughProperties(this.props, FormValidationMessage.propTypes)}
       >
         {iconNode}{this.props.children}
       </div>
