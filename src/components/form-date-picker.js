@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment-timezone';
 import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
 import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
 
@@ -44,8 +45,8 @@ class FormDatePicker extends React.Component {
   getInputValue() {
     let inputValue = '';
 
-    if (this.props.selectedDays.length > 0) {
-      inputValue = this.props.selectedDays[0].format(this.props.format);
+    if (moment.isMoment(this.props.selectedDay)) {
+      inputValue = this.props.selectedDay.format(this.props.format);
     }
 
     return inputValue;
@@ -56,7 +57,7 @@ class FormDatePicker extends React.Component {
       <PopoverContainer
         className={this.getCssClasses().join(' ')}
         isActive={this.state.isActive}
-        {...getPassThroughProperties(this.props, 'className', 'onClick', 'selectedDays', 'onClickDate')}
+        {...getPassThroughProperties(this.props, 'className', 'onClick', 'selectedDay', 'onClickDate')}
       >
         <FormTextbox
           onFocus={this.onFocus}
@@ -64,7 +65,7 @@ class FormDatePicker extends React.Component {
           readOnly
         />
         <DatePicker
-          selectedDays={this.props.selectedDays}
+          selectedDay={this.props.selectedDay}
           onClickDate={this.props.onClickDate}
           onClose={this.onClose}
         />
@@ -76,7 +77,7 @@ class FormDatePicker extends React.Component {
 FormDatePicker.propTypes = {
   className: React.PropTypes.string,
   onClick: React.PropTypes.func,
-  selectedDays: React.PropTypes.array,
+  selectedDay: React.PropTypes.object,
   onClickDate: React.PropTypes.func.isRequired,
   format: React.PropTypes.string
 };
@@ -84,7 +85,7 @@ FormDatePicker.propTypes = {
 FormDatePicker.defaultProps = {
   className: null,
   onClick: null,
-  selectedDays: [],
+  selectedDay: null,
   onClickDate: null,
   format: 'MMM Do, YYYY',
 

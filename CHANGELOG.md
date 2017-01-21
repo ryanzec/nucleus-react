@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- refactor the date components to only have 1 date to simplify that code as mutliple selected dates will not be needed #187
 - selecting a new date will automatically change the view date to match (and in turn change the month / year being viewed) #184
 - added functionality for auto complete to stay open when selecting value and tagging is enabled #185
 - added toggle array value utility function #190

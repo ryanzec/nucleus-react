@@ -13,8 +13,8 @@ class DatePicker extends React.Component {
     super(props);
     let startedSelectedDate;
 
-    if (props.selectedDays.length > 0 && moment.isMoment(props.selectedDays[0])) {
-      startedSelectedDate = props.selectedDays[0];
+    if (moment.isMoment(props.selectedDay)) {
+      startedSelectedDate = props.selectedDay;
     }
 
     this.state = {
@@ -26,12 +26,12 @@ class DatePicker extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.selectedDays.length > 0 && moment.isMoment(newProps.selectedDays[0])) {
+    if (moment.isMoment(newProps.selectedDay)) {
       this.setState({
-        viewDate: newProps.selectedDays[0],
-        hours: this.convertTimeValueToString(newProps.selectedDays[0].hours()),
-        minutes: this.convertTimeValueToString(newProps.selectedDays[0].minutes()),
-        seconds: this.convertTimeValueToString(newProps.selectedDays[0].seconds()),
+        viewDate: newProps.selectedDay,
+        hours: this.convertTimeValueToString(newProps.selectedDay.hours()),
+        minutes: this.convertTimeValueToString(newProps.selectedDay.minutes()),
+        seconds: this.convertTimeValueToString(newProps.selectedDay.seconds()),
       });
     }
   }
@@ -39,8 +39,8 @@ class DatePicker extends React.Component {
   componentWillMount() {
     let viewDate;
 
-    if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
-      viewDate = this.props.selectedDays[0];
+    if (moment.isMoment(this.props.selectedDay)) {
+      viewDate = this.props.selectedDay;
     } else {
       viewDate = moment();
     }
@@ -85,8 +85,8 @@ class DatePicker extends React.Component {
     }, () => {
       let newDate;
 
-      if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
-        newDate = this.props.selectedDays[0].clone();
+      if (moment.isMoment(this.props.selectedDay)) {
+        newDate = this.props.selectedDay.clone();
       } else {
         newDate = moment();
       }
@@ -161,16 +161,14 @@ class DatePicker extends React.Component {
   isActiveDay(day) {
     let isActive = false;
 
-    if (this.props.selectedDays.length > 0 && moment.isMoment(this.props.selectedDays[0])) {
-      this.props.selectedDays.forEach((selectedDay) => {
-        if (isActive) {
-          return;
-        }
+    if (moment.isMoment(this.props.selectedDay)) {
+      if (isActive) {
+        return;
+      }
 
-        if (day.diff(selectedDay.clone().startOf('day'), 'days') === 0) {
-          isActive = true;
-        }
-      });
+      if (day.diff(this.props.selectedDay.clone().startOf('day'), 'days') === 0) {
+        isActive = true;
+      }
     }
 
     return isActive;
@@ -278,7 +276,7 @@ class DatePicker extends React.Component {
     return (
       <div
         className={this.getCssClasses().join(' ')}
-        {...getPassThroughProperties(this.props, 'className', 'onClickDate', 'selectedDays', 'minDate', 'maxDate', 'displayTime', 'onClose')}
+        {...getPassThroughProperties(this.props, 'className', 'onClickDate', 'selectedDay', 'minDate', 'maxDate', 'displayTime', 'onClose')}
       >
         <div className="date-picker__top-bar">
           <SvgIcon
@@ -315,7 +313,7 @@ class DatePicker extends React.Component {
 DatePicker.propTypes = {
   className: React.PropTypes.string,
   onClickDate: React.PropTypes.func.isRequired,
-  selectedDays: React.PropTypes.array,
+  selectedDay: React.PropTypes.object,
   minDate: React.PropTypes.object,
   maxDate: React.PropTypes.object,
   displayTime: React.PropTypes.bool,
@@ -325,7 +323,7 @@ DatePicker.propTypes = {
 DatePicker.defaultProps = {
   className: null,
   onClickDate: null,
-  selectedDays: [],
+  selectedDay: null,
   minDate: null,
   maxDate: null,
   displayTime: true,

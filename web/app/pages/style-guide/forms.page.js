@@ -35,7 +35,7 @@ class FormsPage extends React.Component {
     super(props);
 
     this.state = {
-      selectedDays: []
+      selectedDay: null,
     };
 
     this.onClickDate = this.onClickDate.bind(this);
@@ -43,7 +43,7 @@ class FormsPage extends React.Component {
 
   onClickDate(date) {
     this.setState({
-      selectedDays: [date]
+      selectedDay: date,
     });
   }
 
@@ -142,7 +142,7 @@ class FormsPage extends React.Component {
             <FormLabel>Date</FormLabel>
             <FormDatePicker
               onClickDate={this.onClickDate}
-              selectedDays={this.state.selectedDays}
+              selectedDay={this.state.selectedDay}
               format="dddd, MMMM Do, YYYY HH:mm:ss Z"
             />
           </FormElement>
