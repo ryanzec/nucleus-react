@@ -152,7 +152,7 @@ class ExtendText extends React.Component {
         break;
 
       default:
-        if (this.props.allowCreate && this.props.multiple && this.props.addTagOnKeyCode === event.keyCode) {
+        if (this.props.allowCreate && this.props.multiple && this.props.addTagOnKeyCode === event.keyCode && !event.shiftKey) {
           this.addTagKeyCodeEnter = true;
           event.preventDefault();
           this.selectActiveItem();
