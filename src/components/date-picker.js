@@ -28,6 +28,7 @@ class DatePicker extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.selectedDays.length > 0 && moment.isMoment(newProps.selectedDays[0])) {
       this.setState({
+        viewDate: newProps.selectedDays[0],
         hours: this.convertTimeValueToString(newProps.selectedDays[0].hours()),
         minutes: this.convertTimeValueToString(newProps.selectedDays[0].minutes()),
         seconds: this.convertTimeValueToString(newProps.selectedDays[0].seconds()),
