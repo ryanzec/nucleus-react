@@ -1,0 +1,23 @@
+$component-identifier: '.accordion';
+
+#{$component-identifier} {
+  display: inline-block;
+
+  &__item {
+    &.is-active {
+      #{$component-identifier}__item-content {
+        display: block;
+      }
+    }
+
+    &-header {
+      cursor: pointer;
+    }
+
+    &-content {
+      display: none;
+    }
+  }
+}
+
+$component-identifier: '';

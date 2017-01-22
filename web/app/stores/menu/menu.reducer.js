@@ -5,6 +5,10 @@ let menuData = immutable.fromJS({
   menu: [{
     display: 'Style Guide',
     items: [{
+      id: 'style-guide-accordion',
+      display: 'Accordion',
+      to: '/style-guide/accordion'
+    }, {
       id: 'style-guide-badges',
       display: 'Badges',
       to: '/style-guide/badges'
