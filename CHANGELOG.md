@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added in basic (but not final) styling around the accordion components
 - added basic functioning accordion components #182
 - [BREAKING] refactored the get pass through properties utility #170
 - fixed bug with addTagOnKeyCode being triggered when shift was being pressed #163

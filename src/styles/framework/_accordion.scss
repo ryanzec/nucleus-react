@@ -12,6 +12,13 @@ $component-identifier: '.accordion';
 
     &-header {
       cursor: pointer;
+      background-color: $color-gray2;
+      padding: $spacing-tiny $spacing-small;
+      margin-bottom: $spacing-tiny;
+
+      .svg-icon__outer-container {
+        margin-left: $spacing-tiny;
+      }
     }
 
     &-content {
