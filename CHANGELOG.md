@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added button group components / styling #176
 - added in basic (but not final) styling around the accordion components
 - added basic functioning accordion components #182
 - [BREAKING] refactored the get pass through properties utility #170

@@ -1,6 +1,8 @@
 import React from 'react';
 
 import CodeExample from '../../react/components/code-example';
+import ButtonGroup from '../../../../src/components/button-group';
+import Button from '../../../../src/components/button';
 
 import InteractiveExample from './assets/examples/buttons/interactive';
 
@@ -53,6 +55,14 @@ class ButtonsPage extends React.Component {
           exampleComponent={InteractiveExample}
           codeContent={interactiveExampleContent}
         />
+        <ButtonGroup>
+          <Button styleType="success">Button 1</Button>
+          <Button isPill isThin>Button 2</Button>
+          <Button styleType="danger" isThin>Button 3</Button>
+          <Button styleType="warning">Button 4</Button>
+          <Button>Button 5</Button>
+          <Button styleType="info" isThin>Button 6</Button>
+        </ButtonGroup>
       </div>
     );
   }
