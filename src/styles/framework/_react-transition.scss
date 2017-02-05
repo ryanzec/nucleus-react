@@ -1,0 +1,10 @@
+.fade-out {
+  &-leave {
+    transition: opacity .5s;
+    opacity: 1;
+
+    &-active {
+      opacity: 0;
+    }
+  }
+}

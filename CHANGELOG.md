@@ -6,6 +6,7 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- added css transition fade out animation for application notification sub system example
 - fixed spin css animation
 - added service-mocker as a better (or at least hoping to be) API mocking solution
 - added button group components / styling #176
