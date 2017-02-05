@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 
 import CodeExample from '../../react/components/code-example';
 import ButtonGroup from '../../../../src/components/button-group';
@@ -45,6 +46,14 @@ class ButtonsPage extends React.Component {
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
   }
 
+  onClickButton() {
+    request
+      .get('/api/users?delay=1000')
+      .end((error, response) => {
+        console.log(response);
+      });
+  }
+
   render() {
     return (
       <div className="p-style-guide-buttons">
@@ -56,7 +65,7 @@ class ButtonsPage extends React.Component {
           codeContent={interactiveExampleContent}
         />
         <ButtonGroup>
-          <Button styleType="success">Button 1</Button>
+          <Button styleType="success" onClick={this.onClickButton}>Button 1</Button>
           <Button isPill isThin>Button 2</Button>
           <Button styleType="danger" isThin>Button 3</Button>
           <Button styleType="warning">Button 4</Button>

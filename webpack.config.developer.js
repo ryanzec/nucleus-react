@@ -6,7 +6,33 @@ var precss = require('precss');
 var AssetsRewrite = require('./webpack/assets-rewrite-plugin');
 var extractSass = new ExtractTextPlugin('/css/main.css');
 
-module.exports = {
+module.exports = [{
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loader: 'babel',
+      exclude: [
+        path.resolve(__dirname, "node_modules")
+      ],
+      query: {
+        presets: ['react', 'es2015-without-strict-loose'],
+        plugins: ['static-fs']
+      }
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader'
+    }]
+  },
+  entry: {
+    '/javascript/mocker/server': './web/app/mocker/server.js'
+  },
+  devtool: ['source-map'],
+  output: {
+    path: './web/build',
+    publicPath: '/build',
+    filename: '[name].js'
+  }
+}, {
   module: {
     loaders: [{
       test: /\.js$/,
@@ -54,10 +80,6 @@ module.exports = {
       prependSlash: true,
       addStatic: true,
       domains: [],
-      noBuildVersion: [
-        'components/backend/backend.js',
-        'app/mocked-api.js'
-      ],
       assetPatterns: [
         'web/*.html',
         'web/app/**/*.*',
@@ -100,7 +122,6 @@ module.exports = {
     '/javascript/application': './web/app/application',
 
     //mocks
-    '/javascript/mocked-api': './web/app/mock/api.js',
     '/javascript/mocked-local-storage': './web/app/mock/local-storage.js'
   },
   devtool: ['source-map'],
@@ -109,4 +130,4 @@ module.exports = {
     publicPath: '/build',
     filename: '[name].js'
   }
-}
+}]

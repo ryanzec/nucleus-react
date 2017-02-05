@@ -6,6 +6,8 @@ There are some key used within the changelog which are as following:
 
 # IN PROGRESS
 
+- fixed spin css animation
+- added service-mocker as a better (or at least hoping to be) API mocking solution
 - added button group components / styling #176
 - added in basic (but not final) styling around the accordion components
 - added basic functioning accordion components #182

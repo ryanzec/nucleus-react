@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 import debounce from 'lodash/debounce';
 
 import ExtendText from '../../../../../../../src/components/extend-text';
@@ -13,28 +14,18 @@ let optionRenderer = (option) => {
 }
 
 let asyncGetData = (input, callback) => {
-  //NOTE: this just fakes an API call
-  setTimeout(() => {
-    callback({
-      options: [{
-        display: 'JavaScript',
-        value: 'js',
-        textClass: 'success'
-      }, {
-        display: 'ReactJS',
-        value: 'react',
-        textClass: 'info'
-      }, {
-        display: 'GoLang',
-        value: 'go',
-        textClass: 'warning'
-      }, {
-        display: 'SASS',
-        value: 'sass',
-        textClass: 'danger'
-      }]
+  request
+    .get('/api/tags?delay=1000')
+    .end((error, response) => {
+      response.body.tags[0].textClass = 'success';
+      response.body.tags[1].textClass = 'info';
+      response.body.tags[2].textClass = 'warning';
+      response.body.tags[3].textClass = 'danger';
+
+      callback({
+        options: response.body.tags,
+      });
     });
-  }, 1000);
 };
 
 let debouncedAsyncGetData = debounce(asyncGetData, 500);

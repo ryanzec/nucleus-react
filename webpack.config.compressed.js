@@ -62,10 +62,6 @@ module.exports = {
       prependSlash: true,
       addStatic: true,
       domains: [],
-      noBuildVersion: [
-        'components/backend/backend.js',
-        'app/mocked-api.js'
-      ],
       assetPatterns: [
         'web/*.html',
         'web/app/**/*.*',
@@ -108,7 +104,7 @@ module.exports = {
     '/javascript/application': './web/app/application',
 
     //mocks
-    '/javascript/mocked-api': './web/app/mock/api.js',
+    '/javascript/mocker/server': './web/app/mocker/server.js',
     '/javascript/mocked-local-storage': './web/app/mock/local-storage.js'
   },
   output: {
