@@ -1,6 +1,8 @@
+// NOTE: generic sass stuff
 @import "./framework/_variables";
 @import "./framework/_mixins";
 
+// NOTE: generic css stuff
 @import "./framework/_animation";
 @import "./framework/_react-transition";
 @import "./framework/_normalize";
@@ -9,6 +11,7 @@
 @import "./framework/_grid";
 @import "./framework/_tether";
 
+// NOTE: basic components
 @import "./framework/_button";
 @import "./framework/_card";
 @import "./framework/_code";
@@ -32,3 +35,7 @@
 @import "./framework/_list";
 @import "./framework/_tab";
 @import "./framework/_accordion";
+
+// NOTE: complex components
+@import "./framework/_kanban-board";
+

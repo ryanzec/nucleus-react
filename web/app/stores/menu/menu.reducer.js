@@ -119,6 +119,10 @@ let menuData = immutable.fromJS({
       display: 'Dynamically Loading Components',
       to: '/showcase/dynamically-loading-components'
     }, {
+      id: 'showcase-kanban-board',
+      display: 'Kanban Board',
+      to: '/showcase/kanban-board'
+    }, {
       id: 'showcase-svg-map',
       display: 'SVG Map',
       to: '/showcase/svg-map'

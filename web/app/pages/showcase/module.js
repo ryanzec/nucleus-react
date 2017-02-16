@@ -6,6 +6,7 @@ import * as routerHooks from './router.hooks';
 import DynamicallyLoadingComponentsPage from './dynamically-loading-components.page';
 import AlgorithmsPage from './algorithms.page';
 import SvgMapPage from './svg-map.page';
+import KanbanBoardPage from './kanban-board.page';
 
 export const routes = [
   <Route
@@ -26,5 +27,11 @@ export const routes = [
     name="showcase-svg-map"
     path="/showcase/svg-map"
     component={SvgMapPage}
-  />
+  />,
+  <Route
+    key="4"
+    name="showcase-kanban-board"
+    path="/showcase/kanban-board"
+    component={KanbanBoardPage}
+  />,
 ];
