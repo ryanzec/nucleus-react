@@ -4,7 +4,7 @@ There are some key used within the changelog which are as following:
 
 - [BREAKING]: means there is a change that is known to break existing code
 
-# IN PROGRESS
+# 0.10.0
 
 - added css transition fade out animation for application notification sub system example
 - fixed spin css animation
