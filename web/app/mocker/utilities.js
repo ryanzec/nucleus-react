@@ -1,5 +1,5 @@
-import * as random from '../../../src/utilities/random';
+import { randomNumber } from '../../../src/utilities/number';
 
 export function addDelay(request, returnCallback) {
-  setTimeout(returnCallback, request && request.query && request.query.delay ? request.query.delay : random.number(100, 200));
+  setTimeout(returnCallback, request && request.query && request.query.delay ? request.query.delay : randomNumber(100, 200));
 }

@@ -17,7 +17,6 @@ import NotificationIcon from '../../../../src/components/notification-icon';
 import NotificationMessage from '../../../../src/components/notification-message';
 import NotificationActions from '../../../../src/components/notification-actions';
 import NotificationContainer from '../../../../src/components/notification-container';
-import getNextId from '../../../../src/utilities/get-next-id';
 
 class NotificationsPage extends React.Component {
   constructor(props) {

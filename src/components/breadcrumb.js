@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class Breadcrumb extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,7 +20,7 @@ class Breadcrumb extends React.Component {
       cssClasses.push('is-active');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
@@ -34,7 +36,7 @@ class Breadcrumb extends React.Component {
 
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Breadcrumb.propTypes)}
       >
         {crumbNode}

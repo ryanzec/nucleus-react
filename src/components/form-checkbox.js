@@ -1,6 +1,8 @@
 import React from 'react';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 
 import FormLabel from './form-label';
@@ -22,12 +24,14 @@ class FormCheckbox extends React.Component {
       cssClasses.push('is-disabled');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     let nodes;
-    const textNode = (<span key="text">{this.props.children}</span>);
+    const textNode = (
+      <span key="text">{this.props.children}</span>
+    );
     const iconNode = (
       <SvgIcon key="icon" fragment={this.props.checked ? 'check-square' : 'square'} />
     );
@@ -39,7 +43,11 @@ class FormCheckbox extends React.Component {
     }
 
     return (
-      <FormLabel className={this.getCssClasses().join(' ')} inputType="checkbox" inputAlignment={this.props.inputAlignment}>
+      <FormLabel
+        className={this.getCssClasses()}
+        inputType="checkbox"
+        inputAlignment={this.props.inputAlignment}
+      >
         <input
           className="u-hide"
           type="checkbox"

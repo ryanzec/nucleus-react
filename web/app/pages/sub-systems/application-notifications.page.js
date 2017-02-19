@@ -1,6 +1,6 @@
 import React from 'react';
-
-import {connect} from 'react-redux';
+import uuid from 'uuid';
+import { connect } from 'react-redux';
 
 import applicationNotificationsActions from '../../../../src/stores/application-notifications/application-notifications.actions';
 
@@ -13,7 +13,6 @@ import NotificationActions from '../../../../src/components/notification-actions
 import NotificationContainer from '../../../../src/components/notification-container';
 import NotificationCountdown from '../../../../src/components/notification-countdown';
 import ManagedNotification from '../../../../src/components/managed-notification';
-import getNextId from '../../../../src/utilities/get-next-id';
 
 class ApplicationNotificationsPage extends React.Component {
   constructor(props) {
@@ -100,7 +99,7 @@ let mapDispatchToProps = (dispatch) => ({
     setTimeout(() => {
       for (var x = 1; x < 2; x += 1) {
         dispatch(applicationNotificationsActions.add({
-          id: getNextId(),
+          id: uuid(),
           message: 'test',
           autoClose: 3000,
           iconFragment: 'exclamation',
@@ -112,7 +111,7 @@ let mapDispatchToProps = (dispatch) => ({
 
   onClickAdd() {
     dispatch(applicationNotificationsActions.add({
-      id: getNextId(),
+      id: uuid(),
       message: 'test',
       styleType: 'warning'
     }));

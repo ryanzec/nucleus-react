@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class PopoverHandle extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -14,13 +16,13 @@ class PopoverHandle extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <span
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, PopoverHandle.propTypes)}
       >
         {this.props.children}

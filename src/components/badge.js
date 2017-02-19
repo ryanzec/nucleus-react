@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class Badge extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -26,13 +28,13 @@ class Badge extends React.Component {
       cssClasses.push('m-thin');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Badge.propTypes)}
       >
         {this.props.children}

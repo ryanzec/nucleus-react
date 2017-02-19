@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class DatePickerDay extends React.Component {
   constructor(props) {
@@ -49,13 +51,13 @@ class DatePickerDay extends React.Component {
       cssClasses.push('is-disabled');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         onClick={this.onClick}
         {...getPassThroughProperties(this.props, DatePickerDay.propTypes)}
       >

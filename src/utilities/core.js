@@ -1,4 +1,4 @@
-export default function shallowEquals(objA, objB) {
+export function shallowEquals(objA, objB) {
   if (objA === objB) {
     return true;
   }

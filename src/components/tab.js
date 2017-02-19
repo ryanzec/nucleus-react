@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class Tab extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,13 +20,13 @@ class Tab extends React.Component {
       cssClasses.push(`m-${this.props.styleType}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Tab.propTypes)}
       >
         {this.props.children}

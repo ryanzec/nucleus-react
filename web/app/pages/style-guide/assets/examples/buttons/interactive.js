@@ -1,9 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import onChangeInputStateUpdater from '../../../../../../../src/utilities/input/on-change-input-form-updater';
-import onBlurInputStateUpdater from '../../../../../../../src/utilities/input/on-blur-input-form-updater';
-import getInputValueFromEvent from '../../../../../../../src/utilities/input/get-input-value-from-event';
+import {
+  onChangeInputStateUpdater,
+  onBlurInputStateUpdater,
+  getInputValueFromEvent,
+} from '../../../../../../../src/utilities/input';
+
 import buttonExampleFormActions from '../../../../../stores/button-example-form/button-example-form.actions';
 
 import FormElement from '../../../../../../../src/components/form-element';
@@ -12,8 +15,8 @@ import FormTextbox from '../../../../../../../src/components/form-textbox';
 import FormSelect from '../../../../../../../src/components/form-select';
 import FormSelectOption from '../../../../../../../src/components/form-select-option';
 import FormCheckbox from '../../../../../../../src/components/form-checkbox';
-
 import Button from '../../../../../../../src/components/button';
+
 class ButtonsInteractiveExample extends React.Component {
   constructor(props) {
     super(props);

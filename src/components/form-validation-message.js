@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import SvgIcon from './svg-icon';
 
@@ -16,7 +18,7 @@ class FormValidationMessage extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
@@ -34,7 +36,7 @@ class FormValidationMessage extends React.Component {
 
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, FormValidationMessage.propTypes)}
       >
         {iconNode}{this.props.children}

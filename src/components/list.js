@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class List extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,12 +20,13 @@ class List extends React.Component {
       cssClasses.push(`m-${this.props.styleType}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
+    // console.log(this.getCssClasses());
     const properties = {
-      className: this.getCssClasses().join(' '),
+      className: this.getCssClasses(),
     };
     Object.assign(properties, getPassThroughProperties(this.props, List.propTypes));
     return React.createElement(this.props.type, properties, this.props.children);

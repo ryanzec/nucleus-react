@@ -4,6 +4,12 @@ There are some key used within the changelog which are as following:
 
 - [BREAKING]: means there is a change that is known to break existing code
 
+# IN PROGRESS
+
+- refactored utilties to be file per logical unit instead of file per function
+- refactored getCssClasses() to remove some boilerplate code with using it
+- added main file to the package.json
+
 # 0.10.0
 
 - added css transition fade out animation for application notification sub system example

@@ -1,5 +1,5 @@
 import React from 'react';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import { pureRenderShouldComponentUpdate } from '../utilities/component';
 
 import FormLabel from './form-label';
 import SvgIcon from './svg-icon';
@@ -20,7 +20,7 @@ class FormRadio extends React.Component {
       cssClasses.push('is-disabled');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
@@ -37,7 +37,11 @@ class FormRadio extends React.Component {
     }
 
     return (
-      <FormLabel className={this.getCssClasses().join(' ')} inputType="radio" inputAlignment={this.props.inputAlignment}>
+      <FormLabel
+        className={this.getCssClasses()}
+        inputType="radio"
+        inputAlignment={this.props.inputAlignment}
+      >
         <input type="hidden" />
         {nodes}
       </FormLabel>

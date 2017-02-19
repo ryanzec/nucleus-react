@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import List from './list';
 import ListItem from './list-item';
@@ -36,14 +38,14 @@ class ExpandableList extends React.Component {
       cssClasses.push('is-active');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     const iconFragment = this.state.isActive ? 'caret-down' : 'caret-right';
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, ExpandableList.propTypes)}
       >
         <div

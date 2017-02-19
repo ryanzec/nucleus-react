@@ -1,4 +1,4 @@
-export default function getKeyByValue(objectData, value) {
+export function getKeyByValue(objectData, value) {
   const objectKeys = Object.keys(objectData);
 
   objectKeys.forEach((prop) => {

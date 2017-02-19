@@ -1,7 +1,9 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import getNextId from '../utilities/get-next-id';
+import uuid from 'uuid';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 import configuration from '../configuration';
 
 import AppendBodyComponent from './append-body-component';
@@ -11,7 +13,7 @@ class Modal extends AppendBodyComponent {
   constructor(props) {
     super(props);
 
-    this.uniqueId = getNextId();
+    this.uniqueId = uuid();
 
     this.setAppendElementId(this.uniqueId);
   }
@@ -60,7 +62,7 @@ class Modal extends AppendBodyComponent {
       cssClasses.push('is-active');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   updateSelf(hideInitially) {
@@ -82,7 +84,7 @@ class Modal extends AppendBodyComponent {
       <div
         key={`modal-${this.uniqueId}`}
         data-modal-id={this.uniqueId}
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Modal.propTypes)}
       >
         <div className="modal__container">

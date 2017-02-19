@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 import isString from 'lodash/isString';
 
 class Image extends React.Component {
@@ -31,14 +33,14 @@ class Image extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     let node = (
       <img
         role="presentation"
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         onError={this.onError}
         {...getPassThroughProperties(this.props, Image.propTypes, 'src')}
       />

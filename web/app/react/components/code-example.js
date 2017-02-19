@@ -1,5 +1,6 @@
 import React from 'react';
-import pureRenderShouldComponentUpdate from '../../../../src/utilities/pure-render-should-component-update';
+
+import { pureRenderShouldComponentUpdate } from '../../../../src/utilities/component';
 
 import Code from '../../../../src/components/code';
 import Card from '../../../../src/components/card';

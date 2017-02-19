@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class Notification extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -26,13 +28,13 @@ class Notification extends React.Component {
       cssClasses.push('m-shadow');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Notification.propTypes)}
       >
         {this.props.children}

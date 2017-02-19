@@ -1,7 +1,7 @@
 import forEach from 'lodash/forEach';
 import immutable from 'immutable';
 
-export default class PaginationTracker {
+export class PaginationTracker {
   constructor(options) {
     const data = {};
 

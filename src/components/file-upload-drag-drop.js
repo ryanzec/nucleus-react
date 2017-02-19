@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 import {NativeTypes as nativeTypes} from 'react-dnd-html5-backend';
 import {DropTarget as dropTarget} from 'react-dnd';
 
@@ -50,7 +52,7 @@ class FileUploadDragDrop extends React.Component {
       cssClasses.push('is-over');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   renderInput() {
@@ -77,7 +79,7 @@ class FileUploadDragDrop extends React.Component {
     return this.props.connectDropTarget(
       <div
         onClick={this.onClick}
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, FileUploadDragDrop.propTypes)}
       >
         {infoNode}

@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class FormElement extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,13 +20,13 @@ class FormElement extends React.Component {
       cssClasses.push(`m-${this.props.validation}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, FormElement.propTypes)}
       >
         {this.props.children}

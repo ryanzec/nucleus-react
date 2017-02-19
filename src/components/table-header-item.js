@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class TableHeaderItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,13 +20,13 @@ class TableHeaderItem extends React.Component {
       cssClasses.push(`m-${this.props.alignment}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <th
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, TableHeaderItem.propTypes)}
       >
         {this.props.children}

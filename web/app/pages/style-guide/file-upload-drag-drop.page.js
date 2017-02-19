@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {helpers as formDataHelpers} from 'form-data-validation';
-import parseValidationData from '../../../../src/utilities/input/parse-validation-data';
+import { connect } from 'react-redux';
+import { helpers as formDataHelpers } from 'form-data-validation';
+import { parseValidationData } from '../../../../src/utilities/input';
 import fileUploadFormActions from '../../stores/file-upload-form/file-upload-form.actions';
 
 import FileUploadDragDrop from '../../../../src/components/file-upload-drag-drop';

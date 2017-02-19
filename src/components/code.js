@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import { pureRenderShouldComponentUpdate } from '../utilities/component';
 
 class Code extends React.Component {
   componentWillMount() {
@@ -30,7 +30,7 @@ class Code extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   getCodeElement() {

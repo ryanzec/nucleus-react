@@ -1,7 +1,9 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import getNextId from '../utilities/get-next-id';
+import uuid from 'uuid';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import AppendBodyComponent from './append-body-component';
 
@@ -9,7 +11,7 @@ class Overlay extends AppendBodyComponent {
   constructor(props) {
     super(props);
 
-    this.uniqueId = getNextId();
+    this.uniqueId = uuid();
     this.setAppendElementId(this.uniqueId);
   }
 
@@ -40,7 +42,7 @@ class Overlay extends AppendBodyComponent {
       cssClasses.push('active');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   updateSelf() {
@@ -55,7 +57,7 @@ class Overlay extends AppendBodyComponent {
     this.updateAppendElement(
       <div
         key={`overlay-${this.uniqueId}`}
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, Overlay.propTypes)}
       >
         {topContentNode}

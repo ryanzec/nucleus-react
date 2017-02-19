@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import DomEventManager from '../utilities/dom/dom-event-manager';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
+import { DomEventManager } from '../utilities/dom';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
 
@@ -204,7 +206,7 @@ class ExtendText extends React.Component {
       cssClasses.push('is-opened');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   asyncOptionsCallback(callbackOptions = {}) {
@@ -660,7 +662,7 @@ class ExtendText extends React.Component {
     return (
       <div
         ref="container"
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, ExtendText.propTypes)}
       >
         {gutsNode}

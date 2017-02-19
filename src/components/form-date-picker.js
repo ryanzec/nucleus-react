@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import PopoverContainer from './popover-container';
 import FormTextbox from './form-textbox';
@@ -39,7 +41,7 @@ class FormDatePicker extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   getInputValue() {
@@ -55,7 +57,7 @@ class FormDatePicker extends React.Component {
   render() {
     return (
       <PopoverContainer
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         isActive={this.state.isActive}
         {...getPassThroughProperties(this.props, FormDatePicker.propTypes)}
       >

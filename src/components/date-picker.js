@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 import moment from 'moment-timezone';
 
 import Button from './button';
@@ -135,7 +137,7 @@ class DatePicker extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   getCalendarMonthWeeks() {
@@ -275,7 +277,7 @@ class DatePicker extends React.Component {
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, DatePicker.propTypes)}
       >
         <div className="date-picker__top-bar">

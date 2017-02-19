@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import SvgIcon from './svg-icon';
 
@@ -16,7 +18,7 @@ class NotificationActions extends React.Component {
       cssClasses = cssClasses.concat(this.props.className.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   renderTextActions() {
@@ -65,7 +67,7 @@ class NotificationActions extends React.Component {
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, NotificationActions.propTypes)}
       >
         {this.props.type === 'icons' ? this.renderIconActions() : this.renderTextActions()}

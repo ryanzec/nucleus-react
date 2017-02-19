@@ -1,7 +1,9 @@
 import React from 'react';
 import iconData from 'font-awesome-svg-icons';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class SvgIcon extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -19,7 +21,7 @@ class SvgIcon extends React.Component {
       cssClasses.push(`m-${this.props.styleType}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   getOuterCssClasses() {
@@ -29,7 +31,7 @@ class SvgIcon extends React.Component {
       cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   getIndicatorHtml() {
@@ -53,11 +55,11 @@ class SvgIcon extends React.Component {
   render() {
     return (
       <span
-        className={this.getOuterCssClasses().join(' ')}
+        className={this.getOuterCssClasses()}
         {...getPassThroughProperties(this.props, SvgIcon.propTypes)}
       >
         <span
-          className={this.getInnerCssClasses().join(' ')}
+          className={this.getInnerCssClasses()}
           dangerouslySetInnerHTML={{
             __html: this.getSvgHtml() + this.getIndicatorHtml()
           }}

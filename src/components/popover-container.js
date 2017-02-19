@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
-import DomEventManager from '../utilities/dom/dom-event-manager';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
+import { DomEventManager } from '../utilities/dom';
 
 import ReactTether from 'react-tether';
 
@@ -67,7 +69,7 @@ class PopoverContainer extends React.Component {
       cssClasses.push('tether-enabled');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
@@ -83,7 +85,7 @@ class PopoverContainer extends React.Component {
 
     return (
       <ReactTether
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, PopoverContainer.propTypes)}
       >
         {children}

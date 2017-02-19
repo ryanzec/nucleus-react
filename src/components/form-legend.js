@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 import SvgIcon from './svg-icon';
 
@@ -20,7 +22,7 @@ class FormLegend extends React.Component {
       cssClasses.push(`m-${this.props.validation}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
@@ -39,7 +41,7 @@ class FormLegend extends React.Component {
 
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, FormLegend.propTypes)}
       >
         {this.props.children}{requiredDetailsNode}

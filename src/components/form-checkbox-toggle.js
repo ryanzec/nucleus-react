@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class FormCheckboxToggle extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -18,13 +20,13 @@ class FormCheckboxToggle extends React.Component {
       cssClasses.push('is-checked');
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, FormCheckboxToggle.propTypes)}
       >
         <div className="form-element__checkbox-toggle-circle"></div>

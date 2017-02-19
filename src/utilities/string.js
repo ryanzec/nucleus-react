@@ -1,4 +1,4 @@
-export default function randomString(characterCount) {
+export function randomString(characterCount) {
   characterCount = characterCount || 10;
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

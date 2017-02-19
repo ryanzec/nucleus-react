@@ -1,6 +1,8 @@
 import React from 'react';
-import getPassThroughProperties from '../utilities/component/get-pass-through-properties';
-import pureRenderShouldComponentUpdate from '../utilities/pure-render-should-component-update';
+import {
+  getPassThroughProperties,
+  pureRenderShouldComponentUpdate,
+} from '../utilities/component';
 
 class GridRow extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -54,13 +56,13 @@ class GridRow extends React.Component {
       cssClasses.push(`m-extra-large-offset${this.props.extraLargeOffset}`);
     }
 
-    return cssClasses;
+    return cssClasses.join(' ');
   }
 
   render() {
     return (
       <div
-        className={this.getCssClasses().join(' ')}
+        className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, GridRow.propTypes)}
       >
         {this.props.children}

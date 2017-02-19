@@ -1,4 +1,4 @@
-export default class DomDimensions {
+export class DomDimensions {
   constructor(domElement) {
     this.domElement = domElement;
     this.dimensions = {};
@@ -58,4 +58,35 @@ export default class DomDimensions {
   autoSetHeight() {
     this.domElement.style.height = `${this.domElement.scrollHeight + this.dimensions.borders.top + this.dimensions.borders.bottom}px`;
   }
+}
+
+export class DomEventManager {
+  constructor() {
+    this.managedDomEvents = [];
+  }
+
+  add(element, type, func) {
+    element.addEventListener(type, func);
+
+    this.managedDomEvents.push({
+      element,
+      type,
+      func
+    });
+  }
+
+  clear() {
+    if (this.managedDomEvents.length > 0) {
+      this.managedDomEvents.forEach((event) => {
+        event.element.removeEventListener(event.type, event.func);
+      });
+    }
+  }
+}
+
+export function getPageHeight() {
+  const body = document.body;
+  const html = document.documentElement;
+
+  return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 }

@@ -1,6 +1,7 @@
-import forEach from 'lodash.foreach';
+import forEach from 'lodash/forEach';
+import { shallowEquals } from './core';
 
-export default function getPassThroughProperties(componentProperties, propertyDefinations, ...passThrough) {
+export function getPassThroughProperties(componentProperties, propertyDefinations, ...passThrough) {
   const passThroughProps = {};
 
   //NOTE: children should always be passed explicited
@@ -13,4 +14,8 @@ export default function getPassThroughProperties(componentProperties, propertyDe
   });
 
   return passThroughProps;
+}
+
+export function pureRenderShouldComponentUpdate(currentProps, nextProps, currentState, nextState) {
+  return !shallowEquals(currentProps, nextProps) || !shallowEquals(currentState, nextState);
 }
