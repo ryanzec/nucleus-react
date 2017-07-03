@@ -9,4 +9,4 @@ cp -R ./src/fonts/ ./web/build/fonts
 echo "Build i18n files..."
 ./tasks/i18n
 echo "Building code..."
-./tasks/webpack-developer
+./tasks/webpack

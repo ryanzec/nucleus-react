@@ -1,4 +1,5 @@
 import React from 'react';
+import Holder from 'holderjs';
 
 import CodeExample from '../../react/components/code-example';
 

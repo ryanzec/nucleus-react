@@ -81,7 +81,7 @@ FormDatePicker.propTypes = {
   onClick: React.PropTypes.func,
   selectedDay: React.PropTypes.object,
   onClickDate: React.PropTypes.func.isRequired,
-  format: React.PropTypes.string
+  format: React.PropTypes.string,
 };
 
 FormDatePicker.defaultProps = {
@@ -92,8 +92,7 @@ FormDatePicker.defaultProps = {
   format: 'MMM Do, YYYY',
 
   //NOTE: popover defaults
-  attachment: 'top left',
-  targetAttachment: 'bottom left'
+  placement: 'top-end'
 };
 
 export default FormDatePicker;

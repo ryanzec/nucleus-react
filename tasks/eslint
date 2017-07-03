@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-./node_modules/.bin/eslint --ext .js --ext .jsx src/
+if [[ "$1" == "--fix" ]]
+then
+  ./node_modules/.bin/eslint --fix --ext .js --ext .jsx src/ web/app
+else
+  ./node_modules/.bin/eslint --ext .js --ext .jsx src/ web/app
+fi

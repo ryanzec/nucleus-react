@@ -67,7 +67,7 @@ class ButtonsPage extends React.Component {
               <span className="text">A</span>
               <span>#C92100</span>
             </div>
-            <div className="color-palette__example red3 dark">
+            <div className="color-palette__example red3 light">
               <span className="text">A</span>
               <span>#E62700</span>
             </div>
@@ -100,7 +100,7 @@ class ButtonsPage extends React.Component {
               <span className="text">A</span>
               <span>#0094D2</span>
             </div>
-            <div className="color-palette__example blue3 dark">
+            <div className="color-palette__example blue3 light">
               <span className="text">A</span>
               <span>#49AFD9</span>
             </div>
@@ -129,11 +129,11 @@ class ButtonsPage extends React.Component {
               <span className="text">A</span>
               <span>#318700</span>
             </div>
-            <div className="color-palette__example green3 dark">
+            <div className="color-palette__example green3 light">
               <span className="text">A</span>
               <span>#62A420</span>
             </div>
-            <div className="color-palette__example green2 dark">
+            <div className="color-palette__example green2 light">
               <span className="text">A</span>
               <span>#60B515</span>
             </div>
@@ -146,11 +146,11 @@ class ButtonsPage extends React.Component {
         <Card className="color-palette">
           <CardHeader>Orange Color Palette</CardHeader>
           <CardContent className="u-padding-0">
-            <div className="color-palette__example orange3 dark">
+            <div className="color-palette__example orange3 light">
               <span className="text">A</span>
               <span>#8A5301</span>
             </div>
-            <div className="color-palette__example orange2 dark">
+            <div className="color-palette__example orange2 light">
               <span className="text">A</span>
               <span>#EB8D00</span>
             </div>

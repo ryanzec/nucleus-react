@@ -1,5 +1,5 @@
 #web/app/mock/*
-web/*
+#web/*
 **/*.spec.*
 
 #third party libraries

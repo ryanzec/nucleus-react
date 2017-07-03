@@ -1,8 +1,7 @@
 //static resources
-import '../index.html';
-import './misc/ua-parser';
-import './misc/holder';
 import './styles/main.scss';
+
+//TOO: figure out how to move thise include out
 import '../../src/styles/prism.css';
 import '../../src/javascript/prism.js';
 

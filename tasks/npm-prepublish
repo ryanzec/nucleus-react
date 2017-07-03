@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#  add to package.json file
+# "scripts": {
+#   "prepublish": "./tasks/npm-prepublish"
+# },
 rm -rf ./lib;
 mkdir -p ./lib/styles;
 ./node_modules/babel-cli/bin/babel.js src --out-dir lib;

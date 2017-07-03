@@ -4,3 +4,4 @@
 /web/build/*
 npm-debug.log
 /lib/*
+/web/local-server

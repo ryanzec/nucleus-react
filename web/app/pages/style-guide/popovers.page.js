@@ -76,7 +76,7 @@ class PopoversPage extends React.Component {
     return (
       <PopoverContainer
         isActive={this.state.isActive}
-        attachment="top left"
+        placement="top-start"
       >
         <PopoverHandle onClick={this.onClickPopover}>handle</PopoverHandle>
         <Popover>content</Popover>
@@ -96,8 +96,7 @@ class PopoversPage extends React.Component {
   renderPopoverDD() {
     return (
       <PopoverContainer
-        attachment="top left"
-        targetAttachment="bottom left"
+        placement="top-start"
         isActive={this.state.isActiveDD}
         onClickOutside={this.onClickOutsideDD}
       >
