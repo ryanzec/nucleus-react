@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
 
-class ExtendTextNotSearchableExample extends React.Component {
+class ExtendTextNotSearchableTopExample extends React.Component {
   constructor(props) {
     super(props);
 
@@ -46,8 +46,8 @@ class ExtendTextNotSearchableExample extends React.Component {
   }
 }
 
-ExtendTextNotSearchableExample.contextTypes = {
+ExtendTextNotSearchableTopExample.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default ExtendTextNotSearchableExample;
+export default ExtendTextNotSearchableTopExample;

@@ -8,7 +8,7 @@ import '../../src/javascript/prism.js';
 //NOTE: need this to be an include other wise the configuration is not available in the constructor of components
 //TODO: figure out why this need to be an include and document it
 //set configuration values
-import './configuration-setup';
+import './configurationSetup';
 
 //application bootstrap
 import './router';

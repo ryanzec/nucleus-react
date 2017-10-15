@@ -2,42 +2,42 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import debounce from 'lodash/debounce';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
-import StaticExample from './assets/examples/extend-text/static';
+import StaticExample from './assets/examples/extend-text/ExtendTextStaticExample';
 import DynamicExample from './assets/examples/extend-text/dynamic';
-import DefaultValueExample from './assets/examples/extend-text/default-value';
-import CharacterThresholdExample from './assets/examples/extend-text/character-threshold';
-import NotSearchableExample from './assets/examples/extend-text/not-searchable';
-import NotSearchableTopExample from './assets/examples/extend-text/not-searchable-top';
-import DisabledExample from './assets/examples/extend-text/disabled';
-import NoFilteringExample from './assets/examples/extend-text/no-filtering';
-import CustomFilterExample from './assets/examples/extend-text/custom-filter';
-import CustomOptionRendererExample from './assets/examples/extend-text/custom-option-renderer';
-import StaticAllowCreateExample from './assets/examples/extend-text/static-allow-create';
-import DynamicAllowCreateExample from './assets/examples/extend-text/dynamic-allow-create';
-import TaggingExample from './assets/examples/extend-text/tagging';
-import CustomTagRenderer from './assets/examples/extend-text/custom-tag-renderer';
-import EmptyExample from './assets/examples/extend-text/empty';
+import DefaultValueExample from './assets/examples/extend-text/ExtendTextDefaultValueExample';
+import CharacterThresholdExample from './assets/examples/extend-text/ExtendTextCharacterThresholdExample';
+import NotSearchableExample from './assets/examples/extend-text/ExtendTextNotSearchableExample';
+import NotSearchableTopExample from './assets/examples/extend-text/ExtendTextNotSearchableTopExample';
+import DisabledExample from './assets/examples/extend-text/ExtendTextDynamicExample';
+import NoFilteringExample from './assets/examples/extend-text/ExtendTextNotFilteringExample';
+import CustomFilterExample from './assets/examples/extend-text/ExtendTextCustomFilterExample';
+import CustomOptionRendererExample from './assets/examples/extend-text/ExtendTextCustomRendererExample';
+import StaticAllowCreateExample from './assets/examples/extend-text/ExtendTextStaticAllowCreateExample';
+import DynamicAllowCreateExample from './assets/examples/extend-text/ExtendTextDynamicAllowCreateExample';
+import TaggingExample from './assets/examples/extend-text/ExtendTextTaggingExample';
+import CustomTagRenderer from './assets/examples/extend-text/ExtendTextCustomTagRendererExample';
+import EmptyExample from './assets/examples/extend-text/ExtendTextEmptyExample';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const staticExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/static.js'), 'utf8');
+const staticExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextStaticExample.js'), 'utf8');
 const dynamicExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/dynamic.js'), 'utf8');
-const defaultValueExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/default-value.js'), 'utf8');
-const characterThresholdExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/character-threshold.js'), 'utf8');
-const notSearchableExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/not-searchable.js'), 'utf8');
-const notSearchableTopExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/not-searchable-top.js'), 'utf8');
-const disabledExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/disabled.js'), 'utf8');
-const noFilteringExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/no-filtering.js'), 'utf8');
-const customFilterExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/custom-filter.js'), 'utf8');
-const customOptionRendererExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/custom-option-renderer.js'), 'utf8');
-const staticAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/static-allow-create.js'), 'utf8');
-const dynamicAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/dynamic-allow-create.js'), 'utf8');
-const taggingExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/tagging.js'), 'utf8');
-const customTagRendererContent = readFileSync(join(__dirname, '/assets/examples/extend-text/custom-tag-renderer.js'), 'utf8');
-const emptyExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/empty.js'), 'utf8');
+const defaultValueExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextDefaultValueExample.js'), 'utf8');
+const characterThresholdExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextCharacterThresholdExample.js'), 'utf8');
+const notSearchableExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextNotSearchableExample.js'), 'utf8');
+const notSearchableTopExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextNotSearchableTopExample.js'), 'utf8');
+const disabledExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextDynamicExample.js'), 'utf8');
+const noFilteringExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextNotFilteringExample.js'), 'utf8');
+const customFilterExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextCustomFilterExample.js'), 'utf8');
+const customOptionRendererExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextCustomRendererExample.js'), 'utf8');
+const staticAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextStaticAllowCreateExample.js'), 'utf8');
+const dynamicAllowCreateExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextDynamicAllowCreateExample.js'), 'utf8');
+const taggingExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextTaggingExample.js'), 'utf8');
+const customTagRendererContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextCustomTagRendererExample.js'), 'utf8');
+const emptyExampleContent = readFileSync(join(__dirname, '/assets/examples/extend-text/ExtendTextEmptyExample.js'), 'utf8');
 
 class ExtendTextPage extends React.Component {
   constructor(props) {

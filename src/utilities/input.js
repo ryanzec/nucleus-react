@@ -2,8 +2,8 @@ import React from 'react';
 import isArray from 'lodash/isArray';
 import {helpers as formDataHelpers} from 'form-data-validation';
 
-import blockNumberOnlyInput from './helpers/input/block-number-only-input';
-import blockNumericOnlyInput from './helpers/input/block-numeric-only-input';
+import blockNumberOnlyInput from './helpers/input/blockNumberOnlyInput';
+import blockNumericOnlyInput from './helpers/input/blockNumericOnlyInput';
 
 import FormValidationMessage from '../components/form/FormValidationMessage';
 

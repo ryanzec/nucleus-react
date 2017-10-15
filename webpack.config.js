@@ -152,7 +152,7 @@ var webpackConfig = {
     ],
 
     //application code
-    application: './web/app/application.js',
+    application: './web/app/Application.js',
   },
   output: {
     path: __dirname + '/web/build',

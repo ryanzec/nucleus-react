@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route} from 'react-router';
 
-import * as routerHooks from './router.hooks';
+import * as routerHooks from './RouterHooks';
 
-import DynamicallyLoadingComponentsPage from './dynamically-loading-components.page';
-import AlgorithmsPage from './algorithms.page';
-import SvgMapPage from './svg-map.page';
-import KanbanBoardPage from './kanban-board.page';
+import DynamicallyLoadingComponentsPage from './DynamicallyLoadingComponentsPage';
+import AlgorithmsPage from './AlgorithmsPage';
+import SvgMapPage from './SvgMapPage';
+import KanbanBoardPage from './KanbanBoardPage';
 
 export const routes = [
   <Route

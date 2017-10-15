@@ -1,5 +1,5 @@
-import isArrow from './is-arrow';
-import keyCodes from './key-codes';
+import isArrow from './isArrow';
+import keyCodes from './keyCodes';
 
 export default function isNonModifyingInput(event) {
   return (

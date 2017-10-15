@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router';
 
-import ApplicationNotificationsPage from './application-notifications.page';
+import ApplicationNotificationsPage from './ApplicationNotificationsPage';
 
 export const routes = [
   <Route

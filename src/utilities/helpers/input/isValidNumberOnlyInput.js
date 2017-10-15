@@ -1,6 +1,6 @@
-import isArrow from './is-arrow';
-import isNumber from './is-number';
-import keyCodes from './key-codes';
+import isArrow from './isArrow';
+import isNumber from './isNumber';
+import keyCodes from './keyCodes';
 
 export default function isValidNumberOnlyInput(event) {
   return (

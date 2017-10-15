@@ -1,7 +1,7 @@
-import isDot from './is-dot';
-import isArrow from './is-arrow';
-import isNumber from './is-number';
-import keyCodes from './key-codes';
+import isDot from './isDot';
+import isArrow from './isArrow';
+import isNumber from './isNumber';
+import keyCodes from './keyCodes';
 
 export default function blockNumericOnlyInput(event, overrideBlockNumberInput) {
   return (

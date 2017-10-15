@@ -2,7 +2,7 @@ import React from 'react';
 
 import SvgIcon from '../../../../../../../src/components/svg-icon/SvgIcon';
 
-class SvgIconsIndicatorsExample extends React.Component {
+class SvgIconsDefaultExample extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,4 +14,4 @@ class SvgIconsIndicatorsExample extends React.Component {
   }
 }
 
-export default SvgIconsIndicatorsExample;
+export default SvgIconsDefaultExample;

@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
-import DefaultExample from './assets/examples/svg-icons/default';
-import StylesExample from './assets/examples/svg-icons/styles';
-import IndicatorsExample from './assets/examples/svg-icons/indicators';
+import DefaultExample from './assets/examples/svg-icons/SvgIconsDefaultExample';
+import StylesExample from './assets/examples/svg-icons/SvgIconsStylesExample';
+import IndicatorsExample from './assets/examples/svg-icons/SvgIconsIndicatorsExample';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const defaultExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/default.js'), 'utf8');
-const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/styles.js'), 'utf8');
-const indicatorsExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/indicators.js'), 'utf8');
+const defaultExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/SvgIconsDefaultExample.js'), 'utf8');
+const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/SvgIconsStylesExample.js'), 'utf8');
+const indicatorsExampleContent = readFileSync(join(__dirname, '/assets/examples/svg-icons/SvgIconsIndicatorsExample.js'), 'utf8');
 
 class SvgIconsPage extends React.Component {
   constructor(props) {
