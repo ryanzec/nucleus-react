@@ -6,8 +6,8 @@ import {DragDropContext} from 'react-dnd';
 import Tab from '../../../../src/components/tabs/Tabs';
 import TabItem from '../../../../src/components/tabs/Tab';
 
-import MainNavigation from './main-navigation';
-import MainNavigationSection from './main-navigation-section';
+import MainNavigation from './MainNavigation';
+import MainNavigationSection from './MainNavigationSection';
 
 class Application extends React.Component {
   onClickGitHub = () => {

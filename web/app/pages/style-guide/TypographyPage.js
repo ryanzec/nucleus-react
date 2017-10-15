@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
 // import StylesExample from './src/examples/buttons/styles';
 

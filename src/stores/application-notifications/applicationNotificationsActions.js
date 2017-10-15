@@ -1,4 +1,4 @@
-import * as constants from './application-notifications.constants';
+import * as constants from './applicationNotificationsConstants';
 
 const add = (newNotification) => (dispatch) => {
   dispatch({

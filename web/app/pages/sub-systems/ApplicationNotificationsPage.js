@@ -3,7 +3,7 @@ import React from 'react';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 
-import applicationNotificationsActions from '../../../../src/stores/application-notifications/application-notifications.actions';
+import applicationNotificationsActions from '../../../../src/stores/application-notifications/applicationNotificationsActions';
 
 import { CSSTransitionGroup } from 'react-transition-group';
 import Button from '../../../../src/components/button/Button';

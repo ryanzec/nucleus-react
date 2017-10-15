@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import request from 'superagent';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 import ButtonGroup from '../../../../src/components/button/ButtonGroup';
 import Button from '../../../../src/components/button/Button';
 
-import InteractiveExample from './assets/examples/buttons/interactive';
+import InteractiveExample from './assets/examples/buttons/ButtonsInteractiveExample';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const interactiveExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/interactive.js'), 'utf8');
+const interactiveExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/ButtonsInteractiveExample.js'), 'utf8');
 
 class ButtonsPage extends React.Component {
   constructor(props) {

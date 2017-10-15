@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Holder from 'holderjs';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
 import Grid from '../../../../src/components/grid/Grid';
 import GridRow from '../../../../src/components/grid/GridRow';

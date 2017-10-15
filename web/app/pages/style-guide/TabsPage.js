@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
-import InteractiveExample from './assets/examples/tabs/interactive';
+import InteractiveExample from './assets/examples/tabs/TabsInteractiveExample';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const interactiveExampleContent = readFileSync(join(__dirname, '/assets/examples/tabs/interactive.js'), 'utf8');
+const interactiveExampleContent = readFileSync(join(__dirname, '/assets/examples/tabs/TabsInteractiveExample.js'), 'utf8');
 
 import Tab from '../../../../src/components/tabs/Tabs';
 import TabItem from '../../../../src/components/tabs/Tab';

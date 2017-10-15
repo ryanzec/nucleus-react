@@ -10,12 +10,12 @@ import {
 import {Provider} from 'react-redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 import store from './store';
-import Application from './react/components/application';
-import NotFoundPage from './react/components/not-found.page';
-import CodePage from './pages/style-guide/code.page';
-import {routes as styleGuideRoutes} from './pages/style-guide/module';
-import {routes as subSystemsRoutes} from './pages/sub-systems/module';
-import {routes as showcaseRoutes} from './pages/showcase/module';
+import Application from './react/components/Application';
+import NotFoundPage from './react/components/NotFoundPage';
+import CodePage from './pages/style-guide/CodePage';
+import {routes as styleGuideRoutes} from './pages/style-guide/Module';
+import {routes as subSystemsRoutes} from './pages/sub-systems/Module';
+import {routes as showcaseRoutes} from './pages/showcase/Module';
 import {useScroll} from 'react-router-scroll';
 
 const browserHistory = useRouterHistory(createHistory)({

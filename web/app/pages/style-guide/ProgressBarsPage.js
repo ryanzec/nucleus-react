@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CodeExample from '../../react/components/code-example';
+import CodeExample from '../../react/components/CodeExample';
 
 import ProgressBar from '../../../../src/components/progress-bar/ProgressBar';
 
