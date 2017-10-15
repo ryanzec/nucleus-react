@@ -40,7 +40,8 @@
     "console": true,
     "confirm": true,
     "_": true,
-    "UAParser": true
+    "UAParser": true,
+    "process": true
   },
   "rules": {
     //babel
@@ -72,7 +73,7 @@
     //possible errors
     "comma-dangle": [
       2,
-      "always"
+      "always-multiline"
     ],
     "no-cond-assign": [
       2,
