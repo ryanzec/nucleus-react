@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {runAlgorithm} from './assets/javascript/helpers';
@@ -43,7 +44,7 @@ class AlgorithmsPage extends React.Component {
 }
 
 AlgorithmsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default AlgorithmsPage;

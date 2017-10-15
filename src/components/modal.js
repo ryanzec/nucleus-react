@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
 import {
@@ -101,9 +102,9 @@ class Modal extends AppendBodyComponent {
 }
 
 Modal.propTypes = {
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  overlayDisabled: React.PropTypes.bool,
+  className: PropTypes.string,
+  isActive: PropTypes.bool,
+  overlayDisabled: PropTypes.bool,
 };
 
 Modal.defaultProps = {

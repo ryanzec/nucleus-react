@@ -22,13 +22,9 @@ class ButtonsInteractiveExample extends React.Component {
     super(props);
 
     this.state = {};
-
-    this.onChangeInput = this.onChangeInput.bind(this);
-    this.onBlurInput = this.onBlurInput.bind(this);
-    this.onClickButton = this.onClickButton.bind(this);
   }
 
-  onChangeInput(event) {
+  onChangeInput = event => {
     var formName = event.target.getAttribute('data-form-name');
     var fieldName = event.target.getAttribute('data-form-field');
     var value = getInputValueFromEvent(event);
@@ -40,9 +36,9 @@ class ButtonsInteractiveExample extends React.Component {
     });
 
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
-  }
+  };
 
-  onBlurInput(event) {
+  onBlurInput = event => {
     var formName = event.target.getAttribute('data-form-name');
     var fieldName = event.target.getAttribute('data-form-field');
 
@@ -51,13 +47,13 @@ class ButtonsInteractiveExample extends React.Component {
     });
 
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
-  }
+  };
 
-  onClickButton() {
+  onClickButton = () => {
     if (this.props.form.getIn(['doAlert', 'value']) === true) {
       alert('I\'m an alert');
     }
-  }
+  };
 
   render() {
       return (

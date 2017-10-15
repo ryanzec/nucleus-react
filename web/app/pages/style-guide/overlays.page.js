@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Button from '../../../../src/components/button';
@@ -12,13 +13,9 @@ class OverlaysPage extends React.Component {
       isAbsoluteOverlayActive: false,
       isAbsoluteOverlayWithTextActive: false
     };
-
-    this.onClickDefault = this.onClickDefault.bind(this);
-    this.onClickAbsolute = this.onClickAbsolute.bind(this);
-    this.onClickAbsoluteWithText = this.onClickAbsoluteWithText.bind(this);
   }
 
-  onClickDefault() {
+  onClickDefault = () => {
     this.setState({
       isOverlayActive: true
     });
@@ -28,9 +25,9 @@ class OverlaysPage extends React.Component {
         isOverlayActive: false
       });
     }.bind(this), 2000);
-  }
+  };
 
-  onClickAbsolute() {
+  onClickAbsolute = () => {
     this.setState({
       isAbsoluteOverlayActive: true
     });
@@ -40,9 +37,9 @@ class OverlaysPage extends React.Component {
         isAbsoluteOverlayActive: false
       });
     }.bind(this), 2000);
-  }
+  };
 
-  onClickAbsoluteWithText() {
+  onClickAbsoluteWithText = () => {
     this.setState({
       isAbsoluteOverlayWithTextActive: true
     });
@@ -52,7 +49,7 @@ class OverlaysPage extends React.Component {
         isAbsoluteOverlayWithTextActive: false
       });
     }.bind(this), 2000);
-  }
+  };
 
   render() {
     return (
@@ -74,7 +71,7 @@ class OverlaysPage extends React.Component {
 }
 
 OverlaysPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default OverlaysPage;

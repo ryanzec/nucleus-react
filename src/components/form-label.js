@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -59,11 +60,11 @@ class FormLabel extends React.Component {
 }
 
 FormLabel.propTypes = {
-  className: React.PropTypes.string,
-  isRequired: React.PropTypes.bool,
-  inputType: React.PropTypes.oneOf([false, 'checkbox', 'radio']),
-  inputAlignment: React.PropTypes.oneOf(['left', 'right']),
-  isHidden: React.PropTypes.bool
+  className: PropTypes.string,
+  isRequired: PropTypes.bool,
+  inputType: PropTypes.oneOf([false, 'checkbox', 'radio']),
+  inputAlignment: PropTypes.oneOf(['left', 'right']),
+  isHidden: PropTypes.bool
 };
 
 FormLabel.defaultProps = {

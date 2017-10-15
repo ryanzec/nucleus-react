@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -22,9 +23,6 @@ class Wizard extends React.Component {
       activeStep: props.initialStep || 0
     };
 
-    this.onClickNextStep = this.onClickNextStep.bind(this);
-    this.onClickPreviousStep = this.onClickPreviousStep.bind(this);
-
     if (process.env.ENV !== 'production') {
       if (!props.steps || props.steps.length === 0) {
         console.error('A wizard needs at least 1 step');
@@ -36,7 +34,7 @@ class Wizard extends React.Component {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onClickNextStep() {
+  onClickNextStep = () => {
     if (this.state.activeStep === this.props.steps.length - 1) {
       if (this.props.steps[this.state.activeStep].nextHandler) {
         this.props.steps[this.state.activeStep].nextHandler(this.props.closeHandler);
@@ -50,9 +48,9 @@ class Wizard extends React.Component {
         this.increaseStep();
       }
     }
-  }
+  };
 
-  onClickPreviousStep() {
+  onClickPreviousStep = () => {
     if (this.state.activeStep > 0) {
       if (this.props.steps[this.state.activeStep].previousHandler) {
         this.props.steps[this.state.activeStep].previousHandler(this.decreaseStep.bind(this));
@@ -60,7 +58,7 @@ class Wizard extends React.Component {
         this.decreaseStep();
       }
     }
-  }
+  };
 
   getCssClasses() {
     let cssClasses = ['wizard'];
@@ -177,16 +175,16 @@ class Wizard extends React.Component {
 }
 
 Wizard.propTypes = {
-  className: React.PropTypes.string,
-  steps: React.PropTypes.array.isRequired,
-  isActive: React.PropTypes.bool,
-  closeHandler: React.PropTypes.func.isRequired,
-  allowExit: React.PropTypes.bool,
-  allowGoingBackwards: React.PropTypes.bool,
-  previousButtonText: React.PropTypes.string,
-  nextButtonText: React.PropTypes.string,
-  finishButtonText: React.PropTypes.string,
-  initialStep: React.PropTypes.number
+  className: PropTypes.string,
+  steps: PropTypes.array.isRequired,
+  isActive: PropTypes.bool,
+  closeHandler: PropTypes.func.isRequired,
+  allowExit: PropTypes.bool,
+  allowGoingBackwards: PropTypes.bool,
+  previousButtonText: PropTypes.string,
+  nextButtonText: PropTypes.string,
+  finishButtonText: PropTypes.string,
+  initialStep: PropTypes.number
 };
 
 Wizard.defaultProps = {

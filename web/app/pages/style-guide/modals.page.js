@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Code from '../../../../src/components/code';
@@ -18,85 +19,73 @@ class ModalPage extends React.Component {
       isActiveModal5: false,
       dynamicContentCount: 5
     };
-
-    this.onClickToggleModal1 = this.onClickToggleModal1.bind(this);
-    this.closeHandler1 = this.closeHandler1.bind(this);
-    this.onClickToggleModal2 = this.onClickToggleModal2.bind(this);
-    this.closeHandler2 = this.closeHandler2.bind(this);
-    this.onClickToggleModal3 = this.onClickToggleModal3.bind(this);
-    this.closeHandler3 = this.closeHandler3.bind(this);
-    this.onClickToggleModal4 = this.onClickToggleModal4.bind(this);
-    this.closeHandler4 = this.closeHandler4.bind(this);
-    this.onClickToggleModal5 = this.onClickToggleModal5.bind(this);
-    this.closeHandler5 = this.closeHandler5.bind(this);
-    this.onClickDynamicAddContent = this.onClickDynamicAddContent.bind(this);
   }
 
-  onClickToggleModal1() {
+  onClickToggleModal1 = () => {
     this.setState({
       isActiveModal1: !this.state.isActiveModal1
     })
-  }
+  };
 
-  closeHandler1() {
+  closeHandler1 = () => {
     this.setState({
       isActiveModal1: false
     })
-  }
+  };
 
-  onClickToggleModal2() {
+  onClickToggleModal2 = () => {
     this.setState({
       isActiveModal2: !this.state.isActiveModal2
     })
-  }
+  };
 
-  closeHandler2() {
+  closeHandler2 = () => {
     this.setState({
       isActiveModal2: false
     })
-  }
+  };
 
-  onClickToggleModal3() {
+  onClickToggleModal3 = () => {
     this.setState({
       isActiveModal3: !this.state.isActiveModal3
     })
-  }
+  };
 
-  closeHandler3() {
+  closeHandler3 = () => {
     this.setState({
       isActiveModal3: false
     })
-  }
+  };
 
-  onClickToggleModal4() {
+  onClickToggleModal4 = () => {
     this.setState({
       isActiveModal4: !this.state.isActiveModal4
     })
-  }
+  };
 
-  closeHandler4() {
+  closeHandler4 = () => {
     this.setState({
       isActiveModal4: false
     })
-  }
+  };
 
-  onClickToggleModal5() {
+  onClickToggleModal5 = () => {
     this.setState({
       isActiveModal5: !this.state.isActiveModal5
     })
-  }
+  };
 
-  onClickDynamicAddContent() {
+  onClickDynamicAddContent = () => {
     this.setState({
       dynamicContentCount: this.state.dynamicContentCount + 3
     });
-  }
+  };
 
-  closeHandler5() {
+  closeHandler5 = () => {
     this.setState({
       isActiveModal5: false
     })
-  }
+  };
 
   renderContentModal() {
     return (
@@ -292,7 +281,7 @@ class ModalPage extends React.Component {
 }
 
 ModalPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ModalPage;

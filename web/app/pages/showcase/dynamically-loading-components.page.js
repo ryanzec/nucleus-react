@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import isArray from 'lodash/isArray';
@@ -150,7 +151,7 @@ class DynamicallyLoadingComponentsPage extends React.Component {
 }
 
 DynamicallyLoadingComponentsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 var mapStateToProps = function(state) {

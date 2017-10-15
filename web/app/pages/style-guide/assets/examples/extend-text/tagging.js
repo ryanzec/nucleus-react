@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text';
 import Button from '../../../../../../../src/components/button';
@@ -61,7 +62,7 @@ class ExtendTextTaggingExample extends React.Component {
 }
 
 ExtendTextTaggingExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextTaggingExample;

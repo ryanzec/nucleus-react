@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import request from 'superagent';
 import debounce from 'lodash/debounce';
@@ -37,15 +38,13 @@ class ExtendTextCustomRendererExample extends React.Component {
     this.state = {
       value: null
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue) {
+  onChange = newValue => {
     this.setState({
       value: newValue
     });
-  }
+  };
 
   asyncCallbackFunction(input, callback) {
     debouncedAsyncGetData(input, callback);
@@ -64,7 +63,7 @@ class ExtendTextCustomRendererExample extends React.Component {
 }
 
 ExtendTextCustomRendererExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextCustomRendererExample;

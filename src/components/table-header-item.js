@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class TableHeaderItem extends React.Component {
 }
 
 TableHeaderItem.propTypes = {
-  className: React.PropTypes.string,
-  alignment: React.PropTypes.oneOf(['left', 'right', 'center']),
+  className: PropTypes.string,
+  alignment: PropTypes.oneOf(['left', 'right', 'center']),
 };
 
 TableHeaderItem.defaultProps = {

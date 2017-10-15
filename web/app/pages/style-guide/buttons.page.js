@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import request from 'superagent';
 
@@ -16,12 +17,9 @@ class ButtonsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.onChangeInput = this.onChangeInput.bind(this);
-    this.onBlurInput = this.onBlurInput.bind(this);
   }
 
-  onChangeInput(event) {
+  onChangeInput = event => {
     var formName = event.target.getAttribute('data-form-name');
     var fieldName = event.target.getAttribute('data-form-field');
     var value = getInputValueFromEvent(event);
@@ -33,9 +31,9 @@ class ButtonsPage extends React.Component {
     });
 
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
-  }
+  };
 
-  onBlurInput(event) {
+  onBlurInput = event => {
     var formName = event.target.getAttribute('data-form-name');
     var fieldName = event.target.getAttribute('data-form-field');
 
@@ -44,7 +42,7 @@ class ButtonsPage extends React.Component {
     });
 
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
-  }
+  };
 
   onClickButton() {
     request
@@ -78,7 +76,7 @@ class ButtonsPage extends React.Component {
 }
 
 ButtonsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ButtonsPage;

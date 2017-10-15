@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -44,10 +45,10 @@ class Notification extends React.Component {
 }
 
 Notification.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  isFilled: React.PropTypes.bool,
-  hasShadow: React.PropTypes.bool
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  isFilled: PropTypes.bool,
+  hasShadow: PropTypes.bool
 };
 
 Notification.defaultProps = {

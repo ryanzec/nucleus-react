@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -14,28 +15,21 @@ const fileTarget = {
 };
 
 class FileUploadDragDrop extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onClick = this.onClick.bind(this);
-    this.onFileSelect = this.onFileSelect.bind(this);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onFileSelect(event) {
+  onFileSelect = event => {
     this.props.processFiles(Array.prototype.slice.call(event.target.files));
-  }
+  };
 
-  onClick() {
+  onClick = () => {
     if (!this.props.isClickable) {
       return;
     }
 
     ReactDOM.findDOMNode(this.refs.input).click();
-  }
+  };
 
   getCssClasses() {
     let cssClasses = ['file-upload-drap-drop'];
@@ -90,16 +84,16 @@ class FileUploadDragDrop extends React.Component {
 }
 
 FileUploadDragDrop.propTypes = {
-  className: React.PropTypes.string,
-  infoNode: React.PropTypes.node,
-  infoHoverNode: React.PropTypes.node,
-  isClickable: React.PropTypes.bool,
-  processFiles: React.PropTypes.func.isRequired,
+  className: PropTypes.string,
+  infoNode: PropTypes.node,
+  infoHoverNode: PropTypes.node,
+  isClickable: PropTypes.bool,
+  processFiles: PropTypes.func.isRequired,
 
   //NOTE: provided by redux
-  isOver: React.PropTypes.bool,
-  canDrop: React.PropTypes.bool,
-  connectDropTarget: React.PropTypes.func
+  isOver: PropTypes.bool,
+  canDrop: PropTypes.bool,
+  connectDropTarget: PropTypes.func
 };
 
 FileUploadDragDrop.defaultProps = {

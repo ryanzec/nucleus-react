@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class Tooltip extends React.Component {
 }
 
 Tooltip.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 Tooltip.defaultProps = {

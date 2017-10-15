@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -12,15 +13,13 @@ class DatePickerDay extends React.Component {
       viewMonth: null,
       viewYear: null
     };
-
-    this.onClick = this.onClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onClick() {
+  onClick = () => {
     if (!this.props.disabled) {
       const newDate = this.props.day.clone();
 
@@ -30,7 +29,7 @@ class DatePickerDay extends React.Component {
 
       this.props.onClickDate(newDate);
     }
-  }
+  };
 
   getCssClasses() {
     let cssClasses = ['date-picker__day'];
@@ -68,13 +67,13 @@ class DatePickerDay extends React.Component {
 }
 
 DatePickerDay.propTypes = {
-  className: React.PropTypes.string,
-  isOtherMonth: React.PropTypes.bool,
-  isActive: React.PropTypes.bool,
-  day: React.PropTypes.object.isRequired,
-  onClickDate: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool,
-  currentTime: React.PropTypes.object.isRequired,
+  className: PropTypes.string,
+  isOtherMonth: PropTypes.bool,
+  isActive: PropTypes.bool,
+  day: PropTypes.object.isRequired,
+  onClickDate: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  currentTime: PropTypes.object.isRequired,
 };
 
 DatePickerDay.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -35,7 +36,7 @@ class NotificationIcon extends React.Component {
 }
 
 NotificationIcon.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 NotificationIcon.defaultProps = {

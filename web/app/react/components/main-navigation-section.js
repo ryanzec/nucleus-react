@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ExpandableList from '../../../../src/components/expandable-list';
@@ -5,12 +6,6 @@ import ListItem from '../../../../src/components/list-item';
 import SvgIcon from '../../../../src/components/svg-icon';
 
 class MainNavigationSection extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onClickMenuItem = this.onClickMenuItem.bind(this);
-  }
-
   getCssClasses() {
     let cssClasses = ['main-navigation__section'];
 
@@ -21,11 +16,11 @@ class MainNavigationSection extends React.Component {
     return cssClasses;
   }
 
-  onClickMenuItem(event) {
+  onClickMenuItem = event => {
     if (event.currentTarget.getAttribute('data-to')) {
       this.context.router.push(event.currentTarget.getAttribute('data-to'));
     }
-  }
+  };
 
   renderItems() {
     var itemNodes = [];
@@ -65,13 +60,13 @@ class MainNavigationSection extends React.Component {
 }
 
 MainNavigationSection.propTypes = {
-  className: React.PropTypes.string,
-  headerNode: React.PropTypes.node.isRequired,
-  items: React.PropTypes.array.isRequired
+  className: PropTypes.string,
+  headerNode: PropTypes.node.isRequired,
+  items: PropTypes.array.isRequired
 };
 
 MainNavigationSection.contextTypes = {
-  router: React.PropTypes.object
+  router: PropTypes.object
 };
 
 MainNavigationSection.defaultProps = {

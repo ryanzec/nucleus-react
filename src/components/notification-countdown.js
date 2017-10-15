@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -46,7 +47,7 @@ class NotificationCountdown extends React.Component {
 }
 
 NotificationCountdown.propTypes = {
-  length: React.PropTypes.number.isRequired
+  length: PropTypes.number.isRequired
 };
 
 NotificationCountdown.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import iconData from 'font-awesome-svg-icons';
 import {
@@ -70,12 +71,12 @@ class SvgIcon extends React.Component {
 }
 
 SvgIcon.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  fragment: React.PropTypes.string,
-  indicator: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  outerClassName: React.PropTypes.string,
-  size: React.PropTypes.string
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  fragment: PropTypes.string,
+  indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  outerClassName: PropTypes.string,
+  size: PropTypes.string
 };
 
 SvgIcon.defaultProps = {

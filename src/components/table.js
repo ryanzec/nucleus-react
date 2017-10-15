@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -40,10 +41,10 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  className: React.PropTypes.string,
-  alignment: React.PropTypes.oneOf(['left', 'right', 'center']),
-  styleType: React.PropTypes.oneOf(['zebra', 'borderless']),
-  isVertical: React.PropTypes.bool,
+  className: PropTypes.string,
+  alignment: PropTypes.oneOf(['left', 'right', 'center']),
+  styleType: PropTypes.oneOf(['zebra', 'borderless']),
+  isVertical: PropTypes.bool,
 };
 
 Table.defaultProps = {

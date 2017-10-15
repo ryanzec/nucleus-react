@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class Card extends React.Component {
 }
 
 Card.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger'])
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger'])
 };
 
 Card.defaultProps = {

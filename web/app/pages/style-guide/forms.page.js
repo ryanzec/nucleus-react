@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // import CodeExample from '../../react/components/code-example';
@@ -37,15 +38,13 @@ class FormsPage extends React.Component {
     this.state = {
       selectedDay: null,
     };
-
-    this.onClickDate = this.onClickDate.bind(this);
   }
 
-  onClickDate(date) {
+  onClickDate = date => {
     this.setState({
       selectedDay: date,
     });
-  }
+  };
 
   render() {
     return (
@@ -477,7 +476,7 @@ class FormsPage extends React.Component {
 }
 
 FormsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default FormsPage;

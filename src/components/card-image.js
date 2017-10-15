@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -30,7 +31,7 @@ class CardImage extends React.Component {
 }
 
 CardImage.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 CardImage.defaultProps = {

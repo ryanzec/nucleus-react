@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -33,17 +34,6 @@ class ExtendText extends React.Component {
       lastCheckedInputValue: null,
       inputValue: this.getDisplayValue(props.multiple, props.value)
     };
-
-    this.onFocusInput = this.onFocusInput.bind(this);
-    this.onMouseEnterAutoCompleteOption = this.onMouseEnterAutoCompleteOption.bind(this);
-    this.asyncOptionsCallback = this.asyncOptionsCallback.bind(this);
-    this.onChangeInput = this.onChangeInput.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onMouseDownAutoCompleteOption = this.onMouseDownAutoCompleteOption.bind(this);
-    this.onClickOutside = this.onClickOutside.bind(this);
-    this.onClickClearAll = this.onClickClearAll.bind(this);
-    this.onClickDeleteTag = this.onClickDeleteTag.bind(this);
-    this.onClickDropDownIndicator = this.onClickDropDownIndicator.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +68,7 @@ class ExtendText extends React.Component {
     this.domEventManager.clear();
   }
 
-  onClickOutside(event) {
+  onClickOutside = event => {
     if (this.state.isActive) {
       let close = true;
 
@@ -118,16 +108,16 @@ class ExtendText extends React.Component {
         this.closeAutoComplete();
       }
     }
-  }
+  };
 
-  onFocusInput() {
+  onFocusInput = () => {
     this.setState({
       isActive: true,
       activeAutoCompleteOptionIndex: 0
     });
-  }
+  };
 
-  onKeyDown(event) {
+  onKeyDown = event => {
     switch (event.keyCode) {
       case 27: //escape
         event.preventDefault();
@@ -161,39 +151,39 @@ class ExtendText extends React.Component {
         }
         break;
     }
-  }
+  };
 
-  onMouseEnterAutoCompleteOption(event) {
+  onMouseEnterAutoCompleteOption = event => {
     this.setState({
       activeAutoCompleteOptionIndex: parseInt(event.target.getAttribute('data-index'), 10)
     });
-  }
+  };
 
-  onMouseDownAutoCompleteOption() {
+  onMouseDownAutoCompleteOption = () => {
     this.selectActiveItem();
-  }
+  };
 
-  onChangeInput(event) {
+  onChangeInput = event => {
     this.setState({
       previousInputValue: this.state.inputValue,
       inputValue: event.target.value
     });
-  }
+  };
 
-  onClickClearAll() {
+  onClickClearAll = () => {
     this.setValue([], '');
-  }
+  };
 
-  onClickDeleteTag(event) {
+  onClickDeleteTag = event => {
     const newValue = cloneDeep(this.props.value);
     newValue.splice(parseInt(event.currentTarget.getAttribute('data-key'), 10), 1);
 
     this.setValue(newValue, '');
-  }
+  };
 
-  onClickDropDownIndicator() {
+  onClickDropDownIndicator = () => {
     ReactDOM.findDOMNode(this.refs.input).focus();
-  }
+  };
 
   getCssClasses() {
     let cssClasses = ['extend-text', `m-${this.props.autoCompletePosition}`];
@@ -209,7 +199,7 @@ class ExtendText extends React.Component {
     return cssClasses.join(' ');
   }
 
-  asyncOptionsCallback(callbackOptions = {}) {
+  asyncOptionsCallback = (callbackOptions = {}) => {
     if (callbackOptions.options) {
       let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, callbackOptions.options);
       let newOptions = this.filterAutoCompleteOptions(callbackOptions.options);
@@ -228,7 +218,7 @@ class ExtendText extends React.Component {
         activeAutoCompleteOptionIndex: exactMatchIndex !== -1 ? exactMatchIndex : 0
       }, this.repositionAutoCompleteContainerToActiveOption);
     }
-  }
+  };
 
   generateObjectValueFromInput() {
     return {
@@ -672,28 +662,28 @@ class ExtendText extends React.Component {
 }
 
 ExtendText.propTypes = {
-  className: React.PropTypes.string,
-  options: React.PropTypes.array,
-  asyncOptions: React.PropTypes.func,
-  value: React.PropTypes.array,
-  onChange: React.PropTypes.func,
-  characterThreshold: React.PropTypes.number,
-  isSearchable: React.PropTypes.bool,
-  disabled: React.PropTypes.bool,
-  useFiltering: React.PropTypes.bool,
-  optionsFilter: React.PropTypes.func,
-  optionRenderer: React.PropTypes.func,
-  tagRenderer: React.PropTypes.func,
-  allowCreate: React.PropTypes.bool,
-  createTemplate: React.PropTypes.string,
-  multiple: React.PropTypes.bool,
-  placeholder: React.PropTypes.string,
-  addTagOnKeyCode: React.PropTypes.number,
-  loadingNode: React.PropTypes.node,
-  typeForSearchingNode: React.PropTypes.node,
-  noOptionsNode: React.PropTypes.node,
-  autoCompletePosition: React.PropTypes.oneOf(['bottom', 'top']),
-  clearable: React.PropTypes.bool
+  className: PropTypes.string,
+  options: PropTypes.array,
+  asyncOptions: PropTypes.func,
+  value: PropTypes.array,
+  onChange: PropTypes.func,
+  characterThreshold: PropTypes.number,
+  isSearchable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  useFiltering: PropTypes.bool,
+  optionsFilter: PropTypes.func,
+  optionRenderer: PropTypes.func,
+  tagRenderer: PropTypes.func,
+  allowCreate: PropTypes.bool,
+  createTemplate: PropTypes.string,
+  multiple: PropTypes.bool,
+  placeholder: PropTypes.string,
+  addTagOnKeyCode: PropTypes.number,
+  loadingNode: PropTypes.node,
+  typeForSearchingNode: PropTypes.node,
+  noOptionsNode: PropTypes.node,
+  autoCompletePosition: PropTypes.oneOf(['bottom', 'top']),
+  clearable: PropTypes.bool
 };
 
 ExtendText.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text';
 
@@ -9,15 +10,13 @@ class ExtendTextEmptyExample extends React.Component {
       options: [],
       value: null
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue) {
+  onChange = newValue => {
     this.setState({
       value: newValue
     });
-  }
+  };
 
   render() {
     return (
@@ -32,7 +31,7 @@ class ExtendTextEmptyExample extends React.Component {
 }
 
 ExtendTextEmptyExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextEmptyExample;

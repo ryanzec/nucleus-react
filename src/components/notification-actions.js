@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -77,11 +78,11 @@ class NotificationActions extends React.Component {
 }
 
 NotificationActions.propTypes = {
-  className: React.PropTypes.string,
-  type: React.PropTypes.oneOf(['icons', 'text']),
-  actions: React.PropTypes.oneOf(['positive', 'negative', 'both']),
-  onClickPositive: React.PropTypes.func,
-  onClickNegative: React.PropTypes.func
+  className: PropTypes.string,
+  type: PropTypes.oneOf(['icons', 'text']),
+  actions: PropTypes.oneOf(['positive', 'negative', 'both']),
+  onClickPositive: PropTypes.func,
+  onClickNegative: PropTypes.func
 };
 
 NotificationActions.defaultProps = {

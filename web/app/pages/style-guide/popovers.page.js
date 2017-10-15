@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // import CodeExample from '../../react/components/code-example';
@@ -27,50 +28,43 @@ class PopoversPage extends React.Component {
       isActive2: false,
       isActiveDD: false
     };
-
-    this.onClickPopover = this.onClickPopover.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
-    this.onClickPopoverDD = this.onClickPopoverDD.bind(this);
-    this.onClickOutside = this.onClickOutside.bind(this);
-    this.onClickOutsideDD = this.onClickOutsideDD.bind(this);
   }
 
-  onClickPopover() {
+  onClickPopover = () => {
     this.setState({
       isActive: !this.state.isActive
     });
-  }
+  };
 
-  onClickOutside() {
+  onClickOutside = () => {
     this.setState({
       isActive: false
     });
-  }
+  };
 
-  onMouseOver() {
+  onMouseOver = () => {
     this.setState({
       isActive2: true
     });
-  }
+  };
 
-  onMouseOut() {
+  onMouseOut = () => {
     this.setState({
       isActive2: false
     });
-  }
+  };
 
-  onClickPopoverDD() {
+  onClickPopoverDD = () => {
     this.setState({
       isActiveDD: !this.state.isActiveDD
     });
-  }
+  };
 
-  onClickOutsideDD() {
+  onClickOutsideDD = () => {
     this.setState({
       isActiveDD: false
     });
-  }
+  };
 
   renderPopover() {
     return (
@@ -133,7 +127,7 @@ class PopoversPage extends React.Component {
 }
 
 PopoversPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default PopoversPage;

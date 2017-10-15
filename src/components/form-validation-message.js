@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -46,8 +47,8 @@ class FormValidationMessage extends React.Component {
 }
 
 FormValidationMessage.propTypes = {
-  className: React.PropTypes.string,
-  iconFragment: React.PropTypes.string
+  className: PropTypes.string,
+  iconFragment: PropTypes.string
 };
 
 FormValidationMessage.defaultProps = {

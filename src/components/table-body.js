@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class TableBody extends React.Component {
 }
 
 TableBody.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 TableBody.defaultProps = {

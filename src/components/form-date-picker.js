@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
 import {
@@ -77,11 +78,11 @@ class FormDatePicker extends React.Component {
 }
 
 FormDatePicker.propTypes = {
-  className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  selectedDay: React.PropTypes.object,
-  onClickDate: React.PropTypes.func.isRequired,
-  format: React.PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  selectedDay: PropTypes.object,
+  onClickDate: PropTypes.func.isRequired,
+  format: PropTypes.string,
 };
 
 FormDatePicker.defaultProps = {

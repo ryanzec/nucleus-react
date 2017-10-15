@@ -147,7 +147,8 @@ var webpackConfig = {
       'react-redux',
       'react-router-redux',
       'react-router-scroll',
-      'react-transition-group'
+      'react-transition-group',
+      "prop-types"
     ],
 
     //application code

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -51,8 +52,8 @@ class ModalHeader extends React.Component {
 }
 
 ModalHeader.propTypes = {
-  className: React.PropTypes.string,
-  closeHandler: React.PropTypes.func
+  className: PropTypes.string,
+  closeHandler: PropTypes.func
 };
 
 ModalHeader.defaultProps = {

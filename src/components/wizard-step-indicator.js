@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -75,10 +76,10 @@ class WizardStepIndicator extends React.Component {
 }
 
 WizardStepIndicator.propTypes = {
-  className: React.PropTypes.string,
-  totalSteps: React.PropTypes.number.isRequired,
-  currentStep: React.PropTypes.number.isRequired,
-  titles: React.PropTypes.array.isRequired,
+  className: PropTypes.string,
+  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number.isRequired,
+  titles: PropTypes.array.isRequired,
 };
 
 WizardStepIndicator.defaultProps = {

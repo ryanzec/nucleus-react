@@ -25,6 +25,7 @@
     "moment": "2.14.1",
     "moment-timezone": "0.5.5",
     "popper.js": "1.10.8",
+    "prop-types": "15.6.0",
     "react": "15.6.2",
     "react-dom": "15.6.2",
     "react-transition-group": "1.2.0",

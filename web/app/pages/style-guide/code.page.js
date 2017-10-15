@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Code from '../../../../src/components/code';
@@ -41,7 +42,7 @@ class CodePage extends React.Component {
 }
 
 CodePage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default CodePage;

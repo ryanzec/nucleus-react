@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PopperJS from 'popper.js';
@@ -16,8 +17,6 @@ class PopoverContainer extends React.Component {
 
     this.domEventManager = new DomEventManager();
     this.popper = null;
-
-    this.onClickOutside = this.onClickOutside.bind(this);
 
     this.state = {};
   }
@@ -38,7 +37,7 @@ class PopoverContainer extends React.Component {
     this.domEventManager.clear();
   }
 
-  onClickOutside(event) {
+  onClickOutside = event => {
     let closePopover = true;
 
     if (
@@ -63,7 +62,7 @@ class PopoverContainer extends React.Component {
     if (closePopover) {
       this.props.onClickOutside();
     }
-  }
+  };
 
   getCssClasses() {
     let cssClasses = ['popover__container'];
@@ -178,11 +177,11 @@ class PopoverContainer extends React.Component {
 }
 
 PopoverContainer.propTypes = {
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  onClickOutside: React.PropTypes.func,
-  modifiers: React.PropTypes.object,
-  placement: React.PropTypes.string
+  className: PropTypes.string,
+  isActive: PropTypes.bool,
+  onClickOutside: PropTypes.func,
+  modifiers: PropTypes.object,
+  placement: PropTypes.string
 };
 
 PopoverContainer.defaultProps = {

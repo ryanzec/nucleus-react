@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -60,9 +61,9 @@ class FormCheckbox extends React.Component {
 }
 
 FormCheckbox.propTypes = {
-  className: React.PropTypes.string,
-  inputAlignment: React.PropTypes.oneOf(['left', 'right']),
-  checked: React.PropTypes.bool
+  className: PropTypes.string,
+  inputAlignment: PropTypes.oneOf(['left', 'right']),
+  checked: PropTypes.bool
 };
 
 FormCheckbox.defaultProps = {

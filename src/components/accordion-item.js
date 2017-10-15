@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class AccordionItem extends React.Component {
 }
 
 AccordionItem.propTypes = {
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
+  className: PropTypes.string,
+  isActive: PropTypes.bool,
 };
 
 AccordionItem.defaultProps = {
