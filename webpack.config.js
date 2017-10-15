@@ -16,19 +16,6 @@ var babelPlugins = [
 
 const isDevMode = process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
 
-function IndexAddLeadingSlash(options) {}
-
-IndexAddLeadingSlash.prototype.apply = function(compiler) {
-  compiler.plugin('compilation', function(compilation) {
-    compilation.plugin('html-webpack-plugin-after-html-processing', function(htmlPluginData, callback) {
-      htmlPluginData.html = htmlPluginData.html.replace(/src="/g, 'src="/');
-      htmlPluginData.html = htmlPluginData.html.replace(/href="/g, 'href="/');
-
-      callback(null, htmlPluginData);
-    });
-  });
-};
-
 var webpackConfig = {
   resolve: {
     extensions: ['.js', '.jsx']
@@ -134,8 +121,7 @@ var webpackConfig = {
     new CleanObsoleteChunks(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"' + (isDevMode ? 'development' : 'production') + '"'
-    }),
-    new IndexAddLeadingSlash()
+    })
   ],
   entry: {
     //3rd party libraries
@@ -168,7 +154,7 @@ var webpackConfig = {
   },
   output: {
     path: __dirname + '/web/build',
-    publicPath: '',
+    publicPath: '/',
     filename: '[name]-[chunkhash].js'
   }
 };
