@@ -146,7 +146,8 @@ var webpackConfig = {
       'react-router',
       'react-redux',
       'react-router-redux',
-      'react-router-scroll'
+      'react-router-scroll',
+      'react-transition-group'
     ],
 
     //application code

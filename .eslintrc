@@ -72,7 +72,7 @@
     //possible errors
     "comma-dangle": [
       2,
-      "never"
+      "always"
     ],
     "no-cond-assign": [
       2,
