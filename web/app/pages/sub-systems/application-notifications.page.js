@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import applicationNotificationsActions from '../../../../src/stores/application-notifications/application-notifications.actions';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group';
 import Button from '../../../../src/components/button';
 import Notification from '../../../../src/components/notification';
 import NotificationIcon from '../../../../src/components/notification-icon';
@@ -50,13 +50,13 @@ class ApplicationNotificationsPage extends React.Component {
     return (
       <div className="p-sub-systems-application-notifications">
         <NotificationContainer>
-          <ReactCSSTransitionGroup
+          <CSSTransitionGroup
             transitionName="fade-out"
             transitionEnterTimeout={100}
             transitionLeaveTimeout={500}
           >
             {this.renderApplictionNotifications()}
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
         </NotificationContainer>
         <Button
           styleType="success"
