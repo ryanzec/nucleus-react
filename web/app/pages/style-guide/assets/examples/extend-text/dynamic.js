@@ -3,7 +3,7 @@ import React from 'react';
 import request from 'superagent';
 import debounce from 'lodash/debounce';
 
-import ExtendText from '../../../../../../../src/components/extend-text';
+import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
 
 let asyncGetData = (input, callback) => {
   request

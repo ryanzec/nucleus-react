@@ -10,8 +10,8 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import Breadcrumbs from '../../../../src/components/breadcrumbs';
-import Breadcrumb from '../../../../src/components/breadcrumb';
+import Breadcrumbs from '../../../../src/components/breadcrumb/Breadcrumbs';
+import Breadcrumb from '../../../../src/components/breadcrumb/Breadcrumb';
 
 class BreadcrumbsPage extends React.Component {
   constructor(props) {

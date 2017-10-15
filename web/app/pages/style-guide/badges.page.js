@@ -10,7 +10,7 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles'), 'utf8');
 
-import Badge from '../../../../src/components/badge';
+import Badge from '../../../../src/components/badge/Badge';
 
 class BadgesPage extends React.Component {
   constructor(props) {

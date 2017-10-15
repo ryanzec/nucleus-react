@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import applicationNotificationsActions from '../../../../src/stores/application-notifications/application-notifications.actions';
 
 import { CSSTransitionGroup } from 'react-transition-group';
-import Button from '../../../../src/components/button';
-import Notification from '../../../../src/components/notification';
-import NotificationIcon from '../../../../src/components/notification-icon';
-import NotificationMessage from '../../../../src/components/notification-message';
-import NotificationActions from '../../../../src/components/notification-actions';
-import NotificationContainer from '../../../../src/components/notification-container';
-import NotificationCountdown from '../../../../src/components/notification-countdown';
-import ManagedNotification from '../../../../src/components/managed-notification';
+import Button from '../../../../src/components/button/Button';
+import Notification from '../../../../src/components/notification/Notification';
+import NotificationIcon from '../../../../src/components/notification/NotificationIcon';
+import NotificationMessage from '../../../../src/components/notification/NotificationMessage';
+import NotificationActions from '../../../../src/components/notification/NotificationActions';
+import NotificationContainer from '../../../../src/components/notification/NotificationContainer';
+import NotificationCountdown from '../../../../src/components/notification/NotificationCountdown';
+import ManagedNotification from '../../../../src/components/notification/ManagedNotification';
 
 class ApplicationNotificationsPage extends React.Component {
   constructor(props) {

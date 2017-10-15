@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // var reactTestUtils from 'react-addons-test-utils');
-import Button from '../../../../src/components/button';
+import Button from '../../../../src/components/button/button';
 import testHelper from '../../../test-helper';
 
 describe('button component', function() {

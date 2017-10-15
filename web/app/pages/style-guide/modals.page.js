@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Code from '../../../../src/components/code';
-import Modal from '../../../../src/components/modal';
-import ModalHeader from '../../../../src/components/modal-header';
-import ModalContent from '../../../../src/components/modal-content';
-import ModalFooter from '../../../../src/components/modal-footer';
-import Button from '../../../../src/components/button';
+import Code from '../../../../src/components/code/Code';
+import Modal from '../../../../src/components/modal/Modal';
+import ModalHeader from '../../../../src/components/modal/ModalHeader';
+import ModalContent from '../../../../src/components/modal/ModalContent';
+import ModalFooter from '../../../../src/components/modal/ModalFooter';
+import Button from '../../../../src/components/button/Button';
 
 class ModalPage extends React.Component {
   constructor(props) {

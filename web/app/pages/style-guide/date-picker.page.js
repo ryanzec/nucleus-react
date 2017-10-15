@@ -11,7 +11,7 @@ import moment from 'moment-timezone';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import DatePicker from '../../../../src/components/date-picker';
+import DatePicker from '../../../../src/components/date-picker/DatePicker';
 
 class DatePickerPage extends React.Component {
   constructor(props) {

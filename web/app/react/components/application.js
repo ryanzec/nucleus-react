@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 
-import Tab from '../../../../src/components/tab';
-import TabItem from '../../../../src/components/tab-item';
+import Tab from '../../../../src/components/tabs/Tabs';
+import TabItem from '../../../../src/components/tabs/Tab';
 
 import MainNavigation from './main-navigation';
 import MainNavigationSection from './main-navigation-section';

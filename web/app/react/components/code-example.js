@@ -3,10 +3,10 @@ import React from 'react';
 
 import { pureRenderShouldComponentUpdate } from '../../../../src/utilities/component';
 
-import Code from '../../../../src/components/code';
-import Card from '../../../../src/components/card';
-import CardContent from '../../../../src/components/card-content';
-import Button from '../../../../src/components/button';
+import Code from '../../../../src/components/code/Code';
+import Card from '../../../../src/components/card/Card';
+import CardContent from '../../../../src/components/card/CardContent';
+import Button from '../../../../src/components/button/Button';
 
 class CodeExample extends React.Component {
   constructor(props) {

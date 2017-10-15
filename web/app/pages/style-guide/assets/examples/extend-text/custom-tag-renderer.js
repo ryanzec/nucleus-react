@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ExtendText from '../../../../../../../src/components/extend-text';
+import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
 
 const tagRenderer = (objectValue, deleteNode) => {
   return (

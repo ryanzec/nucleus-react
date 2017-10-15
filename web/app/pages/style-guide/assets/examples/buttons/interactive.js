@@ -9,13 +9,13 @@ import {
 
 import buttonExampleFormActions from '../../../../../stores/button-example-form/button-example-form.actions';
 
-import FormElement from '../../../../../../../src/components/form-element';
-import FormLabel from '../../../../../../../src/components/form-label';
-import FormTextbox from '../../../../../../../src/components/form-textbox';
-import FormSelect from '../../../../../../../src/components/form-select';
-import FormSelectOption from '../../../../../../../src/components/form-select-option';
-import FormCheckbox from '../../../../../../../src/components/form-checkbox';
-import Button from '../../../../../../../src/components/button';
+import FormElement from '../../../../../../../src/components/form/FormElement';
+import FormLabel from '../../../../../../../src/components/form/FormLabel';
+import FormTextbox from '../../../../../../../src/components/form/FormTextbox';
+import FormSelect from '../../../../../../../src/components/form/FormSelect';
+import FormSelectOption from '../../../../../../../src/components/form/FormSelectOption';
+import FormCheckbox from '../../../../../../../src/components/form/FormCheckbox';
+import Button from '../../../../../../../src/components/button/Button';
 
 class ButtonsInteractiveExample extends React.Component {
   constructor(props) {

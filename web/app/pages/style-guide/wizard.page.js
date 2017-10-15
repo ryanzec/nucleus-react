@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Wizard from '../../../../src/components/wizard';
-import Button from '../../../../src/components/button';
+import Wizard from '../../../../src/components/wizard/Wizard';
+import Button from '../../../../src/components/button/Button';
 
 
 const codeContent = 'p {\n\tcolor: red;\n}';

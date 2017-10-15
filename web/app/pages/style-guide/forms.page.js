@@ -10,26 +10,26 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import SvgIcon from '../../../../src/components/svg-icon';
+import SvgIcon from '../../../../src/components/svg-icon/SvgIcon';
 
-import FormElement from '../../../../src/components/form-element';
-import FormSelect from '../../../../src/components/form-select';
-import FormSelectOption from '../../../../src/components/form-select-option';
-import FormTextbox from '../../../../src/components/form-textbox';
-import FormLabel from '../../../../src/components/form-label';
-import FormTextboxGroup from '../../../../src/components/form-textbox-group';
-import FormValidationMessages from '../../../../src/components/form-validation-messages';
-import FormValidationMessage from '../../../../src/components/form-validation-message';
-import FormCheckbox from '../../../../src/components/form-checkbox';
-import FormRadio from '../../../../src/components/form-radio';
-import FormGroupAddon from '../../../../src/components/form-textbox-group-addon';
-import FormLegend from '../../../../src/components/form-legend';
-import FormDatePicker from '../../../../src/components/form-date-picker';
-import FormCheckboxToggle from '../../../../src/components/form-checkbox-toggle';
+import FormElement from '../../../../src/components/form/FormElement';
+import FormSelect from '../../../../src/components/form/FormSelect';
+import FormSelectOption from '../../../../src/components/form/FormSelectOption';
+import FormTextbox from '../../../../src/components/form/FormTextbox';
+import FormLabel from '../../../../src/components/form/FormLabel';
+import FormTextboxGroup from '../../../../src/components/form/FormTextboxGroup';
+import FormValidationMessages from '../../../../src/components/form/FormValidationMessages';
+import FormValidationMessage from '../../../../src/components/form/FormValidationMessage';
+import FormCheckbox from '../../../../src/components/form/FormCheckbox';
+import FormRadio from '../../../../src/components/form/FormRadio';
+import FormGroupAddon from '../../../../src/components/form/FormTextboxGroupAddon';
+import FormLegend from '../../../../src/components/form/FormLegend';
+import FormDatePicker from '../../../../src/components/form/FormDatePicker';
+import FormCheckboxToggle from '../../../../src/components/form/FormCheckboxToggle';
 
-import Grid from '../../../../src/components/grid';
-import GridRow from '../../../../src/components/grid-row';
-import GridColumn from '../../../../src/components/grid-column';
+import Grid from '../../../../src/components/grid/Grid';
+import GridRow from '../../../../src/components/grid/GridRow';
+import GridColumn from '../../../../src/components/grid/GridColumn';
 
 class FormsPage extends React.Component {
   constructor(props) {

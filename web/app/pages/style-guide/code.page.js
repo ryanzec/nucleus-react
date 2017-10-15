@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Code from '../../../../src/components/code';
+import Code from '../../../../src/components/code/Code';
 
 const codeContent = 'p {\n\tcolor: red;\n}';
 
