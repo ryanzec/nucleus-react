@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ExtendText from '../../../../../../../src/components/extend-text';
 
@@ -29,15 +30,13 @@ class ExtendTextCustomFilterExample extends React.Component {
       }],
       value: null
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue) {
+  onChange = newValue => {
     this.setState({
       value: newValue
     });
-  }
+  };
 
   render() {
     return (
@@ -52,7 +51,7 @@ class ExtendTextCustomFilterExample extends React.Component {
 }
 
 ExtendTextCustomFilterExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextCustomFilterExample;

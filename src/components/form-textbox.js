@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -39,8 +40,8 @@ class FormTextbox extends React.Component {
 }
 
 FormTextbox.propTypes = {
-  className: React.PropTypes.string,
-  type: React.PropTypes.string
+  className: PropTypes.string,
+  type: PropTypes.string
 };
 
 FormTextbox.defaultProps = {

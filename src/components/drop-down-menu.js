@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class DropDownMenu extends React.Component {
 }
 
 DropDownMenu.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 DropDownMenu.defaultProps = {

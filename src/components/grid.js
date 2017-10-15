@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -40,9 +41,9 @@ class Grid extends React.Component {
 }
 
 Grid.propTypes = {
-  className: React.PropTypes.string,
-  isForm: React.PropTypes.bool,
-  labelAlignment: React.PropTypes.oneOf(['left', 'right'])
+  className: PropTypes.string,
+  isForm: PropTypes.bool,
+  labelAlignment: PropTypes.oneOf(['left', 'right'])
 };
 
 Grid.defaultProps = {

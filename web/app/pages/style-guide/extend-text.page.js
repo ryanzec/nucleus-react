@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import debounce from 'lodash/debounce';
 
@@ -148,7 +149,7 @@ class ExtendTextPage extends React.Component {
 }
 
 ExtendTextPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextPage;

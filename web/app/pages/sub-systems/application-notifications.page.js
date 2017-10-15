@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
@@ -19,13 +20,11 @@ class ApplicationNotificationsPage extends React.Component {
     super(props);
 
     this.state = {};
-
-    this.removeNotification = this.removeNotification.bind(this);
   }
 
-  removeNotification(id) {
+  removeNotification = id => {
     this.props.dispatch(applicationNotificationsActions.remove(id));
-  }
+  };
 
   renderApplictionNotifications() {
     var applicationNotifications = [];
@@ -85,7 +84,7 @@ class ApplicationNotificationsPage extends React.Component {
 }
 
 ApplicationNotificationsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 let mapStateToProps = (state) => ({

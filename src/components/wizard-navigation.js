@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -56,7 +57,7 @@ class WizardNavigation extends React.Component {
 }
 
 WizardNavigation.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 WizardNavigation.defaultProps = {

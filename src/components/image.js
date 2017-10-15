@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -12,19 +13,17 @@ class Image extends React.Component {
     this.state = {
       errorLoading: false
     };
-
-    this.onError = this.onError.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
-  onError() {
+  onError = () => {
     this.setState({
       errorLoading: true
     });
-  }
+  };
 
   getCssClasses() {
     let cssClasses = [];
@@ -55,9 +54,9 @@ class Image extends React.Component {
 }
 
 Image.propTypes = {
-  className: React.PropTypes.string,
-  notFoundNode: React.PropTypes.node,
-  src: React.PropTypes.string
+  className: PropTypes.string,
+  notFoundNode: PropTypes.node,
+  src: PropTypes.string
 };
 
 Image.defaultProps = {

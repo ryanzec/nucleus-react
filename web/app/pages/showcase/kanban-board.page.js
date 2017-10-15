@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import request from 'superagent';
 
@@ -153,7 +154,7 @@ class KanbanBoardPage extends React.Component {
 }
 
 KanbanBoardPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default KanbanBoardPage;

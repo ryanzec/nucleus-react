@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Notification from './notification';
@@ -13,11 +14,6 @@ class ManagedNotification extends React.Component {
     this.state = {
       closeTimeoutId: null
     };
-
-    this.onMouseEnterNotification = this.onMouseEnterNotification.bind(this);
-    this.onMouseLeaveNotification = this.onMouseLeaveNotification.bind(this);
-    this.onClickNegative = this.onClickNegative.bind(this);
-    this.onClickPositive = this.onClickPositive.bind(this);
   }
 
   componentWillMount() {
@@ -30,7 +26,7 @@ class ManagedNotification extends React.Component {
     }
   }
 
-  onMouseEnterNotification() {
+  onMouseEnterNotification = () => {
     if (this.state.closeTimeoutId) {
       clearTimeout(this.state.closeTimeoutId);
 
@@ -38,9 +34,9 @@ class ManagedNotification extends React.Component {
         closeTimeoutId: null
       });
     }
-  }
+  };
 
-  onMouseLeaveNotification() {
+  onMouseLeaveNotification = () => {
     if (this.props.notification.autoClose) {
       this.start = new Date().getTime();
 
@@ -50,15 +46,15 @@ class ManagedNotification extends React.Component {
         }, this.props.notification.autoClose)
       });
     }
-  }
+  };
 
-  onClickNegative() {
+  onClickNegative = () => {
     this.props.removeAction(this.props.notification.id);
-  }
+  };
 
-  onClickPositive() {
+  onClickPositive = () => {
     this.props.removeAction(this.props.notification.id);
-  }
+  };
 
   render() {
     const countdownNode = this.props.notification.autoClose && this.state.closeTimeoutId
@@ -91,9 +87,9 @@ class ManagedNotification extends React.Component {
 }
 
 ManagedNotification.propTypes = {
-  className: React.PropTypes.string,
-  notification: React.PropTypes.object.isRequired,
-  removeAction: React.PropTypes.func.isRequired
+  className: PropTypes.string,
+  notification: PropTypes.object.isRequired,
+  removeAction: PropTypes.func.isRequired
 };
 
 ManagedNotification.defaultProps = {

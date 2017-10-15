@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -24,7 +25,6 @@ class List extends React.Component {
   }
 
   render() {
-    // console.log(this.getCssClasses());
     const properties = {
       className: this.getCssClasses(),
     };
@@ -34,9 +34,9 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['plain']),
-  type: React.PropTypes.oneOf(['ol', 'ul'])
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['plain']),
+  type: PropTypes.oneOf(['ol', 'ul'])
 };
 
 List.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // import CodeExample from '../../react/components/code-example';
@@ -33,7 +34,7 @@ class ImagesPage extends React.Component {
 }
 
 ImagesPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ImagesPage;

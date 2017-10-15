@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -44,10 +45,10 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
-  isPill: React.PropTypes.bool,
-  isThin: React.PropTypes.bool
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
+  isPill: PropTypes.bool,
+  isThin: PropTypes.bool
 };
 
 Button.defaultProps = {

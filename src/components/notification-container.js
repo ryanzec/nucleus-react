@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,8 +33,8 @@ class NotificationContainer extends React.Component {
 }
 
 NotificationContainer.propTypes = {
-  className: React.PropTypes.string,
-  position: React.PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
+  className: PropTypes.string,
+  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
 };
 
 NotificationContainer.defaultProps = {

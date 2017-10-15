@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class Accordion extends React.Component {
 }
 
 Accordion.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 Accordion.defaultProps = {

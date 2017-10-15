@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -22,14 +23,9 @@ var SvgMapTest = (ComposedComponent) => {
         matrix: [1, 0, 0, 1, 0, 0],
         dragging: false,
       };
-
-      this.onDragStart = this.onDragStart.bind(this);
-      this.onDragMove = this.onDragMove.bind(this);
-      this.onDragEnd = this.onDragEnd.bind(this);
-      this.onWheel = this.onWheel.bind(this);
     }
 
-    onDragStart(e) {
+    onDragStart = e => {
       // Find start position of drag based on touch/mouse coordinates.
       const startX = typeof e.clientX === 'undefined' ? e.changedTouches[0].clientX : e.clientX;
       const startY = typeof e.clientY === 'undefined' ? e.changedTouches[0].clientY : e.clientY;
@@ -42,9 +38,9 @@ var SvgMapTest = (ComposedComponent) => {
       };
 
       this.setState(state);
-    }
+    };
 
-    onDragMove(e) {
+    onDragMove = e => {
       // First check if the state is dragging, if not we can just return
       // so we do not move unless the user wants to move
       if (!this.state.dragging) {
@@ -67,21 +63,21 @@ var SvgMapTest = (ComposedComponent) => {
         startX: positionX,
         startY: positionY,
       });
-    }
+    };
 
-    onDragEnd() {
+    onDragEnd = () => {
       this.setState({
         dragging: false
       });
-    }
+    };
 
-    onWheel(e) {
+    onWheel = e => {
       // if (e.deltaY < 0) {
       //   this.zoom(1.05);
       // } else {
       //   this.zoom(0.95);
       // }
-    }
+    };
 
     pan(deltaX, deltaY) {
       const matrix = this.state.matrix;
@@ -140,8 +136,8 @@ var SvgMapTest = (ComposedComponent) => {
   }
 
   SvgMap.propTypes = {
-    width: React.PropTypes.number.isRequired,
-    height: React.PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
   };
 
   return SvgMap;
@@ -155,12 +151,9 @@ class MySvgMap extends React.Component {
       mouseDownX: 0,
       mouseDownY: 0
     };
-
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
-  onMouseDown(event) {
+  onMouseDown = event => {
     const mouseDownX = typeof event.clientX === 'undefined' ? event.changedTouches[0].clientX : event.clientX;
     const mouseDownY = typeof event.clientY === 'undefined' ? event.changedTouches[0].clientY : event.clientY;
 
@@ -168,16 +161,16 @@ class MySvgMap extends React.Component {
       mouseDownX,
       mouseDownY,
     });
-  }
+  };
 
-  onMouseUp(event) {
+  onMouseUp = event => {
     const endX = typeof event.clientX === 'undefined' ? event.changedTouches[0].clientX : event.clientX;
     const endY = typeof event.clientY === 'undefined' ? event.changedTouches[0].clientY : event.clientY;
 
     if (this.state.mouseDownX === endX && this.state.mouseDownY === endY) {
       console.log('test: ' + event.target.getAttribute('data-test'));
     }
-  }
+  };
 
   render() {
     return (
@@ -255,7 +248,7 @@ class SvgMapPage extends React.Component {
 }
 
 SvgMapPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default SvgMapPage;

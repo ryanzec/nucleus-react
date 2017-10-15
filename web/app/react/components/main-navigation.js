@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class MainNavigation extends React.Component {
@@ -25,7 +26,7 @@ class MainNavigation extends React.Component {
 }
 
 MainNavigation.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 MainNavigation.defaultProps = {

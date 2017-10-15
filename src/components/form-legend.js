@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -51,9 +52,9 @@ class FormLegend extends React.Component {
 }
 
 FormLegend.propTypes = {
-  className: React.PropTypes.string,
-  displayRequiredDetails: React.PropTypes.bool,
-  validation: React.PropTypes.oneOf(['valid', 'inValid'])
+  className: PropTypes.string,
+  displayRequiredDetails: PropTypes.bool,
+  validation: PropTypes.oneOf(['valid', 'inValid'])
 };
 
 FormLegend.defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import debounce from 'lodash/debounce';
 
@@ -33,15 +34,13 @@ class ExtendTextDefaultValueExample extends React.Component {
     this.state = {
       value: [{display: 'GoLang', value: 'go'}]
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue) {
+  onChange = newValue => {
     this.setState({
       value: newValue
     });
-  }
+  };
 
   asyncCallbackFunction(input, callback) {
     debouncedAsyncGetData(input, callback);
@@ -59,7 +58,7 @@ class ExtendTextDefaultValueExample extends React.Component {
 }
 
 ExtendTextDefaultValueExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ExtendTextDefaultValueExample;

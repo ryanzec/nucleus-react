@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -313,13 +314,13 @@ class DatePicker extends React.Component {
 }
 
 DatePicker.propTypes = {
-  className: React.PropTypes.string,
-  onClickDate: React.PropTypes.func.isRequired,
-  selectedDay: React.PropTypes.object,
-  minDate: React.PropTypes.object,
-  maxDate: React.PropTypes.object,
-  displayTime: React.PropTypes.bool,
-  onClose: React.PropTypes.func,
+  className: PropTypes.string,
+  onClickDate: PropTypes.func.isRequired,
+  selectedDay: PropTypes.object,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
+  displayTime: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
 DatePicker.defaultProps = {

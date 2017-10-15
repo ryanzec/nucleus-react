@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -63,9 +64,9 @@ class ExpandableList extends React.Component {
 }
 
 ExpandableList.propTypes = {
-  className: React.PropTypes.string,
-  initialIsActive: React.PropTypes.bool,
-  handleNode: React.PropTypes.node.isRequired,
+  className: PropTypes.string,
+  initialIsActive: PropTypes.bool,
+  handleNode: PropTypes.node.isRequired,
 };
 
 ExpandableList.defaultProps = {

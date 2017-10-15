@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { pureRenderShouldComponentUpdate } from '../utilities/component';
@@ -67,25 +68,29 @@ class Code extends React.Component {
 
     if (this.props.isInline !== true) {
       return (
-        React.createElement('pre', preAttributes,
-          React.createElement('code', codeAttributes, this.props.children)
-        )
+        <pre {...preAttributes}>
+          <code {...codeAttributes}>
+            {this.props.children}
+          </code>
+        </pre>
       );
     }
 
     return (
-      React.createElement('code', codeAttributes, this.props.children)
+      <code {...codeAttributes}>
+        {this.props.children}
+      </code>
     );
   }
 }
 
 Code.propTypes = {
-  className: React.PropTypes.string,
-  language: React.PropTypes.string,
-  showLineNumbers: React.PropTypes.bool,
-  lineNumberStart: React.PropTypes.number,
-  highlightLines: React.PropTypes.string,
-  isInline: React.PropTypes.bool
+  className: PropTypes.string,
+  language: PropTypes.string,
+  showLineNumbers: PropTypes.bool,
+  lineNumberStart: PropTypes.number,
+  highlightLines: PropTypes.string,
+  isInline: PropTypes.bool
 };
 
 Code.defaultProps = {

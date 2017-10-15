@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -44,10 +45,10 @@ class ProgressBar extends React.Component {
 }
 
 ProgressBar.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  isStriped: React.PropTypes.bool,
-  isSquare: React.PropTypes.bool
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+  isStriped: PropTypes.bool,
+  isSquare: PropTypes.bool
 };
 
 ProgressBar.defaultProps = {

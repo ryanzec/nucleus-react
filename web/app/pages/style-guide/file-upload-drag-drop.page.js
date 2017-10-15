@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { helpers as formDataHelpers } from 'form-data-validation';
@@ -12,18 +13,12 @@ import FormValidationMessage from '../../../../src/components/form-validation-me
 import { DropTarget } from 'react-dnd'
 
 class FileUploadDragDropPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.processFiles = this.processFiles.bind(this);
-  }
-
-  processFiles(files) {
+  processFiles = files => {
     let newFormData = formDataHelpers.set(this.props.fileUploadForm, 'fileUpload', files[0]);
     newFormData = formDataHelpers.validate(newFormData, 'fileUpload');
 
     this.props.dispatch(fileUploadFormActions.set(newFormData));
-  }
+  };
 
   renderCurrentFileName() {
     let node = 'None Selected';
@@ -68,7 +63,7 @@ class FileUploadDragDropPage extends React.Component {
 }
 
 FileUploadDragDropPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 let mapStateToProps = (state) => ({

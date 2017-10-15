@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class CardFooter extends React.Component {
 }
 
 CardFooter.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 CardFooter.defaultProps = {

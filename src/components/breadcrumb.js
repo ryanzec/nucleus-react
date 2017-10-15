@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -46,9 +47,9 @@ class Breadcrumb extends React.Component {
 }
 
 Breadcrumb.propTypes = {
-  className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  isActive: React.PropTypes.bool
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  isActive: PropTypes.bool
 };
 
 Breadcrumb.defaultProps = {

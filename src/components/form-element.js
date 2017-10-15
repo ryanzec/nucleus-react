@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class FormElement extends React.Component {
 }
 
 FormElement.propTypes = {
-  className: React.PropTypes.string,
-  validation: React.PropTypes.oneOf([false, 'valid', 'invalid'])
+  className: PropTypes.string,
+  validation: PropTypes.oneOf([false, 'valid', 'invalid'])
 };
 
 FormElement.defaultProps = {

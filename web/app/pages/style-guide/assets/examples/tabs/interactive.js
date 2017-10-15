@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Tab from '../../../../../../../src/components/tab';
@@ -65,7 +66,7 @@ class TabsInteractiveExample extends React.Component {
 }
 
 TabsInteractiveExample.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default TabsInteractiveExample;

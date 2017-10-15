@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
 
@@ -19,15 +20,13 @@ class DatePickerPage extends React.Component {
     this.state = {
       selectedDay: moment(),
     };
-
-    this.onClickDate = this.onClickDate.bind(this);
   }
 
-  onClickDate(day) {
+  onClickDate = day => {
     this.setState({
       selectedDay: day,
     })
-  }
+  };
 
   render() {
     return (
@@ -49,7 +48,7 @@ class DatePickerPage extends React.Component {
 }
 
 DatePickerPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default DatePickerPage;

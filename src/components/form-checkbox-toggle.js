@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -39,10 +40,10 @@ class FormCheckboxToggle extends React.Component {
 }
 
 FormCheckboxToggle.propTypes = {
-  className: React.PropTypes.string,
-  checked: React.PropTypes.bool,
-  offNode: React.PropTypes.node,
-  onNode: React.PropTypes.node
+  className: PropTypes.string,
+  checked: PropTypes.bool,
+  offNode: PropTypes.node,
+  onNode: PropTypes.node
 };
 
 FormCheckboxToggle.defaultProps = {

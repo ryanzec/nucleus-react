@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -32,7 +33,7 @@ class CardContent extends React.Component {
 }
 
 CardContent.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 
 CardContent.defaultProps = {

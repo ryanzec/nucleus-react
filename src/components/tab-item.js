@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class TabItem extends React.Component {
 }
 
 TabItem.propTypes = {
-  className: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
+  className: PropTypes.string,
+  isActive: PropTypes.bool,
 };
 
 TabItem.defaultProps = {

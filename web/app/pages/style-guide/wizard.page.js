@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Wizard from '../../../../src/components/wizard';
@@ -13,9 +14,6 @@ class WizardPage extends React.Component {
     this.state = {
       wizardIsActive: false
     };
-
-    this.closeHandler = this.closeHandler.bind(this);
-    this.openHandler = this.openHandler.bind(this);
   }
 
   componentDidMount() {
@@ -24,17 +22,17 @@ class WizardPage extends React.Component {
     });
   }
 
-  closeHandler() {
+  closeHandler = () => {
     this.setState({
       wizardIsActive: false
     });
-  }
+  };
 
-  openHandler() {
+  openHandler = () => {
     this.setState({
       wizardIsActive: true
     });
-  }
+  };
 
   renderWizardOneContent() {
     return (
@@ -114,7 +112,7 @@ class WizardPage extends React.Component {
 }
 
 WizardPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default WizardPage;

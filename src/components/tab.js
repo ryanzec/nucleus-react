@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -36,8 +37,8 @@ class Tab extends React.Component {
 }
 
 Tab.propTypes = {
-  className: React.PropTypes.string,
-  styleType: React.PropTypes.oneOf(['block']),
+  className: PropTypes.string,
+  styleType: PropTypes.oneOf(['block']),
 };
 
 Tab.defaultProps = {

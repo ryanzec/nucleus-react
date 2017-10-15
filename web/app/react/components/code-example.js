@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { pureRenderShouldComponentUpdate } from '../../../../src/utilities/component';
@@ -14,8 +15,6 @@ class CodeExample extends React.Component {
     this.state = {
         displayCodeExample: false
     };
-
-    this.onClickToggleCodeExample = this.onClickToggleCodeExample.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -32,11 +31,11 @@ class CodeExample extends React.Component {
     return cssClasses;
   }
 
-  onClickToggleCodeExample() {
+  onClickToggleCodeExample = () => {
     this.setState({
         displayCodeExample: !this.state.displayCodeExample
     })
-  }
+  };
 
   render() {
     const ExampleComponent = this.props.exampleComponent;
@@ -70,10 +69,10 @@ class CodeExample extends React.Component {
 }
 
 CodeExample.propTypes = {
-  className: React.PropTypes.string,
-  exampleComponent: React.PropTypes.func.isRequired,
-  codeContent: React.PropTypes.string.isRequired,
-  language: React.PropTypes.string
+  className: PropTypes.string,
+  exampleComponent: PropTypes.func.isRequired,
+  codeContent: PropTypes.string.isRequired,
+  language: PropTypes.string
 };
 
 CodeExample.defaultProps = {

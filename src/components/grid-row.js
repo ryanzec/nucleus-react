@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -44,11 +45,11 @@ class GridRow extends React.Component {
 }
 
 GridRow.propTypes = {
-  className: React.PropTypes.string,
-  isStretched: React.PropTypes.bool,
-  isVertical: React.PropTypes.bool,
-  canWrap: React.PropTypes.bool,
-  alignment: React.PropTypes.oneOf(['left', 'center', 'right', 'spaced', 'justify'])
+  className: PropTypes.string,
+  isStretched: PropTypes.bool,
+  isVertical: PropTypes.bool,
+  canWrap: PropTypes.bool,
+  alignment: PropTypes.oneOf(['left', 'center', 'right', 'spaced', 'justify'])
 };
 
 GridRow.defaultProps = {

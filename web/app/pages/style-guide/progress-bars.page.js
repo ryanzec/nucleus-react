@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import CodeExample from '../../react/components/code-example';
@@ -47,7 +48,7 @@ class ProgressBarsPage extends React.Component {
 }
 
 ProgressBarsPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default ProgressBarsPage;

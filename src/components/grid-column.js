@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
@@ -72,17 +73,17 @@ class GridRow extends React.Component {
 }
 
 GridRow.propTypes = {
-  className: React.PropTypes.string,
-  shrink: React.PropTypes.bool,
-  order: React.PropTypes.number,
-  smallSize: React.PropTypes.number,
-  mediumSize: React.PropTypes.number,
-  largeSize: React.PropTypes.number,
-  extraLargeSize: React.PropTypes.number,
-  smallOffset: React.PropTypes.number,
-  mediumOffset: React.PropTypes.number,
-  largeOffset: React.PropTypes.number,
-  extraLargeOffset: React.PropTypes.number
+  className: PropTypes.string,
+  shrink: PropTypes.bool,
+  order: PropTypes.number,
+  smallSize: PropTypes.number,
+  mediumSize: PropTypes.number,
+  largeSize: PropTypes.number,
+  extraLargeSize: PropTypes.number,
+  smallOffset: PropTypes.number,
+  mediumOffset: PropTypes.number,
+  largeOffset: PropTypes.number,
+  extraLargeOffset: PropTypes.number
 };
 
 GridRow.defaultProps = {
