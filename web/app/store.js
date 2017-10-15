@@ -1,7 +1,7 @@
 import {
   createStore,
   combineReducers,
-  applyMiddleware
+  applyMiddleware,
 } from 'redux';
 import thunk from 'redux-thunk';
 import {routerReducer} from 'react-router-redux';
@@ -13,19 +13,23 @@ import fileUploadForm from './stores/file-upload-form/file-upload-form.reducer';
 import buttonExampleForm from './stores/button-example-form/button-example-form.reducer';
 import dynamicallyLoadingComponents from './stores/dynamically-loading-components/dynamically-loading-components.reducer';
 
-let myReducers = {
+const reduxMiddleware = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+  const reduxFreeze = require('redux-freeze');
+
+  reduxMiddleware.push(reduxFreeze);
+}
+
+const reducers = combineReducers({
   menu,
   preventDoubleClick,
   applicationNotifications,
   fileUploadForm,
   buttonExampleForm,
   dynamicallyLoadingComponents,
-};
-
-let reducers = {};
-
-Object.assign(reducers, myReducers, {
-  routing: routerReducer
+  routing: routerReducer,
 });
+const middleware = applyMiddleware(...reduxMiddleware);
 
-export default createStore(combineReducers(reducers), applyMiddleware(thunk));
+export default createStore(reducers, middleware);
