@@ -10,15 +10,15 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles'), 'utf8');
 
-import Table from '../../../../src/components/table';
-import TableRow from '../../../../src/components/table-row';
-import TableHeader from '../../../../src/components/table-header';
-import TableHeaderItem from '../../../../src/components/table-header-item';
-import TableBody from '../../../../src/components/table-body';
-import TableBodyItem from '../../../../src/components/table-body-item';
-import TableFooter from '../../../../src/components/table-footer';
-import TableFooterItem from '../../../../src/components/table-footer-item';
-// import Image from '../../../../src/components/image';
+import Table from '../../../../src/components/table/Table';
+import TableRow from '../../../../src/components/table/TableRow';
+import TableHeader from '../../../../src/components/table/TableHeader';
+import TableHeaderItem from '../../../../src/components/table/TableHeaderItem';
+import TableBody from '../../../../src/components/table/TableBody';
+import TableBodyItem from '../../../../src/components/table/TableBodyItem';
+import TableFooter from '../../../../src/components/table/TableFooter';
+import TableFooterItem from '../../../../src/components/table/TableFooterItem';
+// import Image from '../../../../src/components/Image';
 
 class TablesPage extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import debounce from 'lodash/debounce';
 
-import ExtendText from '../../../../../../../src/components/extend-text';
+import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
 
 let asyncGetData = (input, callback) => {
   //NOTE: this just fakes an API call

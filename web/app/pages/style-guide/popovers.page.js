@@ -10,14 +10,14 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import PopoverContainer from '../../../../src/components/popover-container';
-import PopoverHandle from '../../../../src/components/popover-handle';
-import Popover from '../../../../src/components/popover';
-import Tooltip from '../../../../src/components/tooltip';
-import DropDownMenu from '../../../../src/components/drop-down-menu';
-import DropDownMenuItem from '../../../../src/components/drop-down-menu-item';
-import DropDownMenuHeader from '../../../../src/components/drop-down-menu-header';
-import DropDownMenuDivider from '../../../../src/components/drop-down-menu-divider';
+import PopoverContainer from '../../../../src/components/popover/PopoverContainer';
+import PopoverHandle from '../../../../src/components/popover/PopoverHandle';
+import Popover from '../../../../src/components/popover/Popover';
+import Tooltip from '../../../../src/components/tooltip/Tooltip';
+import DropDownMenu from '../../../../src/components/drop-down-menu/DropDownMenu';
+import DropDownMenuItem from '../../../../src/components/drop-down-menu/DropDownMenuItem';
+import DropDownMenuHeader from '../../../../src/components/drop-down-menu/DropDownMenuHeader';
+import DropDownMenuDivider from '../../../../src/components/drop-down-menu/DropDownMenuDivider';
 
 class PopoversPage extends React.Component {
   constructor(props) {

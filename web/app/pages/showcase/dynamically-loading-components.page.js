@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import isArray from 'lodash/isArray';
 
-import OverlayAbsolute from '../../../../src/components/overlay-absolute';
+import OverlayAbsolute from '../../../../src/components/overlay/OverlayAbsolute';
 
 class DynamicallyLoadingComponentsPage extends React.Component {
   constructor(props) {

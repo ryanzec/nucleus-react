@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SvgIcon from '../../../../../../../src/components/svg-icon';
+import SvgIcon from '../../../../../../../src/components/svg-icon/SvgIcon';
 
 class SvgIconsIndicatorsExample extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class SvgIconsIndicatorsExample extends React.Component {
           fragment="user"
         />
       </span>
-      );
+    );
   }
 }
 

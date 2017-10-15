@@ -10,8 +10,8 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles'), 'utf8');
 
-import Button from '../../../../src/components/button';
-import Image from '../../../../src/components/image';
+import Button from '../../../../src/components/button/Button';
+import Image from '../../../../src/components/image/Image';
 
 class ImagesPage extends React.Component {
   constructor(props) {

@@ -10,8 +10,8 @@ import { join } from 'path';
 
 const interactiveExampleContent = readFileSync(join(__dirname, '/assets/examples/tabs/interactive.js'), 'utf8');
 
-import Tab from '../../../../src/components/tab';
-import TabItem from '../../../../src/components/tab-item';
+import Tab from '../../../../src/components/tabs/Tabs';
+import TabItem from '../../../../src/components/tabs/Tab';
 
 class TabsPage extends React.Component {
   constructor(props) {

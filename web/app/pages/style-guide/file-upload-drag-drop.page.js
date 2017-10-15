@@ -5,10 +5,10 @@ import { helpers as formDataHelpers } from 'form-data-validation';
 import { parseValidationData } from '../../../../src/utilities/input';
 import fileUploadFormActions from '../../stores/file-upload-form/file-upload-form.actions';
 
-import FileUploadDragDrop from '../../../../src/components/file-upload-drag-drop';
-import FormElement from '../../../../src/components/form-element';
-import FormValidationMessages from '../../../../src/components/form-validation-messages';
-import FormValidationMessage from '../../../../src/components/form-validation-message';
+import FileUploadDragDrop from '../../../../src/components/file-upload/FileUploadDragDrop';
+import FormElement from '../../../../src/components/form/FormElement';
+import FormValidationMessages from '../../../../src/components/form/FormValidationMessages';
+import FormValidationMessage from '../../../../src/components/form/FormValidationMessage';
 
 import { DropTarget } from 'react-dnd'
 
