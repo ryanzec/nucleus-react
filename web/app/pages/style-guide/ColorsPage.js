@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import CodeExample from '../../react/components/CodeExample';
-import Card from '../../../../src/components/card/Card';
-import CardHeader from '../../../../src/components/card/CardHeader';
-import CardContent from '../../../../src/components/card/CardContent';
+import Card from 'src/components/card/Card';
+import CardHeader from 'src/components/card/CardHeader';
+import CardContent from 'src/components/card/CardContent';
 
 // import StylesExample from './src/examples/buttons/styles';
 

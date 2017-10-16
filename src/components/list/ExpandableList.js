@@ -3,11 +3,11 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
 import List from './List';
 import ListItem from './ListItem';
-import SvgIcon from '../svg-icon/SvgIcon';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class ExpandableList extends React.Component {
   constructor(props) {

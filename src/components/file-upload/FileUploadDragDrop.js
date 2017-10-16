@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 import {NativeTypes as nativeTypes} from 'react-dnd-html5-backend';
 import {DropTarget as dropTarget} from 'react-dnd';
 

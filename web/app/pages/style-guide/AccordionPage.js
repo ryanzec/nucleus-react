@@ -10,10 +10,10 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles'), 'utf8');
 
-import Accordion from '../../../../src/components/accordion/Accordion';
-import AccordionItem from '../../../../src/components/accordion/AccordionItem';
-import AccordionItemHeader from '../../../../src/components/accordion/AccordionItemHeader';
-import AccordionItemContent from '../../../../src/components/accordion/AccordionItemContent';
+import Accordion from 'src/components/accordion/Accordion';
+import AccordionItem from 'src/components/accordion/AccordionItem';
+import AccordionItemHeader from 'src/components/accordion/AccordionItemHeader';
+import AccordionItemContent from 'src/components/accordion/AccordionItemContent';
 
 class AccordionPage extends React.Component {
   constructor(props) {

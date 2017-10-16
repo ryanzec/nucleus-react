@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SvgIcon from '../../../../../../../src/components/svg-icon/SvgIcon';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class SvgIconsDefaultExample extends React.Component {
   constructor(props) {

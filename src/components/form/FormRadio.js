@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { pureRenderShouldComponentUpdate } from '../../utilities/component';
+import { pureRenderShouldComponentUpdate } from 'src/utilities/component';
 
 import FormLabel from './FormLabel';
-import SvgIcon from '../svg-icon/SvgIcon';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class FormRadio extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {

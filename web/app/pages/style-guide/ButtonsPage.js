@@ -3,8 +3,8 @@ import React from 'react';
 import request from 'superagent';
 
 import CodeExample from '../../react/components/CodeExample';
-import ButtonGroup from '../../../../src/components/button/ButtonGroup';
-import Button from '../../../../src/components/button/Button';
+import ButtonGroup from 'src/components/button/ButtonGroup';
+import Button from 'src/components/button/Button';
 
 import InteractiveExample from './assets/examples/buttons/ButtonsInteractiveExample';
 

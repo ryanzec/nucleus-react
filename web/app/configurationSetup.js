@@ -1,3 +1,3 @@
-import configuration from '../../src/configuration';
+import configuration from 'src/configuration';
 
 // configuration.set('userAgentDetails', window.userAgentDetails);

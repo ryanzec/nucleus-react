@@ -4,11 +4,11 @@ import uuid from 'uuid';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
-import configuration from '../../configuration';
+} from 'src/utilities/component';
+import configuration from 'src/configuration';
 
-import AppendBodyComponent from '../append-body-component/AppendBodyComponent';
-import Overlay from '../overlay/Overlay';
+import AppendBodyComponent from 'src/components/append-body-component/AppendBodyComponent';
+import Overlay from 'src/components/overlay/Overlay';
 
 class Modal extends AppendBodyComponent {
   constructor(props) {

@@ -9,15 +9,15 @@ import {connect} from 'react-redux';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import Code from '../../../../src/components/code/Code';
-import Button from '../../../../src/components/button/Button';
+import Code from 'src/components/code/Code';
+import Button from 'src/components/button/Button';
 
-import SvgIcon from '../../../../src/components/svg-icon/SvgIcon';
-import Notification from '../../../../src/components/notification/Notification';
-import NotificationIcon from '../../../../src/components/notification/NotificationIcon';
-import NotificationMessage from '../../../../src/components/notification/NotificationMessage';
-import NotificationActions from '../../../../src/components/notification/NotificationActions';
-import NotificationContainer from '../../../../src/components/notification/NotificationContainer';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
+import Notification from 'src/components/notification/Notification';
+import NotificationIcon from 'src/components/notification/NotificationIcon';
+import NotificationMessage from 'src/components/notification/NotificationMessage';
+import NotificationActions from 'src/components/notification/NotificationActions';
+import NotificationContainer from 'src/components/notification/NotificationContainer';
 
 class NotificationsPage extends React.Component {
   constructor(props) {

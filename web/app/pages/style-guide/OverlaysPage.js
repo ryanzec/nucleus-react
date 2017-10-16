@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Button from '../../../../src/components/button/Button';
-import Overlay from '../../../../src/components/overlay/Overlay';
-import OverlayAbsolute from '../../../../src/components/overlay/OverlayAbsolute';
+import Button from 'src/components/button/Button';
+import Overlay from 'src/components/overlay/Overlay';
+import OverlayAbsolute from 'src/components/overlay/OverlayAbsolute';
 
 class OverlaysPage extends React.Component {
   constructor(props) {

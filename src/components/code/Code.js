@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { pureRenderShouldComponentUpdate } from '../../utilities/component';
+import { pureRenderShouldComponentUpdate } from 'src/utilities/component';
 
 class Code extends React.Component {
   componentWillMount() {

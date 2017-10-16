@@ -4,7 +4,7 @@ import iconData from 'font-awesome-svg-icons';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
 class SvgIcon extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {

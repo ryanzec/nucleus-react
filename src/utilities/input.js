@@ -5,7 +5,7 @@ import {helpers as formDataHelpers} from 'form-data-validation';
 import blockNumberOnlyInput from './helpers/input/blockNumberOnlyInput';
 import blockNumericOnlyInput from './helpers/input/blockNumericOnlyInput';
 
-import FormValidationMessage from '../components/form/FormValidationMessage';
+import FormValidationMessage from 'src/components/form/FormValidationMessage';
 
 export function getInputValueFromEvent(event) {
   let value;

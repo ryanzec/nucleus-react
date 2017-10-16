@@ -3,9 +3,9 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
-import SvgIcon from '../svg-icon/SvgIcon';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class ModalHeader extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {

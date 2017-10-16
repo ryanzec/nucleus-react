@@ -3,8 +3,8 @@ import React from 'react';
 import request from 'superagent';
 import debounce from 'lodash/debounce';
 
-import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
-import SvgIcon from '../../../../../../../src/components/svg-icon/SvgIcon';
+import ExtendText from 'src/components/extend-text/ExtendText';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 let optionRenderer = (option) => {
   return (

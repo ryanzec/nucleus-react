@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Tab from '../../../../../../../src/components/tabs/Tabs';
-import TabItem from '../../../../../../../src/components/tabs/Tab';
+import Tab from 'src/components/tabs/Tabs';
+import TabItem from 'src/components/tabs/Tab';
 
 const tabs = [
   'Get Started',

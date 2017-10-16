@@ -1,4 +1,4 @@
-import configuration from '../configuration';
+import configuration from 'src/configuration';
 
 export function getMomentObject(date, options) {
   options = options || {};
