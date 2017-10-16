@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ExpandableList from '../../../../src/components/list/ExpandableList';
-import ListItem from '../../../../src/components/list/ListItem';
-import SvgIcon from '../../../../src/components/svg-icon/SvgIcon';
+import ExpandableList from 'src/components/list/ExpandableList';
+import ListItem from 'src/components/list/ListItem';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class MainNavigationSection extends React.Component {
   getCssClasses() {

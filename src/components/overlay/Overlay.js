@@ -4,9 +4,9 @@ import uuid from 'uuid';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
-import AppendBodyComponent from '../append-body-component/AppendBodyComponent';
+import AppendBodyComponent from 'src/components/append-body-component/AppendBodyComponent';
 
 class Overlay extends AppendBodyComponent {
   constructor(props) {

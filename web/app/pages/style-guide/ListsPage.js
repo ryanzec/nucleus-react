@@ -10,9 +10,9 @@ import React from 'react';
 
 // const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
-import List from '../../../../src/components/list/List';
-import ListItem from '../../../../src/components/list/ListItem';
-import ExpandableList from '../../../../src/components/list/ExpandableList';
+import List from 'src/components/list/List';
+import ListItem from 'src/components/list/ListItem';
+import ExpandableList from 'src/components/list/ExpandableList';
 
 class BadgesPage extends React.Component {
   constructor(props) {

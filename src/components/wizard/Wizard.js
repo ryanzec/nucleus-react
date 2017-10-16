@@ -3,14 +3,14 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
-import Modal from '../modal/Modal';
-import ModalHeader from '../modal/ModalHeader';
-import ModalContent from '../modal/ModalContent';
-import ModalFooter from '../modal/ModalFooter';
-import Button from '../button/Button';
-import Overlay from '../overlay/Overlay';
+import Modal from 'src/components/modal/Modal';
+import ModalHeader from 'src/components/modal/ModalHeader';
+import ModalContent from 'src/components/modal/ModalContent';
+import ModalFooter from 'src/components/modal/ModalFooter';
+import Button from 'src/components/button/Button';
+import Overlay from 'src/components/overlay/Overlay';
 import WizardNavigation from './WizardNavigation';
 import WizardContent from './WizardContent';
 import WizardStepIndicator from './WizardStepIndicator';

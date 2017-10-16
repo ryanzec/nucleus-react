@@ -45,7 +45,7 @@
     "babel-cli": "6.11.4",
     "babel-core": "6.13.2",
     "babel-eslint": "7.2.2",
-    "babel-loader": "6.2.5",
+    "babel-loader": "7.1.2",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-plugin-static-fs": "1.1.0",
@@ -58,7 +58,7 @@
     "escope": "3.6.0",
     "eslint": "4.1.1",
     "eslint-plugin-react": "7.1.0",
-    "extract-text-webpack-plugin": "2.1.2",
+    "extract-text-webpack-plugin": "3.0.1",
     "file-loader": "0.11.2",
     "glob-array": "1.0.0",
     "html-webpack-plugin": "2.29.0",
@@ -81,7 +81,7 @@
     "wdio-spec-reporter": "0.0.3",
     "webdriver-manager": "10.2.2",
     "webdriverio": "4.2.7",
-    "webpack": "2.6.0",
+    "webpack": "3.5.4",
     "webpack-clean-obsolete-chunks": "0.1.10",
     "webpack-livereload-plugin": "0.11.0"
   },
@@ -102,8 +102,10 @@
   "license": "MIT",
   "ava": {
     "require": [
-      "babel-register"
+      "babel-register",
+      "babel-polyfill"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "failFast": true
   }
 }

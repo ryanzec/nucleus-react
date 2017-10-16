@@ -3,7 +3,7 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 import isString from 'lodash/isString';
 
 class Image extends React.Component {

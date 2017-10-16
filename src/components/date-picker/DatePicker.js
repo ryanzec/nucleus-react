@@ -3,13 +3,13 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 import moment from 'moment-timezone';
 
-import Button from '../button/Button';
+import Button from 'src/components/button/Button';
 import DatePickerDay from './DatePickerDay';
-import FormTextbox from '../form/FormTextbox';
-import SvgIcon from '../svg-icon/SvgIcon';
+import FormTextbox from 'src/components/form/FormTextbox';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 class DatePicker extends React.Component {
   constructor(props) {

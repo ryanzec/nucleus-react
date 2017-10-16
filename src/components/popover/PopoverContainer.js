@@ -6,10 +6,10 @@ import PopperJS from 'popper.js';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate
-} from '../../utilities/component';
+} from 'src/utilities/component';
 import {
   DomEventManager
-} from '../../utilities/dom';
+} from 'src/utilities/dom';
 
 class PopoverContainer extends React.Component {
   constructor(props) {

@@ -4,16 +4,16 @@ import ReactDOM from 'react-dom';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
-import { DomEventManager } from '../../utilities/dom';
+} from 'src/utilities/component';
+import { DomEventManager } from 'src/utilities/dom';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
 
-import SvgIcon from '../svg-icon/SvgIcon';
-import FormTextbox from '../form/FormTextbox';
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
+import FormTextbox from 'src/components/form/FormTextbox';
 import ExtendTextAutoCompleteOption from './ExtendTextAutoCompleteOption';
-import Button from '../button/Button';
-import Badge from '../badge/Badge';
+import Button from 'src/components/button/Button';
+import Badge from 'src/components/badge/Badge';
 
 let loadingSvg;
 /*eslint-disable*/

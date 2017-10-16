@@ -3,7 +3,7 @@ import React from 'react';
 
 import CodeExample from '../../react/components/CodeExample';
 
-import ProgressBar from '../../../../src/components/progress-bar/ProgressBar';
+import ProgressBar from 'src/components/progress-bar/ProgressBar';
 
 // import StylesExample from './src/examples/buttons/styles';
 

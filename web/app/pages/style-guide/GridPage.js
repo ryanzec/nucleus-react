@@ -3,9 +3,9 @@ import React from 'react';
 
 import CodeExample from '../../react/components/CodeExample';
 
-import Grid from '../../../../src/components/grid/Grid';
-import GridRow from '../../../../src/components/grid/GridRow';
-import GridColumn from '../../../../src/components/grid/GridColumn';
+import Grid from 'src/components/grid/Grid';
+import GridRow from 'src/components/grid/GridRow';
+import GridColumn from 'src/components/grid/GridColumn';
 
 // import StylesExample from './src/examples/buttons/styles';
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
-import Button from '../../../../../../../src/components/button/Button';
+import ExtendText from 'src/components/extend-text/ExtendText';
+import Button from 'src/components/button/Button';
 
 class ExtendTextTaggingExample extends React.Component {
   constructor(props) {

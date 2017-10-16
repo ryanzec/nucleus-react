@@ -3,7 +3,7 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
 class FormTextboxGroup extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {

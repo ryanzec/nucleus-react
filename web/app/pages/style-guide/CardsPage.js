@@ -4,20 +4,20 @@ import Holder from 'holderjs';
 
 import CodeExample from '../../react/components/CodeExample';
 
-import Grid from '../../../../src/components/grid/Grid';
-import GridRow from '../../../../src/components/grid/GridRow';
-import GridColumn from '../../../../src/components/grid/GridColumn';
-import Button from '../../../../src/components/button/Button';
-import OverlayAbsolute from '../../../../src/components/overlay/OverlayAbsolute';
-import Card from '../../../../src/components/card/Card';
-import CardTitle from '../../../../src/components/card/CardTitle';
-import CardSubtitle from '../../../../src/components/card/CardSubtitle';
-import CardContent from '../../../../src/components/card/CardContent';
-import CardActions from '../../../../src/components/card/CardActions';
-import CardImage from '../../../../src/components/card/CardImage';
-import CardHeader from '../../../../src/components/card/CardHeader';
-import CardFooter from '../../../../src/components/card/CardFooter';
-import CardColumns from '../../../../src/components/card/CardColumns';
+import Grid from 'src/components/grid/Grid';
+import GridRow from 'src/components/grid/GridRow';
+import GridColumn from 'src/components/grid/GridColumn';
+import Button from 'src/components/button/Button';
+import OverlayAbsolute from 'src/components/overlay/OverlayAbsolute';
+import Card from 'src/components/card/Card';
+import CardTitle from 'src/components/card/CardTitle';
+import CardSubtitle from 'src/components/card/CardSubtitle';
+import CardContent from 'src/components/card/CardContent';
+import CardActions from 'src/components/card/CardActions';
+import CardImage from 'src/components/card/CardImage';
+import CardHeader from 'src/components/card/CardHeader';
+import CardFooter from 'src/components/card/CardFooter';
+import CardColumns from 'src/components/card/CardColumns';
 
 // import StylesExample from './src/examples/buttons/styles';
 

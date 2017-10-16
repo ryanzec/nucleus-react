@@ -5,17 +5,17 @@ import {
   onChangeInputStateUpdater,
   onBlurInputStateUpdater,
   getInputValueFromEvent,
-} from '../../../../../../../src/utilities/input';
+} from 'src/utilities/input';
 
 import buttonExampleFormActions from '../../../../../stores/button-example-form/button-example-form.actions';
 
-import FormElement from '../../../../../../../src/components/form/FormElement';
-import FormLabel from '../../../../../../../src/components/form/FormLabel';
-import FormTextbox from '../../../../../../../src/components/form/FormTextbox';
-import FormSelect from '../../../../../../../src/components/form/FormSelect';
-import FormSelectOption from '../../../../../../../src/components/form/FormSelectOption';
-import FormCheckbox from '../../../../../../../src/components/form/FormCheckbox';
-import Button from '../../../../../../../src/components/button/Button';
+import FormElement from 'src/components/form/FormElement';
+import FormLabel from 'src/components/form/FormLabel';
+import FormTextbox from 'src/components/form/FormTextbox';
+import FormSelect from 'src/components/form/FormSelect';
+import FormSelectOption from 'src/components/form/FormSelectOption';
+import FormCheckbox from 'src/components/form/FormCheckbox';
+import Button from 'src/components/button/Button';
 
 class ButtonsInteractiveExample extends React.Component {
   constructor(props) {

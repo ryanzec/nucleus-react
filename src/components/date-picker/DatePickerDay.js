@@ -3,7 +3,7 @@ import React from 'react';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
 class DatePickerDay extends React.Component {
   constructor(props) {

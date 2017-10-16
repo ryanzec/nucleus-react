@@ -18,7 +18,11 @@ const isDevMode = process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBP
 
 var webpackConfig = {
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    // modules: [__dirname, 'node_modules']
+    alias: {
+      src: path.resolve(__dirname, 'src')
+    }
   },
   module: {
     rules: [{

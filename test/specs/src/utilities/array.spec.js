@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import * as arrayUtility from '../../../../src/utilities/array';
+import * as arrayUtility from 'src/utilities/array';
 
 test('toggleArrayValue should add value when not present', (tester) => {
   const expectedValue = [

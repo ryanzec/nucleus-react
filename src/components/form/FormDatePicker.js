@@ -4,11 +4,11 @@ import moment from 'moment-timezone';
 import {
   getPassThroughProperties,
   pureRenderShouldComponentUpdate,
-} from '../../utilities/component';
+} from 'src/utilities/component';
 
-import PopoverContainer from '../popover/PopoverContainer';
+import PopoverContainer from 'src/components/popover/PopoverContainer';
 import FormTextbox from './FormTextbox';
-import DatePicker from '../date-picker/DatePicker';
+import DatePicker from 'src/components/date-picker/DatePicker';
 
 class FormDatePicker extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ExtendText from '../../../../../../../src/components/extend-text/ExtendText';
+import ExtendText from 'src/components/extend-text/ExtendText';
 
 class ExtendTextNotFilteringExample extends React.Component {
   constructor(props) {
