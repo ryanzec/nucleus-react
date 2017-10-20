@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configuration from 'src/configuration';
-import AppendElementsDragDropContainer from 'src/components/append-body-component/AppendElementsDrahDropContainer';
+import AppendElementsDragDropContainer from 'src/components/append-body-component/AppendElementsDragDropContainer';
 
 const appenedElements = {};
 const appendElementContainer = document.querySelector(configuration.get('appendElementSelector'));
