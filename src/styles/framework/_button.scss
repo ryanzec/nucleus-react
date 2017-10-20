@@ -1,23 +1,5 @@
 $component-identifier: '.button';
 
-$color-button: $color-light-text;
-$color-light-button: $color-light-text;
-$background-color-button: $color-neutral;
-$background-color-hover-button: $color-dark-neutral;
-$padding-button: 4px 8px;
-$border-radius-button: 3px;
-$margin-button: 4px;
-$box-shadow-button: 0 0 10px rgba(0, 0, 0, .3) inset;
-$background-color-success-button: $color-success;
-$background-color-success-hover-button: darken($color-success, 10%);
-$background-color-info-button: $color-info;
-$background-color-info-hover-button: darken($color-info, 10%);
-$background-color-warning-button: $color-warning;
-$background-color-warning-hover-button: darken($color-warning, 10%);
-$background-color-danger-button: $color-danger;
-$background-color-danger-hover-button: darken($color-danger, 15%);
-$font-size-button: 1.4rem;
-
 @mixin apply-button-colors($light, $dark, $hover) {
   color: $light;
   background-color: $dark;

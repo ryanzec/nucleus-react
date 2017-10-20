@@ -1,24 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { pureRenderShouldComponentUpdate } from 'src/utilities/component';
-
 import Code from 'src/components/code/Code';
 import Card from 'src/components/card/Card';
 import CardContent from 'src/components/card/CardContent';
 import Button from 'src/components/button/Button';
 
-class CodeExample extends React.Component {
+class CodeExample extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-        displayCodeExample: false
+      displayCodeExample: false
     };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
   }
 
   getCssClasses() {
@@ -33,7 +27,7 @@ class CodeExample extends React.Component {
 
   onClickToggleCodeExample = () => {
     this.setState({
-        displayCodeExample: !this.state.displayCodeExample
+      displayCodeExample: !this.state.displayCodeExample
     })
   };
 
@@ -42,11 +36,11 @@ class CodeExample extends React.Component {
     let codeExampleNode = null;
 
     if (this.state.displayCodeExample) {
-        codeExampleNode = (
-            <Code language={this.props.language}>
-                {this.props.codeContent}
-            </Code>
-        )
+      codeExampleNode = (
+        <Code language={this.props.language}>
+          {this.props.codeContent}
+        </Code>
+      )
     }
 
     return (
@@ -56,10 +50,10 @@ class CodeExample extends React.Component {
             <ExampleComponent />
           </div>
           <Button
-              styleType="link"
-              onClick={this.onClickToggleCodeExample}
+            styleType="link"
+            onClick={this.onClickToggleCodeExample}
           >
-              Toggle Code Example
+            Toggle Code Example
           </Button>
           {codeExampleNode}
         </CardContent>

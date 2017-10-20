@@ -1,24 +1,5 @@
 $component-identifier: '.card';
 
-$border-color-card: $color-gray4;
-$border-width-card: 1px;
-$padding-card: 16px;
-$background-color-card: $color-white;
-$border-radius-card: 5px;
-$color-subtitle-card: $color-muted-text;
-$background-color-header-footer-card: $color-gray2;
-$color-footer-header: $color-subtitle-card;
-$color-styled-card: $color-light-text;
-$background-color-success-card: $color-success;
-$border-color-success-card: $background-color-success-card;
-$background-color-info-card: $color-info;
-$border-color-info-card: $background-color-info-card;
-$background-color-warning-card: $color-warning;
-$border-color-warning-card: $background-color-warning-card;
-$background-color-danger-card: $color-danger;
-$border-color-danger-card: $background-color-danger-card;
-$margin-card-card-column: 8px;
-
 #{$component-identifier} {
   position: relative;
   display: inline-block;

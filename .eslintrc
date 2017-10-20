@@ -29,7 +29,7 @@
       "superInFunctions": true,
       "templateStrings": true,
       "jsx": true
-    },
+    }
   },
   "globals": {
     "require": true,
@@ -43,7 +43,7 @@
     "UAParser": true,
     "process": true,
     "requestAnimationFrame": true,
-    "global": true
+    "global": true,
     "localStorage": true,
     "sessionStorage": true
   },

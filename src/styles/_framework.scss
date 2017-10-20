@@ -8,10 +8,9 @@
 @import "./framework/_normalize";
 @import "./framework/_typography";
 @import "./framework/_utilities";
-@import "./framework/_grid";
-@import "./framework/_tether";
 
 // NOTE: basic components
+@import "./framework/_grid";
 @import "./framework/_button";
 @import "./framework/_card";
 @import "./framework/_code";

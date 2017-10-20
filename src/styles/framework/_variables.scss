@@ -6,96 +6,99 @@ $color-black: rgb(0, 0, 0) !default;
 $color-transparent: rgba(0, 0, 0, 0) !default;
 
 // NOTE: gray colors
-$color-gray1: #FAFAFA;
-$color-gray2: #EEEEEE;
-$color-gray3: #DDDDDD;
-$color-gray4: #CCCCCC;
-$color-gray5: #747474;
-$color-gray6: #565656;
-$color-gray7: #313131;
+$color-gray1: #FAFAFA !default;
+$color-gray2: #EEEEEE !default;
+$color-gray3: #DDDDDD !default;
+$color-gray4: #CCCCCC !default;
+$color-gray5: #747474 !default;
+$color-gray6: #565656 !default;
+$color-gray7: #313131 !default;
 
 // NOTE: red colors
-$color-red1: #F5DBD9;
-$color-red2: #EBAFA6;
-$color-red3: #E62700;
-$color-red4: #C92100;
-$color-red5: #A32100;
+$color-red1: #F5DBD9 !default;
+$color-red2: #EBAFA6 !default;
+$color-red3: #E62700 !default;
+$color-red4: #C92100 !default;
+$color-red5: #A32100 !default;
 
 // NOTE: blue colors
-$color-blue1: #E1F1F6;
-$color-blue2: #89CBDF;
-$color-blue3: #49AFD9;
-$color-blue4: #0094D2;
-$color-blue5: #007CBB;
-$color-blue6: #004A70;
-$color-blue7: #002538;
+$color-blue1: #E1F1F6 !default;
+$color-blue2: #89CBDF !default;
+$color-blue3: #49AFD9 !default;
+$color-blue4: #0094D2 !default;
+$color-blue5: #007CBB !default;
+$color-blue6: #004A70 !default;
+$color-blue7: #002538 !default;
 
 // NOTE: green colors
-$color-green1: #DFF0D0;
-$color-green2: #60B515;
-$color-green3: #62A420;
-$color-green4: #318700;
-$color-green5: #266900;
-$color-green6: #1D5100;
+$color-green1: #DFF0D0 !default;
+$color-green2: #60B515 !default;
+$color-green3: #62A420 !default;
+$color-green4: #318700 !default;
+$color-green5: #266900 !default;
+$color-green6: #1D5100 !default;
 
 // NOTE: orange colors
-$color-orange1: #FEECB5;
-$color-orange2: #EB8D00;
-$color-orange3: #8A5301;
+$color-orange1: #FEECB5 !default;
+$color-orange2: #EB8D00 !default;
+$color-orange3: #8A5301 !default;
 
 // NOTE: text colors
-$color-dark-text: $color-gray7;
-$color-muted-text: $color-gray5;
-$color-light-text: $color-white;
-$color-light-muted-text: $color-gray4;
+$color-dark-text: $color-gray7 !default;
+$color-muted-text: $color-gray5 !default;
+$color-light-text: $color-white !default;
+$color-light-muted-text: $color-gray4 !default;
 
 // NOTE: indicator colors
-$color-light-success: $color-green1;
-$color-success: $color-green4;
-$color-dark-success: $color-green6;
-$color-light-info: $color-blue1;
-$color-info: $color-blue4;
-$color-dark-info: $color-blue7;
-$color-light-warning: $color-orange1;
-$color-warning: $color-orange2;
-$color-dark-warning: $color-orange3;
-$color-light-danger: $color-red1;
-$color-danger: $color-red3;
-$color-dark-danger: $color-red5;
-$color-light-neutral: $color-gray2;
-$color-neutral: $color-gray5;
-$color-dark-neutral: $color-gray7;
+$color-light-success: $color-green1 !default;
+$color-success: $color-green4 !default;
+$color-dark-success: $color-green6 !default;
+$color-light-info: $color-blue1 !default;
+$color-info: $color-blue4 !default;
+$color-dark-info: $color-blue7 !default;
+$color-light-warning: $color-orange1 !default;
+$color-warning: $color-orange2 !default;
+$color-dark-warning: $color-orange3 !default;
+$color-light-danger: $color-red1 !default;
+$color-danger: $color-red3 !default;
+$color-dark-danger: $color-red5 !default;
+$color-light-neutral: $color-gray2 !default;
+$color-neutral: $color-gray5 !default;
+$color-dark-neutral: $color-gray7 !default;
 
 // NOTE: generic application colors
-$border-color: $color-gray4;
-$background-color-active: $color-blue3;
+$border-color: $color-gray4 !default;
+$background-color-active: $color-blue3 !default;
+
+// NOTE: box shadows
+$box-shadow-standard: 0 0 10px rgba(0, 0, 0, .3) inset !default;
 
 // NOTE: spacing
-$spacing-extra-tiny: 4px;
-$spacing-tiny: 8px;
-$spacing-extra-small: 12px;
-$spacing-small: 16px;
-$spacing-medium: 20px;
-$spacing-large: 24px;
+$spacing-extra-tiny: 4px !default;
+$spacing-tiny: 8px !default;
+$spacing-extra-small: 12px !default;
+$spacing-small: 16px !default;
+$spacing-medium: 20px !default;
+$spacing-large: 24px !default;
 
 // NOTE: fonts
-$font-family: 'Roboto';
-$font-size-body: 1.3rem;
+$font-family: 'Roboto' !default;
+$font-size-body: 1.3rem !default;
 
 // NOTE: svg icons
-$color-success-svg-icon: $color-success;
-$color-info-svg-icon: $color-info;
-$color-warning-svg-icon: $color-warning;
-$color-danger-svg-icon: $color-danger;
+$color-success-svg-icon: $color-success !default;
+$color-info-svg-icon: $color-info !default;
+$color-warning-svg-icon: $color-warning !default;
+$color-danger-svg-icon: $color-danger !default;
 
 // NOTE: typography
-$color-link: $color-blue2;
+$color-link: $color-blue2 !default;
 
 // NOTE: border radius
-$border-radius-pill: 9999px;
-$border-radius-tiny: 3px;
-$border-radius-small: 5px;
-$border-radius-medium: 10px;
+$border-radius-pill: 9999px !default;
+$border-radius-tiny: 3px !default;
+$border-radius-small: 5px !default;
+$border-radius-medium: 10px !default;
 
 // NOTE: break points
 $small-break-point: 640px !default;
@@ -115,17 +118,114 @@ $large-screen-max-media-query: "only screen and (max-width: #{$large-break-point
 $extra-large-screen-media-query: "only screen and (min-width: #{$large-break-point + 1})" !default;
 
 // NOTE: form
-$border-radius-input: 5px;
-$padding-input: 4px;
-$padding-label: $padding-input;
-$padding-form-element: 12px;
-$padding-form-legend: 4px;
-$margin-form-legend: 8px;
-$padding-validation-icon: $padding-input;
-$font-size-form-legend: 1.8rem;
-$border-color-input: $color-gray4;
-$border-color-focus-input: $color-blue2;
-$background-color-textbox-group-addon: $color-gray2;
-$size-required-icon-input: 6px;
-$size-validation-icon-input: 12px;
-$height-textbox: 26px;
+$border-radius-input: 5px !default;
+$padding-input: 4px !default;
+$padding-label: $padding-input !default;
+$padding-form-element: 12px !default;
+$padding-form-legend: 4px !default;
+$margin-form-legend: 8px !default;
+$padding-validation-icon: $padding-input !default;
+$font-size-form-legend: 1.8rem !default;
+$border-color-input: $color-gray4 !default;
+$border-color-focus-input: $color-blue2 !default;
+$background-color-textbox-group-addon: $color-gray2 !default;
+$size-required-icon-input: 6px !default;
+$size-validation-icon-input: 12px !default;
+$height-textbox: 26px !default;
+
+// NOTE: grid
+$gutter-grid: 24px;
+$column-count-grid: 12;
+
+// NOTE button
+$color-button: $color-light-text;
+$color-light-button: $color-light-text;
+$background-color-button: $color-neutral;
+$background-color-hover-button: $color-dark-neutral;
+$padding-button: $spacing-extra-tiny $spacing-tiny;
+$border-radius-button: $border-radius-medium;
+$margin-button: $spacing-extra-tiny;
+$box-shadow-button: $box-shadow-standard;
+$background-color-success-button: $color-success;
+$background-color-success-hover-button: darken($color-success, 10%);
+$background-color-info-button: $color-info;
+$background-color-info-hover-button: darken($color-info, 10%);
+$background-color-warning-button: $color-warning;
+$background-color-warning-hover-button: darken($color-warning, 10%);
+$background-color-danger-button: $color-danger;
+$background-color-danger-hover-button: darken($color-danger, 15%);
+$font-size-button: 1.4rem;
+
+// NOTE: card
+$border-color-card: $color-gray4;
+$border-width-card: 1px;
+$padding-card: 16px;
+$background-color-card: $color-white;
+$border-radius-card: 5px;
+$color-subtitle-card: $color-muted-text;
+$background-color-header-footer-card: $color-gray2;
+$color-footer-header: $color-subtitle-card;
+$color-styled-card: $color-light-text;
+$background-color-success-card: $color-success;
+$border-color-success-card: $background-color-success-card;
+$background-color-info-card: $color-info;
+$border-color-info-card: $background-color-info-card;
+$background-color-warning-card: $color-warning;
+$border-color-warning-card: $background-color-warning-card;
+$background-color-danger-card: $color-danger;
+$border-color-danger-card: $background-color-danger-card;
+$margin-card-card-column: 8px;
+
+// NOTE: modals
+$z-index-modal: 10001;
+
+// NOTE: progress-bar
+$height-progress-bar: 16px;
+$background-color-unfilled-progress-bar: $color-gray2;
+$background-color-filled-progress-bar: $color-gray3;
+$background-color-filled-success-progress-bar: $color-success;
+$background-color-filled-info-progress-bar: $color-info;
+$background-color-filled-warning-progress-bar: $color-warning;
+$background-color-filled-danger-progress-bar: $color-danger;
+
+// NOTE: notifications
+$offset-position-notification-container: 16px;
+$padding-notification: 16px;
+$color-success-notification: $color-light-success;
+$color-dark-success-notification: $color-dark-success;
+$color-info-notification: $color-light-info;
+$color-dark-info-notification: $color-dark-info;
+$color-warning-notification: $color-light-warning;
+$color-dark-warning-notification: $color-dark-warning;
+$color-danger-notification: $color-light-danger;
+$color-dark-danger-notification: $color-dark-danger;
+$border-radius-notification: 5px;
+$icon-size-notification: 24px;
+$line-height-notification: 2.4rem;
+$box-shadow-notification: 0px 1px 3px rgba(0, 0, 0, 0.3);
+$background-color-notification: $color-white;
+
+// NOTE: breadcrumbs
+$color-divider-breadcrumbs: $color-gray4;
+$color-active-breadcrumbs: $color-divider-breadcrumbs;
+$padding-divider-breadcrumbs: 8px;
+
+// NOTE: badge
+$color-badge: $color-light-text;
+//NOTE: 4px off to account for border which is needed for thin style support
+$padding-badge: 2px 8px;
+$border-radius-badge: 3px;
+$border-radius-pill-badge: 999px;
+$margin-badge: 4px;
+$background-color-badge: $color-neutral;
+$background-color-success-badge: $color-success;
+$background-color-info-badge: $color-info;
+$background-color-warning-badge: $color-warning;
+$background-color-danger-badge: $color-danger;
+$background-color-thin-badge: $color-white;
+$border-width-thin-badge: 2px;
+$color-success-thin-badge: $background-color-success-badge;
+$color-info-thin-badge: $background-color-info-badge;
+$color-warning-thin-badge: $background-color-warning-badge;
+$color-danger-thin-badge: $background-color-danger-badge;
+$font-size-badge: 1.2rem;
