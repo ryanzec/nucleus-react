@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {getPassThroughProperties} from 'src/utilities/component';
 
+import styles from 'src/styles/framework/_variables.scss';
+
 export const createGetCssClasses = (instance) => {
   return () => {
     let cssClasses = ['button'];

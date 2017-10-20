@@ -1,8 +1,5 @@
 $component-identifier: '.grid';
 
-$gutter-grid: 24px;
-$column-count-grid: 12;
-
 #{$component-identifier} {
   display: flex;
   flex-direction: column;

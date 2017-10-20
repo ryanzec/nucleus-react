@@ -1,7 +1,5 @@
 $component-identifier: '.notification-container';
 
-$offset-position-notification-container: 16px;
-
 #{$component-identifier} {
   position: fixed;
   z-index: 10002;
@@ -30,21 +28,6 @@ $offset-position-notification-container: 16px;
 }
 
 $component-identifier: '.notification';
-
-$padding-notification: 16px;
-$color-success-notification: $color-light-success;
-$color-dark-success-notification: $color-dark-success;
-$color-info-notification: $color-light-info;
-$color-dark-info-notification: $color-dark-info;
-$color-warning-notification: $color-light-warning;
-$color-dark-warning-notification: $color-dark-warning;
-$color-danger-notification: $color-light-danger;
-$color-dark-danger-notification: $color-dark-danger;
-$border-radius-notification: 5px;
-$icon-size-notification: 24px;
-$line-height-notification: 2.4rem;
-$box-shadow-notification: 0px 1px 3px rgba(0, 0, 0, 0.3);
-$background-color-notification: $color-white;
 
 @mixin apply-notification-colors($color, $dark-color) {
   border: 2px solid $dark-color;

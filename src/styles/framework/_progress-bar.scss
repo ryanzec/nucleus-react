@@ -1,13 +1,5 @@
 $component-identifier: '.progress-bar';
 
-$height-progress-bar: 16px;
-$background-color-unfilled-progress-bar: $color-gray2;
-$background-color-filled-progress-bar: $color-gray3;
-$background-color-filled-success-progress-bar: $color-success;
-$background-color-filled-info-progress-bar: $color-info;
-$background-color-filled-warning-progress-bar: $color-warning;
-$background-color-filled-danger-progress-bar: $color-danger;
-
 //NOTE: note sure why I need
 @mixin apply-progress-bar-fill-colors($filled-color) {
   &::-ms-fill {
