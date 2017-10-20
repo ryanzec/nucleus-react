@@ -42,7 +42,10 @@
     "_": true,
     "UAParser": true,
     "process": true,
-    "requestAnimationFrame": true
+    "requestAnimationFrame": true,
+    "global": true
+    "localStorage": true,
+    "sessionStorage": true
   },
   "rules": {
     //babel
