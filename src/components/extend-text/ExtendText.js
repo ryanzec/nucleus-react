@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 import { DomEventManager } from 'src/utilities/dom';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
@@ -15,68 +12,53 @@ import ExtendTextAutoCompleteOption from './ExtendTextAutoCompleteOption';
 import Button from 'src/components/button/Button';
 import Badge from 'src/components/badge/Badge';
 
-let loadingSvg;
-/*eslint-disable*/
-loadingSvg = '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/> <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"></path>';
-/*eslint-enable*/
+export const createComponentDidMount = (instance) => {
+  return () => {
+    instance.domEventManager.add(document, 'mousedown', instance.onClickOutside);
+  };
+};
 
-class ExtendText extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.domEventManager = new DomEventManager();
-
-    this.state = {
-      isActive: false,
-      isLoading: false,
-      activeAutoCompleteOptionIndex: null,
-      activeAutoCompleteOptions: null,
-      lastCheckedInputValue: null,
-      inputValue: this.getDisplayValue(props.multiple, props.value)
-    };
-  }
-
-  componentDidMount() {
-    this.domEventManager.add(document, 'mousedown', this.onClickOutside);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  //TODO: can I do this in the will receive props so I don't have to do the eslint disable below?
-  /*eslint-disable */
-  componentDidUpdate(previousProps) {
+export const createComponentDidUpdate = (instance) => {
+  return (previousProps) => {
     //TODO: can I use previous state?
-    if (this.state.isActive === true && (this.state.lastCheckedInputValue === null || this.state.lastCheckedInputValue !== this.state.inputValue)) {
-      this.updateAutoCompleteOptions();
+    if (
+      instance.state.isActive === true
+      && (
+        instance.state.lastCheckedInputValue === null
+        || instance.state.lastCheckedInputValue !== instance.state.inputValue
+      )
+    ) {
+      instance.updateAutoCompleteOptions();
     }
 
     //need to make sure to update in the input value when the prop value change to keep everything in sync
     const previousValue = previousProps.value && previousProps.value[0] ? previousProps.value[0].value : null;
-    const newValue = this.props.value && this.props.value[0] ? this.props.value[0].value : null;
+    const newValue = instance.props.value && instance.props.value[0] ? instance.props.value[0].value : null;
 
-    if (!this.props.multiple && newValue !== previousValue) {
-      this.setState({
-        inputValue: this.getDisplayValue(this.props.multiple, this.props.value)
+    if (!instance.props.multiple && newValue !== previousValue) {
+      instance.setState({
+        inputValue: instance.getDisplayValue(instance.props.multiple, instance.props.value)
       });
     }
-  }
-  /*eslint-enable */
+  };
+};
 
-  componentWillUnmount() {
-    this.domEventManager.clear();
-  }
+export const createComponentWillUnmount = (instance) => {
+  return () => {
+    instance.domEventManager.clear();
+  };
+};
 
-  onClickOutside = event => {
-    if (this.state.isActive) {
+export const createOnClickOutside = (instance) => {
+  return (event) => {
+    if (instance.state.isActive) {
       let close = true;
 
       if (
-        this.refs.input
+        instance.refs.input
         && (
-          ReactDOM.findDOMNode(this.refs.input).contains(event.target)
-          || ReactDOM.findDOMNode(this.refs.input) === event.target
+          ReactDOM.findDOMNode(instance.refs.input).contains(event.target)
+          || ReactDOM.findDOMNode(instance.refs.input) === event.target
         )
       ) {
         close = false;
@@ -84,10 +66,10 @@ class ExtendText extends React.Component {
 
       if (
         close
-        && this.refs.dropDownIndicator
+        && instance.refs.dropDownIndicator
         && (
-          ReactDOM.findDOMNode(this.refs.dropDownIndicator).contains(event.target)
-          || ReactDOM.findDOMNode(this.refs.dropDownIndicator) === event.target
+          ReactDOM.findDOMNode(instance.refs.dropDownIndicator).contains(event.target)
+          || ReactDOM.findDOMNode(instance.refs.dropDownIndicator) === event.target
         )
       ) {
         close = false;
@@ -95,146 +77,172 @@ class ExtendText extends React.Component {
 
       if (
         close
-        && this.refs.autoCompleteContainer
+        && instance.refs.autoCompleteContainer
         && (
-          ReactDOM.findDOMNode(this.refs.autoCompleteContainer).contains(event.target)
-          || ReactDOM.findDOMNode(this.refs.autoCompleteContainer) === event.target
+          ReactDOM.findDOMNode(instance.refs.autoCompleteContainer).contains(event.target)
+          || ReactDOM.findDOMNode(instance.refs.autoCompleteContainer) === event.target
         )
       ) {
         close = false;
       }
 
       if (close) {
-        this.closeAutoComplete();
+        instance.closeAutoComplete();
       }
     }
   };
+};
 
-  onFocusInput = () => {
-    this.setState({
+export const createOnFocusInput = (instance) => {
+  return () => {
+    instance.setState({
       isActive: true,
       activeAutoCompleteOptionIndex: 0
     });
   };
+};
 
-  onKeyDown = event => {
+export const createOnKeyDown = (instance) => {
+  return (event) => {
     switch (event.keyCode) {
       case 27: //escape
         event.preventDefault();
-        this.closeAutoComplete();
+        instance.closeAutoComplete();
         break;
 
       case 13: //enter
         event.preventDefault();
-        this.selectActiveItem();
+        instance.selectActiveItem();
         break;
 
       case 38: //up arrow
         event.preventDefault();
-        this.decreaseActiveAutoCompleteOption();
+        instance.decreaseActiveAutoCompleteOption();
         break;
 
       case 40: //down arrow
         event.preventDefault();
-        this.increaseActiveAutoCompleteOption();
+        instance.increaseActiveAutoCompleteOption();
         break;
 
       case 9: //tab
-        this.selectActiveItem();
+        instance.selectActiveItem();
         break;
 
       default:
-        if (this.props.allowCreate && this.props.multiple && this.props.addTagOnKeyCode === event.keyCode && !event.shiftKey) {
-          this.addTagKeyCodeEnter = true;
+        if (instance.props.allowCreate && instance.props.multiple && instance.props.addTagOnKeyCode === event.keyCode && !event.shiftKey) {
+          instance.addTagKeyCodeEnter = true;
           event.preventDefault();
-          this.selectActiveItem();
+          instance.selectActiveItem();
         }
         break;
     }
   };
+};
 
-  onMouseEnterAutoCompleteOption = event => {
-    this.setState({
+export const createOnMouseEnterAutoCompleteOption = (instance) => {
+  return (event) => {
+    instance.setState({
       activeAutoCompleteOptionIndex: parseInt(event.target.getAttribute('data-index'), 10)
     });
   };
+};
 
-  onMouseDownAutoCompleteOption = () => {
-    this.selectActiveItem();
+export const createOnMouseDownAutoCompleteOption = (instance) => {
+  return () => {
+    instance.selectActiveItem();
   };
+};
 
-  onChangeInput = event => {
-    this.setState({
-      previousInputValue: this.state.inputValue,
+export const createOnChangeInput = (instance) => {
+  return (event) => {
+    instance.setState({
+      previousInputValue: instance.state.inputValue,
       inputValue: event.target.value
     });
   };
+};
 
-  onClickClearAll = () => {
-    this.setValue([], '');
+export const createOnClickClearAll = (instance) => {
+  return () => {
+    instance.setValue([], '');
   };
+};
 
-  onClickDeleteTag = event => {
-    const newValue = cloneDeep(this.props.value);
+export const createOnClickDeleteTag = (instance) => {
+  return (event) => {
+    const newValue = cloneDeep(instance.props.value);
     newValue.splice(parseInt(event.currentTarget.getAttribute('data-key'), 10), 1);
 
-    this.setValue(newValue, '');
+    instance.setValue(newValue, '');
   };
+};
 
-  onClickDropDownIndicator = () => {
-    ReactDOM.findDOMNode(this.refs.input).focus();
+export const createOnClickDropDownIndicator = (instance) => {
+  return () => {
+    ReactDOM.findDOMNode(instance.refs.input).focus();
   };
+};
 
-  getCssClasses() {
-    let cssClasses = ['extend-text', `m-${this.props.autoCompletePosition}`];
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['extend-text', `m-${instance.props.autoCompletePosition}`];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.state.isActive) {
+    if (instance.state.isActive) {
       cssClasses.push('is-opened');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
 
-  asyncOptionsCallback = (callbackOptions = {}) => {
+export const createAsyncOptionsCallback = (instance) => {
+  return (callbackOptions = {}) => {
     if (callbackOptions.options) {
-      let exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, callbackOptions.options);
-      let newOptions = this.filterAutoCompleteOptions(callbackOptions.options);
+      let exactMatchIndex = instance.getExactMatchAutoCompleteOptionIndex(instance.state.inputValue, callbackOptions.options);
+      let newOptions = instance.filterAutoCompleteOptions(callbackOptions.options);
 
-      if (this.props.allowCreate && this.state.inputValue.length > 0) {
-        exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newOptions);
+      if (instance.props.allowCreate && instance.state.inputValue.length > 0) {
+        exactMatchIndex = instance.getExactMatchAutoCompleteOptionIndex(instance.state.inputValue, newOptions);
 
         if (exactMatchIndex === -1) {
-          newOptions = [this.generateObjectValueFromInput()].concat(newOptions);
+          newOptions = [instance.generateObjectValueFromInput()].concat(newOptions);
         }
       }
 
-      this.setState({
+      instance.setState({
         isLoading: false,
         activeAutoCompleteOptions: newOptions,
         activeAutoCompleteOptionIndex: exactMatchIndex !== -1 ? exactMatchIndex : 0
-      }, this.repositionAutoCompleteContainerToActiveOption);
+      }, instance.repositionAutoCompleteContainerToActiveOption);
     }
   };
+};
 
-  generateObjectValueFromInput() {
+export const createGenerateObjectValueFromInput = (instance) => {
+  return () => {
     return {
-      display: this.props.createTemplate.replace('%%value%%', this.state.inputValue),
-      value: this.state.inputValue,
+      display: instance.props.createTemplate.replace('%%value%%', instance.state.inputValue),
+      value: instance.state.inputValue,
       isNew: true
     };
-  }
+  };
+};
 
-  selectActiveItem() {
-    if (this.state.activeAutoCompleteOptions) {
-      this.updateValue(this.state.activeAutoCompleteOptions[this.state.activeAutoCompleteOptionIndex]);
+export const createSelectActiveItem = (instance) => {
+  return () => {
+    if (instance.state.activeAutoCompleteOptions) {
+      instance.updateValue(instance.state.activeAutoCompleteOptions[instance.state.activeAutoCompleteOptionIndex]);
     }
-  }
+  };
+};
 
-  updateValue(newValue) {
+export const createUpdateValue = (instance) => {
+  return (newValue) => {
     let realNewValue = newValue;
 
     if (realNewValue.isNew) {
@@ -245,73 +253,79 @@ class ExtendText extends React.Component {
       };
     }
 
-    if (isArray(this.props.value) && this.props.multiple) {
-      realNewValue = this.props.value.concat([realNewValue]);
+    if (isArray(instance.props.value) && instance.props.multiple) {
+      realNewValue = instance.props.value.concat([realNewValue]);
     } else {
       realNewValue = [realNewValue];
     }
 
-    this.setValue(realNewValue, this.getDisplayValue(this.props.multiple, realNewValue));
-  }
+    instance.setValue(realNewValue, instance.getDisplayValue(instance.props.multiple, realNewValue));
+  };
+};
 
-  setValue(newValue, newInputValue) {
-    if (this.props.onChange) {
-      this.props.onChange(newValue);
+export const createSetValue = (instance) => {
+  return (newValue, newInputValue) => {
+    if (instance.props.onChange) {
+      instance.props.onChange(newValue);
     }
 
     const newState = {
-      previousInputValue: this.state.inputValue,
+      previousInputValue: instance.state.inputValue,
       inputValue: newInputValue
     };
 
     // NOTE: this allow use to update the tags while keeping the auto complete open since the common use case for tagging is adding multiple items
-    if (this.addTagKeyCodeEnter || this.props.multiple) {
-      this.setState(newState);
-      this.addTagKeyCodeEnter = false;
+    if (instance.addTagKeyCodeEnter || instance.props.multiple) {
+      instance.setState(newState);
+      instance.addTagKeyCodeEnter = false;
     } else {
-      this.closeAutoComplete(newValue, newState);
+      instance.closeAutoComplete(newValue, newState);
     }
-  }
+  };
+};
 
-  updateAutoCompleteOptions() {
+export const createUpdateAutoCompleteOptions = (instance) => {
+  return () => {
     const newState = {
-      lastCheckedInputValue: this.state.inputValue,
+      lastCheckedInputValue: instance.state.inputValue,
       activeAutoCompleteOptions: [],
     };
 
-    if (this.props.options.length > 0) {
-      newState.activeAutoCompleteOptions = this.filterAutoCompleteOptions(this.props.options);
+    if (instance.props.options.length > 0) {
+      newState.activeAutoCompleteOptions = instance.filterAutoCompleteOptions(instance.props.options);
 
-      const exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
+      const exactMatchIndex = instance.getExactMatchAutoCompleteOptionIndex(instance.state.inputValue, newState.activeAutoCompleteOptions);
       newState.activeAutoCompleteOptionIndex = exactMatchIndex !== -1 ? exactMatchIndex : 0;
     } else if (
-      this.state.isActive
-      && this.props.asyncOptions
+      instance.state.isActive
+      && instance.props.asyncOptions
       && (
-        this.state.lastCheckedInputValue !== this.state.inputValue
-        || this.state.lastCheckedInputValue === null
+        instance.state.lastCheckedInputValue !== instance.state.inputValue
+        || instance.state.lastCheckedInputValue === null
       )
-      && this.state.inputValue.length >= this.props.characterThreshold
+      && instance.state.inputValue.length >= instance.props.characterThreshold
     ) {
       newState.isLoading = true;
 
-      this.props.asyncOptions(this.state.inputValue, this.asyncOptionsCallback);
+      instance.props.asyncOptions(instance.state.inputValue, instance.asyncOptionsCallback);
     }
 
-    if (this.props.allowCreate && newState.activeAutoCompleteOptions && this.state.inputValue.length > 0) {
-      const exactMatchIndex = this.getExactMatchAutoCompleteOptionIndex(this.state.inputValue, newState.activeAutoCompleteOptions);
+    if (instance.props.allowCreate && newState.activeAutoCompleteOptions && instance.state.inputValue.length > 0) {
+      const exactMatchIndex = instance.getExactMatchAutoCompleteOptionIndex(instance.state.inputValue, newState.activeAutoCompleteOptions);
 
       if (exactMatchIndex === -1) {
-        newState.activeAutoCompleteOptions = [this.generateObjectValueFromInput()].concat(newState.activeAutoCompleteOptions);
+        newState.activeAutoCompleteOptions = [instance.generateObjectValueFromInput()].concat(newState.activeAutoCompleteOptions);
       }
     }
 
-    this.setState(newState, this.repositionAutoCompleteContainerToActiveOption);
-  }
+    instance.setState(newState, instance.repositionAutoCompleteContainerToActiveOption);
+  };
+};
 
-  increaseActiveAutoCompleteOption() {
-    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
-      let newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
+export const createIncreaseActiveAutoCompleteOption = (instance) => {
+  return () => {
+    if (instance.state.activeAutoCompleteOptions && instance.state.activeAutoCompleteOptions.length > 0) {
+      let newActiveAutoCompleteOptionIndex = instance.state.activeAutoCompleteOptionIndex;
 
       if (newActiveAutoCompleteOptionIndex === null) {
         newActiveAutoCompleteOptionIndex = 0;
@@ -319,55 +333,59 @@ class ExtendText extends React.Component {
         newActiveAutoCompleteOptionIndex += 1;
       }
 
-      if (this.state.activeAutoCompleteOptions && newActiveAutoCompleteOptionIndex >= this.state.activeAutoCompleteOptions.length) {
+      if (instance.state.activeAutoCompleteOptions && newActiveAutoCompleteOptionIndex >= instance.state.activeAutoCompleteOptions.length) {
         newActiveAutoCompleteOptionIndex = 0;
       }
 
-      this.setState({
+      instance.setState({
         activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
-      }, this.repositionAutoCompleteContainerToActiveOption);
+      }, instance.repositionAutoCompleteContainerToActiveOption);
     }
-  }
+  };
+};
 
-  decreaseActiveAutoCompleteOption() {
-    if (this.state.activeAutoCompleteOptions && this.state.activeAutoCompleteOptions.length > 0) {
-      let newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptionIndex;
+export const createDecreaseActiveAutoCompleteOption = (instance) => {
+  return () => {
+    if (instance.state.activeAutoCompleteOptions && instance.state.activeAutoCompleteOptions.length > 0) {
+      let newActiveAutoCompleteOptionIndex = instance.state.activeAutoCompleteOptionIndex;
 
       if (newActiveAutoCompleteOptionIndex === null) {
-        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
+        newActiveAutoCompleteOptionIndex = instance.state.activeAutoCompleteOptions.length - 1;
       } else {
         newActiveAutoCompleteOptionIndex -= 1;
       }
 
       if (newActiveAutoCompleteOptionIndex < 0) {
-        newActiveAutoCompleteOptionIndex = this.state.activeAutoCompleteOptions.length - 1;
+        newActiveAutoCompleteOptionIndex = instance.state.activeAutoCompleteOptions.length - 1;
       }
 
-      this.setState({
+      instance.setState({
         activeAutoCompleteOptionIndex: newActiveAutoCompleteOptionIndex
-      }, this.repositionAutoCompleteContainerToActiveOption);
+      }, instance.repositionAutoCompleteContainerToActiveOption);
     }
-  }
+  };
+};
 
-  filterAutoCompleteOptions(autoCompleteOptions) {
+export const createFilterAutoCompleteOptions = (instance) => {
+  return (autoCompleteOptions) => {
     let filteredOptions = [];
 
-    if (this.props.useFiltering && (this.state.inputValue !== '' || this.props.multiple)) {
+    if (instance.props.useFiltering && (instance.state.inputValue !== '' || instance.props.multiple)) {
       if (isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
-        if (this.props.optionsFilter) {
-          filteredOptions = this.props.optionsFilter(this.state.inputValue, autoCompleteOptions);
+        if (instance.props.optionsFilter) {
+          filteredOptions = instance.props.optionsFilter(instance.state.inputValue, autoCompleteOptions);
         } else {
           const alreadySelectedValues = [];
 
-          if (this.props.multiple && isArray(this.props.value)) {
-            this.props.value.forEach((valueObject) => {
+          if (instance.props.multiple && isArray(instance.props.value)) {
+            instance.props.value.forEach((valueObject) => {
               alreadySelectedValues.push(valueObject.display.toLowerCase());
             });
           }
 
           filteredOptions = autoCompleteOptions.filter((autoCompleteOption) => (
             (
-              autoCompleteOption.display.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1
+              autoCompleteOption.display.toLowerCase().indexOf(instance.state.inputValue.toLowerCase()) !== -1
               && alreadySelectedValues.indexOf(autoCompleteOption.display.toLowerCase()) === -1
             )
             || autoCompleteOption.isNew === true
@@ -379,33 +397,39 @@ class ExtendText extends React.Component {
     }
 
     return filteredOptions;
-  }
+  };
+};
 
-  repositionAutoCompleteContainerToActiveOption() {
-    const activeOptionsSelector = `.extend-text__auto-complete-option:nth-child(${(this.state.activeAutoCompleteOptionIndex + 1)})`;
-    const autoCompleteContainerNode = ReactDOM.findDOMNode(this.refs.container).querySelector('.extend-text__auto-complete-container');
-    const activeOptionNode = ReactDOM.findDOMNode(this.refs.container).querySelector(activeOptionsSelector);
+export const createRepositionAutoCompleteContainerToActiveOption = (instance) => {
+  return () => {
+    const activeOptionsSelector = `.extend-text__auto-complete-option:nth-child(${(instance.state.activeAutoCompleteOptionIndex + 1)})`;
+    const autoCompleteContainerNode = ReactDOM.findDOMNode(instance.refs.container).querySelector('.extend-text__auto-complete-container');
+    const activeOptionNode = ReactDOM.findDOMNode(instance.refs.container).querySelector(activeOptionsSelector);
 
     if (activeOptionNode) {
       autoCompleteContainerNode.scrollTop = activeOptionNode.offsetTop;
     }
-  }
+  };
+};
 
-  closeAutoComplete(currentValue = this.props.value, newState = {}) {
+export const createCloseAutoComplete = (instance) => {
+  return (currentValue = instance.props.value, newState = {}) => {
     Object.assign(newState, {
       isActive: false,
       activeAutoCompleteOptionIndex: null,
       activeAutoCompleteOptions: null,
       lastCheckedInputValue: null,
-      inputValue: this.getDisplayValue(this.props.multiple, currentValue)
+      inputValue: instance.getDisplayValue(instance.props.multiple, currentValue)
     });
 
-    ReactDOM.findDOMNode(this.refs.input).blur();
+    ReactDOM.findDOMNode(instance.refs.input).blur();
 
-    this.setState(newState);
-  }
+    instance.setState(newState);
+  };
+};
 
-  getExactMatchAutoCompleteOptionIndex(inputValue, autoCompleteOptions) {
+export const createGetExactMatchAutoCompleteOptionIndex = () => {
+  return (inputValue, autoCompleteOptions) => {
     let index = -1;
 
     if (inputValue !== '' && isArray(autoCompleteOptions) && autoCompleteOptions.length > 0) {
@@ -421,11 +445,115 @@ class ExtendText extends React.Component {
     }
 
     return index;
+  };
+};
+
+export const createGetDisplayValue = () => {
+  return (allowsMultiple, values) => {
+    return !allowsMultiple && isArray(values) && values.length > 0 ? values[0].display : '';
+  };
+};
+
+
+let loadingSvg;
+/*eslint-disable*/
+loadingSvg = '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/> <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"></path>';
+/*eslint-enable*/
+
+class ExtendText extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    options: PropTypes.array,
+    asyncOptions: PropTypes.func,
+    value: PropTypes.array,
+    onChange: PropTypes.func,
+    characterThreshold: PropTypes.number,
+    isSearchable: PropTypes.bool,
+    disabled: PropTypes.bool,
+    useFiltering: PropTypes.bool,
+    optionsFilter: PropTypes.func,
+    optionRenderer: PropTypes.func,
+    tagRenderer: PropTypes.func,
+    allowCreate: PropTypes.bool,
+    createTemplate: PropTypes.string,
+    multiple: PropTypes.bool,
+    placeholder: PropTypes.string,
+    addTagOnKeyCode: PropTypes.number,
+    loadingNode: PropTypes.node,
+    typeForSearchingNode: PropTypes.node,
+    noOptionsNode: PropTypes.node,
+    autoCompletePosition: PropTypes.oneOf(['bottom', 'top']),
+    clearable: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: null,
+    options: [],
+    asyncOptions: null,
+    value: [],
+    onChange: null,
+    characterThreshold: 0,
+    isSearchable: true,
+    disabled: false,
+    useFiltering: true,
+    optionsFilter: null,
+    optionRenderer: null,
+    tagRenderer: null,
+    allowCreate: false,
+    createTemplate: 'Add new item \'%%value%%\'?',
+    multiple: false,
+    placeholder: '',
+    addTagOnKeyCode: null,
+    loadingNode: 'Loading options...',
+    typeForSearchingNode: 'Start typing for auto complete list',
+    noOptionsNode: 'No options found',
+    autoCompletePosition: 'bottom',
+    clearable: false
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.domEventManager = new DomEventManager();
+
+    this.state = {
+      isActive: false,
+      isLoading: false,
+      activeAutoCompleteOptionIndex: null,
+      activeAutoCompleteOptions: null,
+      lastCheckedInputValue: null,
+      inputValue: this.getDisplayValue(props.multiple, props.value)
+    };
   }
 
-  getDisplayValue(allowsMultiple, values) {
-    return !allowsMultiple && isArray(values) && values.length > 0 ? values[0].display : '';
-  }
+  componentDidMount = createComponentDidMount(this);
+  componentDidUpdate = createComponentDidUpdate(this);
+  componentWillUnmount = createComponentWillUnmount(this);
+
+  onClickOutside = createOnClickOutside(this);
+  onFocusInput = createOnFocusInput(this);
+  onKeyDown = createOnKeyDown(this);
+  onMouseEnterAutoCompleteOption = createOnMouseEnterAutoCompleteOption(this);
+  onMouseDownAutoCompleteOption = createOnMouseDownAutoCompleteOption(this);
+  onChangeInput = createOnChangeInput(this);
+  onClickClearAll = createOnClickClearAll(this);
+  onClickDeleteTag = createOnClickDeleteTag(this);
+  onClickDropDownIndicator = createOnClickDropDownIndicator(this);
+
+  getCssClasses = createGetCssClasses(this);
+  asyncOptionsCallback = createAsyncOptionsCallback(this);
+  generateObjectValueFromInput = createGenerateObjectValueFromInput(this);
+  selectActiveItem = createSelectActiveItem(this);
+  updateValue = createUpdateValue(this);
+  setValue = createSetValue(this);
+  updateAutoCompleteOptions = createUpdateAutoCompleteOptions(this);
+  increaseActiveAutoCompleteOption = createIncreaseActiveAutoCompleteOption(this);
+  decreaseActiveAutoCompleteOption = createDecreaseActiveAutoCompleteOption(this);
+  filterAutoCompleteOptions = createFilterAutoCompleteOptions(this);
+  repositionAutoCompleteContainerToActiveOption = createRepositionAutoCompleteContainerToActiveOption(this);
+  closeAutoComplete = createCloseAutoComplete(this);
+  getExactMatchAutoCompleteOptionIndex = createGetExactMatchAutoCompleteOptionIndex();
+  getDisplayValue = createGetDisplayValue();
 
   renderAutoComplete() {
     const processAutoCompleteOptions = (options) => {
@@ -660,55 +788,5 @@ class ExtendText extends React.Component {
     );
   }
 }
-
-ExtendText.propTypes = {
-  className: PropTypes.string,
-  options: PropTypes.array,
-  asyncOptions: PropTypes.func,
-  value: PropTypes.array,
-  onChange: PropTypes.func,
-  characterThreshold: PropTypes.number,
-  isSearchable: PropTypes.bool,
-  disabled: PropTypes.bool,
-  useFiltering: PropTypes.bool,
-  optionsFilter: PropTypes.func,
-  optionRenderer: PropTypes.func,
-  tagRenderer: PropTypes.func,
-  allowCreate: PropTypes.bool,
-  createTemplate: PropTypes.string,
-  multiple: PropTypes.bool,
-  placeholder: PropTypes.string,
-  addTagOnKeyCode: PropTypes.number,
-  loadingNode: PropTypes.node,
-  typeForSearchingNode: PropTypes.node,
-  noOptionsNode: PropTypes.node,
-  autoCompletePosition: PropTypes.oneOf(['bottom', 'top']),
-  clearable: PropTypes.bool
-};
-
-ExtendText.defaultProps = {
-  className: null,
-  options: [],
-  asyncOptions: null,
-  value: [],
-  onChange: null,
-  characterThreshold: 0,
-  isSearchable: true,
-  disabled: false,
-  useFiltering: true,
-  optionsFilter: null,
-  optionRenderer: null,
-  tagRenderer: null,
-  allowCreate: false,
-  createTemplate: 'Add new item \'%%value%%\'?',
-  multiple: false,
-  placeholder: '',
-  addTagOnKeyCode: null,
-  loadingNode: 'Loading options...',
-  typeForSearchingNode: 'Start typing for auto complete list',
-  noOptionsNode: 'No options found',
-  autoCompletePosition: 'bottom',
-  clearable: false
-};
 
 export default ExtendText;

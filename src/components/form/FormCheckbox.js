@@ -1,32 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
-
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import FormLabel from './FormLabel';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class FormCheckbox extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = [];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.disabled) {
+    if (instance.props.disabled) {
       cssClasses.push('is-disabled');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormCheckbox extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    inputAlignment: PropTypes.oneOf(['left', 'right']),
+    checked: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: null,
+    inputAlignment: 'left',
+    checked: false
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let nodes;
@@ -59,17 +67,5 @@ class FormCheckbox extends React.Component {
     );
   }
 }
-
-FormCheckbox.propTypes = {
-  className: PropTypes.string,
-  inputAlignment: PropTypes.oneOf(['left', 'right']),
-  checked: PropTypes.bool
-};
-
-FormCheckbox.defaultProps = {
-  className: null,
-  inputAlignment: 'left',
-  checked: false
-};
 
 export default FormCheckbox;

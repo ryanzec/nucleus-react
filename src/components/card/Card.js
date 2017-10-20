@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class Card extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['card'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class Card extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger'])
+  };
+
+  static defaultProps = {
+    className: null,
+    styleType: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -35,15 +42,5 @@ class Card extends React.Component {
     );
   }
 }
-
-Card.propTypes = {
-  className: PropTypes.string,
-  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger'])
-};
-
-Card.defaultProps = {
-  className: null,
-  styleType: null
-};
 
 export default Card;

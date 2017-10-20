@@ -1,64 +1,89 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class GridRow extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['grid__column'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.shrink) {
+    if (instance.props.shrink) {
       cssClasses.push('m-shrink');
     }
 
-    if (this.props.order) {
-      cssClasses.push(`m-order${this.props.order}`);
+    if (instance.props.order) {
+      cssClasses.push(`m-order${instance.props.order}`);
     }
 
-    if (this.props.smallSize) {
-      cssClasses.push(`m-small-size${this.props.smallSize}`);
+    if (instance.props.smallSize) {
+      cssClasses.push(`m-small-size${instance.props.smallSize}`);
     }
 
-    if (this.props.mediumSize) {
-      cssClasses.push(`m-medium-size${this.props.mediumSize}`);
+    if (instance.props.mediumSize) {
+      cssClasses.push(`m-medium-size${instance.props.mediumSize}`);
     }
 
-    if (this.props.largeSize) {
-      cssClasses.push(`m-large-size${this.props.largeSize}`);
+    if (instance.props.largeSize) {
+      cssClasses.push(`m-large-size${instance.props.largeSize}`);
     }
 
-    if (this.props.extraLargeSize) {
-      cssClasses.push(`m-extra-large-size${this.props.extraLargeSize}`);
+    if (instance.props.extraLargeSize) {
+      cssClasses.push(`m-extra-large-size${instance.props.extraLargeSize}`);
     }
 
-    if (this.props.smallOffset) {
-      cssClasses.push(`m-small-offset${this.props.smallOffset}`);
+    if (instance.props.smallOffset) {
+      cssClasses.push(`m-small-offset${instance.props.smallOffset}`);
     }
 
-    if (this.props.mediumOffset) {
-      cssClasses.push(`m-medium-offset${this.props.mediumOffset}`);
+    if (instance.props.mediumOffset) {
+      cssClasses.push(`m-medium-offset${instance.props.mediumOffset}`);
     }
 
-    if (this.props.largeOffset) {
-      cssClasses.push(`m-large-offset${this.props.largeOffset}`);
+    if (instance.props.largeOffset) {
+      cssClasses.push(`m-large-offset${instance.props.largeOffset}`);
     }
 
-    if (this.props.extraLargeOffset) {
-      cssClasses.push(`m-extra-large-offset${this.props.extraLargeOffset}`);
+    if (instance.props.extraLargeOffset) {
+      cssClasses.push(`m-extra-large-offset${instance.props.extraLargeOffset}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class GridRow extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    shrink: PropTypes.bool,
+    order: PropTypes.number,
+    smallSize: PropTypes.number,
+    mediumSize: PropTypes.number,
+    largeSize: PropTypes.number,
+    extraLargeSize: PropTypes.number,
+    smallOffset: PropTypes.number,
+    mediumOffset: PropTypes.number,
+    largeOffset: PropTypes.number,
+    extraLargeOffset: PropTypes.number
+  };
+
+  static defaultProps = {
+    className: null,
+    shrink: false,
+    order: null,
+    smallSize: null,
+    mediumSize: null,
+    largeSize: null,
+    extraLargeSize: null,
+    smallOffset: null,
+    mediumOffset: null,
+    largeOffset: null,
+    extraLargeOffset: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -71,33 +96,5 @@ class GridRow extends React.Component {
     );
   }
 }
-
-GridRow.propTypes = {
-  className: PropTypes.string,
-  shrink: PropTypes.bool,
-  order: PropTypes.number,
-  smallSize: PropTypes.number,
-  mediumSize: PropTypes.number,
-  largeSize: PropTypes.number,
-  extraLargeSize: PropTypes.number,
-  smallOffset: PropTypes.number,
-  mediumOffset: PropTypes.number,
-  largeOffset: PropTypes.number,
-  extraLargeOffset: PropTypes.number
-};
-
-GridRow.defaultProps = {
-  className: null,
-  shrink: false,
-  order: null,
-  smallSize: null,
-  mediumSize: null,
-  largeSize: null,
-  extraLargeSize: null,
-  smallOffset: null,
-  mediumOffset: null,
-  largeOffset: null,
-  extraLargeOffset: null
-};
 
 export default GridRow;

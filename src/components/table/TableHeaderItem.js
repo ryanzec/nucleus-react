@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class TableHeaderItem extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['table__header-item', 'table__data-item'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.alignment) {
-      cssClasses.push(`m-${this.props.alignment}`);
+    if (instance.props.alignment) {
+      cssClasses.push(`m-${instance.props.alignment}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class TableHeaderItem extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    alignment: PropTypes.oneOf(['left', 'right', 'center']),
+  };
+
+  static defaultProps = {
+    className: null,
+    alignment: null,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -35,15 +42,5 @@ class TableHeaderItem extends React.Component {
     );
   }
 }
-
-TableHeaderItem.propTypes = {
-  className: PropTypes.string,
-  alignment: PropTypes.oneOf(['left', 'right', 'center']),
-};
-
-TableHeaderItem.defaultProps = {
-  className: null,
-  alignment: null,
-};
 
 export default TableHeaderItem;

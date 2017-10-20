@@ -1,32 +1,43 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class Table extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['table', `m-${instance.props.alignment}`];
 
-  getCssClasses() {
-    let cssClasses = ['table', `m-${this.props.alignment}`];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
-    if (this.props.isVertical) {
+    if (instance.props.isVertical) {
       cssClasses.push('is-vertical');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class Table extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    alignment: PropTypes.oneOf(['left', 'right', 'center']),
+    styleType: PropTypes.oneOf(['zebra', 'borderless']),
+    isVertical: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    alignment: 'center',
+    styleType: null,
+    isVertical: false,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -39,19 +50,5 @@ class Table extends React.Component {
     );
   }
 }
-
-Table.propTypes = {
-  className: PropTypes.string,
-  alignment: PropTypes.oneOf(['left', 'right', 'center']),
-  styleType: PropTypes.oneOf(['zebra', 'borderless']),
-  isVertical: PropTypes.bool,
-};
-
-Table.defaultProps = {
-  className: null,
-  alignment: 'center',
-  styleType: null,
-  isVertical: false,
-};
 
 export default Table;

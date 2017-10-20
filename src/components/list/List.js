@@ -1,28 +1,37 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class List extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['list'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class List extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    styleType: PropTypes.oneOf(['plain']),
+    type: PropTypes.oneOf(['ol', 'ul'])
+  };
+
+  static defaultProps = {
+    className: null,
+    styleType: null,
+    type: 'ul'
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     const properties = {
@@ -32,19 +41,5 @@ class List extends React.Component {
     return React.createElement(this.props.type, properties, this.props.children);
   }
 }
-
-List.propTypes = {
-  className: PropTypes.string,
-  styleType: PropTypes.oneOf(['plain']),
-  type: PropTypes.oneOf(['ol', 'ul'])
-};
-
-List.defaultProps = {
-  className: null,
-  styleType: null,
-  type: 'ul'
-};
-
-
 
 export default List;

@@ -20,8 +20,8 @@ This is a set of components used for building medium to large scale web applicat
 
 ## List Of Things That Will Not Be Offically Supported
 
-* IE 9 and lower will not be supported (IE 10 - 11 might not even be supported)
-* While responsiveness will be implemented mobile will not be supported
+* IE probably will not be supported (Edge will be however)
+* While responsiveness will be implemented mobile devices will not be supported
 
 # License
 

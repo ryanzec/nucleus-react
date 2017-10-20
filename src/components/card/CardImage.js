@@ -1,24 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class CardImage extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['card__image'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class CardImage extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -29,13 +34,5 @@ class CardImage extends React.Component {
     );
   }
 }
-
-CardImage.propTypes = {
-  className: PropTypes.string
-};
-
-CardImage.defaultProps = {
-  className: null,
-};
 
 export default CardImage;

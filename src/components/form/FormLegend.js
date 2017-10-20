@@ -1,30 +1,39 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class FormLegend extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['form-element__legend'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.validation) {
-      cssClasses.push(`m-${this.props.validation}`);
+    if (instance.props.validation) {
+      cssClasses.push(`m-${instance.props.validation}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormLegend extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    displayRequiredDetails: PropTypes.bool,
+    validation: PropTypes.oneOf(['valid', 'inValid'])
+  };
+
+  static defaultProps = {
+    className: null,
+    displayRequiredDetails: false,
+    validation: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let requiredDetailsNode = null;
@@ -50,17 +59,5 @@ class FormLegend extends React.Component {
     );
   }
 }
-
-FormLegend.propTypes = {
-  className: PropTypes.string,
-  displayRequiredDetails: PropTypes.bool,
-  validation: PropTypes.oneOf(['valid', 'inValid'])
-};
-
-FormLegend.defaultProps = {
-  className: null,
-  displayRequiredDetails: false,
-  validation: null
-};
 
 export default FormLegend;

@@ -1,24 +1,32 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class WizardStepIndicator extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['wizard__step-indicator-container'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class WizardStepIndicator extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    totalSteps: PropTypes.number.isRequired,
+    currentStep: PropTypes.number.isRequired,
+    titles: PropTypes.array.isRequired,
+  };
+
+  static defaultProps = {
+    className: null,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   renderStepIndicators() {
     let stepNodes = [];
@@ -74,16 +82,5 @@ class WizardStepIndicator extends React.Component {
     );
   }
 }
-
-WizardStepIndicator.propTypes = {
-  className: PropTypes.string,
-  totalSteps: PropTypes.number.isRequired,
-  currentStep: PropTypes.number.isRequired,
-  titles: PropTypes.array.isRequired,
-};
-
-WizardStepIndicator.defaultProps = {
-  className: null,
-};
 
 export default WizardStepIndicator;

@@ -25,6 +25,7 @@ class AccordionPage extends React.Component {
   }
 
   onClickAccordionHeader = (event) => {
+    console.log(event.currentTarget.getAttribute('data-key'))
     this.setState({
       activeAccordionItem: parseInt(event.currentTarget.getAttribute('data-key'), 10),
     });

@@ -1,24 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class ModalContent extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['modal__content'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class ModalContent extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -31,13 +36,5 @@ class ModalContent extends React.Component {
     );
   }
 }
-
-ModalContent.propTypes = {
-  className: PropTypes.string
-};
-
-ModalContent.defaultProps = {
-  className: null
-};
 
 export default ModalContent;

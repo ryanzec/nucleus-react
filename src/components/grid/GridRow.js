@@ -1,36 +1,49 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class GridRow extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['grid__row', `m-alignment-${instance.props.alignment}`];
 
-  getCssClasses() {
-    let cssClasses = ['grid__row', `m-alignment-${this.props.alignment}`];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (!this.props.isStretched) {
+    if (!instance.props.isStretched) {
       cssClasses.push('m-no-stretch');
     }
 
-    if (this.props.isVertical) {
+    if (instance.props.isVertical) {
       cssClasses.push('m-vertical');
     }
 
-    if (this.props.canWrap) {
+    if (instance.props.canWrap) {
       cssClasses.push('m-wrapping');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class GridRow extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    isStretched: PropTypes.bool,
+    isVertical: PropTypes.bool,
+    canWrap: PropTypes.bool,
+    alignment: PropTypes.oneOf(['left', 'center', 'right', 'spaced', 'justify'])
+  };
+
+  static defaultProps = {
+    className: null,
+    isStretched: true,
+    isVertical: false,
+    canWrap: false,
+    alignment: 'left'
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -43,21 +56,5 @@ class GridRow extends React.Component {
     );
   }
 }
-
-GridRow.propTypes = {
-  className: PropTypes.string,
-  isStretched: PropTypes.bool,
-  isVertical: PropTypes.bool,
-  canWrap: PropTypes.bool,
-  alignment: PropTypes.oneOf(['left', 'center', 'right', 'spaced', 'justify'])
-};
-
-GridRow.defaultProps = {
-  className: null,
-  isStretched: true,
-  isVertical: false,
-  canWrap: false,
-  alignment: 'left'
-};
 
 export default GridRow;

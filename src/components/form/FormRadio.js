@@ -1,28 +1,41 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { pureRenderShouldComponentUpdate } from 'src/utilities/component';
 
 import FormLabel from './FormLabel';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class FormRadio extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = [];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.disabled) {
+    if (instance.props.disabled) {
       cssClasses.push('is-disabled');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormRadio extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    inputAlignment: PropTypes.oneOf(['left', 'right']),
+    checked: PropTypes.bool,
+    disabled: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: null,
+    inputAlignment: 'left',
+    checked: false,
+    disabled: false,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let nodes;
@@ -49,17 +62,5 @@ class FormRadio extends React.Component {
     );
   }
 }
-
-FormRadio.propTypes = {
-  className: PropTypes.string,
-  inputAlignment: PropTypes.oneOf(['left', 'right']),
-  checked: PropTypes.bool
-};
-
-FormRadio.defaultProps = {
-  className: null,
-  inputAlignment: 'left',
-  checked: false
-};
 
 export default FormRadio;

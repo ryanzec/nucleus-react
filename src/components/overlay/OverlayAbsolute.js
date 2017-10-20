@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class OverlayAbsolute extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['overlay', 'overlay-absolute'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.isActive) {
+    if (instance.props.isActive) {
       cssClasses.push('active');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class OverlayAbsolute extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    isActive: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    isActive: false,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let topContentNode = null;
@@ -43,15 +50,5 @@ class OverlayAbsolute extends React.Component {
     );
   }
 }
-
-OverlayAbsolute.propTypes = {
-  className: PropTypes.string,
-  isActive: PropTypes.bool
-};
-
-OverlayAbsolute.defaultProps = {
-  className: null,
-  isActive: false
-};
 
 export default OverlayAbsolute;

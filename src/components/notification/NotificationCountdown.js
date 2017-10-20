@@ -2,7 +2,56 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class NotificationCountdown extends React.Component {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['notification__countdown'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createComponentDidMount = (instance) => {
+  return () => {
+    instance.runCountdownUpdater();
+  };
+};
+
+export const createRunCountdownUpdate = (instance) => {
+  return () => {
+    const now = new Date().getTime();
+
+    instance.time = now;
+    let timeLeft = (instance.timeLength - (instance.time - instance.start));
+
+    if (timeLeft < 0) {
+      timeLeft = 0;
+    }
+
+    const percentage = parseFloat((timeLeft / instance.timeLength) * 100).toFixed(2);
+
+    if (instance.refs.countdown) {
+      ReactDOM.findDOMNode(instance.refs.countdown).style.width = `${percentage}%`;
+
+      if (percentage > 0) {
+        requestAnimationFrame(instance.runCountdownUpdater.bind(instance));
+      }
+    }
+  };
+};
+
+class NotificationCountdown extends React.PureComponent {
+  static propTypes = {
+    length: PropTypes.number.isRequired
+  };
+
+  static defaultProps = {
+    length: 0
+  };
+
   constructor(props) {
     super(props);
 
@@ -11,47 +60,19 @@ class NotificationCountdown extends React.Component {
     this.start = new Date().getTime();
   }
 
-  componentDidMount() {
-    this.runCountdownUpdater();
-  }
+  componentDidMount = createComponentDidMount(this);
 
-  runCountdownUpdater() {
-    const now = new Date().getTime();
-
-    this.time = now;
-    let timeLeft = (this.timeLength - (this.time - this.start));
-
-    if (timeLeft < 0) {
-      timeLeft = 0;
-    }
-
-    const percentage = parseFloat((timeLeft / this.timeLength) * 100).toFixed(2);
-
-    if (this.refs.countdown) {
-      ReactDOM.findDOMNode(this.refs.countdown).style.width = `${percentage}%`;
-
-      if (percentage > 0) {
-        requestAnimationFrame(this.runCountdownUpdater.bind(this));
-      }
-    }
-  }
+  getCssClasses = createGetCssClasses(this);
+  runCountdownUpdater = createRunCountdownUpdate(this);
 
   render() {
     return (
       <div
         ref="countdown"
-        className="notification__countdown"
+        className={this.getCssClasses()}
       />
     );
   }
 }
-
-NotificationCountdown.propTypes = {
-  length: PropTypes.number.isRequired
-};
-
-NotificationCountdown.defaultProps = {
-  length: 0
-};
 
 export default NotificationCountdown;

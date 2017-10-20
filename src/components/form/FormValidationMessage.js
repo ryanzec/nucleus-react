@@ -1,26 +1,33 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-import SvgIcon from 'src/components/svg-icon/SvgIcon';
-
-class FormValidationMessage extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['form-element__validation-message'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
+
+class FormValidationMessage extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    iconFragment: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null,
+    iconFragment: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let iconNode = null;
@@ -45,15 +52,5 @@ class FormValidationMessage extends React.Component {
     );
   }
 }
-
-FormValidationMessage.propTypes = {
-  className: PropTypes.string,
-  iconFragment: PropTypes.string
-};
-
-FormValidationMessage.defaultProps = {
-  className: null,
-  iconFragment: null
-};
 
 export default FormValidationMessage;

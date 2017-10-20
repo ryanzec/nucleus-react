@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 import moment from 'moment-timezone';
 
 import Button from 'src/components/button/Button';
@@ -11,7 +8,215 @@ import DatePickerDay from './DatePickerDay';
 import FormTextbox from 'src/components/form/FormTextbox';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class DatePicker extends React.Component {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['date-picker'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createComponentWillReceiveProps = (instance) => {
+  return (newProps) => {
+    if (moment.isMoment(newProps.selectedDay)) {
+      instance.setState({
+        viewDate: newProps.selectedDay,
+        hours: instance.convertTimeValueToString(newProps.selectedDay.hours()),
+        minutes: instance.convertTimeValueToString(newProps.selectedDay.minutes()),
+        seconds: instance.convertTimeValueToString(newProps.selectedDay.seconds()),
+      });
+    }
+  };
+};
+
+export const createComponentWillMount = (instance) => {
+  return () => {
+    let viewDate;
+
+    if (moment.isMoment(instance.props.selectedDay)) {
+      viewDate = instance.props.selectedDay;
+    } else {
+      viewDate = moment();
+    }
+
+    instance.setState({
+      viewDate
+    });
+  };
+};
+
+export const createOnClickNextMonth = (instance) => {
+  return () => {
+    instance.setState({
+      viewDate: instance.state.viewDate.clone().add(1, 'month')
+    });
+  };
+};
+
+export const createOnClickPreviousMonth = (instance) => {
+  return () => {
+    instance.setState({
+      viewDate: instance.state.viewDate.clone().subtract(1, 'month')
+    });
+  };
+};
+
+export const createOnFocusTime = (instance) => {
+  return (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+
+    if (parseInt(instance.state[formField], 10) === 0) {
+      instance.setState({
+        [formField]: '',
+      });
+    }
+  };
+};
+
+export const createOnBlurTime = (instance) => {
+  return (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+    let newValue = instance.convertTimeValueToString(event.target.value);
+
+    this.setState({
+      [formField]: newValue,
+    }, () => {
+      let newDate;
+
+      if (moment.isMoment(instance.props.selectedDay)) {
+        newDate = instance.props.selectedDay.clone();
+      } else {
+        newDate = moment();
+      }
+
+      newDate.hours(instance.state.hours);
+      newDate.minutes(instance.state.minutes);
+      newDate.seconds(instance.state.seconds);
+
+      instance.props.onClickDate(newDate);
+    });
+  };
+};
+
+export const createOnChangeTime = (instance) => {
+  return (event) => {
+    const formField = event.target.getAttribute('data-form-field');
+    let newValue = instance.convertTimeValueToString(event.target.value, false);
+
+    if (newValue > 24 && formField === 'hours') {
+      newValue = '23';
+    } else if (newValue > 60) {
+      newValue = '59';
+    }
+
+    this.setState({
+      [formField]: newValue,
+    });
+  };
+};
+
+export const createConvertTimeValueToString = () => {
+  return (value, addLeadingZero = true) => {
+    let parsedValue = parseInt(value, 10);
+
+    if (isNaN(parsedValue)) {
+      parsedValue = 0;
+    }
+
+    if (addLeadingZero) {
+      return (parsedValue + '').length === 1 ? '0' + parsedValue : '' + parsedValue;
+    } else {
+      return parsedValue === 0 ? '' : '' + parsedValue;
+    }
+  };
+};
+
+export const createGetCalendarMonthWeeks = (instance) => {
+  return () => {
+    const baseMonth = instance.state.viewDate.month();
+    const currentProcessingDay = instance.state.viewDate.clone().startOf('month').weekday(0);
+    const calendarMonthWeeks = [];
+
+    do {
+      const weekDays = [];
+
+      for (let x = 0; x < 7; x += 1) {
+        weekDays.push(currentProcessingDay.clone());
+
+        currentProcessingDay.add(1, 'days');
+      }
+
+      calendarMonthWeeks.push(weekDays);
+    } while (currentProcessingDay.month() === baseMonth);
+
+    return calendarMonthWeeks;
+  };
+};
+
+export const createIsActiveDay = (instance) => {
+  return (day) => {
+    let isActive = false;
+
+    if (moment.isMoment(instance.props.selectedDay)) {
+      if (isActive) {
+        return;
+      }
+
+      if (day.diff(instance.props.selectedDay.clone().startOf('day'), 'days') === 0) {
+        isActive = true;
+      }
+    }
+
+    return isActive;
+  };
+};
+
+export const createIsDisabledDay = (instance) => {
+  return (day) => {
+    let isDisabled = false;
+
+    if (instance.props.minDate || instance.props.maxDate) {
+      isDisabled = (
+        (
+          instance.props.minDate
+          && instance.props.minDate.isAfter(day)
+        )
+        || (
+          instance.props.maxDate
+          && instance.props.maxDate.isBefore(day)
+        )
+      );
+    }
+
+    return isDisabled;
+  };
+};
+
+class DatePicker extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    onClickDate: PropTypes.func.isRequired,
+    selectedDay: PropTypes.object,
+    minDate: PropTypes.object,
+    maxDate: PropTypes.object,
+    displayTime: PropTypes.bool,
+    onClose: PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: null,
+    onClickDate: null,
+    selectedDay: null,
+    minDate: null,
+    maxDate: null,
+    displayTime: true,
+    onClose: null,
+  };
+
   constructor(props) {
     super(props);
     let startedSelectedDate;
@@ -28,173 +233,18 @@ class DatePicker extends React.Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (moment.isMoment(newProps.selectedDay)) {
-      this.setState({
-        viewDate: newProps.selectedDay,
-        hours: this.convertTimeValueToString(newProps.selectedDay.hours()),
-        minutes: this.convertTimeValueToString(newProps.selectedDay.minutes()),
-        seconds: this.convertTimeValueToString(newProps.selectedDay.seconds()),
-      });
-    }
-  }
-
-  componentWillMount() {
-    let viewDate;
-
-    if (moment.isMoment(this.props.selectedDay)) {
-      viewDate = this.props.selectedDay;
-    } else {
-      viewDate = moment();
-    }
-
-    this.setState({
-      viewDate
-    });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onClickNextMonth = () => {
-    this.setState({
-      viewDate: this.state.viewDate.clone().add(1, 'month')
-    });
-  }
-
-  onClickPreviousMonth = () => {
-    this.setState({
-      viewDate: this.state.viewDate.clone().subtract(1, 'month')
-    });
-  }
-
-  onFocusTime = (event) => {
-    const formField = event.target.getAttribute('data-form-field');
-
-    if (parseInt(this.state[formField], 10) === 0) {
-      this.setState({
-        [formField]: '',
-      });
-    }
-  }
-
-  onBlurTime = (event) => {
-    const formField = event.target.getAttribute('data-form-field');
-    let newValue = this.convertTimeValueToString(event.target.value);
-
-    this.setState({
-      [formField]: newValue,
-    }, () => {
-      let newDate;
-
-      if (moment.isMoment(this.props.selectedDay)) {
-        newDate = this.props.selectedDay.clone();
-      } else {
-        newDate = moment();
-      }
-
-      newDate.hours(this.state.hours);
-      newDate.minutes(this.state.minutes);
-      newDate.seconds(this.state.seconds);
-
-      this.props.onClickDate(newDate);
-    });
-  }
-
-  onChangeTime = (event) => {
-    const formField = event.target.getAttribute('data-form-field');
-    let newValue = this.convertTimeValueToString(event.target.value, false);
-
-    if (newValue > 24 && formField === 'hours') {
-      newValue = '23';
-    } else if (newValue > 60) {
-      newValue = '59';
-    }
-
-    this.setState({
-      [formField]: newValue,
-    });
-  }
-
-  convertTimeValueToString(value, addLeadingZero = true) {
-    let parsedValue = parseInt(value, 10);
-
-    if (isNaN(parsedValue)) {
-      parsedValue = 0;
-    }
-
-    if (addLeadingZero) {
-      return (parsedValue + '').length === 1 ? '0' + parsedValue : '' + parsedValue;
-    } else {
-      return parsedValue === 0 ? '' : '' + parsedValue;
-    }
-  }
-
-  getCssClasses() {
-    let cssClasses = ['date-picker'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    return cssClasses.join(' ');
-  }
-
-  getCalendarMonthWeeks() {
-    const baseMonth = this.state.viewDate.month();
-    const currentProcessingDay = this.state.viewDate.clone().startOf('month').weekday(0);
-    const calendarMonthWeeks = [];
-
-    do {
-      const weekDays = [];
-
-      for (let x = 0; x < 7; x += 1) {
-        weekDays.push(currentProcessingDay.clone());
-
-        currentProcessingDay.add(1, 'days');
-      }
-
-      calendarMonthWeeks.push(weekDays);
-    } while (currentProcessingDay.month() === baseMonth);
-
-    return calendarMonthWeeks;
-  }
-
-  isActiveDay(day) {
-    let isActive = false;
-
-    if (moment.isMoment(this.props.selectedDay)) {
-      if (isActive) {
-        return;
-      }
-
-      if (day.diff(this.props.selectedDay.clone().startOf('day'), 'days') === 0) {
-        isActive = true;
-      }
-    }
-
-    return isActive;
-  }
-
-  isDisabledDay(day) {
-    let isDisabled = false;
-
-    if (this.props.minDate || this.props.maxDate) {
-      isDisabled = (
-        (
-          this.props.minDate
-          && this.props.minDate.isAfter(day)
-        )
-        || (
-          this.props.maxDate
-          && this.props.maxDate.isBefore(day)
-        )
-      );
-    }
-
-    return isDisabled;
-  }
+  componentWillReceiveProps = createComponentWillMount(this);
+  componentWillMount = createComponentWillMount(this);
+  onClickNextMonth = createOnClickNextMonth(this);
+  onClickPreviousMonth = createOnClickPreviousMonth(this);
+  onFocusTime = createOnFocusTime(this);
+  onBlurTime = createOnBlurTime(this);
+  onChangeTime = createOnChangeTime(this);
+  convertTimeValueToString = createConvertTimeValueToString();
+  getCssClasses = createGetCssClasses(this);
+  getCalendarMonthWeeks = createGetCalendarMonthWeeks(this);
+  isActiveDay = createIsActiveDay(this);
+  isDisabledDay = createIsDisabledDay(this);
 
   renderCalendarMonthWeeks() {
     const viewMonth = this.state.viewDate.month();
@@ -312,25 +362,5 @@ class DatePicker extends React.Component {
     );
   }
 }
-
-DatePicker.propTypes = {
-  className: PropTypes.string,
-  onClickDate: PropTypes.func.isRequired,
-  selectedDay: PropTypes.object,
-  minDate: PropTypes.object,
-  maxDate: PropTypes.object,
-  displayTime: PropTypes.bool,
-  onClose: PropTypes.func,
-};
-
-DatePicker.defaultProps = {
-  className: null,
-  onClickDate: null,
-  selectedDay: null,
-  minDate: null,
-  maxDate: null,
-  displayTime: true,
-  onClose: null,
-};
 
 export default DatePicker;

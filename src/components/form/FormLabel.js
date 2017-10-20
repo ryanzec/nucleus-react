@@ -1,31 +1,44 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class FormLabel extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['form-element__label'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.inputType) {
-      cssClasses.push(`m-${this.props.inputType}`);
-      cssClasses.push(`m-${this.props.inputAlignment}`);
+    if (instance.props.inputType) {
+      cssClasses.push(`m-${instance.props.inputType}`);
+      cssClasses.push(`m-${instance.props.inputAlignment}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormLabel extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    isRequired: PropTypes.bool,
+    inputType: PropTypes.oneOf([false, 'checkbox', 'radio']),
+    inputAlignment: PropTypes.oneOf(['left', 'right']),
+    isHidden: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: null,
+    isRequired: false,
+    inputType: false,
+    inputAlignment: 'left',
+    isHidden: false
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   renderRequiredIcon() {
     let node = null;
@@ -58,21 +71,5 @@ class FormLabel extends React.Component {
     );
   }
 }
-
-FormLabel.propTypes = {
-  className: PropTypes.string,
-  isRequired: PropTypes.bool,
-  inputType: PropTypes.oneOf([false, 'checkbox', 'radio']),
-  inputAlignment: PropTypes.oneOf(['left', 'right']),
-  isHidden: PropTypes.bool
-};
-
-FormLabel.defaultProps = {
-  className: null,
-  isRequired: false,
-  inputType: false,
-  inputAlignment: 'left',
-  isHidden: false
-};
 
 export default FormLabel;

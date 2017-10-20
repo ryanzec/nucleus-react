@@ -7,7 +7,70 @@ import NotificationMessage from './NotificationMessage';
 import NotificationActions from './NotificationActions';
 import NotificationCountdown from './NotificationCountdown';
 
+export const createComponentWillMount = (instance) => {
+  return () => {
+    if (instance.props.notification.autoClose) {
+      instance.setState({
+        closeTimeoutId: setTimeout(() => {
+          instance.props.removeAction(instance.props.notification.id);
+        }, instance.props.notification.autoClose)
+      });
+    }
+  };
+};
+
+export const createOnMouseEnterNotification = (instance) => {
+  return () => {
+    if (instance.state.closeTimeoutId) {
+      clearTimeout(instance.state.closeTimeoutId);
+
+      instance.setState({
+        closeTimeoutId: null
+      });
+    }
+  };
+};
+
+export const createOnMouseLeaveNotification = (instance) => {
+  return () => {
+    if (instance.props.notification.autoClose) {
+      instance.start = new Date().getTime();
+
+      instance.setState({
+        closeTimeoutId: setTimeout(() => {
+          instance.props.removeAction(instance.props.notification.id);
+        }, instance.props.notification.autoClose)
+      });
+    }
+  };
+};
+
+export const createOnClickNegative = (instance) => {
+  return () => {
+    instance.props.removeAction(instance.props.notification.id);
+  };
+};
+
+export const createOnClickPositive = (instance) => {
+  return () => {
+    instance.props.removeAction(instance.props.notification.id);
+  };
+};
+
+// TODO: PureComponent?
 class ManagedNotification extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    notification: PropTypes.object.isRequired,
+    removeAction: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    className: null,
+    notification: {},
+    removeAction: null
+  };
+
   constructor(props) {
     super(props);
 
@@ -16,45 +79,11 @@ class ManagedNotification extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (this.props.notification.autoClose) {
-      this.setState({
-        closeTimeoutId: setTimeout(() => {
-          this.props.removeAction(this.props.notification.id);
-        }, this.props.notification.autoClose)
-      });
-    }
-  }
-
-  onMouseEnterNotification = () => {
-    if (this.state.closeTimeoutId) {
-      clearTimeout(this.state.closeTimeoutId);
-
-      this.setState({
-        closeTimeoutId: null
-      });
-    }
-  };
-
-  onMouseLeaveNotification = () => {
-    if (this.props.notification.autoClose) {
-      this.start = new Date().getTime();
-
-      this.setState({
-        closeTimeoutId: setTimeout(() => {
-          this.props.removeAction(this.props.notification.id);
-        }, this.props.notification.autoClose)
-      });
-    }
-  };
-
-  onClickNegative = () => {
-    this.props.removeAction(this.props.notification.id);
-  };
-
-  onClickPositive = () => {
-    this.props.removeAction(this.props.notification.id);
-  };
+  componentWillMount = createComponentWillMount(this);
+  onMouseEnterNotification = createOnMouseEnterNotification(this);
+  onMouseLeaveNotification = createOnMouseLeaveNotification(this);
+  onClickNegative = createOnClickNegative(this);
+  onClickPositive = createOnClickPositive(this);
 
   render() {
     const countdownNode = this.props.notification.autoClose && this.state.closeTimeoutId
@@ -85,17 +114,5 @@ class ManagedNotification extends React.Component {
     );
   }
 }
-
-ManagedNotification.propTypes = {
-  className: PropTypes.string,
-  notification: PropTypes.object.isRequired,
-  removeAction: PropTypes.func.isRequired
-};
-
-ManagedNotification.defaultProps = {
-  className: null,
-  notification: {},
-  removeAction: null
-};
 
 export default ManagedNotification;

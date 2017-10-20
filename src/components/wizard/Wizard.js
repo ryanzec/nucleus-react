@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import Modal from 'src/components/modal/Modal';
 import ModalHeader from 'src/components/modal/ModalHeader';
@@ -15,7 +12,111 @@ import WizardNavigation from './WizardNavigation';
 import WizardContent from './WizardContent';
 import WizardStepIndicator from './WizardStepIndicator';
 
-class Wizard extends React.Component {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['wizard'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createOnClickNextStep = (instance) => {
+  return () => {
+    if (instance.state.activeStep === instance.props.steps.length - 1) {
+      if (instance.props.steps[instance.state.activeStep].nextHandler) {
+        instance.props.steps[instance.state.activeStep].nextHandler(instance.props.closeHandler);
+      } else {
+        instance.props.closeHandler();
+      }
+    } else {
+      if (instance.props.steps[instance.state.activeStep].nextHandler) {
+        instance.props.steps[instance.state.activeStep].nextHandler(instance.increaseStep.bind(instance));
+      } else {
+        instance.increaseStep();
+      }
+    }
+  };
+};
+
+export const createOnClickPreviousStep = (instance) => {
+  return () => {
+    if (instance.state.activeStep > 0) {
+      if (instance.props.steps[instance.state.activeStep].previousHandler) {
+        instance.props.steps[instance.state.activeStep].previousHandler(instance.decreaseStep.bind(instance));
+      } else {
+        instance.decreaseStep();
+      }
+    }
+  };
+};
+
+export const createIncreaseStep = (instance) => {
+  return ()  => {
+    instance.setState({
+      activeStep: instance.state.activeStep + 1
+    });
+  };
+};
+
+export const createDecreaseStep = (instance) => {
+  return () => {
+    instance.setState({
+      activeStep: instance.state.activeStep - 1
+    });
+  };
+};
+
+export const createGetNextButtonText = (instance) => {
+  return () => {
+    let nextNodeText = 'Next';
+
+    if (instance.state.activeStep === instance.props.steps.length - 1) {
+      nextNodeText = 'Done';
+    }
+
+    return nextNodeText;
+  };
+};
+
+export const createGetStepTitles = (instance) => {
+  return () => {
+    return instance.props.steps.map((step) => {
+      return step.title || 'N/A';
+    });
+  };
+};
+
+class Wizard extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    steps: PropTypes.array.isRequired,
+    isActive: PropTypes.bool,
+    closeHandler: PropTypes.func.isRequired,
+    allowExit: PropTypes.bool,
+    allowGoingBackwards: PropTypes.bool,
+    previousButtonText: PropTypes.string,
+    nextButtonText: PropTypes.string,
+    finishButtonText: PropTypes.string,
+    initialStep: PropTypes.number
+  };
+
+  static defaultProps = {
+    className: null,
+    steps: null,
+    isActive: false,
+    closeHandler: null,
+    allowExit: false,
+    allowGoingBackwards: true,
+    previousButtonText: 'Previous',
+    nextButtonText: 'Next',
+    finishButtonText: 'Done',
+    initialStep: 0
+  };
+
   constructor(props) {
     super(props);
 
@@ -30,73 +131,13 @@ class Wizard extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onClickNextStep = () => {
-    if (this.state.activeStep === this.props.steps.length - 1) {
-      if (this.props.steps[this.state.activeStep].nextHandler) {
-        this.props.steps[this.state.activeStep].nextHandler(this.props.closeHandler);
-      } else {
-        this.props.closeHandler();
-      }
-    } else {
-      if (this.props.steps[this.state.activeStep].nextHandler) {
-        this.props.steps[this.state.activeStep].nextHandler(this.increaseStep.bind(this));
-      } else {
-        this.increaseStep();
-      }
-    }
-  };
-
-  onClickPreviousStep = () => {
-    if (this.state.activeStep > 0) {
-      if (this.props.steps[this.state.activeStep].previousHandler) {
-        this.props.steps[this.state.activeStep].previousHandler(this.decreaseStep.bind(this));
-      } else {
-        this.decreaseStep();
-      }
-    }
-  };
-
-  getCssClasses() {
-    let cssClasses = ['wizard'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    return cssClasses.join(' ');
-  }
-
-  increaseStep() {
-    this.setState({
-      activeStep: this.state.activeStep + 1
-    });
-  }
-
-  decreaseStep() {
-    this.setState({
-      activeStep: this.state.activeStep - 1
-    });
-  }
-
-  getNextButtonText() {
-    let nextNodeText = 'Next';
-
-    if (this.state.activeStep === this.props.steps.length - 1) {
-      nextNodeText = 'Done';
-    }
-
-    return nextNodeText;
-  }
-
-  getStepTitles() {
-    return this.props.steps.map((step) => {
-      return step.title || 'N/A';
-    });
-  }
+  onClickNextStep = createOnClickNextStep(this);
+  onClickPreviousStep = createOnClickPreviousStep(this);
+  getCssClasses = createGetCssClasses(this);
+  increaseStep = createIncreaseStep(this);
+  decreaseStep = createDecreaseStep(this);
+  getNextButtonText = createGetNextButtonText(this);
+  getStepTitles = createGetStepTitles(this);
 
   renderModalContent() {
     return this.props.steps[this.state.activeStep].content;
@@ -173,31 +214,5 @@ class Wizard extends React.Component {
     );
   }
 }
-
-Wizard.propTypes = {
-  className: PropTypes.string,
-  steps: PropTypes.array.isRequired,
-  isActive: PropTypes.bool,
-  closeHandler: PropTypes.func.isRequired,
-  allowExit: PropTypes.bool,
-  allowGoingBackwards: PropTypes.bool,
-  previousButtonText: PropTypes.string,
-  nextButtonText: PropTypes.string,
-  finishButtonText: PropTypes.string,
-  initialStep: PropTypes.number
-};
-
-Wizard.defaultProps = {
-  className: null,
-  steps: null,
-  isActive: false,
-  closeHandler: null,
-  allowExit: false,
-  allowGoingBackwards: true,
-  previousButtonText: 'Previous',
-  nextButtonText: 'Next',
-  finishButtonText: 'Done',
-  initialStep: 0
-};
 
 export default Wizard;
