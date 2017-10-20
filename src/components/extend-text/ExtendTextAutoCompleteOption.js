@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class ExtendTextAutoCompleteOption extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['extend-text__auto-complete-option'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.isActive) {
+    if (instance.props.isActive) {
       cssClasses.push('is-active');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class ExtendTextAutoCompleteOption extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    isActive: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: null,
+    isActive: false
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -35,15 +42,5 @@ class ExtendTextAutoCompleteOption extends React.Component {
     );
   }
 }
-
-ExtendTextAutoCompleteOption.propTypes = {
-  className: PropTypes.string,
-  isActive: PropTypes.bool
-};
-
-ExtendTextAutoCompleteOption.defaultProps = {
-  className: null,
-  isActive: false
-};
 
 export default ExtendTextAutoCompleteOption;

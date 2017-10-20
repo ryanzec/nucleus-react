@@ -1,14 +1,77 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import AppendBodyComponent from 'src/components/append-body-component/AppendBodyComponent';
 
+export const createComponentDidMount = (instance) => {
+  return () => {
+    instance.updateSelf();
+  };
+};
+
+export const createComponentDidUpdate = (instance) => {
+  return () => {
+    instance.updateSelf();
+  };
+};
+
+export const createComponentWillUnmount = (instance) => {
+  return () => {
+    instance.removeAppendElement();
+  };
+};
+
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['overlay'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.isActive) {
+      cssClasses.push('active');
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createUpdateSelf = (instance) => {
+  return () => {
+    let topContentNode = null;
+
+    if (instance.props.children && instance.props.children[0]) {
+      topContentNode = (
+        <div className="overlay__top-content">{instance.props.children}</div>
+      );
+    }
+
+    instance.updateAppendElement(
+      <div
+        key={`overlay-${instance.uniqueId}`}
+        className={instance.getCssClasses()}
+        {...getPassThroughProperties(instance.props, Overlay.propTypes)}
+      >
+        {topContentNode}
+      </div>
+    );
+  };
+};
+
 class Overlay extends AppendBodyComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    isActive: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    isActive: false,
+  };
+
   constructor(props) {
     super(props);
 
@@ -16,69 +79,15 @@ class Overlay extends AppendBodyComponent {
     this.setAppendElementId(this.uniqueId);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  componentDidMount() {
-    this.updateSelf();
-  }
-
-  componentDidUpdate() {
-    this.updateSelf();
-  }
-
-  componentWillUnmount() {
-    this.removeAppendElement();
-  }
-
-  getCssClasses() {
-    let cssClasses = ['overlay'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isActive) {
-      cssClasses.push('active');
-    }
-
-    return cssClasses.join(' ');
-  }
-
-  updateSelf() {
-    let topContentNode = null;
-
-    if (this.props.children && this.props.children[0]) {
-      topContentNode = (
-        <div className="overlay__top-content">{this.props.children}</div>
-      );
-    }
-
-    this.updateAppendElement(
-      <div
-        key={`overlay-${this.uniqueId}`}
-        className={this.getCssClasses()}
-        {...getPassThroughProperties(this.props, Overlay.propTypes)}
-      >
-        {topContentNode}
-      </div>
-    );
-  }
+  componentDidMount = createComponentDidMount(this);
+  componentDidUpdate = createComponentDidUpdate(this);
+  componentWillUnmount = createComponentWillUnmount(this);
+  getCssClasses = createGetCssClasses(this);
+  updateSelf = createUpdateSelf(this);
 
   render() {
     return null;
   }
 }
-
-Overlay.propTypes = {
-  className: PropTypes.string,
-  isActive: PropTypes.bool
-};
-
-Overlay.defaultProps = {
-  className: null,
-  isActive: false
-};
 
 export default Overlay;

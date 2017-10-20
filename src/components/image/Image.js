@@ -1,39 +1,52 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
+
+export const getInitialState = () => {
+  return {
+    errorLoading: false
+  };
+};
+
 import isString from 'lodash/isString';
 
-class Image extends React.Component {
-  constructor(props) {
-    super(props);
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['image'];
 
-    this.state = {
-      errorLoading: false
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onError = () => {
-    this.setState({
-      errorLoading: true
-    });
-  };
-
-  getCssClasses() {
-    let cssClasses = [];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+export const createOnError = (instance) => {
+  return () => {
+    instance.setState({
+      errorLoading: true
+    });
+  };
+};
+
+class Image extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    notFoundNode: PropTypes.node,
+    src: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null,
+    notFoundNode: null,
+    src: null
+  };
+
+  state = getInitialState();
+
+  onError = createOnError(this);
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     let node = (
@@ -52,17 +65,5 @@ class Image extends React.Component {
     return node;
   }
 }
-
-Image.propTypes = {
-  className: PropTypes.string,
-  notFoundNode: PropTypes.node,
-  src: PropTypes.string
-};
-
-Image.defaultProps = {
-  className: null,
-  notFoundNode: null,
-  src: null
-};
 
 export default Image;

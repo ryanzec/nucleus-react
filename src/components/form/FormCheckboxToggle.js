@@ -1,28 +1,39 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class FormCheckboxToggle extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['form-element__checkbox-toggle'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.checked) {
+    if (instance.props.checked) {
       cssClasses.push('is-checked');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormCheckboxToggle extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    checked: PropTypes.bool,
+    offNode: PropTypes.node,
+    onNode: PropTypes.node
+  };
+
+  static defaultProps = {
+    className: null,
+    checked: false,
+    offNode: 'Off',
+    onNode: 'On'
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -38,19 +49,5 @@ class FormCheckboxToggle extends React.Component {
     );
   }
 }
-
-FormCheckboxToggle.propTypes = {
-  className: PropTypes.string,
-  checked: PropTypes.bool,
-  offNode: PropTypes.node,
-  onNode: PropTypes.node
-};
-
-FormCheckboxToggle.defaultProps = {
-  className: null,
-  checked: false,
-  offNode: 'Off',
-  onNode: 'On'
-};
 
 export default FormCheckboxToggle;

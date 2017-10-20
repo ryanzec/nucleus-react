@@ -1,24 +1,31 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class NotificationContainer extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['notification-container', `m-position-${instance.props.position}`];
 
-  getCssClasses() {
-    let cssClasses = ['notification-container', `m-position-${this.props.position}`];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class NotificationContainer extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
+  };
+
+  static defaultProps = {
+    className: null,
+    position: 'bottom-left'
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -31,15 +38,5 @@ class NotificationContainer extends React.Component {
     );
   }
 }
-
-NotificationContainer.propTypes = {
-  className: PropTypes.string,
-  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
-};
-
-NotificationContainer.defaultProps = {
-  className: null,
-  position: 'bottom-left'
-};
 
 export default NotificationContainer;

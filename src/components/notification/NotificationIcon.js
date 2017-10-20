@@ -1,26 +1,31 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-import SvgIcon from 'src/components/svg-icon/SvgIcon';
-
-class NotificationIcon extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['notification__icon'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
+
+class NotificationIcon extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -34,13 +39,5 @@ class NotificationIcon extends React.Component {
     );
   }
 }
-
-NotificationIcon.propTypes = {
-  className: PropTypes.string
-};
-
-NotificationIcon.defaultProps = {
-  className: null
-};
 
 export default NotificationIcon;

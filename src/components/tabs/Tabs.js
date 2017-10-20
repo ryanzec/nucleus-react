@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class Tabs extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['tab'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class Tabs extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    styleType: PropTypes.oneOf(['block']),
+  };
+
+  static defaultProps = {
+    className: null,
+    styleType: null,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -35,15 +42,5 @@ class Tabs extends React.Component {
     );
   }
 }
-
-Tabs.propTypes = {
-  className: PropTypes.string,
-  styleType: PropTypes.oneOf(['block']),
-};
-
-Tabs.defaultProps = {
-  className: null,
-  styleType: null,
-};
 
 export default Tabs;

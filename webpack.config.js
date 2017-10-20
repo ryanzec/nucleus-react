@@ -47,6 +47,35 @@ var webpackConfig = {
         }
       }
     }, {
+      test: /\.module\.(css|scss)$/,
+      use: extractSass.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2,
+            module: true,
+            sourceMap: isDevMode
+          }
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: isDevMode
+          }
+        }, {
+          loader: 'resolve-url-loader',
+          query: {
+            sourceMap: isDevMode
+          }
+        }, {
+          loader: 'sass-loader',
+          options: {
+            // NOTE: source maps are needed here for the resolve url loader to work properly
+            sourceMap: true
+          }
+        }]
+      })
+    }, {
       test: /\.(css|scss)$/,
       use: extractSass.extract({
         fallback: 'style-loader',

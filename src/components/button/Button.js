@@ -1,36 +1,47 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class Button extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['button'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
-    if (this.props.isPill) {
+    if (instance.props.isPill) {
       cssClasses.push('m-pill');
     }
 
-    if (this.props.isThin) {
+    if (instance.props.isThin) {
       cssClasses.push('m-thin');
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class Button extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
+    isPill: PropTypes.bool,
+    isThin: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    styleType: null,
+    isPill: false,
+    isThin: false,
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -43,19 +54,5 @@ class Button extends React.Component {
     );
   }
 }
-
-Button.propTypes = {
-  className: PropTypes.string,
-  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
-  isPill: PropTypes.bool,
-  isThin: PropTypes.bool
-};
-
-Button.defaultProps = {
-  className: null,
-  styleType: null,
-  isPill: false,
-  isThin: false
-};
 
 export default Button;

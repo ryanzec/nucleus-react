@@ -1,46 +1,76 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { pureRenderShouldComponentUpdate } from 'src/utilities/component';
 
-class Code extends React.Component {
-  componentWillMount() {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['code'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createComponentWillMount = () => {
+  return () => {
     if (process.env.ENV !== 'production') {
       if (!window.Prism) {
         console.warn('The Prism JavaScirpt / CSS must be included in order for the <Code /> component to work properly');
       }
     }
+  };
+};
+
+export const createComponentDidMount = (instance) => {
+  return () => {
+    window.Prism.highlightElement(instance.getCodeElement());
+  };
+};
+
+export const createComponentDidUpdate = (instance) => {
+  return () => {
+    window.Prism.highlightElement(instance.getCodeElement());
   }
+};
 
-  componentDidMount() {
-    window.Prism.highlightElement(this.getCodeElement());
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  componentDidUpdate() {
-    window.Prism.highlightElement(this.getCodeElement());
-  }
-
-  getCssClasses() {
-    let cssClasses = [];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+export const createGetCodeElement = (instance) => {
+  return () => {
+    if (instance.props.isInline === true) {
+      return ReactDOM.findDOMNode(instance);
     }
 
-    return cssClasses.join(' ');
-  }
+    return ReactDOM.findDOMNode(instance).querySelector('code');
+  };
+};
 
-  getCodeElement() {
-    if (this.props.isInline === true) {
-      return ReactDOM.findDOMNode(this);
-    }
+class Code extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    language: PropTypes.string,
+    showLineNumbers: PropTypes.bool,
+    lineNumberStart: PropTypes.number,
+    highlightLines: PropTypes.string,
+    isInline: PropTypes.bool
+  };
 
-    return ReactDOM.findDOMNode(this).querySelector('code');
-  }
+  static defaultProps = {
+    className: null,
+    language: null,
+    showLineNumbers: true,
+    lineNumberStart: null,
+    hightlightLines: null,
+    isInline: false
+  };
+
+  componentWillMount = createComponentWillMount(this);
+  componentDidMount = createComponentDidMount(this);
+  componentDidUpdate = createComponentDidUpdate(this);
+
+  getCssClasses = createGetCssClasses(this);
+  getCodeElement = createGetCodeElement(this);
 
   render() {
     const preCssClasses = [];
@@ -83,23 +113,5 @@ class Code extends React.Component {
     );
   }
 }
-
-Code.propTypes = {
-  className: PropTypes.string,
-  language: PropTypes.string,
-  showLineNumbers: PropTypes.bool,
-  lineNumberStart: PropTypes.number,
-  highlightLines: PropTypes.string,
-  isInline: PropTypes.bool
-};
-
-Code.defaultProps = {
-  className: null,
-  language: null,
-  showLineNumbers: true,
-  lineNumberStart: null,
-  hightlightLines: null,
-  isInline: false
-};
 
 export default Code;

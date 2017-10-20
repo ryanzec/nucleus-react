@@ -1,26 +1,39 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class NotificationActions extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['notification__actions'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class NotificationActions extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    type: PropTypes.oneOf(['icons', 'text']),
+    actions: PropTypes.oneOf(['positive', 'negative', 'both']),
+    onClickPositive: PropTypes.func,
+    onClickNegative: PropTypes.func
+  };
+
+  static defaultProps = {
+    className: null,
+    type: 'icons',
+    actions: 'negative',
+    onClickPositive: null,
+    onClickNegative: null
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   renderTextActions() {
     let nodes;
@@ -76,21 +89,5 @@ class NotificationActions extends React.Component {
     );
   }
 }
-
-NotificationActions.propTypes = {
-  className: PropTypes.string,
-  type: PropTypes.oneOf(['icons', 'text']),
-  actions: PropTypes.oneOf(['positive', 'negative', 'both']),
-  onClickPositive: PropTypes.func,
-  onClickNegative: PropTypes.func
-};
-
-NotificationActions.defaultProps = {
-  className: null,
-  type: 'icons',
-  actions: 'negative',
-  onClickPositive: null,
-  onClickNegative: null
-};
 
 export default NotificationActions;

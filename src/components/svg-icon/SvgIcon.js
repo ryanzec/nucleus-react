@@ -1,57 +1,81 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import iconData from 'font-awesome-svg-icons';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class SvgIcon extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
+export const createGetInnerCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['svg-icon__container', `${instance.props.fragment}-icon`];
 
-  getInnerCssClasses() {
-    let cssClasses = ['svg-icon__container', `${this.props.fragment}-icon`];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.styleType) {
-      cssClasses.push(`m-${this.props.styleType}`);
+    if (instance.props.styleType) {
+      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
 
-  getOuterCssClasses() {
-    let cssClasses = ['svg-icon__outer-container', `${this.props.fragment}-icon`];
+export const createGetOuterCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['svg-icon__outer-container', `${instance.props.fragment}-icon`];
 
-    if (this.props.outerClassName) {
-      cssClasses = cssClasses.concat(this.props.outerClassName.split(' '));
+    if (instance.props.outerClassName) {
+      cssClasses = cssClasses.concat(instance.props.outerClassName.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
 
-  getIndicatorHtml() {
+export const createGetIndicatorHtml = (instance) => {
+  return () => {
     let indicator = '';
 
-    if (this.props.indicator) {
-      indicator = `<div class="svg-icon__indicator m-${this.props.indicator}"></div>`;
+    if (instance.props.indicator) {
+      indicator = `<div class="svg-icon__indicator m-${instance.props.indicator}"></div>`;
     }
 
     return indicator;
-  }
+  };
+};
 
-  getSvgHtml() {
-    if (this.props.size) {
-      return iconData[this.props.size][this.props.fragment];
+export const createGetSvgHtml = (instance) => {
+  return () => {
+    if (instance.props.size) {
+      return iconData[instance.props.size][instance.props.fragment];
     }
 
-    return iconData[this.props.fragment];
-  }
+    return iconData[instance.props.fragment];
+  };
+};
+
+class SvgIcon extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+    fragment: PropTypes.string,
+    indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+    outerClassName: PropTypes.string,
+    size: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: null,
+    styleType: null,
+    fragment: null,
+    indicator: null,
+    outerClassName: null,
+    size: null,
+  };
+
+  getInnerCssClasses = createGetInnerCssClasses(this);
+  getOuterCssClasses = createGetOuterCssClasses(this);
+  getIndicatorHtml = createGetIndicatorHtml(this);
+  getSvgHtml = createGetSvgHtml(this);
 
   render() {
     return (
@@ -64,28 +88,10 @@ class SvgIcon extends React.Component {
           dangerouslySetInnerHTML={{
             __html: this.getSvgHtml() + this.getIndicatorHtml()
           }}
-        ></span>
+        />
       </span>
     );
   }
 }
-
-SvgIcon.propTypes = {
-  className: PropTypes.string,
-  styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  fragment: PropTypes.string,
-  indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
-  outerClassName: PropTypes.string,
-  size: PropTypes.string
-};
-
-SvgIcon.defaultProps = {
-  className: null,
-  styleType: null,
-  fragment: null,
-  indicator: null,
-  outerClassName: null,
-  size: null
-};
 
 export default SvgIcon;

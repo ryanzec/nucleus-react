@@ -1,24 +1,31 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class FormTextbox extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = [instance.props.type === 'textarea' || instance.props.type === 'file' ? `form-element__${instance.props.type}` : 'form-element__textbox'];
 
-  getCssClasses() {
-    let cssClasses = [this.props.type === 'textarea' || this.props.type === 'file' ? `form-element__${this.props.type}` : 'form-element__textbox'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     return cssClasses.join(' ');
-  }
+  };
+};
+
+class FormTextbox extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    type: PropTypes.string
+  };
+
+  static defaultProps = {
+    className: null,
+    type: 'text'
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     if (this.props.type === 'textarea') {
@@ -38,17 +45,5 @@ class FormTextbox extends React.Component {
     );
   }
 }
-
-FormTextbox.propTypes = {
-  className: PropTypes.string,
-  type: PropTypes.string
-};
-
-FormTextbox.defaultProps = {
-  className: null,
-
-  //NOTE: default input passtrhgouh props
-  type: 'text'
-};
 
 export default FormTextbox;

@@ -1,12 +1,45 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 import {NativeTypes as nativeTypes} from 'react-dnd-html5-backend';
 import {DropTarget as dropTarget} from 'react-dnd';
+
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['file-upload-drap-drop'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.isClickable) {
+      cssClasses.push('is-clickable');
+    }
+
+    if (instance.props.isOver) {
+      cssClasses.push('is-over');
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createOnFileSelect = () => {
+  return (event) => {
+    this.props.processFiles(Array.prototype.slice.call(event.target.files));
+  };
+};
+
+export const createOnClick = (instance) => {
+  return () => {
+    if (!this.props.isClickable) {
+      return;
+    }
+
+    ReactDOM.findDOMNode(instance.refs.input).click();
+  };
+};
 
 const fileTarget = {
   drop(props, monitor) {
@@ -14,40 +47,29 @@ const fileTarget = {
   }
 };
 
-class FileUploadDragDrop extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onFileSelect = event => {
-    this.props.processFiles(Array.prototype.slice.call(event.target.files));
+class FileUploadDragDrop extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    infoNode: PropTypes.node,
+    infoHoverNode: PropTypes.node,
+    isClickable: PropTypes.bool,
+    processFiles: PropTypes.func.isRequired,
+    isOver: PropTypes.bool,
+    canDrop: PropTypes.bool,
+    connectDropTarget: PropTypes.func
   };
 
-  onClick = () => {
-    if (!this.props.isClickable) {
-      return;
-    }
-
-    ReactDOM.findDOMNode(this.refs.input).click();
+  static defaultProps = {
+    className: null,
+    infoNode: 'Drop file here to upload',
+    infoHoverNode: 'Drop file to upload',
+    isClickable: false,
+    processFiles: null
   };
 
-  getCssClasses() {
-    let cssClasses = ['file-upload-drap-drop'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.props.isClickable) {
-      cssClasses.push('is-clickable');
-    }
-
-    if (this.props.isOver) {
-      cssClasses.push('is-over');
-    }
-
-    return cssClasses.join(' ');
-  }
+  onFileSelect = createOnFileSelect();
+  onClick = createOnClick(this);
+  getCssClasses = createGetCssClasses(this);
 
   renderInput() {
     let inputNode = null;
@@ -82,27 +104,6 @@ class FileUploadDragDrop extends React.Component {
     );
   }
 }
-
-FileUploadDragDrop.propTypes = {
-  className: PropTypes.string,
-  infoNode: PropTypes.node,
-  infoHoverNode: PropTypes.node,
-  isClickable: PropTypes.bool,
-  processFiles: PropTypes.func.isRequired,
-
-  //NOTE: provided by redux
-  isOver: PropTypes.bool,
-  canDrop: PropTypes.bool,
-  connectDropTarget: PropTypes.func
-};
-
-FileUploadDragDrop.defaultProps = {
-  className: null,
-  infoNode: 'Drop file here to upload',
-  infoHoverNode: 'Drop file to upload',
-  isClickable: false,
-  processFiles: null
-};
 
 export default dropTarget(nativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),

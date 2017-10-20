@@ -1,16 +1,72 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import PopoverContainer from 'src/components/popover/PopoverContainer';
 import FormTextbox from './FormTextbox';
 import DatePicker from 'src/components/date-picker/DatePicker';
 
-class FormDatePicker extends React.Component {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['form-element__date-picker'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createOnFocus = (instance) => {
+  return () => {
+    instance.setState({
+      isActive: true
+    });
+  };
+};
+
+export const createOnClose = (instance) => {
+  return () => {
+    instance.setState({
+      isActive: false
+    });
+  };
+};
+
+export const createGetInputValue = (instance) => {
+  return () => {
+    let inputValue = '';
+
+    if (moment.isMoment(instance.props.selectedDay)) {
+      inputValue = instance.props.selectedDay.format(instance.props.format);
+    }
+
+    return inputValue;
+  };
+};
+
+class FormDatePicker extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    onClick: PropTypes.func,
+    selectedDay: PropTypes.object,
+    onClickDate: PropTypes.func.isRequired,
+    format: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: null,
+    onClick: null,
+    selectedDay: null,
+    onClickDate: null,
+    format: 'MMM Do, YYYY',
+
+    //NOTE: popover defaults
+    placement: 'top-end'
+  };
+
   constructor(props) {
     super(props);
 
@@ -19,41 +75,10 @@ class FormDatePicker extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onFocus = () => {
-    this.setState({
-      isActive: true
-    });
-  }
-
-  onClose = () => {
-    this.setState({
-      isActive: false
-    });
-  }
-
-  getCssClasses() {
-    let cssClasses = ['form-element__date-picker'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    return cssClasses.join(' ');
-  }
-
-  getInputValue() {
-    let inputValue = '';
-
-    if (moment.isMoment(this.props.selectedDay)) {
-      inputValue = this.props.selectedDay.format(this.props.format);
-    }
-
-    return inputValue;
-  }
+  onFocus = createOnFocus(this);
+  onClose = createOnClose(this);
+  getCssClasses = createGetCssClasses(this);
+  getInputValue = createGetInputValue(this);
 
   render() {
     return (
@@ -76,24 +101,5 @@ class FormDatePicker extends React.Component {
     );
   }
 }
-
-FormDatePicker.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-  selectedDay: PropTypes.object,
-  onClickDate: PropTypes.func.isRequired,
-  format: PropTypes.string,
-};
-
-FormDatePicker.defaultProps = {
-  className: null,
-  onClick: null,
-  selectedDay: null,
-  onClickDate: null,
-  format: 'MMM Do, YYYY',
-
-  //NOTE: popover defaults
-  placement: 'top-end'
-};
 
 export default FormDatePicker;

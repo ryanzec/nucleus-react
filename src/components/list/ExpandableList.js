@@ -1,15 +1,46 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
 import List from './List';
-import ListItem from './ListItem';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class ExpandableList extends React.Component {
+export const createGetCssClasses = (instance) => {
+  return () => {
+    let cssClasses = ['expandable-list'];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.state.isActive) {
+      cssClasses.push('is-active');
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createOnClickHandle = (instance) => {
+  return () => {
+    instance.setState({
+      isActive: !instance.state.isActive,
+    });
+  }
+};
+
+class ExpandableList extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    initialIsActive: PropTypes.bool,
+    handleNode: PropTypes.node.isRequired,
+  };
+
+  static defaultProps = {
+    className: null,
+    initialIsActive: true,
+  };
+
   constructor(props) {
     super(props);
 
@@ -18,29 +49,8 @@ class ExpandableList extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  onClickHandle = () => {
-    this.setState({
-      isActive: !this.state.isActive,
-    });
-  }
-
-  getCssClasses() {
-    let cssClasses = ['expandable-list'];
-
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
-    }
-
-    if (this.state.isActive) {
-      cssClasses.push('is-active');
-    }
-
-    return cssClasses.join(' ');
-  }
+  onClickHandle = createOnClickHandle(this);
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     const iconFragment = this.state.isActive ? 'caret-down' : 'caret-right';
@@ -62,16 +72,5 @@ class ExpandableList extends React.Component {
     );
   }
 }
-
-ExpandableList.propTypes = {
-  className: PropTypes.string,
-  initialIsActive: PropTypes.bool,
-  handleNode: PropTypes.node.isRequired,
-};
-
-ExpandableList.defaultProps = {
-  className: null,
-  initialIsActive: true,
-};
 
 export default ExpandableList;

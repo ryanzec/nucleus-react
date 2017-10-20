@@ -41,7 +41,8 @@
     "confirm": true,
     "_": true,
     "UAParser": true,
-    "process": true
+    "process": true,
+    "requestAnimationFrame": true
   },
   "rules": {
     //babel

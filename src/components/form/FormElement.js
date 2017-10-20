@@ -1,28 +1,35 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
-} from 'src/utilities/component';
+import {getPassThroughProperties} from 'src/utilities/component';
 
-class FormElement extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return pureRenderShouldComponentUpdate(this.props, nextProps, this.state, nextState);
-  }
-
-  getCssClasses() {
+export const createGetCssClasses = (instance) => {
+  return () => {
     let cssClasses = ['form-element'];
 
-    if (this.props.className) {
-      cssClasses = cssClasses.concat(this.props.className.split(' '));
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (this.props.validation) {
-      cssClasses.push(`m-${this.props.validation}`);
+    if (instance.props.validation) {
+      cssClasses.push(`m-${instance.props.validation}`);
     }
 
     return cssClasses.join(' ');
-  }
+  };
+}
+
+class FormElement extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    validation: PropTypes.oneOf([false, 'valid', 'invalid'])
+  };
+
+  static defaultProps = {
+    className: null,
+    validation: false
+  };
+
+  getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
@@ -35,15 +42,5 @@ class FormElement extends React.Component {
     );
   }
 }
-
-FormElement.propTypes = {
-  className: PropTypes.string,
-  validation: PropTypes.oneOf([false, 'valid', 'invalid'])
-};
-
-FormElement.defaultProps = {
-  className: null,
-  validation: false
-};
 
 export default FormElement;
