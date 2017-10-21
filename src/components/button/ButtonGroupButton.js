@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {getPassThroughProperties} from 'src/utilities/component';
 
+import Button from 'src/components/button/Button';
+
 import styles from 'src/components/button/Button.module.scss';
 
 export const createGetCssClasses = (instance) => {
@@ -24,7 +26,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Button extends React.PureComponent {
+class ButtonGroupButton extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['default', 'success', 'info', 'warning', 'danger', 'link']),
@@ -34,23 +36,19 @@ class Button extends React.PureComponent {
 
   static defaultProps = {
     className: null,
-    styleType: 'default',
-    isPill: false,
-    isThin: false,
   };
 
   getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
-      <button
-        className={this.getCssClasses()}
-        {...getPassThroughProperties(this.props, Button.propTypes)}
+      <Button
+        {...getPassThroughProperties(this.props, ButtonGroupButton.propTypes)}
       >
         {this.props.children}
-      </button>
+      </Button>
     );
   }
 }
 
-export default Button;
+export default ButtonGroupButton;

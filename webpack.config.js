@@ -54,7 +54,7 @@ var webpackConfig = {
           loader: 'css-loader',
           options: {
             importLoaders: 2,
-            module: true,
+            modules: true,
             sourceMap: isDevMode
           }
         }, {
@@ -77,6 +77,7 @@ var webpackConfig = {
       })
     }, {
       test: /\.(css|scss)$/,
+      include: /(styles)/,
       use: extractSass.extract({
         fallback: 'style-loader',
         use: [{
@@ -185,7 +186,7 @@ var webpackConfig = {
     ],
 
     //application code
-    application: './web/app/Application.js',
+    application: ['babel-polyfill', './web/app/Application.js'],
   },
   output: {
     path: __dirname + '/web/build',

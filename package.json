@@ -55,6 +55,7 @@
     "babel-register": "6.11.6",
     "browser-env": "3.2.1",
     "css-loader": "0.28.4",
+    "css-modules-require-hook": "4.2.2",
     "enzyme": "3.1.0",
     "enzyme-adapter-react-15": "1.0.2",
     "escope": "3.6.0",
@@ -107,7 +108,8 @@
   "ava": {
     "require": [
       "babel-register",
-      "babel-polyfill"
+      "babel-polyfill",
+      "./test/extensionOverrides.js"
     ],
     "babel": "inherit",
     "failFast": true

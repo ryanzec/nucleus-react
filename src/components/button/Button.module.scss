@@ -1,0 +1,134 @@
+@import '~src/styles/framework/_variables';
+@import '~src/styles/framework/_button';
+
+.container {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $padding-button;
+  border-radius: $border-radius-button;
+  outline: none;
+  border: none;
+  background-color: $background-color-button;
+  color: $color-button;
+  font-size: $font-size-button;
+  text-align: center;
+
+  &:not(.link) {
+    border: 2px solid $background-color-button;
+  }
+
+  &:hover:not(.link) {
+    background-color: $background-color-hover-button;
+    border-color: $background-color-hover-button;
+  }
+
+  &:active:not(.link) {
+    box-shadow: $box-shadow-button;
+  }
+}
+
+.pill {
+  border-radius: $border-radius-pill;
+}
+
+.default {
+  composes: container;
+}
+
+.thin {
+  @include button-apply-thin-colors($background-color-button);
+
+  &:hover:not(.link) {
+    @include button-apply-hover-colors($color-light-button, $background-color-hover-button);
+  }
+}
+
+.thinSvgIcon {
+  @include button-apply-svg-icon-colors($color-light-button);
+}
+
+.success {
+  composes: default;
+
+  @include button-apply-base-colors($color-light-button, $background-color-success-button);
+
+  &.thin {
+    @include button-apply-thin-colors($background-color-success-button);
+  }
+
+  &:not(.link) {
+    border-color: $background-color-success-button;
+  }
+
+  &:hover:not(.link) {
+    @include button-apply-hover-colors($color-light-button, $background-color-success-hover-button);
+  }
+}
+
+.info {
+  composes: default;
+
+  @include button-apply-base-colors($color-light-button, $background-color-info-button);
+
+  &.thin {
+    @include button-apply-thin-colors($background-color-info-button);
+  }
+
+  &:not(.link) {
+    border-color: $background-color-info-button;
+  }
+
+  &:hover:not(.link) {
+    @include button-apply-hover-colors($color-light-button, $background-color-info-hover-button);
+  }
+}
+
+.warning {
+  composes: default;
+
+  @include button-apply-base-colors($color-light-button, $background-color-warning-button);
+
+  &.thin {
+    @include button-apply-thin-colors($background-color-warning-button);
+  }
+
+  &:not(.link) {
+    border-color: $background-color-warning-button;
+  }
+
+  &:hover:not(.link) {
+    @include button-apply-hover-colors($color-light-button, $background-color-warning-hover-button);
+  }
+}
+
+.danger {
+  composes: default;
+
+  @include button-apply-base-colors($color-light-button, $background-color-danger-button);
+
+  &.thin {
+    @include button-apply-thin-colors($background-color-danger-button);
+  }
+
+  &:not(.link) {
+    border-color: $background-color-danger-button;
+  }
+
+  &:hover:not(.link) {
+    @include button-apply-hover-colors($color-light-button, $background-color-danger-hover-button);
+  }
+}
+
+.link {
+  composes: default;
+
+  background-color: $color-transparent;
+  color: $color-link;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

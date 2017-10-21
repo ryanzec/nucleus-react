@@ -3,16 +3,46 @@ import React from 'react';
 import iconData from 'font-awesome-svg-icons';
 import {getPassThroughProperties} from 'src/utilities/component';
 
+import styles from 'src/components/svg-icon/SvgIcon.module.scss';
+
+export const composeStyles = (baseStyles, overrideStyles, composeStyle = 'merge') => {
+  if (!overrideStyles) {
+    return baseStyles;
+  }
+
+  const composedStyles = {};
+  const keys = Object.keys(baseStyles);
+
+  for (let x = 0; x < keys.length; x += 1) {
+    let newValue = baseStyles[keys[x]];
+
+    if (overrideStyles[keys[x]]) {
+      if (composeStyle === 'overwrite') {
+        newValue = overrideStyles[keys[x]];
+      } else {
+        newValue += ` ${overrideStyles[keys[x]]}`;
+      }
+    }
+
+    composedStyles[keys[x]] = newValue;
+  }
+
+  return composedStyles;
+}
+
 export const createGetInnerCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['svg-icon__container', `${instance.props.fragment}-icon`];
+    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
+
+    // NOTE: the non-module class is intended to make icon more selectable in a global sense
+    let cssClasses = [composedStyles.inner, `${instance.props.fragment}-icon`];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
+      cssClasses.push(composedStyles[`${instance.props.styleType}Inner`]);
     }
 
     return cssClasses.join(' ');
@@ -21,7 +51,10 @@ export const createGetInnerCssClasses = (instance) => {
 
 export const createGetOuterCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['svg-icon__outer-container', `${instance.props.fragment}-icon`];
+    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
+
+    // NOTE: the non-module class is intended to make icon more selectable in a global sense
+    let cssClasses = [composedStyles.container, `${instance.props.fragment}-icon`];
 
     if (instance.props.outerClassName) {
       cssClasses = cssClasses.concat(instance.props.outerClassName.split(' '));
@@ -33,10 +66,14 @@ export const createGetOuterCssClasses = (instance) => {
 
 export const createGetIndicatorHtml = (instance) => {
   return () => {
+    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
+
     let indicator = '';
 
     if (instance.props.indicator) {
-      indicator = `<div class="svg-icon__indicator m-${instance.props.indicator}"></div>`;
+      const className = `${composedStyles.indicator} ${styles[`${instance.props.indicator}Indicator`]}`;
+
+      indicator = `<div class="${className}"></div>`;
     }
 
     return indicator;
@@ -61,6 +98,7 @@ class SvgIcon extends React.PureComponent {
     indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     outerClassName: PropTypes.string,
     size: PropTypes.string,
+    overrideStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -70,6 +108,7 @@ class SvgIcon extends React.PureComponent {
     indicator: null,
     outerClassName: null,
     size: null,
+    overrideStyles: null,
   };
 
   getInnerCssClasses = createGetInnerCssClasses(this);
