@@ -1,0 +1,11 @@
+@import '~src/styles/framework/_variables';
+
+.svgIconContainer {
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-right: $spacing-extra-tiny;
+}
+
+.svgIcon {
+  fill: $color-white;
+}

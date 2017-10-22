@@ -1,25 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/badge/Badge.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['badge'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles[instance.props.styleType]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
-    }
-
     if (instance.props.isPill) {
-      cssClasses.push('m-pill');
+      cssClasses.push(composedStyles.isPill);
     }
 
     if (instance.props.isThin) {
-      cssClasses.push('m-thin');
+      cssClasses.push(composedStyles.isThin);
     }
 
     return cssClasses.join(' ');
@@ -29,14 +31,16 @@ export const createGetCssClasses = (instance) => {
 class Badge extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
+    customStyles: PropTypes.object,
+    styleType: PropTypes.oneOf(['default', 'success', 'info', 'warning', 'danger']),
     isPill: PropTypes.bool,
     isThin: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
-    styleType: null,
+    customStyles: null,
+    styleType: 'default',
     isPill: false,
     isThin: false,
   };

@@ -1,0 +1,66 @@
+@import '~src/styles/framework/_variables';
+@import '~src/styles/framework/_button';
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  padding: $padding-badge;
+  border-radius: $border-radius-badge;
+  background-color: $background-color-badge;
+  color: $color-badge;
+  margin-right: $margin-button;
+  font-size: $font-size-badge;
+  border: $border-width-thin-badge solid $background-color-badge;
+}
+
+.isPill {
+  border-radius: $border-radius-pill-badge;
+}
+
+.isThin {
+  @include button-apply-thin-colors($background-color-badge);
+}
+
+.default {
+  composes: container;
+}
+
+.success {
+  composes: container;
+
+  @include button-apply-base-colors($color-badge, $background-color-success-badge);
+
+  &.isThin {
+    @include button-apply-thin-colors($background-color-success-badge);
+  }
+}
+
+.info {
+  composes: container;
+
+  @include button-apply-base-colors($color-badge, $background-color-info-badge);
+
+  &.isThin {
+    @include button-apply-thin-colors($background-color-info-badge);
+  }
+}
+
+.warning {
+  composes: container;
+
+  @include button-apply-base-colors($color-badge, $background-color-warning-badge);
+
+  &.isThin {
+    @include button-apply-thin-colors($background-color-warning-badge);
+  }
+}
+
+.danger {
+  composes: container;
+
+  @include button-apply-base-colors($color-badge, $background-color-danger-badge);
+
+  &.isThin {
+    @include button-apply-thin-colors($background-color-danger-badge);
+  }
+}

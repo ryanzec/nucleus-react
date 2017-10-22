@@ -45,10 +45,6 @@
   }
 }
 
-.thinSvgIcon {
-  @include button-apply-svg-icon-colors($color-light-button);
-}
-
 .success {
   composes: default;
 

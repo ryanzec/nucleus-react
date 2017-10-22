@@ -34,7 +34,7 @@ class AccordionItemHeader extends React.PureComponent {
     customStyles: null,
     isActive: false,
   };
-  
+
   getCssClasses = createGetCssClasses(this);
 
   render() {
