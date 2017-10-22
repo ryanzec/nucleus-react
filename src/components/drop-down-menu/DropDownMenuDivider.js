@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class DropDownMenuDivider extends React.PureComponent {
+class DropDownMenuDivider extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

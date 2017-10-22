@@ -22,7 +22,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class AccordionItemHeader extends React.PureComponent {
+class AccordionItemHeader extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

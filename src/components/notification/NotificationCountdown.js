@@ -43,7 +43,7 @@ export const createRunCountdownUpdate = (instance) => {
   };
 };
 
-class NotificationCountdown extends React.PureComponent {
+class NotificationCountdown extends React.Component {
   static propTypes = {
     length: PropTypes.number.isRequired
   };

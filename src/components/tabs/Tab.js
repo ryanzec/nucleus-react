@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TabItem extends React.PureComponent {
+class TabItem extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isActive: PropTypes.bool,

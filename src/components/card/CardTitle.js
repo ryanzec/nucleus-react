@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class CardTitle extends React.PureComponent {
+class CardTitle extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

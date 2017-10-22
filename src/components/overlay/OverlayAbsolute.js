@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class OverlayAbsolute extends React.PureComponent {
+class OverlayAbsolute extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isActive: PropTypes.bool,

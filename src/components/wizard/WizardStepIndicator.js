@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class WizardStepIndicator extends React.PureComponent {
+class WizardStepIndicator extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     totalSteps: PropTypes.number.isRequired,

@@ -39,7 +39,7 @@ export const createGetSvgIconCssClases = (instance) => {
   };
 };
 
-class SvgIconBadge extends React.PureComponent {
+class SvgIconBadge extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     svgIconClassName: PropTypes.string,

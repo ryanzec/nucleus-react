@@ -47,7 +47,7 @@ export const createGetInputValue = (instance) => {
   };
 };
 
-class FormDatePicker extends React.PureComponent {
+class FormDatePicker extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     onClick: PropTypes.func,

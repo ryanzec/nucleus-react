@@ -29,7 +29,7 @@ export const createOnClickHandle = (instance) => {
   }
 };
 
-class ExpandableList extends React.PureComponent {
+class ExpandableList extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     initialIsActive: PropTypes.bool,

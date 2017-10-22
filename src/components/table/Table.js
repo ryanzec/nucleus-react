@@ -22,7 +22,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Table extends React.PureComponent {
+class Table extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),

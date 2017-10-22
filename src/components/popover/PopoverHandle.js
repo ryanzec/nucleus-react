@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class PopoverHandle extends React.PureComponent {
+class PopoverHandle extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

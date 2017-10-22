@@ -21,7 +21,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableFooterItem extends React.PureComponent {
+class TableFooterItem extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),

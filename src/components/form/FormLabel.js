@@ -21,7 +21,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormLabel extends React.PureComponent {
+class FormLabel extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isRequired: PropTypes.bool,

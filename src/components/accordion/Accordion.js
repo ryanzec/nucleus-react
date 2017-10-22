@@ -20,7 +20,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Accordion extends React.PureComponent {
+class Accordion extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

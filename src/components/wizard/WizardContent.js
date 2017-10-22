@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class WizardContent extends React.PureComponent {
+class WizardContent extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

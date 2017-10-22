@@ -20,7 +20,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormRadio extends React.PureComponent {
+class FormRadio extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     inputAlignment: PropTypes.oneOf(['left', 'right']),

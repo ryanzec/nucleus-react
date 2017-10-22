@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class FormValidationMessages extends React.PureComponent {
+class FormValidationMessages extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

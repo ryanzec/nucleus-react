@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Tooltip extends React.PureComponent {
+class Tooltip extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

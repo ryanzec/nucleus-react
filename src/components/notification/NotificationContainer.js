@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class NotificationContainer extends React.PureComponent {
+class NotificationContainer extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])

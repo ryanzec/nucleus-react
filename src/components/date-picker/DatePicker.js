@@ -196,7 +196,7 @@ export const createIsDisabledDay = (instance) => {
   };
 };
 
-class DatePicker extends React.PureComponent {
+class DatePicker extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     onClickDate: PropTypes.func.isRequired,

@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class List extends React.PureComponent {
+class List extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['plain']),

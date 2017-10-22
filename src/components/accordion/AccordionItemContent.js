@@ -24,7 +24,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class AccordionItemContent extends React.PureComponent {
+class AccordionItemContent extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

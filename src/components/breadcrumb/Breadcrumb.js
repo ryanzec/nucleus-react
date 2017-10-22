@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Breadcrumb extends React.PureComponent {
+class Breadcrumb extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     onClick: PropTypes.func,

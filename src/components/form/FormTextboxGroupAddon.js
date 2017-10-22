@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class FormTextboxGroupAddon extends React.PureComponent {
+class FormTextboxGroupAddon extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

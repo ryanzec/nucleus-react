@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class FormSelectOption extends React.PureComponent {
+class FormSelectOption extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

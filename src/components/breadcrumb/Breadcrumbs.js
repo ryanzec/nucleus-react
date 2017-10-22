@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Breadcrumbs extends React.PureComponent {
+class Breadcrumbs extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

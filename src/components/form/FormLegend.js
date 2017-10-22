@@ -20,7 +20,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormLegend extends React.PureComponent {
+class FormLegend extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     displayRequiredDetails: PropTypes.bool,

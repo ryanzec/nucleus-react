@@ -16,7 +16,7 @@ export const createGetCssClasses = (instance) => {
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class FormValidationMessage extends React.PureComponent {
+class FormValidationMessage extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     iconFragment: PropTypes.string

@@ -16,7 +16,7 @@ export const createGetCssClasses = (instance) => {
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-class NotificationIcon extends React.PureComponent {
+class NotificationIcon extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

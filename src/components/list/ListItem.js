@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class ListItem extends React.PureComponent {
+class ListItem extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

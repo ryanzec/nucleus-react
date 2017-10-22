@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormElement extends React.PureComponent {
+class FormElement extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     validation: PropTypes.oneOf([false, 'valid', 'invalid'])

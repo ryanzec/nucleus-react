@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormCheckboxToggle extends React.PureComponent {
+class FormCheckboxToggle extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     checked: PropTypes.bool,

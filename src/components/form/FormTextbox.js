@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class FormTextbox extends React.PureComponent {
+class FormTextbox extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     type: PropTypes.string

@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableBody extends React.PureComponent {
+class TableBody extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Tabs extends React.PureComponent {
+class Tabs extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['block']),

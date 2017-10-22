@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class ExtendTextAutoCompleteOption extends React.PureComponent {
+class ExtendTextAutoCompleteOption extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isActive: PropTypes.bool

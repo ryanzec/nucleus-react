@@ -22,7 +22,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class ButtonGroupButton extends React.PureComponent {
+class ButtonGroupButton extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

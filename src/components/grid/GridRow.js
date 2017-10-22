@@ -26,7 +26,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class GridRow extends React.PureComponent {
+class GridRow extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isStretched: PropTypes.bool,

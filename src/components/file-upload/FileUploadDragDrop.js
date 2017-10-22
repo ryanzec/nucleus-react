@@ -47,7 +47,7 @@ const fileTarget = {
   }
 };
 
-class FileUploadDragDrop extends React.PureComponent {
+class FileUploadDragDrop extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     infoNode: PropTypes.node,

@@ -67,7 +67,7 @@ export const createGetSvgHtml = (instance) => {
   };
 };
 
-class SvgIcon extends React.PureComponent {
+class SvgIcon extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

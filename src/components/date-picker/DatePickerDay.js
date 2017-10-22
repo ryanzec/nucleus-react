@@ -40,7 +40,7 @@ export const createOnClick = (instance) => {
   };
 };
 
-class DatePickerDay extends React.PureComponent {
+class DatePickerDay extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isOtherMonth: PropTypes.bool,

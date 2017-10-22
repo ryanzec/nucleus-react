@@ -90,7 +90,7 @@ export const createGetStepTitles = (instance) => {
   };
 };
 
-class Wizard extends React.PureComponent {
+class Wizard extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     steps: PropTypes.array.isRequired,

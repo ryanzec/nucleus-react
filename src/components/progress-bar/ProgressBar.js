@@ -26,7 +26,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class ProgressBar extends React.PureComponent {
+class ProgressBar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),

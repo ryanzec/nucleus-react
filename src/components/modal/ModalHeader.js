@@ -16,7 +16,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class ModalHeader extends React.PureComponent {
+class ModalHeader extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     closeHandler: PropTypes.func,

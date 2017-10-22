@@ -46,7 +46,7 @@ export const createGetCodeElement = (instance) => {
   };
 };
 
-class Code extends React.PureComponent {
+class Code extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     language: PropTypes.string,

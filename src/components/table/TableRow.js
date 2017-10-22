@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableRow extends React.PureComponent {
+class TableRow extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

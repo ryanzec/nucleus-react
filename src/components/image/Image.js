@@ -30,7 +30,7 @@ export const createOnError = (instance) => {
   };
 };
 
-class Image extends React.PureComponent {
+class Image extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     notFoundNode: PropTypes.node,

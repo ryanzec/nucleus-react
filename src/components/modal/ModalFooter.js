@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class ModalFooter extends React.PureComponent {
+class ModalFooter extends React.Component {
   static propTypes = {
     className: PropTypes.string,
   };

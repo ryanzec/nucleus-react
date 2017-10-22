@@ -28,7 +28,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Badge extends React.PureComponent {
+class Badge extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

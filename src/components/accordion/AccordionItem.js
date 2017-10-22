@@ -15,7 +15,7 @@ export const createGetCssClasses = (instance) => {
 };
 
 
-class AccordionItem extends React.PureComponent {
+class AccordionItem extends React.Component {
   getCssClasses = createGetCssClasses(this);
 
   render() {

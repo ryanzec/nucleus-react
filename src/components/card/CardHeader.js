@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class CardHeader extends React.PureComponent {
+class CardHeader extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

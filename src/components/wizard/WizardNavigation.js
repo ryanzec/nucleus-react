@@ -28,7 +28,7 @@ export const createOnToggleCollapse = (instance) => {
   };
 };
 
-class WizardNavigation extends React.PureComponent {
+class WizardNavigation extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

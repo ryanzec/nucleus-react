@@ -28,7 +28,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Button extends React.PureComponent {
+class Button extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,

@@ -21,7 +21,7 @@ export const createGetCssClasses = (instance) => {
   };
 }
 
-class FormCheckbox extends React.PureComponent {
+class FormCheckbox extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     inputAlignment: PropTypes.oneOf(['left', 'right']),

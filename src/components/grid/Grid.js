@@ -22,7 +22,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Grid extends React.PureComponent {
+class Grid extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isForm: PropTypes.bool,

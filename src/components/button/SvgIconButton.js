@@ -46,7 +46,7 @@ export const createGetButtonIconCssClasses = (instance) => {
   };
 };
 
-class SvgIconButton extends React.PureComponent {
+class SvgIconButton extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     svgIconClassName: PropTypes.string,

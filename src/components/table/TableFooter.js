@@ -14,7 +14,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableFooter extends React.PureComponent {
+class TableFooter extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

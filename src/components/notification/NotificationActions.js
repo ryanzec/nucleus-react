@@ -16,7 +16,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class NotificationActions extends React.PureComponent {
+class NotificationActions extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     type: PropTypes.oneOf(['icons', 'text']),

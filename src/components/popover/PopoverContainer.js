@@ -145,7 +145,7 @@ export const createDestroyPopper = (instance) => {
   };
 };
 
-class PopoverContainer extends React.PureComponent {
+class PopoverContainer extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isActive: PropTypes.bool,

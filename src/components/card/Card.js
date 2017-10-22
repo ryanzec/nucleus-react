@@ -18,7 +18,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Card extends React.PureComponent {
+class Card extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger'])
