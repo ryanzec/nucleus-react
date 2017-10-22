@@ -1,23 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
 import styles from 'src/components/button/Button.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = [styles[instance.props.styleType]];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles[instance.props.styleType]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.isPill) {
-      cssClasses.push(styles.pill);
+      cssClasses.push(composedStyles.pill);
     }
 
     if (instance.props.isThin) {
-      cssClasses.push(styles.thin);
+      cssClasses.push(composedStyles.thin);
     }
 
     return cssClasses.join(' ');
@@ -27,6 +31,7 @@ export const createGetCssClasses = (instance) => {
 class Button extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     styleType: PropTypes.oneOf(['default', 'success', 'info', 'warning', 'danger', 'link']),
     isPill: PropTypes.bool,
     isThin: PropTypes.bool,
@@ -34,6 +39,7 @@ class Button extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     styleType: 'default',
     isPill: false,
     isThin: false,

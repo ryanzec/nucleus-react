@@ -1,8 +1,11 @@
 @import '~src/styles/framework/_variables';
 
-:global .svg-icon {
-  height: 100%;
-  width: 100%;
+// NOTE: since the svg container is embedded into the html with dangerouslySetInnerHTML the only sane way to set this css is in the global scope
+:global {
+  .svg-icon {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .container {

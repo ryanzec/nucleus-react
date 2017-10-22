@@ -3,8 +3,7 @@ import React from 'react';
 import request from 'superagent';
 
 import CodeExample from '../../react/components/CodeExample';
-import ButtonGroup from 'src/components/button/ButtonGroup';
-import Button from 'src/components/button/Button';
+import ButtonGroupButton from 'src/components/button/ButtonGroupButton';
 
 import InteractiveExample from './assets/examples/buttons/ButtonsInteractiveExample';
 
@@ -62,14 +61,14 @@ class ButtonsPage extends React.Component {
           exampleComponent={InteractiveExample}
           codeContent={interactiveExampleContent}
         />
-        <ButtonGroup>
-          <Button styleType="success" onClick={this.onClickButton}>Button 1</Button>
-          <Button isPill isThin>Button 2</Button>
-          <Button styleType="danger" isThin>Button 3</Button>
-          <Button styleType="warning">Button 4</Button>
-          <Button>Button 5</Button>
-          <Button styleType="info" isThin>Button 6</Button>
-        </ButtonGroup>
+        <div>
+          <ButtonGroupButton styleType="success" onClick={this.onClickButton}>Button 1</ButtonGroupButton>
+          <ButtonGroupButton isPill isThin>Button 2</ButtonGroupButton>
+          <ButtonGroupButton styleType="danger" isThin>Button 3</ButtonGroupButton>
+          <ButtonGroupButton styleType="warning">Button 4</ButtonGroupButton>
+          <ButtonGroupButton>Button 5</ButtonGroupButton>
+          <ButtonGroupButton styleType="info" isThin>Button 6</ButtonGroupButton>
+        </div>
       </div>
     );
   }

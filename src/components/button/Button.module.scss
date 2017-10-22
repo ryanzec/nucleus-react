@@ -117,6 +117,7 @@
   }
 
   &:hover:not(.link) {
+
     @include button-apply-hover-colors($color-light-button, $background-color-danger-hover-button);
   }
 }

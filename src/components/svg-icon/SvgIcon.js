@@ -1,38 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import iconData from 'font-awesome-svg-icons';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
 import styles from 'src/components/svg-icon/SvgIcon.module.scss';
 
-export const composeStyles = (baseStyles, overrideStyles, composeStyle = 'merge') => {
-  if (!overrideStyles) {
-    return baseStyles;
-  }
-
-  const composedStyles = {};
-  const keys = Object.keys(baseStyles);
-
-  for (let x = 0; x < keys.length; x += 1) {
-    let newValue = baseStyles[keys[x]];
-
-    if (overrideStyles[keys[x]]) {
-      if (composeStyle === 'overwrite') {
-        newValue = overrideStyles[keys[x]];
-      } else {
-        newValue += ` ${overrideStyles[keys[x]]}`;
-      }
-    }
-
-    composedStyles[keys[x]] = newValue;
-  }
-
-  return composedStyles;
-}
-
 export const createGetInnerCssClasses = (instance) => {
   return () => {
-    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
 
     // NOTE: the non-module class is intended to make icon more selectable in a global sense
     let cssClasses = [composedStyles.inner, `${instance.props.fragment}-icon`];
@@ -51,7 +29,7 @@ export const createGetInnerCssClasses = (instance) => {
 
 export const createGetOuterCssClasses = (instance) => {
   return () => {
-    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
 
     // NOTE: the non-module class is intended to make icon more selectable in a global sense
     let cssClasses = [composedStyles.container, `${instance.props.fragment}-icon`];
@@ -66,8 +44,7 @@ export const createGetOuterCssClasses = (instance) => {
 
 export const createGetIndicatorHtml = (instance) => {
   return () => {
-    const composedStyles = composeStyles(styles, instance.props.overrideStyles);
-
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
     let indicator = '';
 
     if (instance.props.indicator) {
@@ -93,22 +70,22 @@ export const createGetSvgHtml = (instance) => {
 class SvgIcon extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     fragment: PropTypes.string,
     indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     outerClassName: PropTypes.string,
     size: PropTypes.string,
-    overrideStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     styleType: null,
     fragment: null,
     indicator: null,
     outerClassName: null,
     size: null,
-    overrideStyles: null,
   };
 
   getInnerCssClasses = createGetInnerCssClasses(this);

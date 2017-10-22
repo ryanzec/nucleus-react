@@ -1,0 +1,17 @@
+@import '~src/styles/framework/_variables';
+@import '~src/styles/framework/_mixins';
+
+.container {
+  margin: 0;
+  border-radius: 0;
+
+  &:first-child {
+    @include border-left-radius($border-radius-button);
+  }
+
+  &:last-child {
+    @include border-right-radius($border-radius-button);
+
+    border-right-width: 2px;
+  }
+}

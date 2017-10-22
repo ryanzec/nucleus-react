@@ -19,32 +19,3 @@
   background-color: $color-white;
   border-color: $dark;
 }
-
-//#{$component-identifier} {
-//  .svg-icon__container {
-//    fill: $color-button;
-//  }
-//
-
-//}
-//
-//.button-group {
-//  .button {
-//    margin: 0;
-//    border-radius: 0;
-//
-//    &:not(:last-child) {
-//      margin-right: 1px;
-//    }
-//
-//    &:first-child {
-//      @include border-left-radius($border-radius-button);
-//    }
-//
-//    &:last-child {
-//      @include border-right-radius($border-radius-button);
-//
-//      border-right-width: 2px;
-//    }
-//  }
-//}

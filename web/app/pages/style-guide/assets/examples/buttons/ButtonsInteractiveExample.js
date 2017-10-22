@@ -16,7 +16,7 @@ import FormSelect from 'src/components/form/FormSelect';
 import FormSelectOption from 'src/components/form/FormSelectOption';
 import FormCheckbox from 'src/components/form/FormCheckbox';
 import Button from 'src/components/button/Button';
-import ButtonSvgIcon from 'src/components/button/ButtonSvgIcon';
+import SvgIconButton from 'src/components/button/SvgIconButton';
 
 import buttonStyles from 'src/components/button/Button.module.scss';
 
@@ -121,25 +121,22 @@ class ButtonsInteractiveExample extends React.Component {
           </FormElement>
         </div>
         <Button
-          styleType={this.props.form.getIn(['styleType', 'value'])}
+          styleType={this.props.form.getIn(['styleType', 'value']).toLowerCase()}
           isPill={this.props.form.getIn(['isPill', 'value'])}
           isThin={this.props.form.getIn(['isThin', 'value'])}
           onClick={this.onClickButton}
         >
           {this.props.form.getIn(['buttonText', 'value'])}
         </Button>
-        <Button
-          styleType={this.props.form.getIn(['styleType', 'value'])}
+        <SvgIconButton
+          styleType={this.props.form.getIn(['styleType', 'value']).toLowerCase()}
           isPill={this.props.form.getIn(['isPill', 'value'])}
           isThin={this.props.form.getIn(['isThin', 'value'])}
           onClick={this.onClickButton}
+          fragment="user"
         >
-          <ButtonSvgIcon
-            fragment="user"
-            isThin={this.props.form.getIn(['isThin', 'value'])}
-            styleType={this.props.form.getIn(['styleType', 'value'])}
-          /> {this.props.form.getIn(['buttonText', 'value'])}
-        </Button>
+          {this.props.form.getIn(['buttonText', 'value'])}
+        </SvgIconButton>
       </span>
     );
   }
