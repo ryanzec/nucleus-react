@@ -37,21 +37,21 @@ class AccordionPage extends React.Component {
         <h1>Accordion</h1>
         <h2>Basic</h2>
         <Accordion>
-          <AccordionItem isActive={this.state.activeAccordionItem === 0}>
+          <AccordionItem>
             <AccordionItemHeader data-key={0} onClick={this.onClickAccordionHeader} isActive={this.state.activeAccordionItem === 0}>Section 1</AccordionItemHeader>
-            <AccordionItemContent>This<br />is<br />content<br />for<br />section<br />one.</AccordionItemContent>
+            <AccordionItemContent isActive={this.state.activeAccordionItem === 0}>This<br />is<br />content<br />for<br />section<br />one.</AccordionItemContent>
           </AccordionItem>
-          <AccordionItem isActive={this.state.activeAccordionItem === 1}>
+          <AccordionItem>
             <AccordionItemHeader data-key={1} onClick={this.onClickAccordionHeader} isActive={this.state.activeAccordionItem === 1}>Section 2</AccordionItemHeader>
-            <AccordionItemContent>This<br />is<br />content<br />for<br />section<br />two.</AccordionItemContent>
+            <AccordionItemContent isActive={this.state.activeAccordionItem === 1}>This<br />is<br />content<br />for<br />section<br />two.</AccordionItemContent>
           </AccordionItem>
-          <AccordionItem isActive={this.state.activeAccordionItem === 2}>
+          <AccordionItem>
             <AccordionItemHeader data-key={2} onClick={this.onClickAccordionHeader} isActive={this.state.activeAccordionItem === 2}>Section 3</AccordionItemHeader>
-            <AccordionItemContent>This<br />is<br />content<br />for<br />section<br />three.</AccordionItemContent>
+            <AccordionItemContent isActive={this.state.activeAccordionItem === 2}>This<br />is<br />content<br />for<br />section<br />three.</AccordionItemContent>
           </AccordionItem>
-          <AccordionItem isActive={this.state.activeAccordionItem === 3}>
+          <AccordionItem>
             <AccordionItemHeader data-key={3} onClick={this.onClickAccordionHeader} isActive={this.state.activeAccordionItem === 3}>Section 4</AccordionItemHeader>
-            <AccordionItemContent>This<br />is<br />content<br />for<br />section<br />four.</AccordionItemContent>
+            <AccordionItemContent isActive={this.state.activeAccordionItem === 3}>This<br />is<br />content<br />for<br />section<br />four.</AccordionItemContent>
           </AccordionItem>
         </Accordion>
       </div>

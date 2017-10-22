@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
+import styles from 'src/components/accordion/AccordionItemHeader.module.scss';
+
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['accordion__item-header'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -17,29 +23,36 @@ export const createGetCssClasses = (instance) => {
 };
 
 class AccordionItemHeader extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
+    isActive: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    customStyles: null,
+    isActive: false,
+  };
+  
   getCssClasses = createGetCssClasses(this);
 
   render() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     return (
       <h4
         className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, AccordionItemHeader.propTypes)}
       >
         {this.props.children}
-        <SvgIcon fragment={this.props.isActive ? 'arrow-up' : 'arrow-down'} />
+        <SvgIcon
+          className={composedStyles.svgIcon}
+          fragment={this.props.isActive ? 'arrow-up' : 'arrow-down'}
+        />
       </h4>
     );
   }
 }
-
-AccordionItemHeader.propTypes = {
-  className: PropTypes.string,
-  isActive: PropTypes.bool,
-};
-
-AccordionItemHeader.defaultProps = {
-  className: null,
-  isActive: false,
-};
 
 export default AccordionItemHeader;

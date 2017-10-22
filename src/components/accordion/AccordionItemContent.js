@@ -1,13 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/accordion/AccordionItemContent.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['accordion__item-content'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.isActive) {
+      cssClasses.push(composedStyles.isActive);
     }
 
     return cssClasses.join(' ');
@@ -15,6 +25,18 @@ export const createGetCssClasses = (instance) => {
 };
 
 class AccordionItemContent extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
+    isActive: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: null,
+    customStyles: null,
+    isActive: false,
+  };
+
   getCssClasses = createGetCssClasses(this);
 
   render() {
@@ -28,13 +50,5 @@ class AccordionItemContent extends React.PureComponent {
     );
   }
 }
-
-AccordionItemContent.propTypes = {
-  className: PropTypes.string
-};
-
-AccordionItemContent.defaultProps = {
-  className: null,
-};
 
 export default AccordionItemContent;
