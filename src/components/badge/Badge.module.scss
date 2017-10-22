@@ -1,4 +1,6 @@
 @import '~src/styles/framework/_variables';
+
+// NOTE: the badge follows the same color pattern as buttons so just reusing those mixins here
 @import '~src/styles/framework/_button';
 
 .container {

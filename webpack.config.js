@@ -14,7 +14,7 @@ var babelPlugins = [
   'static-fs'
 ];
 
-const isDevMode = process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
+const isDevMode = true;//process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
 
 var webpackConfig = {
   resolve: {
@@ -55,7 +55,8 @@ var webpackConfig = {
           options: {
             importLoaders: 2,
             modules: true,
-            sourceMap: isDevMode
+            sourceMap: isDevMode,
+            localIdentName: isDevMode ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]',
           }
         }, {
           loader: 'postcss-loader',
