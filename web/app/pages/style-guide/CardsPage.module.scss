@@ -1,0 +1,16 @@
+:global {
+  .p-style-guide-cards {
+    .overlay-example .overlay__top-content {
+      height: 15px;
+    }
+  }
+}
+
+.card {
+  width: 252px;
+}
+
+.columnCard {
+  width: 782px;
+  columns: 3;
+}

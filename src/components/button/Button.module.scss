@@ -33,10 +33,6 @@
   border-radius: $border-radius-pill;
 }
 
-.default {
-  composes: container;
-}
-
 .thin {
   @include button-apply-thin-colors($background-color-button);
 
@@ -45,9 +41,8 @@
   }
 }
 
+// NOTE: not composes container here as it will make it easier to override styles from the outside if they only have to override .container
 .success {
-  composes: default;
-
   @include button-apply-base-colors($color-light-button, $background-color-success-button);
 
   &.thin {
@@ -64,8 +59,6 @@
 }
 
 .info {
-  composes: default;
-
   @include button-apply-base-colors($color-light-button, $background-color-info-button);
 
   &.thin {
@@ -82,8 +75,6 @@
 }
 
 .warning {
-  composes: default;
-
   @include button-apply-base-colors($color-light-button, $background-color-warning-button);
 
   &.thin {
@@ -100,8 +91,6 @@
 }
 
 .danger {
-  composes: default;
-
   @include button-apply-base-colors($color-light-button, $background-color-danger-button);
 
   &.thin {
@@ -119,8 +108,6 @@
 }
 
 .link {
-  composes: default;
-
   background-color: $color-transparent;
   color: $color-link;
   padding: 0;

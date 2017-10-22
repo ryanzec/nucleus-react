@@ -1,0 +1,15 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  padding: $padding-card;
+
+  &:first-child {
+    border-top-left-radius: $border-radius-card;
+    border-top-right-radius: $border-radius-card;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: $border-radius-card;
+    border-bottom-right-radius: $border-radius-card;
+  }
+}

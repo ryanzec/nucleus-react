@@ -5,7 +5,9 @@ import {
   composeStyles,
 } from 'src/utilities/component';
 
-import styles from 'src/components/card/CardSubtitle.module.scss';
+import Card from 'src/components/card/Card';
+
+import styles from 'src/components/card/ColumnCard.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
@@ -20,7 +22,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class CardSubtitle extends React.Component {
+class ColumnCard extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,
@@ -28,21 +30,21 @@ class CardSubtitle extends React.Component {
 
   static defaultProps = {
     className: null,
-  customStyles: null,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);
 
   render() {
     return (
-      <h5
+      <Card
         className={this.getCssClasses()}
-        {...getPassThroughProperties(this.props, CardSubtitle.propTypes)}
+        {...getPassThroughProperties(this.props, ColumnCard.propTypes)}
       >
         {this.props.children}
-      </h5>
+      </Card>
     );
   }
 }
 
-export default CardSubtitle;
+export default ColumnCard;

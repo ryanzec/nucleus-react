@@ -1,0 +1,9 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  color: $color-footer-header;
+  border-bottom-left-radius: $border-radius-card;
+  border-bottom-right-radius: $border-radius-card;
+  background-color: $background-color-header-footer-card;
+  padding: $padding-card;
+}

@@ -1,0 +1,10 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  font-size: 1.8rem;
+  font-weight: 500;
+  border-top-left-radius: $border-radius-card;
+  border-top-right-radius: $border-radius-card;
+  background-color: $background-color-header-footer-card;
+  padding: $padding-card;
+}

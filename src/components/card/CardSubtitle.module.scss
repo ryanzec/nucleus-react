@@ -1,0 +1,7 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  padding: ($padding-card / 4) $padding-card 0 $padding-card;
+  margin: 0;
+  color: $color-subtitle-card;
+}

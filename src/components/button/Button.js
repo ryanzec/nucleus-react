@@ -10,10 +10,14 @@ import styles from 'src/components/button/Button.module.scss';
 export const createGetCssClasses = (instance) => {
   return () => {
     const composedStyles = composeStyles(styles, instance.props.customStyles);
-    let cssClasses = [composedStyles[instance.props.styleType]];
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.styleType) {
+      cssClasses.push(composedStyles[instance.props.styleType]);
     }
 
     if (instance.props.isPill) {
