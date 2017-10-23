@@ -1,0 +1,31 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  //composes: container from './Overlay.module.scss';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparentize(#000000, .5);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+}
+
+.topContent {
+  z-index: 10001;
+  display: none;
+  color: $color-light-text;
+}
+
+.topContentActive {
+  display: block;
+}
+
+.isActive {
+  //composes: isActive from './Overlay.module.scss';
+  display: block;
+}
