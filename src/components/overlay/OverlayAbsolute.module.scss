@@ -1,31 +1,19 @@
 @import '~src/styles/framework/_variables';
 
 .container {
-  //composes: container from './Overlay.module.scss';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: transparentize(#000000, .5);
-  z-index: 10000;
-  display: none;
-  justify-content: center;
-  align-items: center;
+  composes: container from 'src/components/overlay/Overlay.module.scss';
 
   position: absolute;
 }
 
 .topContent {
-  z-index: 10001;
-  display: none;
-  color: $color-light-text;
+  composes: topContent from 'src/components/overlay/Overlay.module.scss';
 }
 
 .topContentActive {
-  display: block;
+  composes: topContentActive from 'src/components/overlay/Overlay.module.scss';
 }
 
 .isActive {
-  //composes: isActive from './Overlay.module.scss';
-  display: block;
+  composes: isActive from 'src/components/overlay/Overlay.module.scss';
 }

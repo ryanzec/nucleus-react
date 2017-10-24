@@ -53,7 +53,7 @@ var webpackConfig = {
         use: [{
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
+            importLoaders: 3,
             modules: true,
             sourceMap: isDevMode,
             localIdentName: isDevMode ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]',
@@ -84,7 +84,7 @@ var webpackConfig = {
         use: [{
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
+            importLoaders: 3,
             sourceMap: isDevMode
           }
         }, {
