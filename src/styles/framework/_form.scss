@@ -54,3 +54,33 @@
   left: 3px;
   top: -5px;
 }
+
+// NOTE: not sure why but sass errors out on this so just embedding this code into the mixins that would need it
+//@function form-checkbox-circle-radius($height, $spacing) {
+//  @return ($height - ($spacing * 2));
+//}
+
+@mixin form-checkbox-toggle-bar-sizer($height: 24px, $width: 50px, $spacing: 4px) {
+  height: $height;
+  width: $width;
+  line-height: $height;
+  padding: 0 ($spacing + 5) 0 0;
+}
+
+@mixin form-checkbox-toggle-bar-is-checked-sizer($spacing: 4px) {
+  padding: 0 0 0 ($spacing + 5);
+}
+
+@mixin form-checkbox-toggle-circle-sizer($height: 24px, $spacing: 4px) {
+  $circle-radius: ($height - ($spacing * 2));
+
+  height: $circle-radius;
+  width: $circle-radius;
+  transform: translateX($spacing) translateY($spacing);
+}
+
+@mixin form-checkbox-toggle-circle-is-checked-sizer($height: 24px, $width: 50px, $spacing: 4px) {
+  $circle-radius: ($height - ($spacing * 2));
+
+  transform: translateX(($width - ($circle-radius + $spacing))) translateY($spacing);
+}
