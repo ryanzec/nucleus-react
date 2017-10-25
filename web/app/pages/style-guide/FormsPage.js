@@ -379,94 +379,86 @@ class FormsPage extends React.Component {
         <h2>Validation</h2>
         <div>
           <FormLegend displayRequiredDetails={true}>Form Validation</FormLegend>
-          <FormElement validation="invalid">
+          <FormElement>
             <FormLabel>First Name</FormLabel>
             <FormTextboxGroup>
-              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" hasAddon />
-              <FormGroupAddon>@gmail.com</FormGroupAddon>
+              <FormGroupAddon validation="invalid"><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox validation="invalid" type="text" placeholder="First Name" hasAddon />
+              <FormGroupAddon validation="invalid">@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
             <FormValidationMessages>
-              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
-              <FormValidationMessage iconFragment="envelope">Not a valid email address</FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="times">This is required</FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="envelope">Not a valid email address</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="valid">
+          <FormElement>
             <FormLabel>Last Name</FormLabel>
             <FormTextboxGroup>
-              <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" hasAddon />
-              <FormGroupAddon>@gmail.com</FormGroupAddon>
+              <FormGroupAddon validation="valid"><SvgIcon fragment="envelope" /></FormGroupAddon>
+              <FormTextbox validation="valid" type="text" placeholder="First Name" hasAddon />
+              <FormGroupAddon validation="valid">@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
             <FormValidationMessages>
-              <FormValidationMessage iconFragment="check">Yah!</FormValidationMessage>
+              <FormValidationMessage validation="valid" iconFragment="check">Yah!</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="invalid">
+          <FormElement>
             <FormLabel>Bio</FormLabel>
-            <FormTextbox type="textarea" placeholder="First Name"></FormTextbox>
+            <FormTextbox validation="invalid" type="textarea" placeholder="First Name"></FormTextbox>
             <FormValidationMessages>
-              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="times">This is required</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="invalid">
+          <FormElement>
             <FormLabel>Blah</FormLabel>
-            <FormSelect>
+            <FormSelect validation="invalid">
               <FormSelectOption>Select Something...</FormSelectOption>
               <FormSelectOption value="1">Something1</FormSelectOption>
               <FormSelectOption value="2">Something2</FormSelectOption>
               <FormSelectOption value="3">Something2</FormSelectOption>
             </FormSelect>
             <FormValidationMessages>
-              <FormValidationMessage iconFragment="times">This is required</FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="times">This is required</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="valid">
+          <FormElement>
             <FormLabel>Blah</FormLabel>
-            <FormSelect>
+            <FormSelect validation="valid">
               <FormSelectOption>Select Something...</FormSelectOption>
               <FormSelectOption value="1">Something1</FormSelectOption>
               <FormSelectOption value="2">Something2</FormSelectOption>
               <FormSelectOption value="3">Something2</FormSelectOption>
             </FormSelect>
             <FormValidationMessages>
-              <FormValidationMessage iconFragment="check">Yah!</FormValidationMessage>
+              <FormValidationMessage validation="valid" iconFragment="check">Yah!</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="invalid">
-            <FormCheckbox inputAlignment="right">Blah</FormCheckbox>
-            <FormCheckbox checked={true}>Blah</FormCheckbox>
+          <FormElement>
+            <FormCheckbox validation="invalid" inputAlignment="right">Blah</FormCheckbox>
+            <FormCheckbox validation="invalid" checked={true}>Blah</FormCheckbox>
             <FormValidationMessages>
-              <FormValidationMessage>
-                <SvgIcon className="form-element__validation-icon" fragment="times" />This is required
-              </FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="times">This is required </FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="valid">
-            <FormRadio inputAlignment="right">Blah</FormRadio>
-            <FormRadio checked={true}>Blah</FormRadio>
+          <FormElement>
+            <FormRadio validation="valid" inputAlignment="right">Blah</FormRadio>
+            <FormRadio validation="valid" checked={true}>Blah</FormRadio>
             <FormValidationMessages>
-              <FormValidationMessage>
-                <SvgIcon className="form-element__validation-icon" fragment="check" />This is required
-              </FormValidationMessage>
+              <FormValidationMessage validation="valid" iconFragment="check">This is required</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="valid">
+          <FormElement>
             <FormLabel>Last Name</FormLabel>
-            <FormTextbox type="file" />
+            <FormTextbox type="file" validation="valid" />
             <FormValidationMessages>
-              <FormValidationMessage>
-                <SvgIcon className="form-element__validation-icon" fragment="check" />This is required
-              </FormValidationMessage>
+              <FormValidationMessage validation="valid" iconFragment="check">This is required</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
-          <FormElement validation="invalid">
+          <FormElement>
             <FormLabel>Last Name</FormLabel>
-            <FormTextbox type="file" />
+            <FormTextbox type="file" validation="invalid" />
             <FormValidationMessages>
-              <FormValidationMessage>
-                <SvgIcon className="form-element__validation-icon" fragment="times" />This is required
-              </FormValidationMessage>
+              <FormValidationMessage validation="invalid" iconFragment="times">This is required</FormValidationMessage>
             </FormValidationMessages>
           </FormElement>
         </div>

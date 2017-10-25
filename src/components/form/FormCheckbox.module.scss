@@ -14,6 +14,14 @@
   @include form-checkable-svg-icon-container();
 }
 
+.validSvgIcon {
+  @include form-validation-icon-color($color-success);
+}
+
+.invalidSvgIcon {
+  @include form-validation-icon-color($color-danger);
+}
+
 .svgIconDisabled {
   @include form-checkable-svg-icon-container-disabled();
 }

@@ -16,6 +16,10 @@ export const createGetCssClasses = (instance) => {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
+    if (instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}Value`]);
+    }
+
     return cssClasses.join(' ');
   };
 };
@@ -24,11 +28,13 @@ class FormSelect extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
     className: null,
     customStyles: null,
+    validation: null,
   };
 
   getCssClasses = createGetCssClasses(this);

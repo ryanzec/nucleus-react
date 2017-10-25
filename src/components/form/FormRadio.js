@@ -36,6 +36,10 @@ export const createGetSvgIconCssClasses = (instance) => {
       cssClasses.push(composedStyles.svgIconDisabled);
     }
 
+    if (instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}SvgIcon`]);
+    }
+
     if (instance.props.inputAlignment === 'right') {
       cssClasses.push(composedStyles.svgIconRightAligned);
     } else {
@@ -53,6 +57,7 @@ class FormRadio extends React.Component {
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     customStyles: PropTypes.object,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
@@ -61,6 +66,7 @@ class FormRadio extends React.Component {
     checked: false,
     disabled: false,
     customStyles: null,
+    validation: null,
   };
 
   getFormLabelCssClasses = createGetFormLabelCssClasses(this);

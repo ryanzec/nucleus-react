@@ -36,6 +36,10 @@ export const createGetSvgIconCssClasses = (instance) => {
       cssClasses.push(composedStyles.svgIconDisabled);
     }
 
+    if (instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}SvgIcon`]);
+    }
+
     if (instance.props.inputAlignment === 'right') {
       cssClasses.push(composedStyles.svgIconRightAligned);
     } else {
@@ -52,6 +56,7 @@ class FormCheckbox extends React.Component {
     inputAlignment: PropTypes.oneOf(['left', 'right']),
     checked: PropTypes.bool,
     customStyles: PropTypes.object,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
@@ -59,6 +64,7 @@ class FormCheckbox extends React.Component {
     inputAlignment: 'left',
     checked: false,
     customStyles: null,
+    validation: null,
   };
 
   getFormLabelCssClasses = createGetFormLabelCssClasses(this);

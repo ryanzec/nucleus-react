@@ -16,10 +16,6 @@ export const createGetCssClasses = (instance) => {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (instance.props.validation) {
-      cssClasses.push(`m-${instance.props.validation}`);
-    }
-
     return cssClasses.join(' ');
   };
 }
@@ -27,13 +23,11 @@ export const createGetCssClasses = (instance) => {
 class FormElement extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    validation: PropTypes.oneOf([false, 'valid', 'invalid']),
     customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    validation: false,
     customStyles: null,
   };
 

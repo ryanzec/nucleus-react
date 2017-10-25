@@ -7,14 +7,21 @@
 }
 
 .fileInput {
-  border: 1px solid $border-color-input;
-  padding: $padding-input ($padding-input * 2);
+  border: 0;
+  padding: $padding-input 0;
 }
 
-.textInput,
-.selectInput {
+.textInput {
   height: $height-textbox;
   background-color: $color-white;
+}
+
+.validValue {
+  @include form-validation-background-color($color-light-success, $color-dark-success);
+}
+
+.invalidValue {
+  @include form-validation-background-color($color-light-danger, $color-dark-danger);
 }
 
 .hasAddon {

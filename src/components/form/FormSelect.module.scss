@@ -4,4 +4,15 @@
 
 .container {
   @include form-standard-input-styles();
+
+  height: $height-textbox;
+  background-color: $color-white;
+}
+
+.validValue {
+  @include form-validation-background-color($color-light-success, $color-dark-success);
+}
+
+.invalidValue {
+  @include form-validation-background-color($color-light-danger, $color-dark-danger);
 }

@@ -11,8 +11,24 @@
   }
 }
 
+.valid {
+  @include form-validation-color($color-success);
+}
+
+.invalid {
+  @include form-validation-color($color-danger);
+}
+
 .validationIcon {
   height: $size-validation-icon-input;
   width: $size-validation-icon-input;
   margin-right: $padding-validation-icon;
+}
+
+.validValidationIcon {
+  @include form-validation-icon-color($color-success);
+}
+
+.invalidValidationIcon {
+  @include form-validation-icon-color($color-danger);
 }

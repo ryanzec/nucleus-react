@@ -20,6 +20,10 @@ export const createGetCssClasses = (instance) => {
       cssClasses.push(composedStyles.hasAddon);
     }
 
+    if (instance.props.type !== 'file' && instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}Value`]);
+    }
+
     return cssClasses.join(' ');
   };
 };
@@ -30,6 +34,7 @@ class FormTextbox extends React.Component {
     type: PropTypes.string,
     customStyles: PropTypes.object,
     hasAddon: PropTypes.bool,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
@@ -37,6 +42,7 @@ class FormTextbox extends React.Component {
     type: 'text',
     customStyles: null,
     hasAddon: false,
+    validation: null,
   };
 
   getCssClasses = createGetCssClasses(this);
