@@ -1,0 +1,27 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+
+}
+
+.label {
+  @include form-checkable-label-styles();
+}
+
+.svgIcon {
+  @include form-checkable-svg-icon-container();
+}
+
+.svgIconDisabled {
+  @include form-checkable-svg-icon-container-disabled();
+}
+
+.svgIconRightAligned {
+  @include form-checkable-svg-icon-container-right-aligned();
+}
+
+.svgIconLeftAligned {
+  @include form-checkable-svg-icon-container-left-aligned();
+}

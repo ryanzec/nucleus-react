@@ -1,0 +1,30 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+  @include form-standard-input-styles();
+}
+
+.fileInput {
+  border: 1px solid $border-color-input;
+  padding: $padding-input ($padding-input * 2);
+}
+
+.textInput,
+.selectInput {
+  height: $height-textbox;
+  background-color: $color-white;
+}
+
+.hasAddon {
+  border-radius: 0;
+
+  &:first-child {
+    @include border-left-radius($border-radius-input);
+  }
+
+  &:last-child {
+    @include border-right-radius($border-radius-input);
+  }
+}

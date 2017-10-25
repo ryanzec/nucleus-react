@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormCheckboxToggle.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
     let cssClasses = ['form-element__checkbox-toggle'];
 
     if (instance.props.className) {
@@ -23,14 +29,16 @@ class FormCheckboxToggle extends React.Component {
     className: PropTypes.string,
     checked: PropTypes.bool,
     offNode: PropTypes.node,
-    onNode: PropTypes.node
+    onNode: PropTypes.node,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
     checked: false,
     offNode: 'Off',
-    onNode: 'On'
+    onNode: 'On',
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

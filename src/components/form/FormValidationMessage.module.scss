@@ -1,0 +1,18 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+  display: flex;
+  align-items: center;
+
+  &:not(first-child) {
+    padding-top: 4px;
+  }
+}
+
+.validationIcon {
+  height: $size-validation-icon-input;
+  width: $size-validation-icon-input;
+  margin-right: $padding-validation-icon;
+}

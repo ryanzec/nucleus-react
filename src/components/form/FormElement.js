@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormElement.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['form-element'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -21,12 +27,14 @@ export const createGetCssClasses = (instance) => {
 class FormElement extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    validation: PropTypes.oneOf([false, 'valid', 'invalid'])
+    validation: PropTypes.oneOf([false, 'valid', 'invalid']),
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    validation: false
+    validation: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

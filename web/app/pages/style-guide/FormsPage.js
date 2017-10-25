@@ -57,14 +57,14 @@ class FormsPage extends React.Component {
             <FormLabel>First Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
           </FormElement>
           <FormElement>
             <FormLabel>First Name</FormLabel>
             <FormTextboxGroup>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
           </FormElement>
@@ -72,7 +72,7 @@ class FormsPage extends React.Component {
             <FormLabel>First Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
             </FormTextboxGroup>
           </FormElement>
           <FormElement>
@@ -153,14 +153,14 @@ class FormsPage extends React.Component {
             <FormLabel isHidden={true}>First Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
           </FormElement>
           <FormElement>
             <FormLabel isHidden={true}>First Name</FormLabel>
             <FormTextboxGroup>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
           </FormElement>
@@ -168,7 +168,7 @@ class FormsPage extends React.Component {
             <FormLabel isHidden={true}>First Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
             </FormTextboxGroup>
           </FormElement>
           <FormElement>
@@ -218,7 +218,7 @@ class FormsPage extends React.Component {
                 <FormLabel isHidden={true}>First Name</FormLabel>
                 <FormTextboxGroup>
                   <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormTextbox type="text" placeholder="First Name" hasAddon />
                   <FormGroupAddon>@gmail.com</FormGroupAddon>
                 </FormTextboxGroup>
               </FormElement>
@@ -227,7 +227,7 @@ class FormsPage extends React.Component {
               <FormElement  validation="valid">
                 <FormLabel isHidden={true}>First Name</FormLabel>
                 <FormTextboxGroup>
-                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormTextbox type="text" placeholder="First Name" hasAddon />
                   <FormGroupAddon>@gmail.com</FormGroupAddon>
                 </FormTextboxGroup>
                 <FormValidationMessages>
@@ -242,7 +242,7 @@ class FormsPage extends React.Component {
                 <FormLabel isHidden={true}>First Name</FormLabel>
                 <FormTextboxGroup>
                   <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormTextbox type="text" placeholder="First Name" hasAddon />
                 </FormTextboxGroup>
                 <FormValidationMessages>
                   <FormValidationMessage iconFragment="times">Nope!</FormValidationMessage>
@@ -312,7 +312,7 @@ class FormsPage extends React.Component {
               <FormElement>
                 <FormTextboxGroup>
                   <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-                  <FormTextbox type="text" placeholder="First Name" />
+                  <FormTextbox type="text" placeholder="First Name" hasAddon />
                   <FormGroupAddon>@gmail.com</FormGroupAddon>
                 </FormTextboxGroup>
               </FormElement>
@@ -383,7 +383,7 @@ class FormsPage extends React.Component {
             <FormLabel>First Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
             <FormValidationMessages>
@@ -395,7 +395,7 @@ class FormsPage extends React.Component {
             <FormLabel>Last Name</FormLabel>
             <FormTextboxGroup>
               <FormGroupAddon><SvgIcon fragment="envelope" /></FormGroupAddon>
-              <FormTextbox type="text" placeholder="First Name" />
+              <FormTextbox type="text" placeholder="First Name" hasAddon />
               <FormGroupAddon>@gmail.com</FormGroupAddon>
             </FormTextboxGroup>
             <FormValidationMessages>

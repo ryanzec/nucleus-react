@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import SvgIcon from 'src/components/svg-icon/SvgIcon';
+
+import styles from 'src/components/form/FormValidationMessage.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['form-element__validation-message'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,17 +22,17 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-import SvgIcon from 'src/components/svg-icon/SvgIcon';
-
 class FormValidationMessage extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    iconFragment: PropTypes.string
+    iconFragment: PropTypes.string,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    iconFragment: null
+    iconFragment: null,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);
@@ -33,9 +41,11 @@ class FormValidationMessage extends React.Component {
     let iconNode = null;
 
     if (this.props.iconFragment) {
+      const composedStyles = composeStyles(styles, this.props.customStyles);
+
       iconNode = (
         <SvgIcon
-          className="form-element__validation-icon"
+          className={composedStyles.validationIcon}
           fragment={this.props.iconFragment}
         />
       );
