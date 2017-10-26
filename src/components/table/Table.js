@@ -11,19 +11,13 @@ export const createGetCssClasses = (instance) => {
   return () => {
     const composedStyles = composeStyles(styles, instance.props.customStyles);
     let cssClasses = [composedStyles.container, composedStyles[`${instance.props.alignment}Aligned`]];
-    // let cssClasses = ['table', `m-${instance.props.alignment}`];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    // if (instance.props.styleType) {
-    //   cssClasses.push(`m-${instance.props.styleType}`);
-    // }
-
     if (instance.props.isVertical) {
       cssClasses.push(composedStyles.isVertical);
-      // cssClasses.push('is-vertical');
     }
 
     return cssClasses.join(' ');

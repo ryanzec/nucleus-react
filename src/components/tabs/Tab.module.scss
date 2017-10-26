@@ -1,0 +1,33 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+
+.container {
+  @include border-top-radius($border-radius-tiny);
+
+  padding: $spacing-extra-small;
+  margin: 0 $spacing-tiny;
+  background-color: $color-gray2;
+  border: 1px solid $border-color;
+  border-bottom: none;
+
+  &:hover {
+    // NOTE: this is a duplicate of .isActive but can't compose here
+    color: $color-light-text;
+    background-color: $background-color-active;
+    border-color: $background-color-active;
+    cursor: pointer;
+  }
+}
+
+.isActive {
+  color: $color-light-text;
+  background-color: $background-color-active;
+  border-color: $background-color-active;
+  cursor: pointer;
+}
+
+.isBlock {
+  border: none;
+  margin: 0;
+  border-radius: 0;
+}

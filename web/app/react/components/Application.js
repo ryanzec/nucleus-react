@@ -21,9 +21,9 @@ class Application extends React.Component {
           Nucleus React
         </div>
         <div>
-          <Tab styleType="block">
-            <TabItem isActive>Documentation</TabItem>
-            <TabItem onClick={this.onClickGitHub}>GitHub</TabItem>
+          <Tab isBlock>
+            <TabItem isBlock isActive>Documentation</TabItem>
+            <TabItem isBlock onClick={this.onClickGitHub}>GitHub</TabItem>
           </Tab>
         </div>
       </div>

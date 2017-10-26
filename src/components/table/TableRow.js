@@ -11,7 +11,6 @@ export const createGetCssClasses = (instance) => {
   return () => {
     const composedStyles = composeStyles(styles, instance.props.customStyles);
     let cssClasses = [composedStyles.container];
-    // let cssClasses = ['table__row'];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
