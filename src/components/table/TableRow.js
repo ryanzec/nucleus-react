@@ -1,13 +1,32 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/table/TableRow.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['table__row'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
+    // let cssClasses = ['table__row'];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.isZebra) {
+      cssClasses.push(composedStyles.zebra);
+    }
+
+    if (instance.props.isBorderless) {
+      cssClasses.push(composedStyles.borderless);
+
+      if (instance.props.isInHeader) {
+        cssClasses.push(composedStyles.borderlessInHeader);
+      }
     }
 
     return cssClasses.join(' ');
@@ -16,11 +35,17 @@ export const createGetCssClasses = (instance) => {
 
 class TableRow extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    isZebra: PropTypes.bool,
+    isBorderless: PropTypes.bool,
+    isInHeader: PropTypes.bool,
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    isZebra: false,
+    isBorderless: false,
+    isInHeader: false,
   };
 
   getCssClasses = createGetCssClasses(this);

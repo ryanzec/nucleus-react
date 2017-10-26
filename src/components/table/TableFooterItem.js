@@ -2,12 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
+  composeStyles,
 } from 'src/utilities/component';
 
+import styles from 'src/components/table/TableFooterItem.module.scss';
+
 export const createGetCssClasses = (instance) => {
-  return ()  => {
-    let cssClasses = ['table__footer-item', 'table__data-item'];
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[`${instance.props.alignment}Aligned`]];
+    // let cssClasses = ['table__footer-item', 'table__data-item'];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -29,7 +33,7 @@ class TableFooterItem extends React.Component {
 
   static defaultProps = {
     className: null,
-    alignment: null,
+    alignment: 'left',
   };
 
   getCssClasses = createGetCssClasses(this);

@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/image/Image.module.scss';
 
 export const getInitialState = () => {
   return {
-    errorLoading: false
+    errorLoading: false,
   };
 };
 
@@ -12,7 +17,8 @@ import isString from 'lodash/isString';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['image'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -25,7 +31,7 @@ export const createGetCssClasses = (instance) => {
 export const createOnError = (instance) => {
   return () => {
     instance.setState({
-      errorLoading: true
+      errorLoading: true,
     });
   };
 };
@@ -33,12 +39,14 @@ export const createOnError = (instance) => {
 class Image extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     notFoundNode: PropTypes.node,
     src: PropTypes.string
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     notFoundNode: null,
     src: null
   };

@@ -23,7 +23,7 @@ import ExtendTextPage from './ExtendTextPage';
 import WizardPage from './WizardPage';
 import FileUploadDragDropPage from './FileUploadDragDropPage';
 import TabsPage from './TabsPage';
-import TablesPage from './tablesPage';
+import TablesPage from './TablesPage';
 import AccordionPage from './AccordionPage';
 
 export const routes = [

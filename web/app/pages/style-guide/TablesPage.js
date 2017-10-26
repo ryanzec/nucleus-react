@@ -20,6 +20,8 @@ import TableFooter from 'src/components/table/TableFooter';
 import TableFooterItem from 'src/components/table/TableFooterItem';
 // import Image from 'src/components/Image';
 
+import styles from './TablesPage.module.scss';
+
 class TablesPage extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +29,10 @@ class TablesPage extends React.Component {
   }
 
   render() {
+    const wrappingTablesStyles = {
+      container: styles.wrappingTable,
+    };
+
     return (
       <div className="p-style-guide-tables">
         <h1>Tables</h1>
@@ -217,7 +223,7 @@ class TablesPage extends React.Component {
         </Table>
         <h2>Styles</h2>
         <h3>Zebra</h3>
-        <Table styleType="zebra">
+        <Table>
           <TableHeader>
             <TableRow>
               <TableHeaderItem>Class</TableHeaderItem>
@@ -227,25 +233,25 @@ class TablesPage extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
+            <TableRow isZebra>
               <TableBodyItem>Warrior</TableBodyItem>
               <TableBodyItem>Club</TableBodyItem>
               <TableBodyItem>Stamina</TableBodyItem>
               <TableBodyItem>Enrage</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isZebra>
               <TableBodyItem>Ranger</TableBodyItem>
               <TableBodyItem>Bow</TableBodyItem>
               <TableBodyItem>Agility</TableBodyItem>
               <TableBodyItem>Long Range Attack</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isZebra>
               <TableBodyItem>Mage</TableBodyItem>
               <TableBodyItem>Staff</TableBodyItem>
               <TableBodyItem>Mana</TableBodyItem>
               <TableBodyItem>Magic Casting</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isZebra>
               <TableBodyItem>Necromancer</TableBodyItem>
               <TableBodyItem>Wand</TableBodyItem>
               <TableBodyItem>Blood</TableBodyItem>
@@ -256,7 +262,7 @@ class TablesPage extends React.Component {
         <h3>Borderless</h3>
         <Table styleType="borderless">
           <TableHeader>
-            <TableRow>
+            <TableRow isBorderless>
               <TableHeaderItem>Class</TableHeaderItem>
               <TableHeaderItem>Primary Weapon Type</TableHeaderItem>
               <TableHeaderItem>Resource</TableHeaderItem>
@@ -264,25 +270,25 @@ class TablesPage extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
+            <TableRow isBorderless>
               <TableBodyItem>Warrior</TableBodyItem>
               <TableBodyItem>Club</TableBodyItem>
               <TableBodyItem>Stamina</TableBodyItem>
               <TableBodyItem alignment="left">Enrage</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isBorderless>
               <TableBodyItem>Ranger</TableBodyItem>
               <TableBodyItem>Bow</TableBodyItem>
               <TableBodyItem>Agility</TableBodyItem>
               <TableBodyItem alignment="left">Long Range Attack</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isBorderless>
               <TableBodyItem>Mage</TableBodyItem>
               <TableBodyItem>Staff</TableBodyItem>
               <TableBodyItem>Mana</TableBodyItem>
               <TableBodyItem alignment="left">Magic Casting</TableBodyItem>
             </TableRow>
-            <TableRow>
+            <TableRow isBorderless>
               <TableBodyItem>Necromancer</TableBodyItem>
               <TableBodyItem>Wand</TableBodyItem>
               <TableBodyItem>Blood</TableBodyItem>
@@ -291,7 +297,7 @@ class TablesPage extends React.Component {
           </TableBody>
         </Table>
         <h2>Text Wrapping</h2>
-        <Table className="wrapping-table" alignment="left">
+        <Table customStyles={wrappingTablesStyles} alignment="left">
           <TableHeader>
             <TableRow>
               <TableHeaderItem>Lorem</TableHeaderItem>
