@@ -7,7 +7,7 @@ import {DomEventManager} from 'src/utilities/dom';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['popover__container'];
+    let cssClasses = [];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
