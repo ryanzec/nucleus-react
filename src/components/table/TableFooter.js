@@ -22,11 +22,13 @@ export const createGetCssClasses = (instance) => {
 
 class TableFooter extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

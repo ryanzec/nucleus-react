@@ -28,8 +28,8 @@ class Table extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),
-    // styleType: PropTypes.oneOf(['zebra', 'borderless']),
     isVertical: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -37,6 +37,7 @@ class Table extends React.Component {
     alignment: 'center',
     styleType: null,
     isVertical: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/notification/NotificationCountdown.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['notification__countdown'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -45,11 +52,13 @@ export const createRunCountdownUpdate = (instance) => {
 
 class NotificationCountdown extends React.Component {
   static propTypes = {
-    length: PropTypes.number.isRequired
+    length: PropTypes.number.isRequired,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
-    length: 0
+    length: 0,
+    customStyles: null,
   };
 
   constructor(props) {

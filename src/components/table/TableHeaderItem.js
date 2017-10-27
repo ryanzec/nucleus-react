@@ -29,12 +29,14 @@ class TableHeaderItem extends React.Component {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),
     isVertical: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
     alignment: 'left',
     isVertical: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

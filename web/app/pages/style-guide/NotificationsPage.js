@@ -72,61 +72,61 @@ class NotificationsPage extends React.Component {
         <h1>Notifications</h1>
         <h2>Basic</h2>
         <Notification styleType="success" className="u-margin-bottom-12">
-          <NotificationIcon fragment="check" />
+          <NotificationIcon styleType="success" fragment="check" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="icons" actions="both" />
+          <NotificationActions styleType="success" type="icons" actions="both" />
         </Notification>
         <Notification styleType="info" className="u-margin-bottom-12">
-          <NotificationIcon fragment="info" />
+          <NotificationIcon styleType="info" fragment="info" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="text" actions="both" />
+          <NotificationActions styleType="info" type="text" actions="both" />
         </Notification>
         <Notification styleType="warning" className="u-margin-bottom-12">
-          <NotificationIcon fragment="exclamation" />
+          <NotificationIcon styleType="warning" fragment="exclamation" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="text" actions="negative" />
+          <NotificationActions styleType="warning" type="text" actions="negative" />
         </Notification>
         <Notification styleType="danger" className="u-margin-bottom-12">
-          <NotificationIcon fragment="times" />
+          <NotificationIcon styleType="danger" fragment="times" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="icons" actions="positive" />
+          <NotificationActions styleType="danger" type="icons" actions="positive" />
         </Notification>
         <h2>Filled</h2>
         <Notification styleType="success" isFilled={true} className="u-margin-bottom-12">
-          <NotificationIcon fragment="check" />
+          <NotificationIcon isFilled={true} styleType="success" fragment="check" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="icons" actions="both" />
+          <NotificationActions isFilled={true} styleType="success" type="icons" actions="both" />
         </Notification>
         <Notification styleType="info" isFilled={true} className="u-margin-bottom-12">
-          <NotificationIcon fragment="info" />
+          <NotificationIcon isFilled={true} styleType="info" fragment="info" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="text" actions="both" />
+          <NotificationActions isFilled={true} styleType="info" type="text" actions="both" />
         </Notification>
         <Notification styleType="warning" isFilled={true} className="u-margin-bottom-12">
-          <NotificationIcon fragment="exclamation" />
+          <NotificationIcon isFilled={true} styleType="warning" fragment="exclamation" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="text" actions="negative" />
+          <NotificationActions isFilled={true} styleType="warning" type="text" actions="negative" />
         </Notification>
         <Notification styleType="danger" isFilled={true} className="u-margin-bottom-12">
-          <NotificationIcon fragment="times" />
+          <NotificationIcon isFilled={true} styleType="danger" fragment="times" />
           <NotificationMessage>
             This is a BeeYouTeeful notification
           </NotificationMessage>
-          <NotificationActions type="icons" actions="positive" />
+          <NotificationActions isFilled={true} styleType="danger" type="icons" actions="positive" />
         </Notification>
         <h2>Shadows</h2>
         <Notification styleType="success" hasShadow={true} className="u-margin-bottom-12">

@@ -28,11 +28,13 @@ class Tabs extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isBlock: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
     isBlock: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

@@ -24,11 +24,13 @@ class TableBodyItem extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
     alignment: 'left',
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

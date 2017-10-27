@@ -38,6 +38,7 @@ class TableRow extends React.Component {
     isZebra: PropTypes.bool,
     isBorderless: PropTypes.bool,
     isInHeader: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -45,6 +46,7 @@ class TableRow extends React.Component {
     isZebra: false,
     isBorderless: false,
     isInHeader: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

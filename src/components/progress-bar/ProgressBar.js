@@ -37,7 +37,8 @@ class ProgressBar extends React.Component {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     isStriped: PropTypes.bool,
-    isSquare: PropTypes.bool
+    isSquare: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -46,7 +47,8 @@ class ProgressBar extends React.Component {
     isStriped: false,
     isSquare: false,
     max: 100,
-    value: 0
+    value: 0,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

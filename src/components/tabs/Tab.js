@@ -33,12 +33,14 @@ class TabItem extends React.Component {
     className: PropTypes.string,
     isActive: PropTypes.bool,
     isBlock: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
     isActive: false,
     isBlock: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

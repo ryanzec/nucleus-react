@@ -1,25 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/notification/Notification.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['notification'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[instance.props.styleType]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
-    }
-
     if (instance.props.isFilled) {
-      cssClasses.push('m-filled');
+      cssClasses.push(composedStyles[`${instance.props.styleType}IsFilled`]);
     }
 
     if (instance.props.hasShadow) {
-      cssClasses.push('m-shadow');
+      cssClasses.push(composedStyles.hasShadow);
     }
 
     return cssClasses.join(' ');
@@ -31,14 +33,16 @@ class Notification extends React.Component {
     className: PropTypes.string,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     isFilled: PropTypes.bool,
-    hasShadow: PropTypes.bool
+    hasShadow: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    styleType: 'success',
+    styleType: 'info',
     isFilled: false,
-    hasShadow: false
+    hasShadow: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);
