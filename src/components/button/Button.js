@@ -36,7 +36,7 @@ class Button extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     customStyles: PropTypes.object,
-    styleType: PropTypes.oneOf(['default', 'success', 'info', 'warning', 'danger', 'link']),
+    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     isPill: PropTypes.bool,
     isThin: PropTypes.bool,
   };
@@ -44,7 +44,7 @@ class Button extends React.Component {
   static defaultProps = {
     className: null,
     customStyles: null,
-    styleType: 'default',
+    styleType: null,
     isPill: false,
     isThin: false,
   };
