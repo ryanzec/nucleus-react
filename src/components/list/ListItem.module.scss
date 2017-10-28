@@ -1,0 +1,9 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+
+}
+
+.isExpandable {
+  padding-left: #{$spacing-extra-tiny + 12px + $spacing-small};
+}

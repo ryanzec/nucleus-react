@@ -1,0 +1,37 @@
+@import 'src/styles/framework/_variables';
+
+.dayBase {
+  margin: 2px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 2.4rem;
+}
+
+.container {
+  composes: dayBase;
+
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover:not(.isDisabled):not(.isActive) {
+    background-color: $color-gray2;
+    font-weight: 500;
+  }
+}
+
+.isActive {
+  background-color: $background-color-active;
+  color: $color-light-text;
+  font-weight: 500;
+}
+
+.notCurrentMonth {
+  opacity: .6;
+}
+
+.isDisabled {
+  opacity: .3;
+  cursor: not-allowed;
+}

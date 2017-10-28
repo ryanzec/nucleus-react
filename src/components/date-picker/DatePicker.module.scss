@@ -1,0 +1,66 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+
+.container {
+  display: inline-block;
+  border: 1px solid $color-gray4;
+  border-radius: 5px;
+  background-color: $color-white;
+}
+
+.button {
+  @include border-top-radius(0);
+
+  width: 100%;
+}
+
+.previousMonth,
+.nextMonth {
+  @include flexbox-value-width(16px);
+
+  cursor: pointer;
+}
+
+.topBar {
+  @include border-top-radius(4px);
+
+  display: flex;
+  background-color: $color-gray2;
+  padding: $spacing-tiny $spacing-small $spacing-tiny $spacing-small;
+}
+
+.topBarMonthText {
+  flex: 1;
+  text-align: center;
+}
+
+.daysContainer {
+  margin: $spacing-tiny;
+}
+
+.week {
+  display: flex;
+}
+
+.daysOfWeek {
+  display: flex;
+  padding: 0 $spacing-tiny;
+  background-color: $color-gray2;
+}
+
+.dayOfWeek {
+  composes: dayBase from 'src/components/date-picker/DatePickerDay.module.scss';
+}
+
+.timeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 125px;
+  margin: 0 auto;
+  margin-bottom: $spacing-small;
+}
+
+.timeTextbox {
+  @include flexbox-value-width(35px);
+}
