@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/list/List.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['list'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[instance.props.styleType]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
-    }
-
-    if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
     }
 
     return cssClasses.join(' ');
@@ -21,12 +23,14 @@ export const createGetCssClasses = (instance) => {
 class List extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     styleType: PropTypes.oneOf(['plain']),
     type: PropTypes.oneOf(['ol', 'ul'])
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     styleType: null,
     type: 'ul'
   };
