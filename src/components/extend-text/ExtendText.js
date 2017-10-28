@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {getPassThroughProperties} from 'src/utilities/component';
 import { DomEventManager } from 'src/utilities/dom';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
+import capitalize from 'lodash/capitalize';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 import FormTextbox from 'src/components/form/FormTextbox';
 import ExtendTextAutoCompleteOption from './ExtendTextAutoCompleteOption';
 import Button from 'src/components/button/Button';
 import Badge from 'src/components/badge/Badge';
+
+import styles from 'src/components/extend-text/ExtendText.module.scss';
 
 export const createComponentDidMount = (instance) => {
   return () => {
@@ -186,7 +192,8 @@ export const createOnClickDropDownIndicator = (instance) => {
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['extend-text', `m-${instance.props.autoCompletePosition}`];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -195,6 +202,50 @@ export const createGetCssClasses = (instance) => {
     if (instance.state.isActive) {
       cssClasses.push('is-opened');
     }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createGetAutoCompleteCssClasses = (instance) => {
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.autoCompleteContainer, composedStyles[`autoCompleteContainer${capitalize(instance.props.autoCompletePosition)}`]];
+
+    if (instance.state.isActive) {
+      cssClasses.push(composedStyles.autoCompleteContainerIsActive);
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createGetAutoCompleteTextboxCssClasses = (instance) => {
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    const cssClasses = [composedStyles.textbox];
+
+    if (instance.state.isActive) {
+      cssClasses.push(composedStyles[`autoCompleteContainer${capitalize(instance.props.autoCompletePosition)}TextboxIsActive`]);
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createGetAutoCompleteTagsContainerCssClasses = (instance) => {
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    const cssClasses = [composedStyles[`autoCompleteContainer${capitalize(instance.props.autoCompletePosition)}TagsContainer`]];
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createGetAutoCompleteTagCssClasses = (instance) => {
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    const cssClasses = [composedStyles.tag, composedStyles[`autoCompleteContainer${capitalize(instance.props.autoCompletePosition)}Tag`]];
 
     return cssClasses.join(' ');
   };
@@ -463,6 +514,7 @@ loadingSvg = '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6
 class ExtendText extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     options: PropTypes.array,
     asyncOptions: PropTypes.func,
     value: PropTypes.array,
@@ -488,6 +540,7 @@ class ExtendText extends React.Component {
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     options: [],
     asyncOptions: null,
     value: [],
@@ -541,6 +594,10 @@ class ExtendText extends React.Component {
   onClickDropDownIndicator = createOnClickDropDownIndicator(this);
 
   getCssClasses = createGetCssClasses(this);
+  getAutoCompleteCssClasses = createGetAutoCompleteCssClasses(this);
+  getAutoCompleteTagCssClasses = createGetAutoCompleteTagCssClasses(this);
+  getAutoCompleteTagsContainerCssClasses = createGetAutoCompleteTagsContainerCssClasses(this);
+  getAutoCompleteTextboxCssClasses = createGetAutoCompleteTextboxCssClasses(this);
   asyncOptionsCallback = createAsyncOptionsCallback(this);
   generateObjectValueFromInput = createGenerateObjectValueFromInput(this);
   selectActiveItem = createSelectActiveItem(this);
@@ -556,6 +613,8 @@ class ExtendText extends React.Component {
   getDisplayValue = createGetDisplayValue();
 
   renderAutoComplete() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     const processAutoCompleteOptions = (options) => {
       const optionNodes = [];
 
@@ -594,7 +653,7 @@ class ExtendText extends React.Component {
       children.push(
         <div
           key="loading-node"
-          className="extend-text__auto-complete-help-text u-muted-text"
+          className={`${composedStyles.autoCompleteHelpText} u-muted-text`}
         >
           {this.props.loadingNode}
         </div>
@@ -609,7 +668,7 @@ class ExtendText extends React.Component {
       children.push(
         <div
           key="searching-node"
-          className="extend-text__auto-complete-help-text u-muted-text"
+          className={`${composedStyles.autoCompleteHelpText} u-muted-text`}
         >
           {this.props.typeForSearchingNode}
         </div>
@@ -625,7 +684,7 @@ class ExtendText extends React.Component {
         children.push(
           <div
             key="no-options-node"
-            className="extend-text__auto-complete-help-text u-muted-text"
+            className={`${composedStyles.autoCompleteHelpText} u-muted-text`}
           >{
             this.props.noOptionsNode}
           </div>
@@ -636,7 +695,7 @@ class ExtendText extends React.Component {
     return (
       <div
         ref="autoCompleteContainer"
-        className="extend-text__auto-complete-container"
+        className={this.getAutoCompleteCssClasses()}
       >
         {children}
       </div>
@@ -648,12 +707,13 @@ class ExtendText extends React.Component {
       return null;
     }
 
+    const composedStyles = composeStyles(styles, this.props.customStyles);
     let tagNodes = [];
 
     this.props.value.forEach((valueObject, key) => {
       const deleteNode = (
         <SvgIcon
-          className="extend-text__tag-delete"
+          className={composedStyles.tagDeleteSvgIcon}
           data-key={key}
           fragment="times"
           onClick={this.onClickDeleteTag}
@@ -672,7 +732,7 @@ class ExtendText extends React.Component {
       tagNodes.push(
         <Badge
           key={key}
-          className="extend-text__tag"
+          className={this.getAutoCompleteTagCssClasses()}
         >
           {tagNode}
         </Badge>
@@ -695,7 +755,7 @@ class ExtendText extends React.Component {
     return (
       <span>
         {clearAllNode}
-        <div className="extend-text__tags-container">
+        <div className={this.getAutoCompleteTagsContainerCssClasses()}>
           {tagNodes}
         </div>
       </span>
@@ -707,9 +767,11 @@ class ExtendText extends React.Component {
       return null;
     }
 
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     return (
       <svg
-        className="extend-text__loading-indicator"
+        className={composedStyles.loadingIndicator}
         x="0px"
         y="0px"
         viewBox="0 0 40 40"
@@ -721,14 +783,16 @@ class ExtendText extends React.Component {
   }
 
   render() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
     let gutsNode = null;
 
     if (this.props.autoCompletePosition === 'top') {
       gutsNode = (
         <span>
-          <div className="extend-text__input-container">
+          <div className={composedStyles.inputContainer}>
             <FormTextbox
               ref="input"
+              className={this.getAutoCompleteTextboxCssClasses()}
               onFocus={this.onFocusInput}
               onKeyDown={this.onKeyDown}
               value={this.state.inputValue}
@@ -742,7 +806,7 @@ class ExtendText extends React.Component {
               ref="dropDownIndicator"
               onClick={this.onClickDropDownIndicator}
               fragment="caret-down"
-              className="extend-text__drop-down-indicator"
+              className={composedStyles.dropDownIndicator}
             />
             {this.renderAutoComplete()}
           </div>
@@ -753,9 +817,10 @@ class ExtendText extends React.Component {
       gutsNode = (
         <span>
           {this.renderTags()}
-          <div className="extend-text__input-container">
+          <div className={composedStyles.inputContainer}>
             <FormTextbox
               ref="input"
+              className={this.getAutoCompleteTextboxCssClasses()}
               onFocus={this.onFocusInput}
               onKeyDown={this.onKeyDown}
               value={this.state.inputValue}
@@ -769,7 +834,7 @@ class ExtendText extends React.Component {
               ref="dropDownIndicator"
               onClick={this.onClickDropDownIndicator}
               fragment="caret-down"
-              className="extend-text__drop-down-indicator"
+              className={composedStyles.dropDownIndicator}
             />
             {this.renderAutoComplete()}
           </div>
