@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/wizard/Wizard.module.scss';
 
 import Modal from 'src/components/modal/Modal';
 import ModalHeader from 'src/components/modal/ModalHeader';
@@ -14,7 +19,8 @@ import WizardStepIndicator from './WizardStepIndicator';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['wizard'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -90,9 +96,18 @@ export const createGetStepTitles = (instance) => {
   };
 };
 
+export const createOnToggleCollapse = (instance) => {
+  return () => {
+    instance.setState({
+      isCollapsed: !instance.state.isCollapsed,
+    });
+  };
+};
+
 class Wizard extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     steps: PropTypes.array.isRequired,
     isActive: PropTypes.bool,
     closeHandler: PropTypes.func.isRequired,
@@ -101,11 +116,12 @@ class Wizard extends React.Component {
     previousButtonText: PropTypes.string,
     nextButtonText: PropTypes.string,
     finishButtonText: PropTypes.string,
-    initialStep: PropTypes.number
+    initialStep: PropTypes.number,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     steps: null,
     isActive: false,
     closeHandler: null,
@@ -121,7 +137,8 @@ class Wizard extends React.Component {
     super(props);
 
     this.state = {
-      activeStep: props.initialStep || 0
+      activeStep: props.initialStep || 0,
+      isCollapsed: false,
     };
 
     if (process.env.ENV !== 'production') {
@@ -131,6 +148,7 @@ class Wizard extends React.Component {
     }
   }
 
+  onToggleCollapse = createOnToggleCollapse(this);
   onClickNextStep = createOnClickNextStep(this);
   onClickPreviousStep = createOnClickPreviousStep(this);
   getCssClasses = createGetCssClasses(this);
@@ -144,6 +162,7 @@ class Wizard extends React.Component {
   }
 
   renderModal() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
     let previousStepButtonNode = null;
 
     if (this.props.allowGoingBackwards && this.state.activeStep > 0) {
@@ -158,17 +177,23 @@ class Wizard extends React.Component {
       closeHandler = this.props.closeHandler;
     }
 
+    const modalCustomStyles = {
+      wrapper: composedStyles.modalContainer,
+    };
+
     return (
       <Modal
-        className={`m-wizard ${this.props.steps[this.state.activeStep].className}`}
+        className={this.props.steps[this.state.activeStep].className}
+        customStyles={modalCustomStyles}
         isActive={this.props.isActive}
         overlayDisabled
       >
-        <WizardNavigation>
+        <WizardNavigation isCollapsed={this.state.isCollapsed} onToggleCollapse={this.onToggleCollapse}>
           <WizardStepIndicator
             titles={this.getStepTitles()}
             totalSteps={this.props.steps.length}
             currentStep={this.state.activeStep + 1}
+            isCollapsed={this.state.isCollapsed}
           />
         </WizardNavigation>
         <WizardContent>

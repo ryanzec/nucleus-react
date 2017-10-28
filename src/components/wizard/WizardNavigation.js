@@ -1,51 +1,45 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/wizard/WizardNavigiation.module.scss';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['wizard__navigation'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (instance.state.isCollapsed) {
-      cssClasses.push('is-collapsed');
+    if (instance.props.isCollapsed) {
+      cssClasses.push(composedStyles.isCollapsed);
     }
 
     return cssClasses.join(' ');
   };
 };
 
-export const createOnToggleCollapse = (instance) => {
-  return () => {
-    instance.setState({
-      isCollapsed: !instance.state.isCollapsed,
-    });
-  };
-};
-
 class WizardNavigation extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
+    isCollapsed: PropTypes.bool,
+    onToggleCollapse: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    className: null
+    className: null,
+    customStyles: null,
+    isCollapsed: false,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isCollapsed: false,
-    }
-  }
-
-  onToggleCollapse = createOnToggleCollapse(this);
   getCssClasses = createGetCssClasses(this);
 
   render() {
@@ -56,8 +50,8 @@ class WizardNavigation extends React.Component {
       >
         {this.props.children}
         <SvgIcon
-          fragment={this.state.isCollapsed ? 'caret-right' : 'caret-left'}
-          onClick={this.onToggleCollapse}
+          fragment={this.props.isCollapsed ? 'caret-right' : 'caret-left'}
+          onClick={this.props.onToggleCollapse}
         />
       </div>
     );

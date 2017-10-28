@@ -86,7 +86,6 @@ class NotificationActions extends React.Component {
   }
 
   renderIconActions() {
-    console.log(this.getSvgIconCssClasses());
     let nodes;
     const positiveNode = (
       <SvgIcon key="0" fragment="check" className={this.getSvgIconCssClasses()} onClick={this.props.onClickPositive} />
