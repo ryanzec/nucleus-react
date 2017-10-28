@@ -6,7 +6,6 @@ import CodePage from './CodePage';
 import SvgIconsPage from './SvgIconsPage';
 import ButtonsPage from './ButtonsPage';
 import ColorsPage from './ColorsPage';
-import GridPage from './GridPage';
 import CardsPage from './CardsPage';
 import TypographyPage from './TypographyPage';
 import ModalsPage from './ModalsPage';
@@ -50,12 +49,6 @@ export const routes = [
     name="style-guide-buttons"
     path="/style-guide/buttons"
     component={ButtonsPage}
-  />,
-  <Route
-    key="5"
-    name="style-guide-grid"
-    path="/style-guide/grid"
-    component={GridPage}
   />,
   <Route
     key="6"

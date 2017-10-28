@@ -2,11 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Holder from 'holderjs';
 
-import CodeExample from '../../react/components/CodeExample';
-
-import Grid from 'src/components/grid/Grid';
-import GridRow from 'src/components/grid/GridRow';
-import GridColumn from 'src/components/grid/GridColumn';
 import Button from 'src/components/button/Button';
 import OverlayAbsolute from 'src/components/overlay/OverlayAbsolute';
 import Card from 'src/components/card/Card';
@@ -18,13 +13,6 @@ import CardImage from 'src/components/card/CardImage';
 import CardHeader from 'src/components/card/CardHeader';
 import CardFooter from 'src/components/card/CardFooter';
 import ColumnCard from 'src/components/card/ColumnCard';
-
-// import StylesExample from './src/examples/buttons/styles';
-
-// import { readFileSync } from 'fs';
-// import { join } from 'path';
-
-// const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
 
 import styles from './CardsPage.module.scss';
 
