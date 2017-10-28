@@ -1,0 +1,10 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.isActive {
+  background-color: $color-blue1;
+}

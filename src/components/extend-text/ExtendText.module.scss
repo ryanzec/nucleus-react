@@ -1,0 +1,107 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+
+.container {
+  position: relative;
+}
+
+.textbox {
+  padding-right: 24px;
+
+  &[readonly] {
+    cursor: pointer;
+  }
+}
+
+.autoCompleteContainer {
+  position: absolute;
+  width: 100%;
+  border: 1px solid $border-color-input;
+  z-index: 100;
+  background-color: $color-white;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.autoCompleteHelpText {
+  padding: 8px;
+  font-style: italic;
+}
+
+.autoCompleteContainerIsActive {
+  border-color: $border-color-focus-input;
+}
+
+.autoCompleteContainerBottom {
+  @include border-bottom-radius($border-radius-input);
+
+  top: 100%;
+  border-top: none;
+
+  &:last-child {
+    @include border-bottom-radius($border-radius-input - 1);
+  }
+}
+
+.autoCompleteContainerBottomTextboxIsActive {
+  @include border-bottom-radius(0);
+}
+
+.autoCompleteContainerBottomTagsContainer,
+.autoCompleteContainerBottomTag {
+  margin: 0 4px 4px 0;
+}
+
+.autoCompleteContainerTop {
+  @include border-top-radius($border-radius-input);
+
+  bottom: 100%;
+  border-bottom: none;
+
+  &:last-child {
+    @include border-top-radius($border-radius-input - 1);
+  }
+}
+
+.autoCompleteContainerTopTextboxIsActive {
+  @include border-top-radius(0);
+}
+
+.autoCompleteContainerTopTagsContainer,
+.autoCompleteContainerTopTag {
+  margin: 4px 4px 0 0;
+}
+
+.loadingIndicator {
+  position: absolute;
+  right: 25px;
+  top: 3px;
+  animation: spin .4s linear infinite;
+  height: 20px;
+  width: 20px;
+}
+
+.dropDownIndicator {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 26px;
+  width: 31px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.tag {
+
+}
+
+.tagDeleteSvgIcon {
+  margin-right: $spacing-extra-tiny;
+  height: 10px;
+  width: 10px;
+  cursor: pointer;
+}
