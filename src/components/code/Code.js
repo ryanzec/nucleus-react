@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import styles from 'src/components/code/Code.module.scss';
+
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['code'];
+    let cssClasses = [];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -46,7 +48,7 @@ export const createGetCodeElement = (instance) => {
   };
 };
 
-class Code extends React.PureComponent {
+class Code extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     language: PropTypes.string,

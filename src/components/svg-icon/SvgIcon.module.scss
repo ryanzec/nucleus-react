@@ -1,0 +1,65 @@
+@import 'src/styles/framework/_variables';
+
+// NOTE: since the svg container is embedded into the html with dangerouslySetInnerHTML the only sane way to set this css is in the global scope
+:global {
+  .svg-icon {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.container {
+  display: inline-flex;
+  user-select: none;
+}
+
+.inner {
+  display: inline-flex;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  fill: $color-dark-text;
+}
+
+.successInner {
+  fill: $color-success-svg-icon;
+}
+
+.infoInner {
+  fill: $color-info-svg-icon;
+}
+
+.warningInner {
+  fill: $color-warning-svg-icon;
+}
+
+.dangerInner {
+  fill: $color-danger-svg-icon;
+}
+
+.indicator {
+  height: .9rem;
+  width: .9rem;
+  border-radius: 50%;
+  border: 1px solid $color-white;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: $color-dark-text;
+}
+
+.successIndicator {
+  background-color: $color-success-svg-icon;
+}
+
+.infoIndicator {
+  background-color: $color-info-svg-icon;
+}
+
+.warningIndicator {
+  background-color: $color-warning-svg-icon;
+}
+
+.dangerIndicator {
+  background-color: $color-danger-svg-icon;
+}

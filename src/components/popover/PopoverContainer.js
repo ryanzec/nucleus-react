@@ -7,7 +7,7 @@ import {DomEventManager} from 'src/utilities/dom';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['popover__container'];
+    let cssClasses = [];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -145,7 +145,7 @@ export const createDestroyPopper = (instance) => {
   };
 };
 
-class PopoverContainer extends React.PureComponent {
+class PopoverContainer extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isActive: PropTypes.bool,

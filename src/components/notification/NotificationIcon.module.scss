@@ -1,0 +1,33 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_notification';
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-right: $padding-notification;
+}
+
+.svgIcon {
+  height: $icon-size-notification;
+  width: $icon-size-notification;
+}
+
+.success {
+  @include notification-icon-colors($color-dark-success-notification);
+}
+
+.info {
+  @include notification-icon-colors($color-dark-info-notification);
+}
+
+.warning {
+  @include notification-icon-colors($color-dark-warning-notification);
+}
+
+.danger {
+  @include notification-icon-colors($color-dark-danger-notification);
+}
+
+.isFilled {
+  @include notification-icon-colors-filled();
+}

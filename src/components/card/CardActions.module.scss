@@ -1,0 +1,10 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  padding:  0 $padding-card $padding-card $padding-card;
+
+  &:last-child {
+    border-bottom-left-radius: $border-radius-card;
+    border-bottom-right-radius: $border-radius-card;
+  }
+}

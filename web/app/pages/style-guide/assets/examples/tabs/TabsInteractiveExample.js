@@ -46,7 +46,7 @@ class TabsInteractiveExample extends React.Component {
           })}
         </Tab>
         <br />
-        <Tab styleType="block">
+        <Tab isBlock>
           {tabs.map((tabName, key) => {
             return (
               <TabItem
@@ -54,6 +54,7 @@ class TabsInteractiveExample extends React.Component {
                 isActive={key === this.state.activeTab}
                 data-tab-id={key}
                 onClick={this.onClickTab}
+                isBlock
               >
                 {tabName}
               </TabItem>

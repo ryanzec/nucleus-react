@@ -21,7 +21,7 @@ export const getAppendedElements = () => {
   return elements;
 };
 
-class AppendBodyComponent extends React.PureComponent {
+class AppendBodyComponent extends React.Component {
   constructor(props) {
     super(props);
 

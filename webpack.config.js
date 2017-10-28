@@ -14,7 +14,7 @@ var babelPlugins = [
   'static-fs'
 ];
 
-const isDevMode = process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
+const isDevMode = true;//process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
 
 var webpackConfig = {
   resolve: {
@@ -53,9 +53,10 @@ var webpackConfig = {
         use: [{
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
-            module: true,
-            sourceMap: isDevMode
+            importLoaders: 3,
+            modules: true,
+            sourceMap: isDevMode,
+            localIdentName: isDevMode ? '[name]__[local]___[hash:base64:5]' : '[hash:base64]',
           }
         }, {
           loader: 'postcss-loader',
@@ -77,12 +78,13 @@ var webpackConfig = {
       })
     }, {
       test: /\.(css|scss)$/,
+      include: /(styles)/,
       use: extractSass.extract({
         fallback: 'style-loader',
         use: [{
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
+            importLoaders: 3,
             sourceMap: isDevMode
           }
         }, {
@@ -185,7 +187,7 @@ var webpackConfig = {
     ],
 
     //application code
-    application: './web/app/Application.js',
+    application: ['babel-polyfill', './web/app/Application.js'],
   },
   output: {
     path: __dirname + '/web/build',

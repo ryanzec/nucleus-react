@@ -1,33 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormLabel.module.scss';
 
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['form-element__label'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
-    if (instance.props.inputType) {
-      cssClasses.push(`m-${instance.props.inputType}`);
-      cssClasses.push(`m-${instance.props.inputAlignment}`);
-    }
+    // if (instance.props.inputType) {
+    //   cssClasses.push(`m-${instance.props.inputType}`);
+    //   cssClasses.push(`m-${instance.props.inputAlignment}`);
+    // }
 
     return cssClasses.join(' ');
   };
 }
 
-class FormLabel extends React.PureComponent {
+class FormLabel extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     isRequired: PropTypes.bool,
     inputType: PropTypes.oneOf([false, 'checkbox', 'radio']),
     inputAlignment: PropTypes.oneOf(['left', 'right']),
-    isHidden: PropTypes.bool
+    isHidden: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -35,7 +42,8 @@ class FormLabel extends React.PureComponent {
     isRequired: false,
     inputType: false,
     inputAlignment: 'left',
-    isHidden: false
+    isHidden: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);
@@ -44,10 +52,11 @@ class FormLabel extends React.PureComponent {
     let node = null;
 
     if (this.props.isRequired) {
+      const composedStyles = composeStyles(styles, this.props.customStyles);
       node = (
         <SvgIcon
           fragment="asterisk"
-          className="form-element__required-icon"
+          className={composedStyles.requiredIcon}
         />
       );
     }

@@ -1,0 +1,6 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  padding: $spacing-extra-small;
+  overflow-y: auto;
+}

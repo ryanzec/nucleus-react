@@ -1,18 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import iconData from 'font-awesome-svg-icons';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/svg-icon/SvgIcon.module.scss';
 
 export const createGetInnerCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['svg-icon__container', `${instance.props.fragment}-icon`];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+
+    // NOTE: the non-module class is intended to make icon more selectable in a global sense
+    let cssClasses = [composedStyles.inner, `${instance.props.fragment}-icon`];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
+      cssClasses.push(composedStyles[`${instance.props.styleType}Inner`]);
     }
 
     return cssClasses.join(' ');
@@ -21,7 +29,10 @@ export const createGetInnerCssClasses = (instance) => {
 
 export const createGetOuterCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['svg-icon__outer-container', `${instance.props.fragment}-icon`];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+
+    // NOTE: the non-module class is intended to make icon more selectable in a global sense
+    let cssClasses = [composedStyles.container, `${instance.props.fragment}-icon`];
 
     if (instance.props.outerClassName) {
       cssClasses = cssClasses.concat(instance.props.outerClassName.split(' '));
@@ -33,10 +44,13 @@ export const createGetOuterCssClasses = (instance) => {
 
 export const createGetIndicatorHtml = (instance) => {
   return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
     let indicator = '';
 
     if (instance.props.indicator) {
-      indicator = `<div class="svg-icon__indicator m-${instance.props.indicator}"></div>`;
+      const className = `${composedStyles.indicator} ${styles[`${instance.props.indicator}Indicator`]}`;
+
+      indicator = `<div class="${className}"></div>`;
     }
 
     return indicator;
@@ -53,9 +67,10 @@ export const createGetSvgHtml = (instance) => {
   };
 };
 
-class SvgIcon extends React.PureComponent {
+class SvgIcon extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     fragment: PropTypes.string,
     indicator: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
@@ -65,6 +80,7 @@ class SvgIcon extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     styleType: null,
     fragment: null,
     indicator: null,

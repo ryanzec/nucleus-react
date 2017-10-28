@@ -61,18 +61,18 @@ class BadgesPage extends React.Component {
         <ExpandableList
           handleNode="Toggle List"
         >
-          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
-          <ListItem>ipsum dolor sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
-          <ListItem>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          <ListItem isExpandable>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, consectetur</ListItem>
+          <ListItem isExpandable>ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum sit amet, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit, consectetur adipiscing</ListItem>
+          <ListItem isExpandable>Lorem ipsum dolor sit amet, consectetur</ListItem>
         </ExpandableList>
         <h2>Ordered</h2>
         <List type="ol">

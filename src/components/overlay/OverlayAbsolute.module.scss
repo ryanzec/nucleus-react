@@ -1,0 +1,19 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  composes: container from 'src/components/overlay/Overlay.module.scss';
+
+  position: absolute;
+}
+
+.topContent {
+  composes: topContent from 'src/components/overlay/Overlay.module.scss';
+}
+
+.topContentActive {
+  composes: topContentActive from 'src/components/overlay/Overlay.module.scss';
+}
+
+.isActive {
+  composes: isActive from 'src/components/overlay/Overlay.module.scss';
+}

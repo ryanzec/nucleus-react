@@ -1,0 +1,127 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+
+//NOTE: note sure why I need
+@mixin apply-progress-bar-fill-colors($filled-color) {
+  &::-ms-fill {
+    background-color: $filled-color;
+  }
+
+  &::-moz-progress-bar {
+    background-color: $filled-color;
+  }
+
+  &::-webkit-progress-value {
+    background-color: $filled-color;
+  }
+}
+
+.container {
+  @include apply-progress-bar-fill-colors($background-color-filled-progress-bar);
+
+  display: block;
+  width: 100%;
+  height: $height-progress-bar;
+
+  &[value] {
+    border: 0;
+    appearance: none;
+    background-color: $background-color-unfilled-progress-bar;
+
+    &::-ms-fill {
+      border: 0;
+    }
+
+    &::-webkit-progress-bar {
+      background-color: $background-color-unfilled-progress-bar;
+    }
+  }
+}
+
+.success {
+  @include apply-progress-bar-fill-colors($background-color-filled-success-progress-bar);
+}
+
+.info {
+  @include apply-progress-bar-fill-colors($background-color-filled-info-progress-bar);
+}
+
+.warning {
+  @include apply-progress-bar-fill-colors($background-color-filled-warning-progress-bar);
+}
+
+.danger {
+  @include apply-progress-bar-fill-colors($background-color-filled-danger-progress-bar);
+}
+
+.isPill {
+  &[value] {
+    border-radius: $height-progress-bar / 2;
+
+    &::-moz-progress-bar {
+      @include border-left-radius($height-progress-bar / 2);
+    }
+
+    &::-webkit-progress-value {
+      @include border-left-radius($height-progress-bar / 2);
+    }
+
+    &::-moz-progress-bar {
+      @include border-right-radius($height-progress-bar / 2);
+    }
+
+    &::-webkit-progress-value {
+      @include border-right-radius($height-progress-bar / 2);
+    }
+
+    &::-webkit-progress-bar {
+      border-radius: $height-progress-bar / 2;
+    }
+  }
+}
+
+.hasStripes {
+  &[value] {
+    &::-ms-fill {
+      background-size: 30px 30px;
+      background-image: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, .2) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, .2) 50%,
+          rgba(255, 255, 255, .2) 75%,
+          transparent 75%,
+          transparent
+      );
+    }
+
+    &::-moz-progress-bar {
+      background-size: 30px 30px;
+      background-image: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, .2) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, .2) 50%,
+          rgba(255, 255, 255, .2) 75%,
+          transparent 75%,
+          transparent
+      );
+    }
+
+    &::-webkit-progress-value {
+      background-size: 30px 30px;
+      background-image: linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, .2) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, .2) 50%,
+          rgba(255, 255, 255, .2) 75%,
+          transparent 75%,
+          transparent
+      );
+    }
+  }
+}

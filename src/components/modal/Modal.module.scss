@@ -1,0 +1,43 @@
+@import 'src/styles/framework/_variables';
+
+:global {
+  body.modal-open {
+    overflow: hidden;
+  }
+}
+
+//modal
+.container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-index-modal;
+}
+
+.isActive {
+  display: block;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: $color-white;
+
+  //NOTE: need to be twice the top to have even top / bottom spacing
+  max-height: calc(100% - 75px * 2);
+  width: 900px;
+  position: relative;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.overlay {
+  composes: container from 'src/components/overlay/Overlay.module.scss';
+
+  display: block;
+}

@@ -1,39 +1,45 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 import {NativeTypes as nativeTypes} from 'react-dnd-html5-backend';
 import {DropTarget as dropTarget} from 'react-dnd';
 
+import styles from 'src/components/file-upload/FileUploadDragDrop.module.scss';
+
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['file-upload-drap-drop'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.isClickable) {
-      cssClasses.push('is-clickable');
+      cssClasses.push(composedStyles.isClickable);
     }
 
     if (instance.props.isOver) {
-      cssClasses.push('is-over');
+      cssClasses.push(composedStyles.isOver);
     }
 
     return cssClasses.join(' ');
   };
 };
 
-export const createOnFileSelect = () => {
+export const createOnFileSelect = (instance) => {
   return (event) => {
-    this.props.processFiles(Array.prototype.slice.call(event.target.files));
+    instance.props.processFiles(Array.prototype.slice.call(event.target.files));
   };
 };
 
 export const createOnClick = (instance) => {
   return () => {
-    if (!this.props.isClickable) {
+    if (!instance.props.isClickable) {
       return;
     }
 
@@ -47,9 +53,10 @@ const fileTarget = {
   }
 };
 
-class FileUploadDragDrop extends React.PureComponent {
+class FileUploadDragDrop extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     infoNode: PropTypes.node,
     infoHoverNode: PropTypes.node,
     isClickable: PropTypes.bool,
@@ -61,13 +68,14 @@ class FileUploadDragDrop extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     infoNode: 'Drop file here to upload',
     infoHoverNode: 'Drop file to upload',
     isClickable: false,
     processFiles: null
   };
 
-  onFileSelect = createOnFileSelect();
+  onFileSelect = createOnFileSelect(this);
   onClick = createOnClick(this);
   getCssClasses = createGetCssClasses(this);
 

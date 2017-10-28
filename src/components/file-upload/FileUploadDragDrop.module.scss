@@ -1,0 +1,16 @@
+@import 'src/styles/framework/_variables.scss';
+
+.container {
+  border: 3px dashed $color-light-info;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 2rem;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.isClickable:hover,
+.isOver {
+  cursor: pointer;
+  border-color: $color-info;
+}

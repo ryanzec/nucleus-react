@@ -1,0 +1,8 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  padding: 8px;
+  border: 1px solid $color-gray4;
+  background-color: $color-white;
+  border-radius: 3px;
+}

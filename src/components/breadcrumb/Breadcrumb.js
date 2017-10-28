@@ -1,32 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/breadcrumb/Breadcrumb.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['breadcrumbs__crumb'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.isActive) {
-      cssClasses.push('is-active');
+      cssClasses.push(composedStyles.isActive);
     }
 
     return cssClasses.join(' ');
   };
 };
 
-class Breadcrumb extends React.PureComponent {
+class Breadcrumb extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     onClick: PropTypes.func,
     isActive: PropTypes.bool
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     onClick: null,
     isActive: false
   };

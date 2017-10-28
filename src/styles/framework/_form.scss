@@ -1,179 +1,86 @@
-$component-identifier: '.form-element';
-
-@mixin apply-input-validation-colors($light, $normal, $dark) {
-  .svg-icon__container {
-    fill: $normal;
-  }
-
-  #{$component-identifier}__textbox,
-  #{$component-identifier}__select,
-  #{$component-identifier}__textarea {
-    background-color: $light;
-    border-color: $dark;
-  }
-
-  #{$component-identifier}__textbox-group-addon {
-    border-color: $dark;
-    background-color: $light;
-  }
-
-  #{$component-identifier}__validation-message,
-  #{$component-identifier}__file {
-    color: $normal;
-  }
+@mixin form-checkable-label-styles() {
+  display: flex;
+  align-items: center;
+  padding: ($padding-input / 2) 0;
+  font-weight: 400;
 }
 
-#{$component-identifier} {
+@mixin form-checkable-svg-icon-container() {
+  fill: $color-blue2;
+}
+
+@mixin form-checkable-svg-icon-container-disabled() {
+  fill: $color-gray4;
+}
+
+@mixin form-checkable-svg-icon-container-right-aligned() {
+  margin-left: 4px;
+}
+
+@mixin form-checkable-svg-icon-container-left-aligned() {
+  margin-right: 4px;
+}
+
+@mixin form-validation-color($normal) {
+  color: $normal;
+}
+
+@mixin form-validation-icon-color($normal) {
+  fill: $normal;
+}
+
+@mixin form-validation-background-color($light, $dark) {
+  border-color: $dark;
+  background-color: $light;
+}
+
+@mixin form-standard-input-styles() {
   width: 100%;
-  padding-bottom: $padding-form-element;
+  border-radius: $border-radius-input;
+  outline: none;
+  border: 1px solid $border-color-input;
+  padding: $padding-input ($padding-input * 2);
 
-  &__legend {
-    font-size: $font-size-form-legend;
-    padding-bottom: $padding-form-legend;
-    margin-bottom: $margin-form-legend;
-    border-bottom: 1px solid $border-color-input;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-    .form-required-details {
-      margin-left: auto;
-      font-size: 13px;
-
-      #{$component-identifier}__required-icon {
-        left: -5px;
-      }
-    }
-  }
-
-  &__label {
-    display: inline-block;
-
-    &:not(.m-checkbox):not(.m-radio) {
-      padding-bottom: 4px;
-      font-weight: 500;
-    }
-
-    &.m-checkbox,
-    &.m-radio {
-      display: flex;
-      align-items: center;
-      padding: ($padding-input / 2) 0;
-
-      .svg-icon__container {
-        fill: $color-blue2;
-      }
-
-      &.is-disabled .svg-icon__container {
-        fill: $color-gray4;
-      }
-
-      &.m-left .svg-icon__container {
-        margin-right: 4px;
-      }
-
-      &.m-right .svg-icon__container {
-        margin-left: 4px;
-      }
-    }
-  }
-
-  &__textbox,
-  &__select,
-  &__textarea,
-  &__file {
-    width: 100%;
-    border-radius: $border-radius-input;
-    outline: none;
-    padding: $padding-input 0;
-
-    &:not(#{$component-identifier}__file) {
-      border: 1px solid $border-color-input;
-      padding: $padding-input ($padding-input * 2);
-    }
-
-    &:focus {
-      border-color: $border-color-focus-input;
-    }
-  }
-
-  &__textbox,
-  &__select {
-    height: $height-textbox;
-    background-color: $color-white;
-  }
-
-  &__date-picker {
-    z-index: 1000;
-    cursor: pointer;
-  }
-
-  &__textbox-group {
-    display: flex;
-
-    #{$component-identifier}__textbox {
-      border-radius: 0;
-
-      &:first-child {
-        @include border-left-radius($border-radius-input);
-      }
-
-      &:last-child {
-        @include border-right-radius($border-radius-input);
-      }
-    }
-
-    &-addon {
-      display: inline-flex;
-      border: 1px solid $border-color-input;
-      padding: $padding-input;
-      background-color: $background-color-textbox-group-addon;
-
-      &:first-child {
-        @include border-left-radius($border-radius-input);
-
-        border-right: none;
-      }
-
-      &:last-child {
-        @include border-right-radius($border-radius-input);
-
-        border-left: none;
-      }
-    }
-  }
-
-  &__required-icon {
-    height: $size-required-icon-input;
-    width: $size-required-icon-input;
-    fill: $color-danger;
-    position: relative;
-    left: 3px;
-    top: -5px;
-  }
-
-  &__validation-message {
-    display: flex;
-    align-items: center;
-
-    &:not(first-child) {
-      padding-top: 4px;
-    }
-  }
-
-  &__validation-icon {
-    height: $size-validation-icon-input;
-    width: $size-validation-icon-input;
-    margin-right: $padding-validation-icon;
-  }
-
-  &.m-invalid {
-    @include apply-input-validation-colors($color-light-danger, $color-danger, $color-dark-danger);
-  }
-
-  &.m-valid {
-    @include apply-input-validation-colors($color-light-success, $color-success, $color-dark-success);
+  &:focus {
+    border-color: $border-color-focus-input;
   }
 }
 
-$component-identifier: '';
+@mixin form-element-required-icon() {
+  height: $size-required-icon-input;
+  width: $size-required-icon-input;
+  fill: $color-danger;
+  position: relative;
+  left: 3px;
+  top: -5px;
+}
+
+// NOTE: not sure why but sass errors out on this so just embedding this code into the mixins that would need it
+//@function form-checkbox-circle-radius($height, $spacing) {
+//  @return ($height - ($spacing * 2));
+//}
+
+@mixin form-checkbox-toggle-bar-sizer($height: 24px, $width: 50px, $spacing: 4px) {
+  height: $height;
+  width: $width;
+  line-height: $height;
+  padding: 0 ($spacing + 5) 0 0;
+}
+
+@mixin form-checkbox-toggle-bar-is-checked-sizer($spacing: 4px) {
+  padding: 0 0 0 ($spacing + 5);
+}
+
+@mixin form-checkbox-toggle-circle-sizer($height: 24px, $spacing: 4px) {
+  $circle-radius: ($height - ($spacing * 2));
+
+  height: $circle-radius;
+  width: $circle-radius;
+  transform: translateX($spacing) translateY($spacing);
+}
+
+@mixin form-checkbox-toggle-circle-is-checked-sizer($height: 24px, $width: 50px, $spacing: 4px) {
+  $circle-radius: ($height - ($spacing * 2));
+
+  transform: translateX(($width - ($circle-radius + $spacing))) translateY($spacing);
+}

@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {
   getPassThroughProperties,
-  pureRenderShouldComponentUpdate,
+  composeStyles,
 } from 'src/utilities/component';
 
+import styles from 'src/components/table/TableFooterItem.module.scss';
+
 export const createGetCssClasses = (instance) => {
-  return ()  => {
-    let cssClasses = ['table__footer-item', 'table__data-item'];
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[`${instance.props.alignment}Aligned`]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -21,15 +24,17 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableFooterItem extends React.PureComponent {
+class TableFooterItem extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    alignment: null,
+    alignment: 'left',
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

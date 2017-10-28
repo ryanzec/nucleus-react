@@ -5,6 +5,8 @@ import Button from 'src/components/button/Button';
 import Overlay from 'src/components/overlay/Overlay';
 import OverlayAbsolute from 'src/components/overlay/OverlayAbsolute';
 
+import styles from './Overlay.module.scss';
+
 class OverlaysPage extends React.Component {
   constructor(props) {
     super(props);
@@ -57,11 +59,11 @@ class OverlaysPage extends React.Component {
         <h1>Overlays</h1>
         <Button onClick={this.onClickDefault}>Full Page</Button>
         <Overlay isActive={this.state.isOverlayActive}/>
-        <div className="absolute-test">
+        <div className={styles.absoluteTest}>
             <Button onClick={this.onClickAbsolute}>Specific Element Page</Button>
             <OverlayAbsolute isActive={this.state.isAbsoluteOverlayActive} />
         </div>
-        <div className="absolute-test m-with-overlay-text">
+        <div className={styles.absoluteTest}>
             <Button onClick={this.onClickAbsoluteWithText}>Specific Element Page With Overlay Text</Button>
             <OverlayAbsolute isActive={this.state.isAbsoluteOverlayWithTextActive}>I am text</OverlayAbsolute>
         </div>

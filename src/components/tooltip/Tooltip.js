@@ -1,10 +1,17 @@
+// @todo: probably move into popover since this really only works with that for the most part
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/tooltip/Tooltip.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['tooltip'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,7 +21,7 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Tooltip extends React.PureComponent {
+class Tooltip extends React.Component {
   static propTypes = {
     className: PropTypes.string
   };

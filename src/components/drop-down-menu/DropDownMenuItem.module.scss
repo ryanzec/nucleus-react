@@ -1,0 +1,11 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  cursor: pointer;
+  padding: 6px 12px;
+
+  &:hover {
+    background-color: $color-info;
+    color: $color-light-text;
+  }
+}

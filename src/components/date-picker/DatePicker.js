@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
 import moment from 'moment-timezone';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
 import Button from 'src/components/button/Button';
 import DatePickerDay from './DatePickerDay';
 import FormTextbox from 'src/components/form/FormTextbox';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
+import styles from 'src/components/date-picker/DatePicker.module.scss';
+
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['date-picker'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -196,9 +202,10 @@ export const createIsDisabledDay = (instance) => {
   };
 };
 
-class DatePicker extends React.PureComponent {
+class DatePicker extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     onClickDate: PropTypes.func.isRequired,
     selectedDay: PropTypes.object,
     minDate: PropTypes.object,
@@ -209,6 +216,7 @@ class DatePicker extends React.PureComponent {
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     onClickDate: null,
     selectedDay: null,
     minDate: null,
@@ -247,6 +255,7 @@ class DatePicker extends React.PureComponent {
   isDisabledDay = createIsDisabledDay(this);
 
   renderCalendarMonthWeeks() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
     const viewMonth = this.state.viewDate.month();
     const calendarMonthWeeks = this.getCalendarMonthWeeks();
     const weekNodes = [];
@@ -277,7 +286,7 @@ class DatePicker extends React.PureComponent {
           </DatePickerDay>);
       });
 
-      weekNodes.push(<div key={weekKey} className="date-picker__week">{dayNodes}</div>);
+      weekNodes.push(<div key={weekKey} className={composedStyles.week}>{dayNodes}</div>);
     });
 
     return weekNodes;
@@ -288,9 +297,12 @@ class DatePicker extends React.PureComponent {
       return null;
     }
 
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     return (
-      <div className="date-picker__time-container">
+      <div className={composedStyles.timeContainer}>
         <FormTextbox
+          className={composedStyles.timeTextbox}
           data-form-field="hours"
           onChange={this.onChangeTime}
           onFocus={this.onFocusTime}
@@ -298,6 +310,7 @@ class DatePicker extends React.PureComponent {
           value={this.state.hours}
         />:
         <FormTextbox
+          className={composedStyles.timeTextbox}
           data-form-field="minutes"
           onChange={this.onChangeTime}
           onFocus={this.onFocusTime}
@@ -305,6 +318,7 @@ class DatePicker extends React.PureComponent {
           value={this.state.minutes}
         />:
         <FormTextbox
+          className={composedStyles.timeTextbox}
           data-form-field="seconds"
           onChange={this.onChangeTime}
           onFocus={this.onFocusTime}
@@ -320,40 +334,44 @@ class DatePicker extends React.PureComponent {
       return null;
     }
 
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     return (
-      <Button onClick={this.props.onClose}>Close</Button>
+      <Button className={composedStyles.button} onClick={this.props.onClose}>Close</Button>
     );
   }
 
   render() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
+
     return (
       <div
         className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, DatePicker.propTypes)}
       >
-        <div className="date-picker__top-bar">
+        <div className={composedStyles.topBar}>
           <SvgIcon
-            className="date-picker__previous-month"
+            className={composedStyles.previousMonth}
             fragment="arrow-left"
             onClick={this.onClickPreviousMonth}
           />
-          <div className="date-picker__top-bar-current">{this.state.viewDate.format('MMMM YYYY')}</div>
+          <div className={composedStyles.topBarMonthText}>{this.state.viewDate.format('MMMM YYYY')}</div>
           <SvgIcon
-            className="date-picker__next-month"
+            className={composedStyles.nextMonth}
             fragment="arrow-right"
             onClick={this.onClickNextMonth}
           />
         </div>
-        <div className="date-picker__days-of-week">
-          <div className="date-picker__day-of-week">Su</div>
-          <div className="date-picker__day-of-week">Mo</div>
-          <div className="date-picker__day-of-week">Tu</div>
-          <div className="date-picker__day-of-week">We</div>
-          <div className="date-picker__day-of-week">Th</div>
-          <div className="date-picker__day-of-week">Fr</div>
-          <div className="date-picker__day-of-week">Sa</div>
+        <div className={composedStyles.daysOfWeek}>
+          <div className={composedStyles.dayOfWeek}>Su</div>
+          <div className={composedStyles.dayOfWeek}>Mo</div>
+          <div className={composedStyles.dayOfWeek}>Tu</div>
+          <div className={composedStyles.dayOfWeek}>We</div>
+          <div className={composedStyles.dayOfWeek}>Th</div>
+          <div className={composedStyles.dayOfWeek}>Fr</div>
+          <div className={composedStyles.dayOfWeek}>Sa</div>
         </div>
-        <div className="date-picker__month">
+        <div className={composedStyles.daysContainer}>
           {this.renderCalendarMonthWeeks()}
         </div>
         {this.renderTime()}

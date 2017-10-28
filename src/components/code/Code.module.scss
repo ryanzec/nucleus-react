@@ -1,0 +1,6 @@
+// NOTE: since this is part of prism, keeping this out of css modules (since I can't import the first and not use it without eslint error)
+:global {
+  pre[class*='language-'] {
+    margin: 10px 0
+  }
+}

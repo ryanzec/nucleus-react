@@ -1,0 +1,21 @@
+@import 'src/styles/framework/_variables';
+
+.buttonContainer:hover {
+  .svgIconHover {
+    fill: $color-white;
+  }
+}
+
+.svgIconContainer {
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-right: $spacing-extra-tiny;
+}
+
+.svgIcon {
+  fill: $color-button;
+}
+
+.svgIconLink {
+  fill: $color-link;
+}

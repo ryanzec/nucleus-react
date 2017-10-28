@@ -1,0 +1,15 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  font-size: 1.6rem;
+
+  + .container::before {
+    content: ">";
+    color: $color-divider-breadcrumbs;
+    padding: $padding-divider-breadcrumbs;
+  }
+}
+
+.isActive {
+  color: $color-active-breadcrumbs;
+}

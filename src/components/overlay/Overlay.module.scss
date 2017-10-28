@@ -1,0 +1,28 @@
+@import '~src/styles/framework/_variables';
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparentize(#000000, .5);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.topContent {
+  z-index: 10001;
+  display: none;
+  color: $color-light-text;
+}
+
+.topContentActive {
+  display: block;
+}
+
+.isActive {
+  display: flex;
+}

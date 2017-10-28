@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/table/TableHeaderItem.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['table__header-item', 'table__data-item'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[`${instance.props.alignment}Aligned`]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -18,15 +24,19 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class TableHeaderItem extends React.PureComponent {
+class TableHeaderItem extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     alignment: PropTypes.oneOf(['left', 'right', 'center']),
+    isVertical: PropTypes.bool,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
-    alignment: null,
+    alignment: 'left',
+    isVertical: false,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);
