@@ -1,0 +1,26 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+  font-size: $font-size-form-legend;
+  padding-bottom: $padding-form-legend;
+  margin-bottom: $margin-form-legend;
+  border-bottom: 1px solid $border-color-input;
+  width: 100%;
+  display: flex;
+  //align-items: center;
+}
+
+.requiredDetails {
+  margin-left: auto;
+  font-size: 13px;
+}
+
+.requiredDetailsSvgIcon {
+  left: -5px;
+}
+
+.requiredIcon {
+  @include form-element-required-icon();
+}

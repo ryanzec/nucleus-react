@@ -2,11 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Holder from 'holderjs';
 
-import CodeExample from '../../react/components/CodeExample';
-
-import Grid from 'src/components/grid/Grid';
-import GridRow from 'src/components/grid/GridRow';
-import GridColumn from 'src/components/grid/GridColumn';
 import Button from 'src/components/button/Button';
 import OverlayAbsolute from 'src/components/overlay/OverlayAbsolute';
 import Card from 'src/components/card/Card';
@@ -17,14 +12,9 @@ import CardActions from 'src/components/card/CardActions';
 import CardImage from 'src/components/card/CardImage';
 import CardHeader from 'src/components/card/CardHeader';
 import CardFooter from 'src/components/card/CardFooter';
-import CardColumns from 'src/components/card/CardColumns';
+import ColumnCard from 'src/components/card/ColumnCard';
 
-// import StylesExample from './src/examples/buttons/styles';
-
-// import { readFileSync } from 'fs';
-// import { join } from 'path';
-
-// const stylesExampleContent = readFileSync(join(__dirname, '/src/examples/buttons/styles'), 'utf8');
+import styles from './CardsPage.module.scss';
 
 class CardsPage extends React.Component {
   constructor(props) {
@@ -43,22 +33,22 @@ class CardsPage extends React.Component {
       <div className="p-style-guide-cards">
         <h1>Cards</h1>
         <h4>Just text</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
         </Card>
         <h4>With Title</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
         </Card>
         <h4>With Subtitle</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardTitle>I am a title</CardTitle>
           <CardSubtitle>Hello</CardSubtitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
         </Card>
         <h4>With Actions</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
           <CardActions>
@@ -67,7 +57,7 @@ class CardsPage extends React.Component {
           </CardActions>
         </Card>
         <h4>With Image</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
           <CardActions>
@@ -76,7 +66,7 @@ class CardsPage extends React.Component {
           </CardActions>
           <CardImage src="holder.js/250x180?theme=sky" />
         </Card>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardTitle>I am a title</CardTitle>
           <CardImage src="holder.js/250x80?theme=sky" />
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -85,7 +75,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -95,7 +85,7 @@ class CardsPage extends React.Component {
           </CardActions>
         </Card>
         <h4>Text align utilities classes</h4>
-        <Card className="u-text-align-left">
+        <Card customStyles={{container: styles.card}} className="u-text-align-left">
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
           <CardActions>
@@ -104,7 +94,7 @@ class CardsPage extends React.Component {
           </CardActions>
           <CardImage src="holder.js/250x180?theme=sky" />
         </Card>
-        <Card className="u-text-align-center">
+        <Card customStyles={{container: styles.card}} className="u-text-align-center">
           <CardTitle>I am a title</CardTitle>
           <CardImage src="holder.js/250x80?theme=sky" />
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -113,7 +103,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card className="u-text-align-right">
+        <Card customStyles={{container: styles.card}} className="u-text-align-right">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -122,7 +112,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card className="u-text-align-justify">
+        <Card customStyles={{container: styles.card}} className="u-text-align-justify">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -132,7 +122,7 @@ class CardsPage extends React.Component {
           </CardActions>
         </Card>
         <h4>Header and footer</h4>
-        <Card>
+        <Card customStyles={{container: styles.card}}>
           <CardHeader>Header</CardHeader>
           <CardTitle>I am a title</CardTitle>
           <CardSubtitle>Small title</CardSubtitle>
@@ -145,7 +135,7 @@ class CardsPage extends React.Component {
           <CardFooter className="u-text-align-center">5 months ago</CardFooter>
         </Card>
         <h4>With overlay</h4>
-        <Card className="overlay-example">
+        <Card customStyles={{container: styles.card}} className="overlay-example">
           <CardHeader>Header</CardHeader>
           <CardTitle>I am a title</CardTitle>
           <CardSubtitle>Small title</CardSubtitle>
@@ -159,7 +149,7 @@ class CardsPage extends React.Component {
           <OverlayAbsolute isActive={true}>This is top content</OverlayAbsolute>
         </Card>
         <h4>Styles</h4>
-        <Card styleType="success">
+        <Card customStyles={{container: styles.card}} styleType="success">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -168,7 +158,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card styleType="info">
+        <Card customStyles={{container: styles.card}} styleType="info">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -177,7 +167,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card styleType="warning">
+        <Card customStyles={{container: styles.card}} styleType="warning">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -186,7 +176,7 @@ class CardsPage extends React.Component {
             <Button styleType="danger">Action 2</Button>
           </CardActions>
         </Card>
-        <Card styleType="danger">
+        <Card customStyles={{container: styles.card}} styleType="danger">
           <CardImage src="holder.js/250x180?theme=sky" />
           <CardTitle>I am a title</CardTitle>
           <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
@@ -196,62 +186,62 @@ class CardsPage extends React.Component {
           </CardActions>
         </Card>
         <h4>Card columns</h4>
-        <CardColumns>
-            <Card>
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="success">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-            <Card>
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="info">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-            <Card styleType="info">
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sitmagna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-            </Card>
-            <Card>
-              <CardImage src="holder.js/250x180?theme=sky" />
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="success">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-            <Card>
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="success">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-            <Card>
-              <CardImage src="holder.js/250x180?theme=sky" />
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="success">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-            <Card>
-              <CardTitle>I am a title</CardTitle>
-              <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
-              <CardActions>
-                <Button styleType="success">Action 1</Button>
-                <Button styleType="danger">Action 2</Button>
-              </CardActions>
-            </Card>
-          </CardColumns>
+        <div className={styles.columnCard}>
+          <ColumnCard>
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="success">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+          <ColumnCard>
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium odio vel hendrerit congue. Integer mollis leo nec pharetra dictum. Donec gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="info">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+          <ColumnCard styleType="info">
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sitmagna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+          </ColumnCard>
+          <ColumnCard>
+            <CardImage src="holder.js/250x180?theme=sky" />
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="success">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+          <ColumnCard>
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="success">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+          <ColumnCard>
+            <CardImage src="holder.js/250x180?theme=sky" />
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="success">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+          <ColumnCard>
+            <CardTitle>I am a title</CardTitle>
+            <CardContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium gravida pulvinar euismod. In vitae magna et ligula egestas vulputate et vitae tellus. Mauris nisl magna, congue ut felis et, tincidunt lobortis sapien. Praesent nec metus eget ex feugiat.</CardContent>
+            <CardActions>
+              <Button styleType="success">Action 1</Button>
+              <Button styleType="danger">Action 2</Button>
+            </CardActions>
+          </ColumnCard>
+        </div>
       </div>
     );
   }

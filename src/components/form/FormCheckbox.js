@@ -1,40 +1,74 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormCheckbox.module.scss';
 
 import FormLabel from './FormLabel';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
 
-export const createGetCssClasses = (instance) => {
+export const createGetFormLabelCssClasses = (instance) => {
   return () => {
-    let cssClasses = [];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.label];
+
+    if (instance.props.className) {
+      cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    return cssClasses.join(' ');
+  };
+};
+
+export const createGetSvgIconCssClasses = (instance) => {
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.svgIcon];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.disabled) {
-      cssClasses.push('is-disabled');
+      cssClasses.push(composedStyles.svgIconDisabled);
+    }
+
+    if (instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}SvgIcon`]);
+    }
+
+    if (instance.props.inputAlignment === 'right') {
+      cssClasses.push(composedStyles.svgIconRightAligned);
+    } else {
+      cssClasses.push(composedStyles.svgIconLeftAligned);
     }
 
     return cssClasses.join(' ');
   };
-}
+};
 
-class FormCheckbox extends React.PureComponent {
+class FormCheckbox extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     inputAlignment: PropTypes.oneOf(['left', 'right']),
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+    customStyles: PropTypes.object,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
     className: null,
     inputAlignment: 'left',
-    checked: false
+    checked: false,
+    customStyles: null,
+    validation: null,
   };
 
-  getCssClasses = createGetCssClasses(this);
+  getFormLabelCssClasses = createGetFormLabelCssClasses(this);
+  getSvgIconCssClasses = createGetSvgIconCssClasses(this);
 
   render() {
     let nodes;
@@ -42,7 +76,7 @@ class FormCheckbox extends React.PureComponent {
       <span key="text">{this.props.children}</span>
     );
     const iconNode = (
-      <SvgIcon key="icon" fragment={this.props.checked ? 'check-square' : 'square'} />
+      <SvgIcon key="icon" fragment={this.props.checked ? 'check-square' : 'square'} className={this.getSvgIconCssClasses()} />
     );
 
     if (this.props.inputAlignment === 'left') {
@@ -53,7 +87,7 @@ class FormCheckbox extends React.PureComponent {
 
     return (
       <FormLabel
-        className={this.getCssClasses()}
+        className={this.getFormLabelCssClasses()}
         inputType="checkbox"
         inputAlignment={this.props.inputAlignment}
       >

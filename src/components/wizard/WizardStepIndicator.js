@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/wizard/WizardStepIndicator.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['wizard__step-indicator-container'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,34 +20,45 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class WizardStepIndicator extends React.PureComponent {
+class WizardStepIndicator extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     totalSteps: PropTypes.number.isRequired,
     currentStep: PropTypes.number.isRequired,
     titles: PropTypes.array.isRequired,
+    isCollapsed: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
+    isCollapsed: false,
   };
 
   getCssClasses = createGetCssClasses(this);
 
   renderStepIndicators() {
+    const composedStyles = composeStyles(styles, this.props.customStyles);
     let stepNodes = [];
     let renderingNumber = 1;
 
     while (renderingNumber <= this.props.totalSteps) {
-      let mainClassName = 'wizard__step-indicator';
-      let circleClassName = `${mainClassName}-circle`;
-      let hrClassName = '';
+
+      let mainClassName = composedStyles.indicator;
+      let circleClassName = composedStyles.indicatorCircle;
+      let hrClassName = composedStyles.indicatorLine;
+      let titleClassName = composedStyles.indicatorTitle;
 
       if (renderingNumber < this.props.currentStep) {
-        circleClassName += ' is-previous';
-        hrClassName = 'is-previous';
+        circleClassName += ` ${composedStyles.indicatorCircleIsPrevious}`;
+        hrClassName += ` ${composedStyles.indicatorLineIsPrevious}`;
       } else if (renderingNumber === this.props.currentStep) {
-        circleClassName += ' is-current';
+        circleClassName += ` ${composedStyles.indicatorCircleIsCurrent}`;
+      }
+
+      if (this.props.isCollapsed) {
+        titleClassName += ` ${composedStyles.indicatorTitleIsCollapsed}`;
       }
 
       stepNodes.push(
@@ -50,7 +67,7 @@ class WizardStepIndicator extends React.PureComponent {
           key={`${renderingNumber}-indicator`}
         >
           <div className={circleClassName}></div>
-          <span className={`${mainClassName}-title`}>{this.props.titles[renderingNumber - 1]}</span>
+          <span className={titleClassName}>{this.props.titles[renderingNumber - 1]}</span>
         </div>
       );
 
@@ -75,7 +92,7 @@ class WizardStepIndicator extends React.PureComponent {
         className={this.getCssClasses()}
         {...getPassThroughProperties(this.props, WizardStepIndicator.propTypes)}
       >
-        <div className="wizard__step-indicator-inner-container">
+        <div>
           {this.renderStepIndicators()}
         </div>
       </div>

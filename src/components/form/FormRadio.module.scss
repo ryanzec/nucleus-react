@@ -1,0 +1,35 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+
+}
+
+.label {
+  @include form-checkable-label-styles();
+}
+
+.svgIcon {
+  @include form-checkable-svg-icon-container();
+}
+
+.validSvgIcon {
+  @include form-validation-icon-color($color-success);
+}
+
+.invalidSvgIcon {
+  @include form-validation-icon-color($color-danger);
+}
+
+.svgIconDisabled {
+  @include form-checkable-svg-icon-container-disabled();
+}
+
+.svgIconRightAligned {
+  @include form-checkable-svg-icon-container-right-aligned();
+}
+
+.svgIconLeftAligned {
+  @include form-checkable-svg-icon-container-left-aligned();
+}

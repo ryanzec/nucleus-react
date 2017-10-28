@@ -307,7 +307,7 @@
     ],
     "spaced-comment": [
       2,
-      "never"
+      "always"
     ],
     "wrap-regex": 2,
 

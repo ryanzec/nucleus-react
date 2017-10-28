@@ -212,11 +212,11 @@ $padding-divider-breadcrumbs: 8px;
 
 // NOTE: badge
 $color-badge: $color-light-text;
-//NOTE: 4px off to account for border which is needed for thin style support
-$padding-badge: 2px 8px;
-$border-radius-badge: 3px;
-$border-radius-pill-badge: 999px;
-$margin-badge: 4px;
+// NOTE: specific value needed here to get the desired look and feel for badges
+$padding-badge: 2px 6px;
+$border-radius-badge: $border-radius-tiny;
+$border-radius-pill-badge: $border-radius-pill;
+$margin-badge: $spacing-extra-tiny;
 $background-color-badge: $color-neutral;
 $background-color-success-badge: $color-success;
 $background-color-info-badge: $color-info;

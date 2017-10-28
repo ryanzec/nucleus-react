@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/modal/Modal.module.scss';
 
 import AppendBodyComponent from 'src/components/append-body-component/AppendBodyComponent';
 import Overlay from 'src/components/overlay/Overlay';
@@ -19,7 +24,7 @@ export const createComponentDidMount = (instance) => {
 };
 
 export const createComponentDidUpdate = (instance) => {
-  return (oldProps) => {
+  return () => {
     instance.updateSelf();
   }
 };
@@ -43,14 +48,15 @@ export const createComponentWillUnmount = (instance) => {
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['modal'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.isActive) {
-      cssClasses.push('is-active');
+      cssClasses.push(composedStyles.isActive);
     }
 
     return cssClasses.join(' ');
@@ -58,46 +64,45 @@ export const createGetCssClasses = (instance) => {
 };
 
 export const createUpdateSelf = (instance) => {
-  return (hideInitially) => {
-    const styles = {};
-
-    if (instance.props.isActive) {
-      styles.display = 'block';
-    }
-
+  return () => {
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
     let overlayNode = null;
 
-    if (!instance.props.overlayDisabled) {
+    if (instance.props.isActive && !instance.props.overlayDisabled) {
       overlayNode = (
-        <Overlay isActive={instance.props.isActive} />
+        <div className={composedStyles.overlay} />
       );
     }
 
     instance.updateAppendElement(
-      <div
-        key={`modal-${instance.uniqueId}`}
-        data-modal-id={instance.uniqueId}
-        className={instance.getCssClasses()}
-        {...getPassThroughProperties(instance.props, Modal.propTypes)}
-      >
-        <div className="modal__container">
-          {instance.props.children}
+      <span>
+        <div
+          key={`modal-${instance.uniqueId}`}
+          data-modal-id={instance.uniqueId}
+          className={instance.getCssClasses()}
+          {...getPassThroughProperties(instance.props, Modal.propTypes)}
+        >
+          <div className={composedStyles.wrapper}>
+            {instance.props.children}
+          </div>
         </div>
         {overlayNode}
-      </div>
+      </span>
     );
-  }
+  };
 };
 
 class Modal extends AppendBodyComponent {
   static propTypes = {
     className: PropTypes.string,
+    customStyles: PropTypes.object,
     isActive: PropTypes.bool,
     overlayDisabled: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     isActive: false,
     overlayDisabled: false,
   };

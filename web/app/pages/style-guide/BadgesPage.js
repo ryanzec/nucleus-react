@@ -11,6 +11,7 @@ import React from 'react';
 // const stylesExampleContent = readFileSync(join(__dirname, '/assets/examples/buttons/styles'), 'utf8');
 
 import Badge from 'src/components/badge/Badge';
+import SvgIconBadge from 'src/components/badge/SvgIconBadge';
 
 class BadgesPage extends React.Component {
   constructor(props) {
@@ -40,6 +41,18 @@ class BadgesPage extends React.Component {
         <Badge isThin={true} styleType="info">Info</Badge>
         <Badge isThin={true} isPill={true} styleType="warning">Warning</Badge>
         <Badge isThin={true} styleType="danger">Danger</Badge>
+        <h2>Icon</h2>
+        <SvgIconBadge fragment="user">Default</SvgIconBadge>
+        <SvgIconBadge fragment="user" isPill={true} styleType="success">Success</SvgIconBadge>
+        <SvgIconBadge fragment="user" styleType="info">Info</SvgIconBadge>
+        <SvgIconBadge fragment="user" isPill={true} styleType="warning">Warning</SvgIconBadge>
+        <SvgIconBadge fragment="user" styleType="danger">Danger</SvgIconBadge>
+        <h2>Thin Icon</h2>
+        <SvgIconBadge fragment="user" isThin={true}>Default</SvgIconBadge>
+        <SvgIconBadge fragment="user" isThin={true} isPill={true} styleType="success">Success</SvgIconBadge>
+        <SvgIconBadge fragment="user" isThin={true} styleType="info">Info</SvgIconBadge>
+        <SvgIconBadge fragment="user" isThin={true} isPill={true} styleType="warning">Warning</SvgIconBadge>
+        <SvgIconBadge fragment="user" isThin={true} styleType="danger">Danger</SvgIconBadge>
       </div>
     );
   }

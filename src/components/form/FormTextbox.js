@@ -1,28 +1,48 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormTextbox.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = [instance.props.type === 'textarea' || instance.props.type === 'file' ? `form-element__${instance.props.type}` : 'form-element__textbox'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[`${instance.props.type}Input`]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
+    }
+
+    if (instance.props.hasAddon) {
+      cssClasses.push(composedStyles.hasAddon);
+    }
+
+    if (instance.props.type !== 'file' && instance.props.validation) {
+      cssClasses.push(composedStyles[`${instance.props.validation}Value`]);
     }
 
     return cssClasses.join(' ');
   };
 };
 
-class FormTextbox extends React.PureComponent {
+class FormTextbox extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    customStyles: PropTypes.object,
+    hasAddon: PropTypes.bool,
+    validation: PropTypes.oneOf(['valid', 'invalid']),
   };
 
   static defaultProps = {
     className: null,
-    type: 'text'
+    type: 'text',
+    customStyles: null,
+    hasAddon: false,
+    validation: null,
   };
 
   getCssClasses = createGetCssClasses(this);

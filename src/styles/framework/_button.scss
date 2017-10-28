@@ -1,121 +1,21 @@
-$component-identifier: '.button';
-
-@mixin apply-button-colors($light, $dark, $hover) {
+@mixin button-apply-base-colors($light, $dark) {
   color: $light;
   background-color: $dark;
   border-color: $dark;
-
-  .svg-icon__container {
-    fill: $light;
-  }
-
-  &.m-thin {
-    color: $dark;
-    background-color: $color-white;
-  }
-
-  &:hover:not(.m-link) {
-    background-color: $hover;
-    border-color: $hover;
-    color: $light;
-  }
 }
 
-#{$component-identifier} {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: $padding-button;
-  border-radius: $border-radius-button;
-  margin-right: $margin-button;
-  outline: none;
-  border: none;
-  background-color: $background-color-button;
-  color: $color-button;
-  font-size: $font-size-button;
-  text-align: center;
-
-  .svg-icon__container {
-    fill: $color-button;
-  }
-
-  &:not(.m-link) {
-    border: 2px solid $background-color-button;
-  }
-
-  &.m-pill {
-    border-radius: 999px;
-  }
-
-  &.m-thin {
-    @include apply-button-colors($color-light-button, $background-color-button, $background-color-hover-button);
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.m-right-aligned {
-    margin-right: 0;
-    margin-left: $margin-button;
-  }
-
-  &:hover:not(.m-link) {
-    background-color: $background-color-hover-button;
-    border-color: $background-color-hover-button;
-  }
-
-  &:active:not(.m-link) {
-    box-shadow: $box-shadow-button;
-  }
-
-  &.m-success {
-    @include apply-button-colors($color-light-button, $background-color-success-button, $background-color-success-hover-button);
-  }
-
-  &.m-info {
-    @include apply-button-colors($color-light-button, $background-color-info-button, $background-color-info-hover-button);
-  }
-
-  &.m-warning {
-    @include apply-button-colors($color-light-button, $background-color-warning-button, $background-color-warning-hover-button);
-  }
-
-  &.m-danger {
-    @include apply-button-colors($color-light-button, $background-color-danger-button, $background-color-danger-hover-button);
-  }
-
-  &.m-link {
-    background-color: $color-transparent;
-    color: $color-link;
-    padding: 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+@mixin button-apply-hover-colors($light, $hover) {
+  background-color: $hover;
+  border-color: $hover;
+  color: $light;
 }
 
-.button-group {
-  .button {
-    margin: 0;
-    border-radius: 0;
-
-    &:not(:last-child) {
-      margin-right: 1px;
-    }
-
-    &:first-child {
-      @include border-left-radius($border-radius-button);
-    }
-
-    &:last-child {
-      @include border-right-radius($border-radius-button);
-
-      border-right-width: 2px;
-    }
-  }
+@mixin button-apply-svg-icon-colors($light) {
+  fill: $light;
 }
 
-$component-identifier: '';
+@mixin button-apply-thin-colors($dark) {
+  color: $dark;
+  background-color: $color-white;
+  border-color: $dark;
+}

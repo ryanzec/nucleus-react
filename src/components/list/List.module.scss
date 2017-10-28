@@ -1,0 +1,12 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  > .container {
+    padding: 0 0 0 $spacing-small;
+  }
+}
+
+.plain {
+  list-style: none;
+  padding: 0;
+}

@@ -1,0 +1,30 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_card';
+
+.container {
+  position: relative;
+  display: inline-block;
+  border: $border-width-card solid $border-color-card;
+  background-color: $background-color-card;
+  border-radius: $border-radius-card;
+
+  //NOTE: this is needed so images don't push other content down
+  vertical-align: top;
+}
+
+// NOTE: not composes container here as it will make it easier to override styles from the outside if they only have to override .container
+.success {
+  @include card-apply-status-colors($color-styled-card, $background-color-success-card);
+}
+
+.info {
+  @include card-apply-status-colors($color-styled-card, $background-color-info-card);
+}
+
+.warning {
+  @include card-apply-status-colors($color-styled-card, $background-color-warning-card);
+}
+
+.danger {
+  @include card-apply-status-colors($color-styled-card, $background-color-danger-card);
+}

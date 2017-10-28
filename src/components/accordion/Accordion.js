@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/accordion/Accordion.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['accordion'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,7 +20,17 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class Accordion extends React.PureComponent {
+class Accordion extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
+  };
+
+  static defaultProps = {
+    className: null,
+    customStyles: null,
+  };
+
   getCssClasses = createGetCssClasses(this);
 
   render() {
@@ -28,13 +44,5 @@ class Accordion extends React.PureComponent {
     );
   }
 }
-
-Accordion.propTypes = {
-  className: PropTypes.string,
-};
-
-Accordion.defaultProps = {
-  className: null,
-};
 
 export default Accordion;

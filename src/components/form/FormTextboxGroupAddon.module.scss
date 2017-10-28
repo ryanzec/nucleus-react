@@ -1,0 +1,30 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+@import 'src/styles/framework/_form';
+
+.container {
+  display: inline-flex;
+  border: 1px solid $border-color-input;
+  padding: $padding-input;
+  background-color: $background-color-textbox-group-addon;
+
+  &:first-child {
+    @include border-left-radius($border-radius-input);
+
+    border-right: none;
+  }
+
+  &:last-child {
+    @include border-right-radius($border-radius-input);
+
+    border-left: none;
+  }
+}
+
+.valid {
+  @include form-validation-background-color($color-light-success, $color-dark-success);
+}
+
+.invalid {
+  @include form-validation-background-color($color-light-danger, $color-dark-danger);
+}

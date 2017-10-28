@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/card/CardTitle.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['card__title'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,13 +20,15 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class CardTitle extends React.PureComponent {
+class CardTitle extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

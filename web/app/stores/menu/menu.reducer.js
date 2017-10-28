@@ -49,10 +49,6 @@ let menuData = immutable.fromJS({
       display: 'Forms',
       to: '/style-guide/forms'
     }, {
-      id: 'style-guide-grid',
-      display: 'Grid',
-      to: '/style-guide/grid'
-    }, {
       id: 'style-guide-images',
       display: 'Images',
       to: '/style-guide/images'

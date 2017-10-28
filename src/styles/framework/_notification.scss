@@ -1,132 +1,28 @@
-$component-identifier: '.notification-container';
-
-#{$component-identifier} {
-  position: fixed;
-  z-index: 10002;
-
-  &.m-position {
-    &-top-left {
-      top: $offset-position-notification-container;
-      left: $offset-position-notification-container;
-    }
-
-    &-top-right {
-      top: $offset-position-notification-container;
-      right: $offset-position-notification-container;
-    }
-
-    &-bottom-left {
-      bottom: $offset-position-notification-container;
-      left: $offset-position-notification-container;
-    }
-
-    &-bottom-right {
-      bottom: $offset-position-notification-container;
-      right: $offset-position-notification-container;
-    }
-  }
-}
-
-$component-identifier: '.notification';
-
-@mixin apply-notification-colors($color, $dark-color) {
+@mixin notification-colors($dark-color) {
   border: 2px solid $dark-color;
   background-color: $background-color-notification;
   overflow: hidden;
   position: relative;
-
-  .svg-icon__container {
-    fill: $dark-color;
-  }
-
-  #{$component-identifier}__actions {
-    color: $dark-color;
-  }
-
-  &.m-filled {
-    border: none;
-    background-color: lighten($dark-color, 20%);
-    color: $color-white;
-
-    .svg-icon__container {
-      fill: $color-white;
-    }
-
-    #{$component-identifier}__actions {
-      color: $color-white;
-    }
-  }
 }
 
-#{$component-identifier} {
-  display: flex;
-  padding: $padding-notification;
-  border-radius: $border-radius-notification;
-
-  &.m-shadow {
-    box-shadow: $box-shadow-notification;
-  }
-
-  &.m-success {
-    @include apply-notification-colors($color-success-notification, $color-dark-success-notification);
-  }
-
-  &.m-info {
-    @include apply-notification-colors($color-info-notification, $color-dark-info-notification);
-  }
-
-  &.m-warning {
-    @include apply-notification-colors($color-warning-notification, $color-dark-warning-notification);
-  }
-
-  &.m-danger {
-    @include apply-notification-colors($color-danger-notification, $color-dark-danger-notification);
-  }
-
-  &__icon {
-    display: flex;
-    align-items: center;
-    margin-right: $padding-notification;
-
-    .svg-icon__container {
-      height: $icon-size-notification;
-      width: $icon-size-notification;
-    }
-  }
-
-  &__message {
-    flex: 1;
-    line-height: $line-height-notification;
-  }
-
-  &__actions {
-    position: relative;
-    top: (($icon-size-notification - 16) / 2);
-    margin-left: 16px;
-
-    &-action {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    &-divider {
-      margin-left: ($padding-notification / 2);
-      margin-right: ($padding-notification / 2);
-    }
-
-    > span:not(:first-child).svg-icon__outer-container {
-      margin-left: ($padding-notification / 2);
-    }
-  }
-
-  &__countdown {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 5px;
-    background-color: rgba(0, 0, 0, .5);
-    width: 100%;
-  }
+@mixin notification-colors-filled($dark-color) {
+  border: none;
+  background-color: lighten($dark-color, 20%);
+  color: $color-white;
 }
 
-$component-identifier: '';
+@mixin notification-icon-colors($dark-color) {
+  fill: $dark-color;
+}
+
+@mixin notification-icon-colors-filled() {
+  fill: $color-white;
+}
+
+@mixin notification-actions-colors($dark-color) {
+  color: $dark-color;
+}
+
+@mixin notification-actions-colors-filled() {
+  color: $color-white;
+}

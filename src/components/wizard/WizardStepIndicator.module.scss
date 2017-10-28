@@ -1,0 +1,50 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  margin-right: auto;
+  padding: $spacing-small;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+}
+
+.indicatorTitle {
+  margin-left: $spacing-small;
+}
+
+.indicatorTitleIsCollapsed {
+  display: none
+}
+
+.indicatorLine {
+  display: block;
+  width: 2px;
+  background-color: $color-neutral;
+  height: 16px;
+  margin: 0 0 0 7px;
+}
+
+.indicatorLineIsPrevious {
+  background-color: $color-green4;
+}
+
+.indicatorCircle {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  border: 2px solid $color-neutral;
+}
+
+.indicatorCircleIsPrevious {
+  background-color: $color-green4;
+  border-color: $color-green4;
+}
+
+.indicatorCircleIsCurrent {
+  border-color: $color-green4;
+}

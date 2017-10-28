@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/card/CardHeader.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['card__header'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,13 +20,15 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class CardHeader extends React.PureComponent {
+class CardHeader extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

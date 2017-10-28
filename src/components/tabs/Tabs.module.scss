@@ -1,0 +1,10 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  display: flex;
+  border-bottom: 1px solid $background-color-active;
+}
+
+.isBlock {
+  border: none;
+}

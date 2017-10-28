@@ -1,0 +1,7 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  background-color: $color-white;
+  border: 1px solid $color-gray4;
+  border-radius: 3px;
+}

@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment-timezone';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/form/FormDatePicker.module.scss';
 
 import PopoverContainer from 'src/components/popover/PopoverContainer';
 import FormTextbox from './FormTextbox';
@@ -9,7 +14,8 @@ import DatePicker from 'src/components/date-picker/DatePicker';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['form-element__date-picker'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -47,13 +53,14 @@ export const createGetInputValue = (instance) => {
   };
 };
 
-class FormDatePicker extends React.PureComponent {
+class FormDatePicker extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     onClick: PropTypes.func,
     selectedDay: PropTypes.object,
     onClickDate: PropTypes.func.isRequired,
     format: PropTypes.string,
+    customStyles: PropTypes.object,
   };
 
   static defaultProps = {
@@ -62,9 +69,8 @@ class FormDatePicker extends React.PureComponent {
     selectedDay: null,
     onClickDate: null,
     format: 'MMM Do, YYYY',
-
-    //NOTE: popover defaults
-    placement: 'top-end'
+    placement: 'top-end',
+    customStyles: null,
   };
 
   constructor(props) {

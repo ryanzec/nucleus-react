@@ -1,0 +1,21 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  border: 1px solid $border-color;
+}
+
+.zebra {
+  border: 1px solid $border-color;
+
+  &:nth-child(2n+0) {
+    background-color: $color-blue1;
+  }
+}
+
+.borderless {
+  border: 0;
+}
+
+.borderlessInHeader {
+  border-bottom: 1px solid $border-color;
+}

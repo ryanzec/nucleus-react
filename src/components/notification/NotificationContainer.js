@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
+
+import styles from 'src/components/notification/NotificationContainer.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['notification-container', `m-position-${instance.props.position}`];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container, composedStyles[instance.props.position]];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
@@ -14,15 +20,17 @@ export const createGetCssClasses = (instance) => {
   };
 };
 
-class NotificationContainer extends React.PureComponent {
+class NotificationContainer extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right'])
+    customStyles: PropTypes.object,
+    position: PropTypes.oneOf(['topTLft', 'topRight', 'bottomLeft', 'bottomRight']),
   };
 
   static defaultProps = {
     className: null,
-    position: 'bottom-left'
+    position: 'bottomLeft',
+    customStyles: null,
   };
 
   getCssClasses = createGetCssClasses(this);

@@ -40,6 +40,7 @@ class MainNavigationSection extends React.Component {
             key={item.id}
             data-to={item.to}
             onClick={this.onClickMenuItem}
+            isExpandable
           >
             {svgIconNode}{item.display}
           </ListItem>

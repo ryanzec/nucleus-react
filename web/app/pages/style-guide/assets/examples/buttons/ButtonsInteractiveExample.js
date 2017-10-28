@@ -16,6 +16,9 @@ import FormSelect from 'src/components/form/FormSelect';
 import FormSelectOption from 'src/components/form/FormSelectOption';
 import FormCheckbox from 'src/components/form/FormCheckbox';
 import Button from 'src/components/button/Button';
+import SvgIconButton from 'src/components/button/SvgIconButton';
+
+import buttonStyles from 'src/components/button/Button.module.scss';
 
 class ButtonsInteractiveExample extends React.Component {
   constructor(props) {
@@ -56,77 +59,86 @@ class ButtonsInteractiveExample extends React.Component {
   };
 
   render() {
-      return (
-        <span>
-          <div>
-            <FormElement>
-              <FormLabel>Button Text</FormLabel>
-              <FormTextbox
-                data-form-name="form"
-                data-form-field="buttonText"
-                placeholder="Button Text"
-                onChange={this.onChangeInput}
-                onBlur={this.onBlurInput}
-                value={this.props.form.getIn(['buttonText', 'value'])}
-              />
-            </FormElement>
-            <FormElement>
-              <FormLabel>Style</FormLabel>
-              <FormSelect
-                data-form-name="form"
-                data-form-field="styleType"
-                onChange={this.onChangeInput}
-                value={this.props.form.getIn(['styleType', 'value'])}
-              >
-                <FormSelectOption>Default</FormSelectOption>
-                <FormSelectOption value="success">Success</FormSelectOption>
-                <FormSelectOption value="info">Info</FormSelectOption>
-                <FormSelectOption value="warning">Warning</FormSelectOption>
-                <FormSelectOption value="danger">Danger</FormSelectOption>
-                <FormSelectOption value="link">Link</FormSelectOption>
-              </FormSelect>
-            </FormElement>
-            <FormElement>
-              <FormCheckbox
-                data-form-name="form"
-                data-form-field="isPill"
-                onChange={this.onChangeInput}
-                checked={this.props.form.getIn(['isPill', 'value'])}
-              >
-                Is Pill
-              </FormCheckbox>
-            </FormElement>
-            <FormElement>
-              <FormCheckbox
-                data-form-name="form"
-                data-form-field="isThin"
-                onChange={this.onChangeInput}
-                checked={this.props.form.getIn(['isThin', 'value'])}
-              >
-                Is Thin
-              </FormCheckbox>
-            </FormElement>
-            <FormElement>
-              <FormCheckbox
-                data-form-name="form"
-                data-form-field="doAlert"
-                onChange={this.onChangeInput}
-                checked={this.props.form.getIn(['doAlert', 'value'])}
-              >
-                Alert when button is clicked
-              </FormCheckbox>
-            </FormElement>
-          </div>
-          <Button
-            styleType={this.props.form.getIn(['styleType', 'value'])}
-            isPill={this.props.form.getIn(['isPill', 'value'])}
-            isThin={this.props.form.getIn(['isThin', 'value'])}
-            onClick={this.onClickButton}
-          >
-            {this.props.form.getIn(['buttonText', 'value'])}
-          </Button>
-        </span>
-      );
+    return (
+      <span>
+        <div>
+          <FormElement>
+            <FormLabel>Button Text</FormLabel>
+            <FormTextbox
+              data-form-name="form"
+              data-form-field="buttonText"
+              placeholder="Button Text"
+              onChange={this.onChangeInput}
+              onBlur={this.onBlurInput}
+              value={this.props.form.getIn(['buttonText', 'value'])}
+            />
+          </FormElement>
+          <FormElement>
+            <FormLabel>Style</FormLabel>
+            <FormSelect
+              data-form-name="form"
+              data-form-field="styleType"
+              onChange={this.onChangeInput}
+              value={this.props.form.getIn(['styleType', 'value'])}
+            >
+              <FormSelectOption>Default</FormSelectOption>
+              <FormSelectOption value="success">Success</FormSelectOption>
+              <FormSelectOption value="info">Info</FormSelectOption>
+              <FormSelectOption value="warning">Warning</FormSelectOption>
+              <FormSelectOption value="danger">Danger</FormSelectOption>
+              <FormSelectOption value="link">Link</FormSelectOption>
+            </FormSelect>
+          </FormElement>
+          <FormElement>
+            <FormCheckbox
+              data-form-name="form"
+              data-form-field="isPill"
+              onChange={this.onChangeInput}
+              checked={this.props.form.getIn(['isPill', 'value'])}
+            >
+              Is Pill
+            </FormCheckbox>
+          </FormElement>
+          <FormElement>
+            <FormCheckbox
+              data-form-name="form"
+              data-form-field="isThin"
+              onChange={this.onChangeInput}
+              checked={this.props.form.getIn(['isThin', 'value'])}
+            >
+              Is Thin
+            </FormCheckbox>
+          </FormElement>
+          <FormElement>
+            <FormCheckbox
+              data-form-name="form"
+              data-form-field="doAlert"
+              onChange={this.onChangeInput}
+              checked={this.props.form.getIn(['doAlert', 'value'])}
+            >
+              Alert when button is clicked
+            </FormCheckbox>
+          </FormElement>
+        </div>
+        <Button
+          styleType={this.props.form.getIn(['styleType', 'value']).toLowerCase()}
+          isPill={this.props.form.getIn(['isPill', 'value'])}
+          isThin={this.props.form.getIn(['isThin', 'value'])}
+          onClick={this.onClickButton}
+        >
+          {this.props.form.getIn(['buttonText', 'value'])}
+        </Button>
+        <SvgIconButton
+          styleType={this.props.form.getIn(['styleType', 'value']).toLowerCase()}
+          isPill={this.props.form.getIn(['isPill', 'value'])}
+          isThin={this.props.form.getIn(['isThin', 'value'])}
+          onClick={this.onClickButton}
+          fragment="user"
+        >
+          {this.props.form.getIn(['buttonText', 'value'])}
+        </SvgIconButton>
+      </span>
+    );
   }
 }
 

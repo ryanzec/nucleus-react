@@ -1,0 +1,11 @@
+@import 'src/styles/framework/_variables';
+@import 'src/styles/framework/_mixins';
+
+.container {
+  @include flexbox-value-height(60px);
+
+  display: flex;
+  align-items: center;
+  padding: $spacing-extra-small;
+  border-top: 1px solid $border-color;
+}

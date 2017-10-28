@@ -1,0 +1,26 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  position: fixed;
+  z-index: 10002;
+}
+
+.topLeft {
+  top: $offset-position-notification-container;
+  left: $offset-position-notification-container;
+}
+
+.topRight {
+  top: $offset-position-notification-container;
+  right: $offset-position-notification-container;
+}
+
+.bottomLeft {
+  bottom: $offset-position-notification-container;
+  left: $offset-position-notification-container;
+}
+
+.bottomRight {
+  bottom: $offset-position-notification-container;
+  right: $offset-position-notification-container;
+}

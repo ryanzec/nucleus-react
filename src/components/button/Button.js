@@ -1,43 +1,49 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {getPassThroughProperties} from 'src/utilities/component';
+import {
+  getPassThroughProperties,
+  composeStyles,
+} from 'src/utilities/component';
 
-import styles from 'src/styles/framework/_variables.scss';
+import styles from 'src/components/button/Button.module.scss';
 
 export const createGetCssClasses = (instance) => {
   return () => {
-    let cssClasses = ['button'];
+    const composedStyles = composeStyles(styles, instance.props.customStyles);
+    let cssClasses = [composedStyles.container];
 
     if (instance.props.className) {
       cssClasses = cssClasses.concat(instance.props.className.split(' '));
     }
 
     if (instance.props.styleType) {
-      cssClasses.push(`m-${instance.props.styleType}`);
+      cssClasses.push(composedStyles[instance.props.styleType]);
     }
 
     if (instance.props.isPill) {
-      cssClasses.push('m-pill');
+      cssClasses.push(composedStyles.pill);
     }
 
     if (instance.props.isThin) {
-      cssClasses.push('m-thin');
+      cssClasses.push(composedStyles.thin);
     }
 
     return cssClasses.join(' ');
   };
 };
 
-class Button extends React.PureComponent {
+class Button extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'link']),
+    customStyles: PropTypes.object,
+    styleType: PropTypes.oneOf(['success', 'info', 'warning', 'danger']),
     isPill: PropTypes.bool,
     isThin: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
+    customStyles: null,
     styleType: null,
     isPill: false,
     isThin: false,

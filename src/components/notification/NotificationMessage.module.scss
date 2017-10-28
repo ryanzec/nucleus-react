@@ -1,0 +1,6 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  flex: 1;
+  line-height: $line-height-notification;
+}

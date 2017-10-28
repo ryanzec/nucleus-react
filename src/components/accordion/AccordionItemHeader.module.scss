@@ -1,0 +1,12 @@
+@import 'src/styles/framework/_variables';
+
+.container {
+  cursor: pointer;
+  background-color: $color-gray2;
+  padding: $spacing-tiny $spacing-small;
+  margin-bottom: $spacing-tiny;
+}
+
+.svgIcon {
+  margin-left: $spacing-tiny;
+}
