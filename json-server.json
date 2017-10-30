@@ -1,0 +1,25 @@
+{
+  "tags": [
+    "javascript",
+    "react",
+    "ES6",
+    "sass",
+    "css modules",
+    "css",
+    "webpack",
+    "functional programming",
+    "css animations",
+    "variables"
+  ],
+  "users": [{
+    "id": 1,
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "example@example.com"
+  }],
+  "issues": [{
+    "id": 1,
+    "projectId": 1,
+    "title": "Do Something"
+  }]
+}

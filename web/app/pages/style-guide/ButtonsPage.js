@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import request from 'superagent';
+import axios from 'axios';
+import {API_URL} from 'app/constants/api';
 
 import CodeExample from '../../react/components/CodeExample';
 import ButtonGroupButton from 'src/components/button/ButtonGroupButton';
@@ -37,18 +38,16 @@ class ButtonsPage extends React.Component {
     var fieldName = event.target.getAttribute('data-form-field');
 
     var newFormData = onBlurInputStateUpdater.call(this, this.props[formName], {
-      fieldName: fieldName
+      fieldName,
     });
 
     this.props.dispatch(buttonExampleFormActions.set(newFormData));
   };
 
   onClickButton() {
-    request
-      .get('/api/users?delay=1000')
-      .end((error, response) => {
-        console.log(response);
-      });
+    const response = axios.get(`${API_URL}/users?delay=1000`);
+
+    console.log(response);
   }
 
   render() {

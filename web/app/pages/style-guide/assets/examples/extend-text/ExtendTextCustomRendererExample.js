@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import request from 'superagent';
+import axios from 'axios';
 import debounce from 'lodash/debounce';
+import {API_URL} from 'app/constants/api';
+import {arrayToExtendTextOptions} from 'src/utilities/array';
 
 import ExtendText from 'src/components/extend-text/ExtendText';
 import SvgIcon from 'src/components/svg-icon/SvgIcon';
@@ -9,24 +11,23 @@ import SvgIcon from 'src/components/svg-icon/SvgIcon';
 let optionRenderer = (option) => {
   return (
     <span className={'u-' + option.textClass + '-text'}>
-      <SvgIcon fragment="user" /> {option.display}
+      <SvgIcon fragment="user" styleType={option.textClass} /> {option.display}
     </span>
   );
 }
 
-let asyncGetData = (input, callback) => {
-  request
-    .get('/api/tags?delay=1000')
-    .end((error, response) => {
-      response.body.tags[0].textClass = 'success';
-      response.body.tags[1].textClass = 'info';
-      response.body.tags[2].textClass = 'warning';
-      response.body.tags[3].textClass = 'danger';
+let asyncGetData = async (input, callback) => {
+  const response = await axios.get(`${API_URL}/tags?delay=1000`);
+  const options = arrayToExtendTextOptions(response.data);
 
-      callback({
-        options: response.body.tags,
-      });
-    });
+  options[0].textClass = 'success';
+  options[1].textClass = 'info';
+  options[2].textClass = 'warning';
+  options[3].textClass = 'danger';
+
+  callback({
+    options,
+  });
 };
 
 let debouncedAsyncGetData = debounce(asyncGetData, 500);

@@ -1,4 +1,5 @@
 var path = require('path');
+var process = require('process');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,32 +10,30 @@ var extractSass = new ExtractTextPlugin({
   allChunks: true
 });
 var babelPlugins = [
-  'transform-class-properties',
-  'transform-object-rest-spread',
+  'transform-runtime',
   'static-fs'
 ];
 
-const isDevMode = true;//process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
+const isDevMode = process.env.WEBPACK_PRODUCTION_BUILD !== 1 && process.env.WEBPACK_PRODUCTION_BUILD !== '1';
+
+if (!isDevMode) {
+  babelPlugins.push('transform-react-constant-elements');
+  babelPlugins.push('transform-react-inline-elements');
+  //NOTE:current way to pass through props make this optomization not possible right now(need to add to .babelrctoo)
+  //babelPlugins.push('transform-react-remove-prop-types');
+}
 
 var webpackConfig = {
   resolve: {
     extensions: ['.js', '.jsx'],
     // modules: [__dirname, 'node_modules']
     alias: {
-      src: path.resolve(__dirname, 'src')
+      src: path.resolve(__dirname, 'src'),
+      app: path.resolve(__dirname, 'web/app')
     }
   },
   module: {
     rules: [{
-      test: /\.jsx$/,
-      use: {
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015-without-strict-loose'],
-          plugins: babelPlugins
-        }
-      }
-    }, {
       test: /\.js$/,
       exclude: [
         path.resolve(__dirname, 'node_modules')
@@ -42,7 +41,16 @@ var webpackConfig = {
       use: {
         loader: 'babel-loader',
         query: {
-          presets: ['es2015-without-strict-loose'],
+          presets: [
+            [
+              'env', {
+                loose: true,
+                modules: false
+              }
+            ],
+            'react',
+            'stage-2'
+          ],
           plugins: babelPlugins
         }
       }
@@ -161,6 +169,8 @@ var webpackConfig = {
   entry: {
     //3rd party libraries
     'libraries-core': [
+      'babel-polyfill',
+      'axios',
       'bluebird',
       'holderjs',
       'immutable',
@@ -171,7 +181,6 @@ var webpackConfig = {
       'redux',
       'reselect',
       'store-cacheable',
-      'superagent',
       'ua-parser-js'
     ],
 
@@ -187,7 +196,7 @@ var webpackConfig = {
     ],
 
     //application code
-    application: ['babel-polyfill', './web/app/Application.js'],
+    application: ['./web/app/application.js'],
   },
   output: {
     path: __dirname + '/web/build',
@@ -201,7 +210,7 @@ if (isDevMode) {
 
   webpackConfig.plugins.push(
     new LiveReloadPlugin({
-      appendScriptTag: true
+      appendScriptTag: true,
     })
   );
 } else {

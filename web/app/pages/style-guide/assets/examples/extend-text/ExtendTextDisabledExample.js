@@ -1,24 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import request from 'superagent';
+import axios from 'axios';
 import debounce from 'lodash/debounce';
+import {API_URL} from 'app/constants/api';
+import {arrayToExtendTextOptions} from 'src/utilities/array';
 
 import ExtendText from 'src/components/extend-text/ExtendText';
 
-let asyncGetData = (input, callback) => {
-  request
-    .get('/api/tags?delay=100000')
-    .end((error, response) => {
-      console.log(response);
-      callback({
-        options: response.body.tags,
-      });
-    });
+let asyncGetData = async (input, callback) => {
+  const response = await axios.get(`${API_URL}/tags?delay=1000`);
+
+  callback({
+    options: arrayToExtendTextOptions(response.data),
+  });
 };
 
 let debouncedAsyncGetData = debounce(asyncGetData, 500);
 
-class ExtendTextDynamicExample extends React.Component {
+class ExtendTextDisabledExample extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,7 +28,7 @@ class ExtendTextDynamicExample extends React.Component {
 
   onChange = newValue => {
     this.setState({
-      value: newValue
+      value: newValue,
     });
   };
 
@@ -43,13 +42,14 @@ class ExtendTextDynamicExample extends React.Component {
         asyncOptions={this.asyncCallbackFunction}
         value={this.state.value}
         onChange={this.onChange}
+        disabled={true}
       />
     );
   }
 }
 
-ExtendTextDynamicExample.contextTypes = {
+ExtendTextDisabledExample.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default ExtendTextDynamicExample;
+export default ExtendTextDisabledExample;

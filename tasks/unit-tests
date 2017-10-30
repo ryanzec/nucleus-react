@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-NODE_PATH=. ./node_modules/.bin/ava test/**/*.spec.js --verbose
