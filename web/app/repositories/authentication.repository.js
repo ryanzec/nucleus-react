@@ -1,18 +1,17 @@
-import {Promise} from 'bluebird';
-import {post} from 'superagent';
+import {post} from 'axios';
+import {API_URL} from 'app/constants/api';
 
 export const login = (username, password) => {
-  //TODO: reject() call
-  return new Promise(function(resolve, reject) {
-    post('/api/app/login')
-      .set('api-version', '1')
-      .set('Accept', 'application/json')
-      .send({
-        username: username,
-        password: password
-      })
-      .end(function(err, response) {
-        resolve(response.body.data);
-      });
+  const data = {
+    username: username,
+    password: password,
+  };
+  const headers = {
+    'api-version': '1',
+    Accept: 'application/json',
+  };
+
+  return post(`${API_URL}/login`, data, {
+    headers,
   });
 };

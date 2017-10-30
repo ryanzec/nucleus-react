@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import request from 'superagent';
+import axios from 'axios';
+import {API_URL} from 'app/constants/api';
 
 class KanbanBoard extends React.Component {
   render() {
@@ -108,14 +109,15 @@ class KanbanBoardPage extends React.Component {
     //     console.log(response);
     //   });
 
-    request
-      .get('/api/projects/1/issues')
-      .end((error, response) => {
-        console.log(response);
-      });
-
+    this.loadData();
 
     this.state = {};
+  }
+
+  async loadData() {
+    const response = await axios.get(`${API_URL}/issues`);
+
+    console.log(response.data);
   }
 
   render() {
