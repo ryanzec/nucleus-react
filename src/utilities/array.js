@@ -37,3 +37,12 @@ export function toggleArrayValue(array, value) {
 
   return newArray;
 }
+
+export const arrayToExtendTextOptions = (values) => {
+  return values.map((value) => {
+    return {
+      display: value,
+      value,
+    };
+  });
+}

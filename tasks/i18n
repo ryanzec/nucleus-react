@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-mkdir -p ./web/build/locale
-#generate testing i18n file
-./node_modules/.bin/messageformat --locale en --module web/locale/en --output test/i18n-node.js
-#generate language files
-./node_modules/.bin/messageformat --locale en web/locale/en --output web/build/locale/en-i18n.js
