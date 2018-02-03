@@ -154,11 +154,11 @@ DynamicallyLoadingComponentsPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-var mapStateToProps = function(state) {
+const mapStateToProps = function(state) {
   return {
     dataSet1: state.dynamicallyLoadingComponents.one,
     dataSet2: state.dynamicallyLoadingComponents.two,
-    dataSet3: state.dynamicallyLoadingComponents.three
+    dataSet3: state.dynamicallyLoadingComponents.three,
   };
 };
 

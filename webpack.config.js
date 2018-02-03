@@ -173,15 +173,11 @@ var webpackConfig = {
       'axios',
       'bluebird',
       'holderjs',
-      'immutable',
-      'jsuri',
       'moment',
       'moment-timezone',
       'popper.js',
       'redux',
-      'reselect',
-      'store-cacheable',
-      'ua-parser-js'
+      'store-cacheable'
     ],
 
     'libraries-react': [
@@ -190,7 +186,6 @@ var webpackConfig = {
       'react-router',
       'react-redux',
       'react-router-redux',
-      'react-router-scroll',
       'react-transition-group',
       'prop-types'
     ],

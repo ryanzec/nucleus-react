@@ -227,7 +227,7 @@ class ModalPage extends React.Component {
 
   renderDynamicHeightModal() {
     var renderDynamicContent = () => {
-      nodes = [];
+      const nodes = [];
 
       for (let x = 0; x < this.state.dynamicContentCount; x += 1) {
         nodes.push(<div key={x}>content</div>);
