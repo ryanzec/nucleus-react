@@ -1,11 +1,11 @@
 import React from 'react';
-import { createHistory } from 'history'
+// import createHistory from 'history/createBrowserHistory';
 import {
-  useRouterHistory,
+  // useRouterHistory,
   IndexRoute,
   Route,
   Router,
-  applyRouterMiddleware
+  browserHistory,
 } from 'react-router';
 import {Provider} from 'react-redux';
 import {syncHistoryWithStore} from 'react-router-redux';
@@ -16,20 +16,16 @@ import CodePage from './pages/style-guide/CodePage';
 import {routes as styleGuideRoutes} from './pages/style-guide/Module';
 import {routes as subSystemsRoutes} from './pages/sub-systems/Module';
 import {routes as showcaseRoutes} from './pages/showcase/Module';
-import {useScroll} from 'react-router-scroll';
 
-const browserHistory = useRouterHistory(createHistory)({
-  basename: '/'
-});
+// const browserHistory = useRouterHistory(createHistory)({
+//   basename: '/'
+// });
 
 let history = syncHistoryWithStore(browserHistory, store);
 
 export default (
   <Provider store={store}>
-    <Router
-      history={history}
-      render={applyRouterMiddleware(useScroll())}
-    >
+    <Router history={history}>
       <Route path="/" component={Application}>
         <IndexRoute component={CodePage} />
         {styleGuideRoutes}

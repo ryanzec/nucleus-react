@@ -2,7 +2,7 @@ import browserEnv from 'browser-env';
 import MockWebStorage from 'mock-webstorage';
 import raf from 'raf';
 import enzyme from 'enzyme';
-import Adapter from 'enzyme-apapter-react-15';
+import Adapter from 'enzyme-apapter-react-16';
 
 browserEnv();
 
